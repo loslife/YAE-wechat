@@ -1,0 +1,5 @@
+<%- Loader().js('/weixin/weixin.js').done(config) %>
+
+<% for(var i = 0;i < members.length;i++){ %>
+    <span><%= members[i].name %></span>
+<% } %>
