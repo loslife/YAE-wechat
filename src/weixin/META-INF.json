@@ -21,8 +21,24 @@
             "path": "/wsite/shop",
             "method": "get",
             "auth": false,
-            "impl": "mshop.jumpToWShop",
-            "comment": "跳转到微站首页"
+            "impl": "msite.jumpToWShop",
+            "comment": "跳转到微站-店铺页面"
+        },
+        {
+            "name": "jumpToWMember",
+            "path": "/wsite/member",
+            "method": "get",
+            "auth": false,
+            "impl": "msite.jumpToWMember",
+            "comment": "跳转到微站-会员页面"
+        },
+        {
+            "name": "jumpToWActivity",
+            "path": "/wsite/activity",
+            "method": "get",
+            "auth": false,
+            "impl": "msite.jumpToWActivity",
+            "comment": "跳转到微站-活动页面"
         }
     ],
     "statics": [
