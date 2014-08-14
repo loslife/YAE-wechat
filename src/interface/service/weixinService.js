@@ -27,14 +27,14 @@ function handleWXRequest(req, res, next){
             title: "乐斯真牛逼",
             desc: "确实很牛逼",
             picUrl: "http://121.40.75.73/resources/1.jpg",
-            url: "http://www.yilos.com"
+            url: "http://121.40.75.73/svc/wsite/shop/100008602465900100"
         };
 
         var item2 = {
             title: "乐斯太牛逼",
             desc: "还能更牛逼",
             picUrl: "http://121.40.75.73/resources/1.jpg",
-            url: "http://www.yilos.com"
+            url: "http://121.40.75.73/svc/wsite/shop/100008602465900100"
         };
 
         var contents = [item1, item2];
