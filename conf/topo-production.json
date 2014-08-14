@@ -17,10 +17,10 @@
     ],
     "dataServer": {
         "mysql": {
-            "ip": "rdsn3m2ybn3m2yb.mysql.rds.aliyuncs.com",
+            "ip": "yilosdev.mysql.rds.aliyuncs.com",
             "port": 3306,
-            "user": "yilos",
-            "password": "yilos123456"
+            "user": "yilos_dev",
+            "password": "yilos_dev"
         },
         "mongodb": {
             "ip": "10.161.135.104",
