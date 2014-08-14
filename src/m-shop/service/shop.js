@@ -27,6 +27,6 @@ function jumpToWShop(req, res, next){
             members.push({name: item.name});
         });
 
-        res.render("mshop", {members: members});
+        res.render("shop", {members: members});
     });
 }

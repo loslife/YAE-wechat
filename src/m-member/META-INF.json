@@ -5,7 +5,7 @@
             "path": "/wsite/member/:enterpriseId",
             "method": "get",
             "auth": false,
-            "impl": "m_member.jumpToWMember",
+            "impl": "member.jumpToWMember",
             "comment": "跳转到微站-会员页面"
         }
     ],

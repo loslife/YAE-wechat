@@ -1,6 +1,6 @@
 var wx = require("wechat-toolkit");
 
-var token = "";
+var token = "yilos_wechat";
 
 exports.enable_dev_mode = wx.enable_dev_mode(token);
 exports.handleWXRequest = handleWXRequest;
