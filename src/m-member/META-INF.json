@@ -1,0 +1,28 @@
+{
+    "services": [
+        {
+            "name": "jumpToWMember",
+            "path": "/wsite/member/:enterpriseId",
+            "method": "get",
+            "auth": false,
+            "impl": "m_member.jumpToWMember",
+            "comment": "跳转到微站-会员页面"
+        }
+    ],
+    "statics": [
+        {
+            "name": "m-member",
+            "path": "/m-member",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}

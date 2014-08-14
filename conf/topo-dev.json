@@ -11,7 +11,8 @@
             "applications": [
                 "3rd-lib",
                 "interface",
-                "m-shop"
+                "m-shop",
+                "m-member"
             ]
         }
     ],
