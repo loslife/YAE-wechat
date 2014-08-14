@@ -5,7 +5,7 @@ exports.jumpToWShop = jumpToWShop;
 
 function jumpToWShop(req, res, next){
 
-    var enterprise_id = req.query["enterprise_id"];
+    var enterprise_id = req.params["enterpriseId"];
 
     if(!enterprise_id){
 
