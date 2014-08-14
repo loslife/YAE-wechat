@@ -14,9 +14,7 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: false,
                         cwd: sourceDir,
-                        src: ['**/static/**/*',
-                            '!**/static/**/*.js'
-                        ],
+                        src: ['**/static/**/*'],
                         filter: 'isFile',
                         dest: frontDir,
                         rename: function (dest, src) {
@@ -30,7 +28,7 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: false,
                         cwd: sourceDir,
-                        src: [ '3rd-lib/**/*'],
+                        src: ['3rd-lib/**/*', '!3rd-lib/META-INF.json'],
                         filter: 'isFile',
                         dest: frontDir
                     }
