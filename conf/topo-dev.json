@@ -10,7 +10,8 @@
             "workerno": 1,
             "applications": [
                 "3rd-lib",
-                "weixin"
+                "interface",
+                "m-shop"
             ]
         }
     ],
