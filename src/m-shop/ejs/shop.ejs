@@ -1,0 +1,16 @@
+<%- Loader().js('/m-shop/shop.js').done(config) %>
+
+<% for(var i = 0;i < members.length;i++){ %>
+    <span><%= members[i].name %></span>
+<% } %>
+
+<script id="test" type="text/html">
+    <h1>{{title}}</h1>
+    <ul>
+        {{each list as value i}}
+        <li>索引 {{i + 1}} ：{{value}}</li>
+        {{/each}}
+    </ul>
+</script>
+
+<div id="content"></div>

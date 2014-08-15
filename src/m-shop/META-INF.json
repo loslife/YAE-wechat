@@ -1,0 +1,28 @@
+{
+    "services": [
+        {
+            "name": "jumpToWShop",
+            "path": "/wsite/shop/:enterpriseId",
+            "method": "get",
+            "auth": false,
+            "impl": "shop.jumpToWShop",
+            "comment": "跳转到微站-店铺页面"
+        }
+    ],
+    "statics": [
+        {
+            "name": "m-shop",
+            "path": "/m-shop",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}

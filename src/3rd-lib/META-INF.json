@@ -1,0 +1,19 @@
+{
+    "services": [
+
+    ],
+    "statics": [
+        {
+            "name": "3rd-lib",
+            "path": "/3rd-lib",
+            "dir": "/",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}

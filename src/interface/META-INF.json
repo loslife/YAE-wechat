@@ -1,0 +1,29 @@
+{
+    "services": [
+        {
+            "name": "enableDevMode",
+            "path": "/weixin",
+            "method": "get",
+            "auth": false,
+            "impl": "weixinService.enable_dev_mode",
+            "comment": "开启公众号开发者模式"
+        },
+        {
+            "name": "handleWXRequest",
+            "path": "/weixin",
+            "method": "post",
+            "auth": false,
+            "impl": "weixinService.handleWXRequest",
+            "comment": "响应微信服务器请求"
+        }
+    ],
+    "statics": [
+
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}
