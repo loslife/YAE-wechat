@@ -6,6 +6,7 @@
             "method": "get",
             "auth": false,
             "impl": "member.jumpToWMember",
+            "middleware": "member.checkSession",
             "comment": "跳转到微站-会员页面"
         }
     ],

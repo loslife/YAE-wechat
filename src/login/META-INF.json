@@ -7,6 +7,14 @@
             "auth": false,
             "impl": "loginService.login",
             "comment": "跳转到登陆页面"
+        },
+        {
+            "name": "doLogin",
+            "path": "/wsite/:enterpriseId/login",
+            "method": "post",
+            "auth": false,
+            "impl": "loginService.doLogin",
+            "comment": "会员登陆"
         }
     ],
     "statics": [
