@@ -1,6 +1,6 @@
 $(function(){
 
-    $("#btn_submit").on("click", function(event){
+    $("#btn_submit").on("click", function(e){
 
         var enterprise_id = $("#enterprise_id").text();
         var phone = $("#input_phone").val();
@@ -14,7 +14,7 @@ $(function(){
             }else{
                 window.location = "member";
             }
-        })
+        });
     });
 });
 

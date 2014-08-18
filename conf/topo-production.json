@@ -11,7 +11,8 @@
             "applications": [
                 "interface",
                 "m-shop",
-                "m-member"
+                "m-member",
+                "login"
             ]
         }
     ],
