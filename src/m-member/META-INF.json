@@ -2,7 +2,7 @@
     "services": [
         {
             "name": "jumpToWMember",
-            "path": "/wsite/member/:enterpriseId",
+            "path": "/wsite/:enterpriseId/member",
             "method": "get",
             "auth": false,
             "impl": "member.jumpToWMember",

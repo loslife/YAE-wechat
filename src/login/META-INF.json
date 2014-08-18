@@ -1,18 +1,18 @@
 {
     "services": [
         {
-            "name": "jumpToWShop",
-            "path": "/wsite/:enterpriseId/shop",
+            "name": "login",
+            "path": "/wsite/:enterpriseId/login",
             "method": "get",
             "auth": false,
-            "impl": "shop.jumpToWShop",
-            "comment": "跳转到微站-店铺页面"
+            "impl": "loginService.login",
+            "comment": "跳转到登陆页面"
         }
     ],
     "statics": [
         {
-            "name": "m-shop",
-            "path": "/m-shop",
+            "name": "login",
+            "path": "/login",
             "comment": ""
         }
     ],
