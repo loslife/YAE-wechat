@@ -9,10 +9,13 @@ $(function(){
 
         $.post(url, {phone: phone}, function(response){
 
-            alert(response);
+            if(response.code !== 0){
+                alert("登陆失败");
+            }else{
+                window.location = "member";
+            }
         })
     });
-
 });
 
 
