@@ -9,7 +9,7 @@ function jumpToWShop(req, res, next){
 
     if(!enterprise_id){
 
-        next({errorCode: 400, errorMessage:"请求参数错误"});
+        next({errorCode: 400, errorMessage:"请求参数错误", enterprise_id: enterprise_id});
         return;
     }
 
@@ -17,7 +17,7 @@ function jumpToWShop(req, res, next){
 
         if(err){
             console.log(err);
-            next({errorCode: 500, errorMessage:"数据库访问错误"});
+            next({errorCode: 500, errorMessage:"数据库访问错误", enterprise_id: enterprise_id});
             return;
         }
 
@@ -27,6 +27,6 @@ function jumpToWShop(req, res, next){
             members.push({name: item.name});
         });
 
-        res.render("shop", {members: members});
+        res.render("shop", {members: members, enterprise_id: enterprise_id});
     });
 }

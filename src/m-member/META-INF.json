@@ -2,10 +2,11 @@
     "services": [
         {
             "name": "jumpToWMember",
-            "path": "/wsite/member/:enterpriseId",
+            "path": "/wsite/:enterpriseId/member",
             "method": "get",
             "auth": false,
             "impl": "member.jumpToWMember",
+            "middleware": "member.checkSession",
             "comment": "跳转到微站-会员页面"
         }
     ],

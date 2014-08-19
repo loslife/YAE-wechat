@@ -1,0 +1,36 @@
+{
+    "services": [
+        {
+            "name": "login",
+            "path": "/wsite/:enterpriseId/login",
+            "method": "get",
+            "auth": false,
+            "impl": "loginService.login",
+            "comment": "跳转到登陆页面"
+        },
+        {
+            "name": "doLogin",
+            "path": "/wsite/:enterpriseId/login",
+            "method": "post",
+            "auth": false,
+            "impl": "loginService.doLogin",
+            "comment": "会员登陆"
+        }
+    ],
+    "statics": [
+        {
+            "name": "login",
+            "path": "/login",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}
