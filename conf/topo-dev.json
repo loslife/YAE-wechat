@@ -14,7 +14,8 @@
                 "m-shop",
                 "m-member",
                 "login",
-                "weixin-binding"
+                "weixin-binding",
+                "resource"
             ]
         }
     ],
