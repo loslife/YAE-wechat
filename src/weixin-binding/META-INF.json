@@ -1,0 +1,28 @@
+{
+    "services": [
+        {
+            "name": "binding",
+            "path": "/wsite/:enterpriseId/binding",
+            "method": "get",
+            "auth": false,
+            "impl": "bindingService.bind",
+            "comment": "跳转到绑定界面"
+        }
+    ],
+    "statics": [
+        {
+            "name": "weixin-binding",
+            "path": "/weixin-binding",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}

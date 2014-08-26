@@ -1,0 +1,18 @@
+{
+    "services": [
+
+    ],
+    "statics": [
+        {
+            "name": "resource",
+            "path": "/resource",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}
