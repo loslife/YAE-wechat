@@ -1,0 +1,25 @@
+<%- Loader()
+        .js('/weixin-binding/binding.js')
+        .css("/weixin-binding/css/binding.css")
+        .done(config) %>
+
+<div id="wechat_member_binding">
+
+    <form>
+
+        <div>
+            <label for="phone">手机号</label>
+            <input type="text" id="phone" name="phone">
+        </div>
+
+        <div>
+            <label for="pwd">验证码</label>
+            <input type="text" id="pwd" name="pwd">
+        </div>
+
+        <button type="button">获取验证码</button>
+        <button type="button">立即绑定</button>
+
+    </form>
+
+</div>
