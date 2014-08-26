@@ -13,7 +13,8 @@
                 "interface",
                 "m-shop",
                 "m-member",
-                "login"
+                "login",
+                "weixin-binding"
             ]
         }
     ],
