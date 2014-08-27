@@ -7,12 +7,20 @@
             "auth": false,
             "impl": "bindingService.bind",
             "comment": "跳转到绑定界面"
+        },
+        {
+            "name": "doBinding",
+            "path": "/wsite/:enterpriseId/doBinding",
+            "method": "post",
+            "auth": false,
+            "impl": "bindingService.bindMember",
+            "comment": "绑定会员"
         }
     ],
     "statics": [
         {
-            "name": "weixin-binding",
-            "path": "/weixin-binding",
+            "name": "member-binding",
+            "path": "/member-binding",
             "comment": ""
         }
     ],
