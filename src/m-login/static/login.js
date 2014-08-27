@@ -15,7 +15,7 @@ if (typeof WeixinJSBridge == "undefined"){
 
 $(function(){
 
-    $("#btn_submit").on("click", function(e){
+    $("#btn_submit").on("tap", function(e){
 
         var enterprise_id = $("#enterprise_id").text();
         var phone = $("#input_phone").val();
