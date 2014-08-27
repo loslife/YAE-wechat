@@ -19,8 +19,8 @@
     ],
     "statics": [
         {
-            "name": "login",
-            "path": "/login",
+            "name": "m-login",
+            "path": "/m-login",
             "comment": ""
         }
     ],
