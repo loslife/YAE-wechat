@@ -1,7 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+</head>
+
 <%- Loader()
+        .js("/3rd-lib/zepto.min.js")
+        .js("/3rd-lib/template.js")
+        .js("/resource/wechat_global.js")
         .js('/member-binding/binding.js')
         .css("/member-binding/css/binding.css")
         .done(config) %>
+
+<body>
 
 <div id="wechat_member_binding">
 
@@ -26,3 +42,7 @@
     </form>
 
 </div>
+
+</body>
+
+</html>
