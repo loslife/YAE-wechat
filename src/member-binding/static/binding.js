@@ -40,9 +40,21 @@ $(function(){
 
             var bindingURL = g_env.binding_url + enterprise_id + "/doBinding";
             $.post(bindingURL, { open_id: open_id, phone: phone }, function(response){
-                alert(response);
-            })
+
+                var code = response.code;
+
+                if(code !== 0){
+                    var errorCode = response.error.errorCode;
+                    if(errorCode === 501){
+                        alert("会员不存在");
+                    }else{
+                        alert("绑定失败，请联系客服");
+                    }
+                    return;
+                }
+
+                alert("绑定成功");
+            });
         });
     });
-
 });

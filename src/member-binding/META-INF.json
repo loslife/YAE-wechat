@@ -19,8 +19,8 @@
     ],
     "statics": [
         {
-            "name": "weixin-binding",
-            "path": "/weixin-binding",
+            "name": "member-binding",
+            "path": "/member-binding",
             "comment": ""
         }
     ],
