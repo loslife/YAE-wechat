@@ -1,16 +1,48 @@
-<%- Loader().js('/m-shop/shop.js').done(config) %>
+<%- Loader().js("/m-shop/shop.js").css("/m-shop/css/shop.css").done(config) %>
 
-<% for(var i = 0;i < members.length;i++){ %>
-    <span><%= members[i].name %></span>
-<% } %>
+<div id="shop">
+    <div class="pos-rel width-full">
+        <img class="block width-full" src="/svc/public/home.png" alt="首页图片"/>
+        <span class="pos-abs r-2 b-1 fs-20 color-white">欣欣美甲</span>
+    </div>
 
-<script id="test" type="text/html">
-    <h1>{{title}}</h1>
-    <ul>
-        {{each list as value i}}
-        <li>索引 {{i + 1}} ：{{value}}</li>
-        {{/each}}
-    </ul>
-</script>
+    <div class="preferential m-1">
+        <div class="mb-1">
+            <span class="fr">更多</span>
+            <span>优惠活动</span>
+        </div>
 
-<div id="content"></div>
+        <ul class="preferential-list">
+            <li>
+                <div style="background: url('/svc/public/example.png') no-repeat"></div>
+                <div>
+                    <span class="inline-block vm">指甲护理99元体验两次2次，覅的方式看到螺丝刀开始了开始</span><span class="vm-help"></span>
+                </div>
+            </li>
+            <li>
+                <div style="background: url('/svc/public/example.png') no-repeat"></div>
+                <div>
+                    <span class="inline-block vm">指甲护理99元体验两次2次</span><span class="vm-help"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="item m-1">
+        <div class="mb-1">
+            <span class="fr">更多</span>
+            <span>优惠活动</span>
+        </div>
+
+        <ul class="item-list">
+            <li>
+                <div></div>
+                <div></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="store">
+
+    </div>
+</div>

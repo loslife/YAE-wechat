@@ -2,7 +2,7 @@
     "services": [
         {
             "name": "jumpToWShop",
-            "path": "/wsite/:enterpriseId/shop",
+            "path": "/wsite/shop/:enterpriseId",
             "method": "get",
             "auth": false,
             "impl": "shop.jumpToWShop",
