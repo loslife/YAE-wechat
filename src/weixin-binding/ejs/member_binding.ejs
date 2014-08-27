@@ -5,9 +5,10 @@
 
 <div id="wechat_member_binding">
 
-    <span id="enterprise_id" style="display: none"><%= enterprise_id %></span>
-
     <form>
+
+        <span id="open_id" style="display: none"><%= open_id %></span>
+        <span id="enterprise_id" style="display: none"><%= enterprise_id %></span>
 
         <div>
             <label for="phone">手机号</label>
@@ -16,11 +17,11 @@
 
         <div>
             <label for="pwd">验证码</label>
-            <input type="text" id="pwd" name="pwd">
+            <input type="text" id="code" name="code">
         </div>
 
         <button id="getSecurityCode" type="button">获取验证码</button>
-        <button type="button">立即绑定</button>
+        <button id="btn_binding" type="button">立即绑定</button>
 
     </form>
 

@@ -7,6 +7,14 @@
             "auth": false,
             "impl": "bindingService.bind",
             "comment": "跳转到绑定界面"
+        },
+        {
+            "name": "doBinding",
+            "path": "/wsite/:enterpriseId/doBinding",
+            "method": "post",
+            "auth": false,
+            "impl": "bindingService.bindMember",
+            "comment": "绑定会员"
         }
     ],
     "statics": [
