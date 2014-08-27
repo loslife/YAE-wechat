@@ -1,18 +1,18 @@
 {
     "services": [
         {
-            "name": "jumpToWShop",
-            "path": "/wsite/:enterpriseId/shop",
+            "name": "item",
+            "path": "/wsite/:enterpriseId/item",
             "method": "get",
             "auth": false,
-            "impl": "shop.jumpToWShop",
-            "comment": "跳转到微站-店铺页面"
+            "impl": "item.item",
+            "comment": "微站所有项目"
         }
     ],
     "statics": [
         {
-            "name": "m-shop",
-            "path": "/m-shop",
+            "name": "m-item",
+            "path": "/m-item",
             "comment": ""
         }
     ],

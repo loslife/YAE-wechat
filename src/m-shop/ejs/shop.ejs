@@ -1,26 +1,28 @@
 <%- Loader().js("/m-shop/shop.js").css("/m-shop/css/shop.css").done(config) %>
 
-<div id="shop">
-    <div class="pos-rel width-full">
-        <img class="block width-full" src="/svc/public/home.png" alt="首页图片"/>
-        <span class="pos-abs r-2 b-1 fs-20 color-white">欣欣美甲</span>
+<div id="m-shop">
+    <div class="home-img">
+        <img src="/svc/public/home.png" alt="首页图片"/>
+        <span>欣欣美甲</span>
     </div>
 
-    <div class="preferential m-1">
-        <div class="mb-1">
-            <span class="fr">更多</span>
-            <span>优惠活动</span>
+    <div class="preferential" style="display: none;">
+        <div class="width-full h-4 lh-4">
+            <div class="fr">
+                <a href="#">更多</a>
+            </div>
+            <div>优惠活动</div>
         </div>
 
         <ul class="preferential-list">
             <li>
-                <div style="background: url('/svc/public/example.png') no-repeat"></div>
+                <div style="background: url('/svc/public/preferential-example.png') no-repeat"></div>
                 <div>
                     <span class="inline-block vm">指甲护理99元体验两次2次，覅的方式看到螺丝刀开始了开始</span><span class="vm-help"></span>
                 </div>
             </li>
             <li>
-                <div style="background: url('/svc/public/example.png') no-repeat"></div>
+                <div style="background: url('/svc/public/preferential-example.png') no-repeat"></div>
                 <div>
                     <span class="inline-block vm">指甲护理99元体验两次2次</span><span class="vm-help"></span>
                 </div>
@@ -30,19 +32,39 @@
 
     <div class="item m-1">
         <div class="mb-1">
-            <span class="fr">更多</span>
-            <span>优惠活动</span>
+            <div class="fr">
+                <a href="#">更多</a>
+            </div>
+            <div>特色项目</div>
         </div>
 
-        <ul class="item-list">
+        <ul class="item-list ofh">
+            <% for(var i = 0; i < 6; i++) { %>
             <li>
-                <div></div>
-                <div></div>
+                <a href="#">
+                    <div class="item-img" style="background: url('/svc/public/item-example.png') no-repeat">
+                    </div>
+
+                    <div>渐变彩绘</div>
+                    <div class="item-comment">测试第一个描述，比较长的时候的显示是这样的</div>
+                </a>
             </li>
+            <% } %>
         </ul>
     </div>
 
     <div class="store">
-
+        <div class="store-img" style="background: url('/svc/public/store-example.png') no-repeat"></div>
+        <div class="store-name">欣欣美甲</div>
+        <div>
+            <span class="color-gray">电话：</span><span>0755-6898554</span>
+        </div>
+        <div>
+            <span class="color-gray">营业时间：</span><span>10:00-20:00</span>
+        </div>
+        <div>
+            <span class="color-gray">店铺地址：</span><span>龙岗区坂田四季花城</span>
+        </div>
+        <div><span class="color-gray">营业项目：</span><span>美甲/美睫/美发/美容/修眉</span></div>
     </div>
 </div>
