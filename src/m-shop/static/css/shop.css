@@ -1,0 +1,36 @@
+#shop {
+    background-color: #dddddd;
+}
+
+#shop .preferential {
+
+}
+
+.preferential-list > li > div:first-child {
+    width: 120px;
+    height: 80px;
+}
+
+.preferential-list > li > div:last-child {
+    height: 80px;
+    background-color: #ffffff;
+    line-height: 20px;
+}
+
+.preferential-list > li:nth-child(odd) > div:first-child {
+    float: left;
+}
+
+.preferential-list > li:nth-child(even) > div:first-child {
+    float: right;
+}
+
+.preferential-list > li:nth-child(odd) > div:last-child {
+    padding-left: 130px;
+    padding-right: 10px;
+}
+
+.preferential-list > li:nth-child(even) > div:last-child {
+    padding-left: 10px;
+    padding-right: 130px;
+}
