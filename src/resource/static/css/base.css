@@ -7,13 +7,18 @@ li {
     list-style: none;
 }
 
-div {
-    box-sizing: border-box;
+a {
+    color: inherit;
+    display: block;
+    text-decoration: none;
 }
 
-a {
-    color: #ffffff;
-    text-decoration: none;
+div {
+    /*box-sizing: border-box;*/
+}
+
+.fs-12 {
+    font-size: 12px !important;
 }
 
 .fs-16 {
@@ -24,20 +29,20 @@ a {
     font-size: 20px !important;
 }
 
-.r-2 {
-    right: 20px !important;
-}
-
-.b-1 {
-    bottom: 10px !important;
-}
-
 .m-1 {
     margin: 10px !important;
 }
 
 .mb-1 {
     margin-bottom: 10px !important;
+}
+
+.h-4 {
+    line-height: 40px;
+}
+
+.lh-4 {
+    line-height: 40px;
 }
 
 .fl {
@@ -48,8 +53,16 @@ a {
     float: right !important;
 }
 
+.color-gray {
+    color: gray !important;
+}
+
 .color-white {
-    color: #ffffff !important;
+    color: white !important;
+}
+
+.color-red {
+    color: red !important;
 }
 
 .width-full {
@@ -68,6 +81,14 @@ a {
 
 .vm {
     vertical-align: middle !important;
+}
+
+.ofh {
+    overflow: hidden !important;
+}
+
+.ofa {
+    overflow: auto !important;
 }
 
 .block {

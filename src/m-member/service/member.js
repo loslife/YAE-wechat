@@ -4,18 +4,22 @@ var _ = require("underscore");
 exports.jumpToWMember = jumpToWMember;
 exports.checkSession = checkSession;
 
-function jumpToWMember(req, res, next){
+function jumpToWMember(req, res, next) {
+
+    var member_id = req.session.member_id;
+
+
+
 
     var enterprise_id = req.params["enterpriseId"];
 
-    res.render("member", {name: "会员一号", enterprise_id: enterprise_id});
+    res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member"});
 }
 
-function checkSession(req, res, next){
-
+function checkSession(req, res, next) {
     var enterprise_id = req.params["enterpriseId"];
 
-    if(req.session && req.session.member_id){
+    if (req.session && req.session.member_id) {
         next();
         return;
     }
