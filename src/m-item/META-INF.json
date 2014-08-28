@@ -1,0 +1,36 @@
+{
+    "services": [
+        {
+            "name": "item",
+            "path": "/wsite/:enterpriseId/item",
+            "method": "get",
+            "auth": false,
+            "impl": "item.item",
+            "comment": "微站所有项目"
+        },
+        {
+            "name": "itemDetail",
+            "path": "/wsite/:enterpriseId/itemDetail/:itemId",
+            "method": "get",
+            "auth": false,
+            "impl": "item.itemDetail",
+            "comment": "项目详情"
+        }
+    ],
+    "statics": [
+        {
+            "name": "m-item",
+            "path": "/m-item",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}

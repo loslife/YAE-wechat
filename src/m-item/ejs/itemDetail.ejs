@@ -1,0 +1,30 @@
+<%- Loader().css("/m-item/css/item.css").done(config) %>
+
+<div id="item-detail">
+    <div class="img" style="background: url('/svc/public/item-example.png') no-repeat">
+
+    </div>
+
+    <div class="name-price">
+        <div class="fr color-red">￥399</div>
+        <div>真甲光疗甲油</div>
+    </div>
+
+    <div class="comment">
+        <div class="fl color-gray">描述：</div>
+        <div class="pl-5">的交流看法路上看到房价了卡机，分离看到结束了咖啡角度考虑啥法律框架，的离开简历发到空间发的深刻理解啦。</div>
+    </div>
+
+    <div id="back" class="back">
+        < 返回
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#back").on("click", function ($even) {
+            window.history.back();
+            $even.stopPropagation();
+        });
+    });
+</script>
