@@ -31,6 +31,14 @@ module.exports = function (grunt) {
                         src: ['3rd-lib/**/*', '!3rd-lib/META-INF.json'],
                         filter: 'isFile',
                         dest: frontDir
+                    },
+                    {
+                        expand: true,
+                        flatten: false,
+                        cwd: sourceDir,
+                        src: ['resource/**/*', '!resource/META-INF.json'],
+                        filter: 'isFile',
+                        dest: frontDir
                     }
                 ]
             },
