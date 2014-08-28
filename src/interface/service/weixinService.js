@@ -36,7 +36,7 @@ function handleWXRequest(req, res, next){
             var item = {
                 title: "请访问我们的微网站",
                 desc: "查看店铺资料，产品和优惠信息",
-                picUrl: "http://121.40.75.73/resources/logo.png",
+                picUrl: "http://121.40.75.73/resource/logo.png",
                 url: url
             };
 
@@ -69,7 +69,7 @@ function handleWXRequest(req, res, next){
                     var item = {
                         title: "请访问我们的微网站",
                         desc: "查看店铺资料，产品和优惠信息",
-                        picUrl: "http://121.40.75.73/resources/logo.png",
+                        picUrl: "http://121.40.75.73/resource/logo.png",
                         url: url
                     };
 
@@ -127,7 +127,7 @@ function handleWXRequest(req, res, next){
                         var item = {
                             title: "点击绑定",
                             desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
-                            picUrl: "http://121.40.75.73/resources/logo.png",
+                            picUrl: "http://121.40.75.73/resource/logo.png",
                             url: url
                         };
 
