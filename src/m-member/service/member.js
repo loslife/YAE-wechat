@@ -5,10 +5,11 @@ exports.jumpToWMember = jumpToWMember;
 exports.checkSession = checkSession;
 
 function jumpToWMember(req, res, next) {
-    var enterprise_id = req.params["enterpriseId"];
+    var enterprise_id = req.params.enterpriseId;
 
     res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member"});
 }
+
 
 function checkSession(req, res, next) {
     var enterprise_id = req.params["enterpriseId"];

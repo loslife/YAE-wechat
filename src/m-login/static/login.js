@@ -14,8 +14,6 @@ if (typeof WeixinJSBridge == "undefined") {
 }
 
 $(function () {
-    adjustHeight();
-
     $("#btn_submit").on("tap", function (e) {
 
         var enterprise_id = $("#enterprise_id").text();

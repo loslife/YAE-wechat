@@ -7,6 +7,14 @@
             "auth": false,
             "impl": "item.item",
             "comment": "微站所有项目"
+        },
+        {
+            "name": "itemDetail",
+            "path": "/wsite/:enterpriseId/itemDetail/:itemId",
+            "method": "get",
+            "auth": false,
+            "impl": "item.itemDetail",
+            "comment": "项目详情"
         }
     ],
     "statics": [

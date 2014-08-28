@@ -17,24 +17,20 @@ div {
     /*box-sizing: border-box;*/
 }
 
-.fs-12 {
-    font-size: 12px !important;
-}
-
-.fs-16 {
-    font-size: 16px !important;
-}
-
-.fs-20 {
-    font-size: 20px !important;
-}
-
 .m-1 {
     margin: 10px !important;
 }
 
+.p-1 {
+    padding: 10px !important;
+}
+
 .mb-1 {
     margin-bottom: 10px !important;
+}
+
+.pl-5 {
+    padding-left: 50px !important;
 }
 
 .h-4 {
@@ -53,12 +49,24 @@ div {
     float: right !important;
 }
 
-.text-center {
-    text-align: center !important;
+.fs-12 {
+    font-size: 12px !important;
+}
+
+.fs-16 {
+    font-size: 16px !important;
+}
+
+.fs-20 {
+    font-size: 20px !important;
 }
 
 .border-bottom {
     border-bottom: 1px solid lightgray;
+}
+
+.text-center {
+    text-align: center !important;
 }
 
 .color-gray {
@@ -71,6 +79,10 @@ div {
 
 .color-red {
     color: red !important;
+}
+
+.none {
+    display: none !important;
 }
 
 .width-full {
