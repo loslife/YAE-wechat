@@ -16,10 +16,20 @@ function queryMemberCardInfo(req, res, next){
     var enterprise_id = req.body.enterprise_id;
     var member_id = req.body.member_id;
 
-    console.log(enterprise_id);
-    console.log(member_id);
+    dbHelper.queryData("tb_member", {enterprise_id: enterprise_id, id: member_id}, function(err, result){
 
-    _response(req, res, 0, {message: "ok"});
+        if(err){
+            _response(req, res, 1, {errorMessage: "数据库异常"});
+            return;
+        }
+
+        if(result.length === 0){
+            _response(req, res, 1, {errorMessage: "会员不存在"});
+            return;
+        }
+
+        _response(req, res, 0, result);
+    });
 }
 
 function checkSession(req, res, next) {

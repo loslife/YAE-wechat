@@ -1,6 +1,7 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var wx = require("wechat-toolkit");
 var async = require("async");
+var request = require("request");
 
 var token = "yilos_wechat";
 var server_address = "http://121.40.75.73/";
@@ -138,7 +139,16 @@ function handleWXRequest(req, res, next){
                         return;
                     }
 
-                    dbHelper.queryData("tb_member", {enterprise_id: enterprise_id, id: member_id}, function(err, result){
+                    var cardService = server_address + "svc/wsite/membercards";
+
+                    var options = {
+                        method: "POST",
+                        uri: cardService,
+                        body: {enterprise_id: enterprise_id, member_id: member_id},
+                        json: true
+                    };
+
+                    request(options, function(err, response, body) {
 
                         if(err){
                             console.log(err);
@@ -146,11 +156,13 @@ function handleWXRequest(req, res, next){
                             return;
                         }
 
-                        if(result.length === 0){
-                            wx.replyTextMessage(req, res, "会员不存在");
+                        var code = body.code;
+                        if(code !== 0){
+                            wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
                             return;
                         }
 
+                        var result = body.result;
                         wx.replyTextMessage(req, res, "会员姓名：" + result[0].name);
                     });
                 });
