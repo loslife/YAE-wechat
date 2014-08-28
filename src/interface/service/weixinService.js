@@ -3,6 +3,7 @@ var wx = require("wechat-toolkit");
 var async = require("async");
 
 var token = "yilos_wechat";
+var server_address = "http://121.40.75.73/";
 
 exports.enable_dev_mode = wx.enable_dev_mode(token);
 exports.handleWXRequest = handleWXRequest;
@@ -25,7 +26,7 @@ function handleWXRequest(req, res, next){
 
     function handleTextMessage(){
 
-        resolveSiteURL(function(err, url, enterprise_id){
+        resolveSiteURL(function(err, url){
 
             if(err){
                 console.log(err);
@@ -36,7 +37,7 @@ function handleWXRequest(req, res, next){
             var item = {
                 title: "请访问我们的微网站",
                 desc: "查看店铺资料，产品和优惠信息",
-                picUrl: "http://121.40.75.73/resource/logo.png",
+                picUrl: server_address + "resource/logo.png",
                 url: url
             };
 
@@ -49,7 +50,6 @@ function handleWXRequest(req, res, next){
     function handleEvent(){
 
         if(req.weixin.event === "subscribe"){
-
             wx.replyTextMessage(req, res, "感谢您的关注，我们会为您提供最好的服务");
             return;
         }
@@ -69,7 +69,7 @@ function handleWXRequest(req, res, next){
                     var item = {
                         title: "请访问我们的微网站",
                         desc: "查看店铺资料，产品和优惠信息",
-                        picUrl: "http://121.40.75.73/resource/logo.png",
+                        picUrl: server_address + "resource/logo.png",
                         url: url
                     };
 
@@ -78,28 +78,9 @@ function handleWXRequest(req, res, next){
                     wx.replyNewsMessage(req, res, contents);
                 });
 
-                function resolveMemberId(url, enterprise_id, callback){
-
-                    var fan_open_id = req.weixin.fan_open_id;
-
-                    dbHelper.queryData("weixin_member_binding", {enterprise_id: enterprise_id, wx_open_id: fan_open_id}, function(err, result){
-
-                        if(err){
-                            callback(err);
-                            return;
-                        }
-
-                        if(result.length > 0){
-                            url = url + "?m_id=" + result[0].member_id;
-                        }
-
-                        callback(null, url);
-                    });
-                }
-
             }else if(req.weixin.event_key === "MEMBER_BINDING"){
 
-                resolveSiteURL(function(err, url, enterprise_id){
+                async.waterfall([resolveSiteURL, hasMemberBinding], function(err, flag, enterprise_id){
 
                     if(err){
                         console.log(err);
@@ -107,38 +88,59 @@ function handleWXRequest(req, res, next){
                         return;
                     }
 
+                    if(flag){
+                        wx.replyTextMessage(req, res, "您已经绑定会员，无需重复绑定");
+                        return;
+                    }
+
                     var fan_open_id = req.weixin.fan_open_id;
 
-                    dbHelper.queryData("weixin_member_binding", {enterprise_id: enterprise_id, wx_open_id: fan_open_id}, function(err, result){
+                    var url = server_address + "svc/wsite/" + enterprise_id + "/binding?open_id=" + fan_open_id;
 
-                        if(err){
-                            console.log(err);
-                            wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
-                            return;
-                        }
+                    var item = {
+                        title: "点击绑定",
+                        desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
+                        picUrl: server_address + "resource/logo.png",
+                        url: url
+                    };
 
-                        if(result.length > 0){
-                            wx.replyTextMessage(req, res, "您已经绑定会员，无需重复绑定");
-                            return;
-                        }
+                    var contents = [item];
 
-                        var url = "http://121.40.75.73/svc/wsite/" + enterprise_id + "/binding?open_id=" + fan_open_id;
+                    wx.replyNewsMessage(req, res, contents);
+                });
+
+            }else if(req.weixin.event_key === "MY_CARD"){
+
+                async.waterfall([resolveSiteURL, hasMemberBinding], function(err, flag, enterprise_id){
+
+                    if(err){
+                        console.log(err);
+                        wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                        return;
+                    }
+
+                    if(!flag){
+
+                        var fan_open_id = req.weixin.fan_open_id;
+
+                        var url = server_address + "svc/wsite/" + enterprise_id + "/binding?open_id=" + fan_open_id;
 
                         var item = {
-                            title: "点击绑定",
+                            title: "请先绑定会员",
                             desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
-                            picUrl: "http://121.40.75.73/resource/logo.png",
+                            picUrl: server_address + "resource/logo.png",
                             url: url
                         };
 
                         var contents = [item];
 
                         wx.replyNewsMessage(req, res, contents);
-                    });
+                        return;
+                    }
+
+                    wx.replyTextMessage(req, res, "显示会员卡余额");
                 });
 
-            }else if(req.weixin.event_key === "MY_CARD"){
-                wx.replyTextMessage(req, res, "展示会员卡余额");
             }else{
                 wx.replyTextMessage(req, res, "无法识别的点击事件");
             }
@@ -167,9 +169,47 @@ function handleWXRequest(req, res, next){
 
             var enterprise_id = result[0].enterprise_id;
 
-            var url = "http://121.40.75.73/svc/wsite/" + enterprise_id + "/shop";
+            var url = server_address + "svc/wsite/" + enterprise_id + "/shop";
 
             callback(null, url, enterprise_id);
+        });
+    }
+
+    function resolveMemberId(url, enterprise_id, callback){
+
+        var fan_open_id = req.weixin.fan_open_id;
+
+        dbHelper.queryData("weixin_member_binding", {enterprise_id: enterprise_id, wx_open_id: fan_open_id}, function(err, result){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            if(result.length > 0){
+                url = url + "?m_id=" + result[0].member_id;
+            }
+
+            callback(null, url);
+        });
+    }
+
+    function hasMemberBinding(url, enterprise_id, callback){
+
+        var fan_open_id = req.weixin.fan_open_id;
+
+        dbHelper.queryData("weixin_member_binding", {enterprise_id: enterprise_id, wx_open_id: fan_open_id}, function(err, result){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            if(result.length === 0){
+                callback(null, false, enterprise_id);
+            }else{
+                callback(null, true, enterprise_id);
+            }
         });
     }
 }
