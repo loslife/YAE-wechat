@@ -9,14 +9,12 @@
             "baseurl": "http://10.171.203.219:8080/svc",
             "workerno": 1,
             "applications": [
-                "3rd-lib",
                 "interface",
                 "m-shop",
                 "m-member",
                 "m-login",
                 "m-item",
-                "member-binding",
-                "resource"
+                "member-binding"
             ]
         }
     ],
@@ -28,9 +26,9 @@
             "password": "yilos_dev"
         },
         "mongodb": {
-            "ip": "10.161.135.104",
+            "ip": "10.171.203.219",
             "port": "2222",
-            "connectionurl": "10.161.135.104:2222",
+            "connectionurl": "10.171.203.219:2222",
             "user": "",
             "password": ""
         }

@@ -69,7 +69,7 @@ module.exports = function (grunt) {
             build: {
                 options: {
                     mode: 0777,
-                    create: [distDir + '/logs']
+                    create: [distDir + '/logs', distDir + '/public']
                 }
             }
         },
