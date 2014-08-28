@@ -80,7 +80,7 @@ function handleWXRequest(req, res, next){
 
             }else if(req.weixin.event_key === "MEMBER_BINDING"){
 
-                async.waterfall([resolveSiteURL, hasMemberBinding], function(err, flag, enterprise_id){
+                async.waterfall([resolveSiteURL, hasMemberBinding], function(err, flag, enterprise_id, member_id){
 
                     if(err){
                         console.log(err);
@@ -111,7 +111,7 @@ function handleWXRequest(req, res, next){
 
             }else if(req.weixin.event_key === "MY_CARD"){
 
-                async.waterfall([resolveSiteURL, hasMemberBinding], function(err, flag, enterprise_id){
+                async.waterfall([resolveSiteURL, hasMemberBinding], function(err, flag, enterprise_id, member_id){
 
                     if(err){
                         console.log(err);
@@ -138,7 +138,21 @@ function handleWXRequest(req, res, next){
                         return;
                     }
 
-                    wx.replyTextMessage(req, res, "显示会员卡余额");
+                    dbHelper.queryData("tb_member", {enterprise_id: enterprise_id, id: member_id}, function(err, result){
+
+                        if(err){
+                            console.log(err);
+                            wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                            return;
+                        }
+
+                        if(result.length === 0){
+                            wx.replyTextMessage(req, res, "会员不存在");
+                            return;
+                        }
+
+                        wx.replyTextMessage(req, res, "会员姓名：" + result[0].name);
+                    });
                 });
 
             }else{
@@ -206,9 +220,11 @@ function handleWXRequest(req, res, next){
             }
 
             if(result.length === 0){
-                callback(null, false, enterprise_id);
+                callback(null, false, enterprise_id, null);
             }else{
-                callback(null, true, enterprise_id);
+
+                var member_id = result[0].member_id;
+                callback(null, true, enterprise_id, member_id);
             }
         });
     }
