@@ -28,7 +28,11 @@ function queryMemberCardInfo(req, res, next){
             return;
         }
 
-        _response(req, res, 0, result);
+        var cards = [];
+        cards.push({name: "金卡", money: 232});
+        cards.push({name: "钻石卡", money: 1944});
+        cards.push({name: "美丽一夏卡", money: 2000});
+        _response(req, res, 0, cards);
     });
 }
 

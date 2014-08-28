@@ -2,6 +2,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var wx = require("wechat-toolkit");
 var async = require("async");
 var request = require("request");
+var _ = require("underscore");
 
 var token = "yilos_wechat";
 var server_address = "http://121.40.75.73/";
@@ -162,8 +163,18 @@ function handleWXRequest(req, res, next){
                             return;
                         }
 
-                        var result = body.result;
-                        wx.replyTextMessage(req, res, "会员姓名：" + result[0].name);
+                        var cards = body.result;
+                        if(cards.length === 0){
+                            wx.replyTextMessage(req, res, "您还没有会员卡，快到店里办理吧");
+                            return;
+                        }
+
+                        var message = [];
+                        _.each(cards, function(item){
+                            message.push(item.name + "余额" + item.money + "元");
+                        });
+
+                        wx.replyTextMessage(req, res, message.join("。"));
                     });
                 });
 
