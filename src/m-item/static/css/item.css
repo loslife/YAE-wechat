@@ -1,0 +1,61 @@
+#m-item {
+    background: lightgray;
+}
+
+.item-list {
+    overflow: hidden;
+}
+
+.item-list li {
+    float: left;
+    width: 50%;
+    border: 10px solid lightgray;
+    box-sizing: border-box;
+}
+
+.item-list li:nth-child(odd) {
+    border-right-width: 5px;
+}
+
+.item-list li:nth-child(even) {
+    border-left-width: 5px;
+}
+
+.item-list .item-img {
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: cover !important;
+    border: 10px solid white;
+    box-sizing: border-box;
+}
+
+.item-list li div + div {
+    padding: 0 10px;
+    background: white;
+}
+
+#item-detail {
+    /*background: lightgray;*/
+}
+
+#item-detail .img {
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: cover !important;
+}
+
+#item-detail .name-price {
+    background: white;
+    font-size: 20px;
+    padding: 10px 0;
+    margin: 0 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+#item-detail .comment {
+    padding: 10px;
+}
+
+#item-detail .back {
+    padding: 10px;
+}

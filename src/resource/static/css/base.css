@@ -7,37 +7,38 @@ li {
     list-style: none;
 }
 
-div {
-    box-sizing: border-box;
-}
-
 a {
-    color: #ffffff;
+    color: inherit;
+    display: block;
     text-decoration: none;
 }
 
-.fs-16 {
-    font-size: 16px !important;
-}
-
-.fs-20 {
-    font-size: 20px !important;
-}
-
-.r-2 {
-    right: 20px !important;
-}
-
-.b-1 {
-    bottom: 10px !important;
+div {
+    /*box-sizing: border-box;*/
 }
 
 .m-1 {
     margin: 10px !important;
 }
 
+.p-1 {
+    padding: 10px !important;
+}
+
 .mb-1 {
     margin-bottom: 10px !important;
+}
+
+.pl-5 {
+    padding-left: 50px !important;
+}
+
+.h-4 {
+    line-height: 40px;
+}
+
+.lh-4 {
+    line-height: 40px;
 }
 
 .fl {
@@ -48,8 +49,40 @@ a {
     float: right !important;
 }
 
+.fs-12 {
+    font-size: 12px !important;
+}
+
+.fs-16 {
+    font-size: 16px !important;
+}
+
+.fs-20 {
+    font-size: 20px !important;
+}
+
+.border-bottom {
+    border-bottom: 1px solid lightgray;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.color-gray {
+    color: gray !important;
+}
+
 .color-white {
-    color: #ffffff !important;
+    color: white !important;
+}
+
+.color-red {
+    color: red !important;
+}
+
+.none {
+    display: none !important;
 }
 
 .width-full {
@@ -68,6 +101,14 @@ a {
 
 .vm {
     vertical-align: middle !important;
+}
+
+.ofh {
+    overflow: hidden !important;
+}
+
+.ofa {
+    overflow: auto !important;
 }
 
 .block {

@@ -1,17 +1,19 @@
-<%- Loader().js('/m-login/login.js').done(config) %>
+<%- Loader().js('/m-login/login.js').css("/m-login/css/login.css").done(config) %>
 
-<div class="col-xs-12">
-
-    <form role="form">
-
-        <div class="form-group">
-
-            <input type="tel" class="form-control" id="input_phone" placeholder="输入手机号">
+<div id="m-login">
+    <div class="form-area">
+        <div class="h-4 lh-4 text-center border-bottom">
+            会员登陆
         </div>
-
-        <button type="button" class="btn btn-default" id="btn_submit">登陆</button>
-    </form>
-
+        <form class="width-full">
+            <div class="input">
+                <input type="tel" id="input_phone" placeholder="输入手机号">
+            </div>
+            <div class="btn">
+                <button type="button" id="btn_submit">登陆</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div id="enterprise_id" style="display: none"><%= enterprise_id %></div>
