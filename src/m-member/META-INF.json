@@ -8,6 +8,14 @@
             "impl": "member.jumpToWMember",
             "middleware": "member.checkSession",
             "comment": "跳转到微站-会员页面"
+        },
+        {
+            "name": "queryMemberCardInfo",
+            "path": "/wsite/membercards",
+            "method": "post",
+            "auth": false,
+            "impl": "member.queryMemberCardInfo",
+            "comment": "查询卡信息"
         }
     ],
     "statics": [
