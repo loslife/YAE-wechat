@@ -1,12 +1,79 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
+var request = require("request");
 var _ = require("underscore");
+var async = require("async");
 
 exports.jumpToWShop = jumpToWShop;
 
 function jumpToWShop(req, res, next) {
-//    var enterprise_id = req.params.enterpriseId;
-    var enterpriseId = "100067002190500100";
+    var enterpriseId = req.params.enterpriseId;
 
-    res.render("shop", {enterprise_id: enterpriseId, layout: "layout", menu: "store"});
+    var hotShelvesList = [];
+    var wechatSetting = {};
+    var store = {};
+
+    async.parallel([_queryHotItem, _queryStoreInfo], function (err) {
+        if (err) {
+            next(err);
+            return;
+        }
+
+        res.render("shop", {enterprise_id: enterpriseId, layout: "layout", menu: "store", hotList: hotShelvesList, store: _.extend(store, wechatSetting)});
+    });
+
+    function _queryHotItem(callback) {
+        //todo replace query
+        var queryShelvesUrl = "http://192.168.1.110:5001/svc/weixin/queryAllShelvesItem/" + enterpriseId;
+
+        var options = {
+            method: "GET",
+            uri: queryShelvesUrl,
+            json: true
+        };
+
+        request(options, function (err, response, body) {
+            if (err || body.code != 0) {
+                logger.error({err: err, detail: "调用失败" + queryShelvesUrl});
+                callback(err);
+                return;
+            }
+
+
+            hotShelvesList = _.filter(body.result, function (item) {
+                return item.hot == 1;
+            });
+
+            hotShelvesList = _.sortBy(hotShelvesList, function (item) {
+                return item.name;
+            });
+
+            hotShelvesList.splice(6);
+
+            callback(null);
+        });
+    }
+
+    function _queryStoreInfo(callback) {
+        //todo replace query
+        var queryUrl = "http://192.168.1.110:5001/svc/weixin/queryStoreInfo/" + enterpriseId;
+
+        var options = {
+            method: "GET",
+            uri: queryUrl,
+            json: true
+        };
+
+        request(options, function (err, response, body) {
+            if (err || body.code != 0) {
+                logger.error({err: err, detail: "调用失败" + queryUrl});
+                callback(err);
+                return;
+            }
+
+            wechatSetting = body.result.setting;
+            store = body.result.store;
+            callback(null);
+        });
+    }
 }
