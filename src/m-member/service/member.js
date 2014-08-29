@@ -54,7 +54,9 @@ function queryMemberCardInfo(req, res, next){
 
     function _queryCards(callback){
 
-        var sql = "select a.id as card_id, a.currentMoney, a.modify_date, b.name, b.baseInfo_type as type from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
+        var sql = "select a.id as card_id, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date," +
+            " b.name, b.baseInfo_type as type" +
+            " from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
             "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id";
 
         dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function(err, result){
@@ -80,14 +82,40 @@ function queryMemberCardInfo(req, res, next){
 
                 // 计次卡
                 if(card.type === "recordTimeCard"){
-                    card.remain_count = 3;
-                    next(null);
+
+                    var sql = "select a.value, a.def_int1 as bind_group" +
+                        " from planx_graph.tb_membercardattrmap a" +
+                        " where a.groupName = 'recordCardBalance' and a.memberCardId = :card_id and a.enterprise_id = :enterprise_id";
+
+                    dbHelper.execSql(sql, {enterprise_id: enterprise_id, card_id: card.card_id}, function(err, result){
+
+                        if(err){
+                            next(err);
+                            return;
+                        }
+
+                        var grouped = _.values(_.groupBy(result, function (item) {
+                            return item.bind_group;
+                        }));
+
+                        var remaining = 0;
+
+                        _.each(grouped, function (group) {
+                            remaining += Number(group[0].value);
+                        });
+
+                        card.remainingTimes = remaining;
+
+                        next(null);
+                    });
+
                     return;
                 }
 
                 // 年卡
                 if(card.type === "quarter"){
-                    card.expired_time = new Date().getTime();
+                    var millis_of_validity = card.periodOfValidity * 24 * 60 * 60 * 1000;
+                    card.expired_time = card.create_date + millis_of_validity;
                     next(null);
                     return;
                 }
