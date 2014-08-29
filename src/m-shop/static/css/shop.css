@@ -54,6 +54,46 @@
     padding-right: 130px;
 }
 
+.item-more a {
+    padding: 0 0 0 24px;
+    height: 20px;
+    position: relative;
+    text-align: right;
+    color: deeppink;
+}
+
+.item-more a:before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 1px solid deeppink;
+    border-radius: 50%;
+    right: 36px;
+    top: 0;
+}
+
+.item-more a:after {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-top: 1px solid deeppink;
+    border-right: 1px solid deeppink;
+    position: absolute;
+    right: 38px;
+    top: 3px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: 0% 0%;
+    -moz-transform-origin: 0% 0%;
+    -ms-transform-origin: 0% 0%;
+    -o-transform-origin: 0% 0%;
+    transform-origin: 0% 0%;
+}
+
 .item-list {
     background: white;
 }

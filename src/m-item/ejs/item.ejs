@@ -2,14 +2,14 @@
 
 <div id="m-item">
     <ul class="item-list">
-        <% for(var i = 0; i < 10; i++) { %>
+        <% for(var i = 0; i < shelveList.length; i++) { %>
         <li>
-            <a href="/svc/wsite/0/itemDetail/0">
-                <div class="item-img" style="background: url('/svc/public/item-example.png') no-repeat">
+            <a href="/svc/wsite/<%= enterprise_id %>/itemDetail/<%= shelveList[i].itemId %>">
+                <div class="item-img" style="background: url('<%= shelveList[i].imgPath %>') no-repeat">
                 </div>
 
-                <div>渐变彩绘</div>
-                <div class="color-red">￥118</div>
+                <div><%= shelveList[i].name %></div>
+                <div class="color-red">￥<%= shelveList[i].price %></div>
             </a>
         </li>
         <% } %>
