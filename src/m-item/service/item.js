@@ -6,13 +6,13 @@ exports.item = item;
 exports.itemDetail = itemDetail;
 
 function item(req, res, next) {
-    var enterpriseId = "100067002190500100";
 
-    res.render("item", {enterprise_id: enterpriseId, layout: "layout", menu: "item"});
+    var enterprise_id = req.params["enterpriseId"];
+    res.render("item", {enterprise_id: enterprise_id, layout: "layout", menu: "item"});
 }
 
 function itemDetail(req, res, next) {
-    var enterpriseId = "100067002190500100";
 
-    res.render("itemDetail", {enterprise_id: enterpriseId, layout: "layout", menu: "none"});
+    var enterprise_id = req.params["enterpriseId"];
+    res.render("itemDetail", {enterprise_id: enterprise_id, layout: "layout", menu: "none"});
 }

@@ -55,7 +55,7 @@ function bindMember(req, res, next){
                 return;
             }
 
-            res.send({code: 0, message:"ok"});
+            res.send({code: 0, message: "ok", member_id: member.id});
         });
     });
 }

@@ -31,6 +31,14 @@ module.exports = function (grunt) {
                         src: ['3rd-lib/**/*', '!3rd-lib/META-INF.json'],
                         filter: 'isFile',
                         dest: frontDir
+                    },
+                    {
+                        expand: true,
+                        flatten: false,
+                        cwd: sourceDir,
+                        src: ['resource/**/*', '!resource/META-INF.json'],
+                        filter: 'isFile',
+                        dest: frontDir
                     }
                 ]
             },
@@ -61,7 +69,7 @@ module.exports = function (grunt) {
             build: {
                 options: {
                     mode: 0777,
-                    create: [distDir + '/logs']
+                    create: [distDir + '/logs', distDir + '/public']
                 }
             }
         },
