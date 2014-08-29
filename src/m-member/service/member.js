@@ -54,7 +54,7 @@ function queryMemberCardInfo(req, res, next){
 
     function _queryCards(callback){
 
-        var sql = "select a.id as card_id, a.currentMoney, b.name, b.baseInfo_type from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
+        var sql = "select a.id as card_id, a.currentMoney, a.modify_date, b.name, b.baseInfo_type as type from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
             "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id";
 
         dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function(err, result){
@@ -64,23 +64,65 @@ function queryMemberCardInfo(req, res, next){
                 return;
             }
 
-            cards = result;
+            async.each(result, function(card, next){
 
-            callback(null);
+                // 快照日期
+                if(!card.modify_date){
+                    card.modify_date = new Date().getTime();
+                }
+
+                // 充值卡
+                if(!card.type){
+                    card.type = "recharge";
+                    next(null);
+                    return;
+                }
+
+                // 计次卡
+                if(card.type === "recordTimeCard"){
+                    card.remain_count = 3;
+                    next(null);
+                    return;
+                }
+
+                // 年卡
+                if(card.type === "quarter"){
+                    card.expired_time = new Date().getTime();
+                    next(null);
+                    return;
+                }
+
+                // 无法识别的卡类型
+                next(null);
+
+            }, function(err){
+
+                if(err){
+                    callback(err);
+                    return;
+                }
+
+                cards = result;
+                callback(null);
+            });
         });
     }
 
     function _queryServices(callback){
+        services.push({});
+        services.push({});
         callback(null);
     }
 
     function _queryDeposits(callback){
-        deposits.push("haha");
+        deposits.push({});
+        deposits.push({});
         callback(null);
     }
 
     function _queryCoupons(callback){
-        coupons.push("xixi");
+        coupons.push({});
+        coupons.push({});
         callback(null);
     }
 }
