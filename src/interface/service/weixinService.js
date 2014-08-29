@@ -140,12 +140,12 @@ function handleWXRequest(req, res, next){
                         return;
                     }
 
-                    var cardService = server_address + "svc/wsite/membercards";
+                    var cardService = server_address + "svc/wsite/" + enterprise_id + "/membercards";
 
                     var options = {
                         method: "POST",
                         uri: cardService,
-                        body: {enterprise_id: enterprise_id, member_id: member_id},
+                        body: {member_id: member_id},
                         json: true
                     };
 

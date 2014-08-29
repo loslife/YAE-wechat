@@ -11,7 +11,7 @@
         },
         {
             "name": "queryMemberCardInfo",
-            "path": "/wsite/membercards",
+            "path": "/wsite/:enterpriseId/membercards",
             "method": "post",
             "auth": false,
             "impl": "member.queryMemberCardInfo",

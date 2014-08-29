@@ -1,5 +1,7 @@
 $(function(){
 
+    $("#binding_success_tip").hide();
+
     $("#getSecurityCode").tap(function(){
 
         var phone = $("#phone").val();
@@ -53,7 +55,10 @@ $(function(){
                     return;
                 }
 
-                alert("绑定成功");
+                $("#binding_success_tip").show();
+                setTimeout(function(){
+                    location.href = g_env.binding_url + enterprise_id + "/member?m_id=" + response.member_id;
+                },2000);
             });
         });
     });

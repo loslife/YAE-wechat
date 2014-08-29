@@ -7,13 +7,13 @@ exports.queryMemberCardInfo = queryMemberCardInfo;
 
 function jumpToWMember(req, res, next) {
 
-    var enterprise_id = req.params.enterpriseId;
+    var enterprise_id = req.params["enterpriseId"];
     res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member"});
 }
 
 function queryMemberCardInfo(req, res, next){
 
-    var enterprise_id = req.body.enterprise_id;
+    var enterprise_id = req.params["enterpriseId"];
     var member_id = req.body.member_id;
 
     dbHelper.queryData("tb_member", {enterprise_id: enterprise_id, id: member_id}, function(err, result){
