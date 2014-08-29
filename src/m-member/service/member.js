@@ -7,10 +7,7 @@ exports.checkSession = checkSession;
 function jumpToWMember(req, res, next) {
 
     var member_id = req.session.member_id;
-
-
-
-
+    alert(member_id);
     var enterprise_id = req.params["enterpriseId"];
 
     res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member"});
