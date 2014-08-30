@@ -13,10 +13,6 @@ a {
     text-decoration: none;
 }
 
-div {
-    /*box-sizing: border-box;*/
-}
-
 .m-1 {
     margin: 10px !important;
 }
@@ -35,6 +31,10 @@ div {
 
 .h-4 {
     line-height: 40px;
+}
+
+.lh-2 {
+    line-height: 20px;
 }
 
 .lh-4 {
@@ -63,6 +63,10 @@ div {
 
 .border-bottom {
     border-bottom: 1px solid lightgray;
+}
+
+.clear-fix {
+    clear: both;
 }
 
 .text-center {
