@@ -163,7 +163,7 @@ function handleWXRequest(req, res, next){
                             return;
                         }
 
-                        var cards = body.result;
+                        var cards = body.result.cards;
                         if(cards.length === 0){
                             wx.replyTextMessage(req, res, "您还没有会员卡，快到店里办理吧");
                             return;
@@ -171,10 +171,11 @@ function handleWXRequest(req, res, next){
 
                         var message = [];
                         _.each(cards, function(item){
-                            message.push(item.name + "余额" + item.money + "元");
+                            var money = item.currentMoney.toFixed(1);
+                            message.push(item.name + "余额" + money + "元");
                         });
 
-                        wx.replyTextMessage(req, res, message.join("。"));
+                        wx.replyTextMessage(req, res, message.join("\n"));
                     });
                 });
 
