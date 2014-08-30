@@ -24,7 +24,7 @@ function jumpToWShop(req, res, next) {
 
     function _queryHotItem(callback) {
         //todo replace query
-        var queryShelvesUrl = "http://192.168.1.110:5001/svc/weixin/queryAllShelvesItem/" + enterpriseId;
+        var queryShelvesUrl = "http://121.40.75.73/svc/weixin/queryAllShelvesItem/" + enterpriseId;
 
         var options = {
             method: "GET",
@@ -56,7 +56,7 @@ function jumpToWShop(req, res, next) {
 
     function _queryStoreInfo(callback) {
         //todo replace query
-        var queryUrl = "http://192.168.1.110:5001/svc/weixin/queryStoreInfo/" + enterpriseId;
+        var queryUrl = "http://121.40.75.73/svc/weixin/queryStoreInfo/" + enterpriseId;
 
         var options = {
             method: "GET",

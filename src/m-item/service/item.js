@@ -10,7 +10,7 @@ function item(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
 
     //todo replace url
-    var queryShelvesUrl = "http://192.168.1.110:5001/svc/weixin/queryAllShelvesItem/" + enterpriseId;
+    var queryShelvesUrl = "http://121.40.75.73/svc/weixin/queryAllShelvesItem/" + enterpriseId;
 
     var options = {
         method: "GET",
@@ -38,7 +38,7 @@ function itemDetail(req, res, next) {
     var itemId = req.params.itemId;
 
     //todo replace url
-    var queryUrl = "http://192.168.1.110:5001/svc/weixin/queryShelvesByItemId/" + itemId;
+    var queryUrl = "http://121.40.75.73/svc/weixin/queryShelvesByItemId/" + itemId;
 
     var options = {
         method: "GET",
