@@ -53,8 +53,6 @@ function itemDetail(req, res, next) {
             return;
         }
 
-        console.log(11);
-
         if (_.isEmpty(body.result)) {
             next("项目查询失败");
             return;
