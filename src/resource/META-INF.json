@@ -6,6 +6,7 @@
         {
             "name": "resource",
             "path": "/resource",
+            "dir": "/",
             "comment": ""
         }
     ],

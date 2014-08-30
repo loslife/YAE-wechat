@@ -14,20 +14,54 @@ if (typeof WeixinJSBridge == "undefined") {
 }
 
 $(function () {
-    $("#btn_submit").on("tap", function (e) {
 
-        var enterprise_id = $("#enterprise_id").text();
+    $("#getSecurityCode").tap(function(){
+
         var phone = $("#input_phone").val();
 
-        var url = "/svc/wsite/" + enterprise_id + "/login";
+        if(!phone){
+            alert("请输入手机号");
+            return;
+        }
 
-        $.post(url, {phone: phone}, function (response) {
+        var url = g_env.security_code_url + phone + "?u=weixin_login";
 
-            if (response.code !== 0) {
-                alert("登陆失败，请检查手机号是否正确");
-            } else {
-                window.location = "member";
+        $.get(url, function(response){
+            alert("验证码已发送到您的手机");
+        });
+    });
+
+    $("#btn_submit").tap(function(){
+
+        var phone = $("#input_phone").val();
+        var secure_code = $("#code").val();
+
+        if(!phone || !secure_code){
+            alert("输入不能为空");
+            return;
+        }
+
+        var url = g_env.check_code_url + phone + "?u=weixin_login&c=" + secure_code;
+        $.get(url, function(response){
+
+            var code = response.code;
+            if(code !== 0){
+                alert("验证码错误");
+                return;
             }
+
+            var enterprise_id = $("#enterprise_id").text();
+
+            var url = "/svc/wsite/" + enterprise_id + "/login";
+
+            $.post(url, {phone: phone}, function (response) {
+
+                if (response.code !== 0) {
+                    alert("登陆失败，请检查手机号是否正确");
+                } else {
+                    window.location = "member";
+                }
+            });
         });
     });
 });
