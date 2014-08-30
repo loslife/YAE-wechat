@@ -6,20 +6,66 @@
     position: absolute;
     font-size: 0;
     width: 100%;
-    height: 50px;
-    bottom: 0;
+    height: 48px;
+    overflow: hidden;
 }
 
 .menu li {
-    display: inline-block;
-    width: 33.33%;
+    float: left;
+    width: 25%;
     font-size: 12px;
-    line-height: 50px;
+    height: 48px;
     text-align: center;
-    color: #ffffff;
-    background-color: #f95d5d;
+    color: white;
+    background-color: #f75169;
+    vertical-align: middle;
 }
 
 .menu li.selected {
     font-weight: bold;
+    color: #ac142a;
+}
+
+.menu li a {
+    height: 48px;
+}
+
+.menu li .icon {
+    margin-top: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: 160px 20px !important;
+}
+
+.menu li .icon-store {
+    background: url('../menu_icon.png') no-repeat 0 0;
+}
+
+.menu li .icon-item {
+    background: url('../menu_icon.png') no-repeat -20px 0;
+}
+
+.menu li .icon-member {
+    background: url('../menu_icon.png') no-repeat -40px 0;
+}
+
+.menu li .icon-activity {
+    background: url('../menu_icon.png') no-repeat -60px 0;
+}
+
+.selected .icon-store {
+    background: url('../menu_icon.png') no-repeat -80px 0 !important;
+}
+
+.selected .icon-item {
+    background: url('../menu_icon.png') no-repeat -100px 0 !important;
+}
+
+.selected .icon-member {
+    background: url('../menu_icon.png') no-repeat -120px 0 !important;
+}
+
+.selected .icon-activity {
+    background: url('../menu_icon.png') no-repeat -140px 0 !important;
 }
