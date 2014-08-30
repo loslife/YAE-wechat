@@ -137,20 +137,72 @@ function queryMemberCardInfo(req, res, next){
     }
 
     function _queryServices(callback){
-        services.push({});
-        services.push({});
-        callback(null);
+
+        var sql = "select value as times, def_str3 as serviceName, def_int2 as validDays, create_date" +
+            " from planx_graph.tb_memberCardAttrMap" +
+            " where groupName = 'presentService' and def_str2 = :member_id and enterprise_id = :enterprise_id";
+
+        dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function(err, result){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            _.each(result, function(item){
+
+                if(!item.validDays){
+                    item.validDays = 365;
+                }
+
+                item.expired_time = item.create_date + item.validDays * 24 * 60 * 60 * 1000;
+                services.push(item);
+            });
+
+            callback(null);
+        });
     }
 
     function _queryDeposits(callback){
-        deposits.push({});
-        deposits.push({});
-        callback(null);
+
+        var sql = "select entityName, numberofuse from planx_graph.tb_memberaccessory" +
+            " where memberId = :member_id and type = 'depositItem' and enterprise_id = :enterprise_id";
+
+        dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function(err, result){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            deposits = result;
+            callback(null);
+        });
     }
 
     function _queryCoupons(callback){
-        coupons.push({});
-        coupons.push({});
-        callback(null);
+
+        var sql = "select def_str3 as name, def_rea2 as money, def_int1 as valid, create_date as dateTime" +
+            " from planx_graph.tb_memberCardAttrMap where def_str2 = :member_id and groupName = 'coupon' and enterprise_id = :enterprise_id;";
+
+        dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function(err, result){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            _.each(result, function(item){
+
+                if(!item.valid){
+                    item.valid = 365;
+                }
+
+                item.expired_time = item.dateTime + item.valid * 24 * 60 * 60 * 1000;
+                coupons.push(item);
+            });
+
+            callback(null);
+        });
     }
 }
