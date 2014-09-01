@@ -6,8 +6,39 @@ exports.checkSession = checkSession;
 
 function jumpToWMember(req, res, next) {
     var enterprise_id = req.params.enterpriseId;
+    //var member_id = req.session.member_id;
+    var membercard = [];
 
-    res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member"});
+        var memberInfo = {
+            "code": 1,
+            "result": {
+                "cards": [
+                    {
+                        "card_id": "xxxx",
+                        "name": "金卡",
+                        "type": "recharge",
+                        "current_money": "333",
+                        "remaining": 3,
+                        "refresh_time": "1409302279545"
+                    }
+                ],
+                "services" : [
+                    {},
+                    {}
+                ],
+                "coupons" : [
+                    {},
+                    {}
+                ],
+                "deposits" : [
+                    {},
+                    {}
+                ]
+
+            }
+        };
+
+        res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member",memberInfo:memberInfo});
 }
 
 
