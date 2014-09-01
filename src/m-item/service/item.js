@@ -19,9 +19,14 @@ function item(req, res, next) {
     };
 
     request(options, function (err, response, body) {
-        if (err || body.code != 0) {
+        if (err) {
             logger.error({err: err, detail: "调用失败" + queryShelvesUrl});
             next(err);
+            return;
+        }
+
+        if (body.code != 0) {
+            next("调用结果有误");
             return;
         }
 
@@ -47,11 +52,17 @@ function itemDetail(req, res, next) {
     };
 
     request(options, function (err, response, body) {
-        if (err || body.code != 0) {
+        if (err) {
             logger.error({err: err, detail: "调用失败" + queryUrl});
             next(err);
             return;
         }
+
+        if (body.code != 0) {
+            next("调用结果有误");
+            return;
+        }
+
 
         if (_.isEmpty(body.result)) {
             next("项目查询失败");
