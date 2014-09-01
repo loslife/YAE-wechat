@@ -59,6 +59,7 @@
   border-top: 10px solid #eae6e4;
   text-align: center;
   padding: 10px;
+  color: #f75169;
 }
 #item-detail .back:active {
   background-color: #f2f0ef;
