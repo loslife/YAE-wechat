@@ -1,5 +1,5 @@
 #m-item {
-  background: lightgray;
+  background: #eae6e4;
 }
 .item-list {
   overflow: hidden;
@@ -8,7 +8,7 @@
 .item-list li {
   float: left;
   width: 50%;
-  border: 10px solid #d3d3d3;
+  border: 10px solid #eae6e4;
   box-sizing: border-box;
   margin-bottom: -10px;
   background: white;
@@ -16,6 +16,9 @@
 .item-list li a {
   border: 10px solid #ffffff;
   box-sizing: border-box;
+}
+.item-list li a:active {
+  border-color: #f2f0ef;
 }
 .item-list li:nth-child(odd) {
   border-right-width: 5px;
@@ -46,11 +49,16 @@
   font-size: 20px;
   padding: 10px 0;
   margin: 0 10px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #eae6e4;
 }
 #item-detail .comment {
   padding: 10px;
 }
 #item-detail .back {
+  border-top: 10px solid #eae6e4;
+  text-align: center;
   padding: 10px;
+}
+#item-detail .back:active {
+  background-color: #f2f0ef;
 }

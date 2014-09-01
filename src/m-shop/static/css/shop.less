@@ -1,7 +1,7 @@
 @import "../../../resource/css/constant.less";
 
 #m-shop {
-  background-color: lightgray;
+  background-color: @backgroundColor;
   padding-bottom: @baseSpace;
 }
 
@@ -67,6 +67,15 @@
   color: #f75169;
 }
 
+.item-more a:active {
+  color: #ac142a;
+}
+
+.item-more a:active:before {
+  background: url('../../../resource/right_more_active.png') 0 0;;
+  background-size: 20px 20px;
+}
+
 .item-more a:before {
   content: "";
   position: absolute;
@@ -85,8 +94,15 @@
 .item-list > li {
   float: left;
   width: 50%;
+}
+
+.item-list > li > a {
   border: @baseSpace solid white;
   box-sizing: border-box;
+}
+
+.item-list > li > a:active {
+  border-color: #f2f0ef;
 }
 
 .item-list .item-img {
@@ -132,7 +148,7 @@
   line-height: 40px;
   margin-bottom: @baseSpace;
   margin-left: 100px + @baseSpace;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid @backgroundColor;
 }
 
 .store > div + div {

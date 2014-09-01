@@ -1,5 +1,5 @@
 #m-shop {
-  background-color: lightgray;
+  background-color: #eae6e4;
   padding-bottom: 10px;
 }
 #m-shop .home-img {
@@ -53,6 +53,13 @@
   text-align: right;
   color: #f75169;
 }
+.item-more a:active {
+  color: #ac142a;
+}
+.item-more a:active:before {
+  background: url('../../../resource/right_more_active.png') 0 0;
+  background-size: 20px 20px;
+}
 .item-more a:before {
   content: "";
   position: absolute;
@@ -69,8 +76,13 @@
 .item-list > li {
   float: left;
   width: 50%;
+}
+.item-list > li > a {
   border: 10px solid #ffffff;
   box-sizing: border-box;
+}
+.item-list > li > a:active {
+  border-color: #f2f0ef;
 }
 .item-list .item-img {
   width: 100%;
@@ -107,7 +119,7 @@
   line-height: 40px;
   margin-bottom: 10px;
   margin-left: 110px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #eae6e4;
 }
 .store > div + div {
   margin-bottom: 10px;

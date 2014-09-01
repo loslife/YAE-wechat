@@ -6,7 +6,7 @@
     </div>
 
     <div class="name-price">
-        <div class="fr color-red">￥<%= item.price %></div>
+        <div class="fr color-red">￥<%= Number(item.price).toFixed(1) %></div>
         <div><%= item.name %></div>
     </div>
 
@@ -15,9 +15,9 @@
         <div class="pl-5"><%= item.comment %></div>
     </div>
 
-    <div id="back" class="back clear-fix">
-        < 返回
-    </div>
+    <a id="back" class="back clear-fix">
+        返回
+    </a>
 </div>
 
 <script>

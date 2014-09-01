@@ -1,7 +1,7 @@
 @import "../../../resource/css/constant.less";
 
 #m-item {
-  background: lightgray;
+  background: @backgroundColor;
 }
 
 .item-list {
@@ -12,7 +12,7 @@
 .item-list li {
   float: left;
   width: 50%;
-  border: @baseSpace solid lightgray;
+  border: @baseSpace solid @backgroundColor;
   box-sizing: border-box;
   margin-bottom: -@baseSpace;
   background: white;
@@ -21,6 +21,10 @@
 .item-list li a {
   border: @baseSpace solid white;
   box-sizing: border-box;
+}
+
+.item-list li a:active {
+  border-color: #f2f0ef;
 }
 
 .item-list li:nth-child(odd) {
@@ -60,7 +64,7 @@
   font-size: 20px;
   padding: @baseSpace 0;
   margin: 0 @baseSpace;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid @backgroundColor;
 }
 
 #item-detail .comment {
@@ -68,5 +72,11 @@
 }
 
 #item-detail .back {
+  border-top: 10px solid @backgroundColor;
+  text-align: center;
   padding: @baseSpace;
+}
+
+#item-detail .back:active {
+  background-color: #f2f0ef;
 }

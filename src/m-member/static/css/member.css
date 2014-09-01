@@ -1,5 +1,5 @@
 #m-member {
-  background: lightgray;
+  background: #eae6e4;
 }
 #m-member .item {
   background: white;
@@ -7,7 +7,7 @@
 }
 .item .title {
   padding: 10px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #eae6e4;
 }
 .item .list {
   padding: 0 10px;
@@ -15,7 +15,7 @@
 .item .list li {
   overflow: hidden;
   padding: 10px 0;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #eae6e4;
 }
 .item .list li:last-child {
   border: none;
