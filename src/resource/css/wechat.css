@@ -29,33 +29,33 @@
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#e2354f), to(#f75169));
 }
 .menu li .icon {
-  margin-top: 6px;
+  margin-top: 4px;
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-size: 160px 20px !important;
+  width: 24px;
+  height: 24px;
+  background-size: 192px 24px !important;
 }
 .menu li .icon-store {
   background: url('../menu_icon.png') no-repeat 0 0;
 }
 .menu li .icon-item {
-  background: url('../menu_icon.png') no-repeat -20px 0;
+  background: url('../menu_icon.png') no-repeat -24px 0;
 }
 .menu li .icon-member {
-  background: url('../menu_icon.png') no-repeat -40px 0;
+  background: url('../menu_icon.png') no-repeat -48px 0;
 }
 .menu li .icon-activity {
-  background: url('../menu_icon.png') no-repeat -60px 0;
+  background: url('../menu_icon.png') no-repeat -72px 0;
 }
 .selected .icon-store {
-  background: url('../menu_icon.png') no-repeat -80px 0 !important;
+  background: url('../menu_icon.png') no-repeat -96px 0 !important;
 }
 .selected .icon-item {
-  background: url('../menu_icon.png') no-repeat -100px 0 !important;
-}
-.selected .icon-member {
   background: url('../menu_icon.png') no-repeat -120px 0 !important;
 }
+.selected .icon-member {
+  background: url('../menu_icon.png') no-repeat -144px 0 !important;
+}
 .selected .icon-activity {
-  background: url('../menu_icon.png') no-repeat -140px 0 !important;
+  background: url('../menu_icon.png') no-repeat -164px 0 !important;
 }

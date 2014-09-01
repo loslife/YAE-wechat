@@ -30,7 +30,7 @@
             </li>
         </ul>
     </div-->
-
+    <% if(hotList.length !== 0){ %>
     <div class="item m-1">
         <div class="mb-1 lh-2">
             <div class="fr item-more">
@@ -53,6 +53,7 @@
             <% } %>
         </ul>
     </div>
+    <% } %>
 
     <div class="store">
         <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat"></div>
