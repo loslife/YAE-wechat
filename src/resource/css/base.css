@@ -29,8 +29,14 @@ a {
 .pl-5 {
   padding-left: 50px !important;
 }
+.pl-8 {
+  padding-left: 80px !important;
+}
+.h-2 {
+  height: 20px;
+}
 .h-4 {
-  line-height: 40px;
+  height: 40px;
 }
 .lh-2 {
   line-height: 20px;
