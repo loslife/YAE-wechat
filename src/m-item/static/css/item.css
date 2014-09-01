@@ -53,6 +53,7 @@
 }
 #item-detail .comment {
   padding: 10px;
+  overflow: hidden;
 }
 #item-detail .back {
   border-top: 10px solid #eae6e4;
