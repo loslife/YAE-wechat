@@ -8,28 +8,25 @@
         <div class="title">我的会员卡</div>
 
         <ul class="list">
+            <% memberInfo.result.cards.forEach(function(card){ %>
             <li>
-                <span>金卡</span>
-                <span class="color-gray">(JK0001)</span>
-                <span class="fr">截止至8月11日余额：￥200.0</span>
+                <span><%=card.name%></span>
+                <span class="color-gray">(<%=card.card_id%>)</span>
+                <span class="fr">截止至8月11日余额：￥<%=card.current_money%></span>
             </li>
-
-            <li>
-                <span>疗程卡</span>
-                <span class="color-gray">(LC0002)</span>
-                <span class="fr">截止至8月15日余次：10次</span>
-            </li>
+            <% }) %>
         </ul>
     </div>
 
     <div class="item deposit">
         <div class="title">我的寄存品</div>
-
         <ul class="list">
+            <% memberInfo.result.deposits.forEach(function(deposits){ %>
             <li>
                 <span>高级甲油</span>
                 <span class="fr">累计使用：10次</span>
             </li>
+            <% }) %>
         </ul>
     </div>
 
@@ -37,14 +34,12 @@
         <div class="title">我的现金券</div>
 
         <ul class="list">
+            <% memberInfo.result.coupons.forEach(function(coupons){ %>
             <li>
                 <span>50元券</span>
                 <span class="fr color-gray">有效期至：2014-1-1</span>
             </li>
-            <li>
-                <span>100元券</span>
-                <span class="fr color-gray">有效期至：2014-1-2</span>
-            </li>
+            <% }) %>
         </ul>
     </div>
 
@@ -52,14 +47,12 @@
         <div class="title">我的赠送服务</div>
 
         <ul class="list">
+            <% memberInfo.result.services.forEach(function(services){ %>
             <li>
                 <span>服务一</span>
                 <span class="fr color-gray">有效期至：2014-1-1</span>
             </li>
-            <li>
-                <span>法式OPI护理</span>
-                <span class="fr color-gray">有效期至：2014-1-2</span>
-            </li>
+            <% }) %>
         </ul>
     </div>
 </div>
