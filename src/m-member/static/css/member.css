@@ -1,30 +1,22 @@
-@import "../../../resource/css/constant.less";
-
 #m-member {
-  background: @backgroundColor;
+  background: #eae6e4;
 }
-
 #m-member .item {
   background: white;
-  margin-bottom: @baseSpace;
+  margin-bottom: 10px;
 }
-
 .item .title {
-  padding: @baseSpace;
-  border-bottom: 1px solid @backgroundColor;
+  padding: 10px;
+  border-bottom: 1px solid #eae6e4;
 }
-
 .item .list {
-  padding: 0 @baseSpace;
+  padding: 0 10px;
 }
-
 .item .list li {
   overflow: hidden;
-  padding: @baseSpace 0;
-  border-bottom: 1px solid @backgroundColor;
+  padding: 10px 0;
+  border-bottom: 1px solid #eae6e4;
 }
-
 .item .list li:last-child {
   border: none;
 }
-

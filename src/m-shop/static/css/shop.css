@@ -1,64 +1,51 @@
-@import "../../../resource/css/constant.less";
-
 #m-shop {
-  background-color: @backgroundColor;
-  padding-bottom: @baseSpace;
+  background-color: #eae6e4;
+  padding-bottom: 10px;
 }
-
 #m-shop .home-img {
   position: relative;
   width: 100%;
   background-color: white;
 }
-
 .home-img .img {
   width: 100%;
   padding-bottom: 75%;
-  margin-bottom: @baseSpace;
+  margin-bottom: 10px;
   background-size: cover !important;
 }
-
 .home-img .store-name {
   position: absolute;
-  right: @baseSpace * 2;
-  bottom: @baseSpace;
-  font-size: @baseSpace * 2;
+  right: 20px;
+  bottom: 10px;
+  font-size: 20px;
   color: white;
 }
-
 #m-shop .preferential {
-  margin: 0 @baseSpace;
+  margin: 0 10px;
 }
-
 .preferential-list > li > div:first-child {
   width: 120px;
   height: 80px;
 }
-
 .preferential-list > li > div:last-child {
   height: 80px;
   background-color: #ffffff;
-  line-height: @baseSpace * 2;
+  line-height: 20px;
 }
-
 .preferential-list > li:nth-child(odd) > div:first-child {
   float: left;
 }
-
 .preferential-list > li:nth-child(even) > div:first-child {
   float: right;
 }
-
 .preferential-list > li:nth-child(odd) > div:last-child {
   padding-left: 130px;
-  padding-right: @baseSpace;
+  padding-right: 10px;
 }
-
 .preferential-list > li:nth-child(even) > div:last-child {
-  padding-left: @baseSpace;
+  padding-left: 10px;
   padding-right: 130px;
 }
-
 .item-more a {
   padding: 1px 0 0 24px;
   height: 20px;
@@ -67,16 +54,13 @@
   text-align: right;
   color: #f75169;
 }
-
 .item-more a:active {
   color: #ac142a;
 }
-
 .item-more a:active:before {
-  background: url('../../../resource/right_more_active.png') 0 0;;
+  background: url('../../../resource/right_more_active.png') 0 0;
   background-size: 20px 20px;
 }
-
 .item-more a:before {
   content: "";
   position: absolute;
@@ -87,71 +71,57 @@
   right: 36px;
   top: 0;
 }
-
 .item-list {
   background: white;
 }
-
 .item-list > li {
   float: left;
   width: 50%;
 }
-
 .item-list > li > a {
-  border: @baseSpace solid white;
+  border: 10px solid #ffffff;
   box-sizing: border-box;
 }
-
 .item-list > li > a:active {
   border-color: #f2f0ef;
 }
-
 .item-list .item-img {
   width: 100%;
   padding-bottom: 100%;
   background-size: cover !important;
-  margin-bottom: @baseSpace;
+  margin-bottom: 10px;
 }
-
 .item-list > li div + div {
   width: 100%;
-  height: @baseSpace * 2;
+  height: 20px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.item-list .item-name {
-}
-
 .item-list .item-comment {
   font-size: 12px;
   color: gray;
 }
-
 #m-shop .store {
-  margin: @baseSpace @baseSpace 0 @baseSpace;
-  border: @baseSpace solid white;
+  margin: 10px 10px 0 10px;
+  border: 10px solid #ffffff;
   background: white;
   overflow: hidden;
 }
-
 .store .store-img {
   width: 100px;
   height: 100px;
   float: left;
-  margin-right: @baseSpace;
+  margin-right: 10px;
 }
-
 .store .store-name {
   height: 40px;
   font-size: 20px;
   line-height: 40px;
-  margin-bottom: @baseSpace;
-  margin-left: 100px + @baseSpace;
-  border-bottom: 1px solid @backgroundColor;
+  margin-bottom: 10px;
+  margin-left: 110px;
+  border-bottom: 1px solid #eae6e4;
 }
-
 .store > div + div {
-  margin-bottom: @baseSpace;
+  margin-bottom: 10px;
 }
