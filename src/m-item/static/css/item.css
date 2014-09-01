@@ -62,3 +62,9 @@
 #item-detail .back:active {
   background-color: #f2f0ef;
 }
+#m-item .more-item {
+  background: white;
+  margin: 0 10px;
+  padding: 10px 0;
+  text-align: center;
+}
