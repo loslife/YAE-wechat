@@ -2,8 +2,9 @@
 
 <div id="m-shop">
     <div class="home-img">
-        <img src="<%= store.picUrl %>" alt="首页图片"/>
-        <span><%= store.name %></span>
+        <div class="img" style="background:url('<%= store.picUrl %>') no-repeat">
+        </div>
+        <div class="store-name"><%= store.name %></div>
     </div>
 
     <!--div class="preferential">
@@ -57,17 +58,24 @@
         <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat"></div>
         <div class="store-name"><%= store.name %></div>
         <div>
-            <span class="color-gray">电话：</span><span><%= store.phone %></span>
+            <div class="fl color-gray">电话：</div>
+            <div><%= store.phone %></div>
         </div>
         <div>
-            <span class="color-gray">营业时间：</span><span><%= store.workHour %></span>
+            <div class="fl color-gray">营业时间：</div>
+            <div><%= store.workHour %></div>
         </div>
         <div class="clear-fix">
-            <span class="color-gray">店铺地址：</span><span><%= store.addr %></span>
+            <div class="fl color-gray">店铺地址：</div>
+            <div><%= store.addr %>发货的撒范德萨，范德萨范德萨，放大啊反对撒，放大是</div>
         </div>
         <div>
-            <span class="color-gray">营业项目：</span><span><%= store.operateStr %></span>
+            <div class="fl color-gray">营业项目：</div>
+            <div><%= store.operateStr %></div>
         </div>
-        <div><span class="color-gray">简介：</span><span><%= store.comment %></span></div>
+        <div>
+            <div class="fl color-gray">简介：</div>
+            <div><%= store.comment %></div>
+        </div>
     </div>
 </div>

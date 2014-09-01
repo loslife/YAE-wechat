@@ -33,10 +33,15 @@
 
 .btn button {
     color: white;
-    background: #f95d5d;
+    background: #f75169;
     border: none;
     width: 100%;
     height: 40px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.btn button:active {
+    background: #e2354f;
 }
 
 div.input input {

@@ -1,25 +1,27 @@
+@import "../../../resource/css/constant.less";
+
 #m-member {
-  background: lightgray;
+  background: @backgroundColor;
 }
 
 #m-member .item {
   background: white;
-  margin-bottom: 10px;
+  margin-bottom: @baseSpace;
 }
 
 .item .title {
-  padding: 10px;
-  border-bottom: 1px solid lightgray;
+  padding: @baseSpace;
+  border-bottom: 1px solid @backgroundColor;
 }
 
 .item .list {
-  padding: 0 10px;
+  padding: 0 @baseSpace;
 }
 
 .item .list li {
   overflow: hidden;
-  padding: 10px 0;
-  border-bottom: 1px solid lightgray;
+  padding: @baseSpace 0;
+  border-bottom: 1px solid @backgroundColor;
 }
 
 .item .list li:last-child {
