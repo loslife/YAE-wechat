@@ -58,25 +58,27 @@
     <div class="store">
         <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat"></div>
         <div class="store-name"><%= store.name %></div>
+
         <div>
-            <div class="fl color-gray">电话：</div>
+            <div class="fl color-gray h-2">电话：</div>
             <div><%= store.phone %></div>
         </div>
         <div>
-            <div class="fl color-gray">营业时间：</div>
+            <div class="fl color-gray h-2">营业时间：</div>
             <div><%= store.workHour %></div>
         </div>
+
         <div class="clear-fix">
-            <div class="fl color-gray">店铺地址：</div>
-            <div><%= store.addr %>发货的撒范德萨，范德萨范德萨，放大啊反对撒，放大是</div>
+            <div class="fl color-gray h-2">店铺地址：</div>
+            <div style="padding-left:5em;"><%= store.addr %></div>
         </div>
         <div>
-            <div class="fl color-gray">营业项目：</div>
-            <div><%= store.operateStr %></div>
+            <div class="fl color-gray h-2">营业项目：</div>
+            <div style="padding-left:5em;"><%= store.operateStr %></div>
         </div>
         <div>
-            <div class="fl color-gray">简介：</div>
-            <div><%= store.comment %></div>
+            <div class="fl color-gray h-2">简介：</div>
+            <div style="padding-left:3em;"><%= store.comment %></div>
         </div>
     </div>
 </div>

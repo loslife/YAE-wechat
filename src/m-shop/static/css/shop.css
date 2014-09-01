@@ -113,6 +113,7 @@
   height: 100px;
   float: left;
   margin-right: 10px;
+  border: 1px solid;
 }
 .store .store-name {
   height: 40px;
