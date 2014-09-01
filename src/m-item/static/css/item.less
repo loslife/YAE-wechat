@@ -1,34 +1,43 @@
+@import "../../../resource/css/constant.less";
+
 #m-item {
   background: lightgray;
 }
+
 .item-list {
   overflow: hidden;
-  padding-bottom: 10px;
+  padding-bottom: @baseSpace;
 }
+
 .item-list li {
   float: left;
   width: 50%;
-  border: 10px solid #d3d3d3;
+  border: @baseSpace solid lightgray;
   box-sizing: border-box;
-  margin-bottom: -10px;
+  margin-bottom: -@baseSpace;
   background: white;
 }
+
 .item-list li a {
-  border: 10px solid #ffffff;
+  border: @baseSpace solid white;
   box-sizing: border-box;
 }
+
 .item-list li:nth-child(odd) {
-  border-right-width: 5px;
+  border-right-width: @baseSpace / 2;
 }
+
 .item-list li:nth-child(even) {
-  border-left-width: 5px;
+  border-left-width: @baseSpace / 2;
 }
+
 .item-list .item-img {
   width: 100%;
   padding-bottom: 100%;
   background-size: cover !important;
-  margin-bottom: 10px;
+  margin-bottom: @baseSpace;
 }
+
 .item-list li div + div {
   width: 100%;
   height: 20px;
@@ -36,21 +45,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+#item-detail {
+}
+
 #item-detail .img {
   width: 100%;
   padding-bottom: 100%;
   background-size: cover !important;
 }
+
 #item-detail .name-price {
   background: white;
   font-size: 20px;
-  padding: 10px 0;
-  margin: 0 10px;
+  padding: @baseSpace 0;
+  margin: 0 @baseSpace;
   border-bottom: 1px solid lightgray;
 }
+
 #item-detail .comment {
-  padding: 10px;
+  padding: @baseSpace;
 }
+
 #item-detail .back {
-  padding: 10px;
+  padding: @baseSpace;
 }

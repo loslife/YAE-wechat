@@ -1,50 +1,63 @@
+@import "../../../resource/css/constant.less";
+
 #m-shop {
   background-color: lightgray;
-  padding-bottom: 10px;
+  padding-bottom: @baseSpace;
 }
+
 #m-shop .home-img {
   position: relative;
   width: 100%;
 }
+
 .home-img .img {
   width: 100%;
   padding-bottom: 75%;
-  margin-bottom: 10px;
+  margin-bottom: @baseSpace;
   background-size: cover !important;
 }
+
 .home-img .store-name {
   position: absolute;
-  right: 20px;
-  bottom: 10px;
-  font-size: 20px;
+  right: @baseSpace * 2;
+  bottom: @baseSpace;
+  font-size: @baseSpace * 2;
   color: white;
 }
+
 #m-shop .preferential {
-  margin: 0 10px;
+  margin: 0 @baseSpace;
 }
+
 .preferential-list > li > div:first-child {
   width: 120px;
   height: 80px;
 }
+
 .preferential-list > li > div:last-child {
   height: 80px;
   background-color: #ffffff;
-  line-height: 20px;
+  line-height: @baseSpace * 2;
 }
+
 .preferential-list > li:nth-child(odd) > div:first-child {
   float: left;
 }
+
 .preferential-list > li:nth-child(even) > div:first-child {
   float: right;
 }
+
 .preferential-list > li:nth-child(odd) > div:last-child {
   padding-left: 130px;
-  padding-right: 10px;
+  padding-right: @baseSpace;
 }
+
 .preferential-list > li:nth-child(even) > div:last-child {
-  padding-left: 10px;
+  padding-left: @baseSpace;
   padding-right: 130px;
 }
+
 .item-more a {
   padding: 1px 0 0 24px;
   height: 20px;
@@ -53,6 +66,7 @@
   text-align: right;
   color: #f75169;
 }
+
 .item-more a:before {
   content: "";
   position: absolute;
@@ -63,52 +77,64 @@
   right: 36px;
   top: 0;
 }
+
 .item-list {
   background: white;
 }
+
 .item-list > li {
   float: left;
   width: 50%;
-  border: 10px solid #ffffff;
+  border: @baseSpace solid white;
   box-sizing: border-box;
 }
+
 .item-list .item-img {
   width: 100%;
   padding-bottom: 100%;
   background-size: cover !important;
-  margin-bottom: 10px;
+  margin-bottom: @baseSpace;
 }
+
 .item-list > li div + div {
   width: 100%;
-  height: 20px;
+  height: @baseSpace * 2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.item-list .item-name {
+}
+
 .item-list .item-comment {
   font-size: 12px;
   color: gray;
 }
+
 #m-shop .store {
-  margin: 10px 10px 0 10px;
-  border: 10px solid #ffffff;
+  margin: @baseSpace @baseSpace 0 @baseSpace;
+  border: @baseSpace solid white;
   background: white;
   overflow: hidden;
 }
+
 .store .store-img {
   width: 100px;
   height: 100px;
   float: left;
-  margin-right: 10px;
+  margin-right: @baseSpace;
 }
+
 .store .store-name {
   height: 40px;
   font-size: 20px;
   line-height: 40px;
-  margin-bottom: 10px;
-  margin-left: 110px;
+  margin-bottom: @baseSpace;
+  margin-left: 100px + @baseSpace;
   border-bottom: 1px solid lightgray;
 }
+
 .store > div + div {
-  margin-bottom: 10px;
+  margin-bottom: @baseSpace;
 }
