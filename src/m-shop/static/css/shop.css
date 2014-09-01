@@ -8,6 +8,7 @@
 #m-shop .home-img {
   position: relative;
   width: 100%;
+  background-color: white;
 }
 
 .home-img .img {
