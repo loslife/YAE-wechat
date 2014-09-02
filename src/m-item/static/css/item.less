@@ -52,35 +52,41 @@
 }
 
 #item-detail {
+  overflow: auto;
+  background: @backgroundColor;
 }
 
 #item-detail .img {
   width: 100%;
   padding-bottom: 100%;
   background-size: cover !important;
+  background-color: white !important;
 }
 
 #item-detail .name-price {
   background: white;
   font-size: 20px;
-  padding: @baseSpace 0;
-  margin: 0 @baseSpace;
+  padding: @baseSpace;
   border-bottom: 1px solid @backgroundColor;
 }
 
 #item-detail .comment {
   padding: @baseSpace;
   overflow: hidden;
+  background: white;
+  border-bottom: 10px solid @backgroundColor;
 }
 
-#item-detail .back {
-  border-top: 10px solid @backgroundColor;
+.back {
+  border-top: 1px solid @backgroundColor;
   text-align: center;
-  padding: @baseSpace;
+  //  margin: 0 @baseSpace;
+  height: 48px;
+  line-height: 48px;
   color: #f75169;
 }
 
-#item-detail .back:active {
+.back:active {
   background-color: #f2f0ef;
 }
 

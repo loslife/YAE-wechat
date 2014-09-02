@@ -14,17 +14,19 @@
         <div class="fl color-gray">描述：</div>
         <div class="pl-5"><%= item.comment %></div>
     </div>
-
-    <a id="back" class="back clear-fix">
-        <span class="fs-20"><</span>返回
-    </a>
 </div>
+
+<a id="back" class="back clear-fix">
+    <span class="fs-20"><</span>返回
+</a>
 
 <script>
     $(function () {
-        $("#back").on("click", function ($even) {
+        $("#back").on("click", function ($even) {   
             window.history.back();
             $even.stopPropagation();
         });
+
+        $("#item-detail").height($(window).height() - $("#back").height());
     });
 </script>

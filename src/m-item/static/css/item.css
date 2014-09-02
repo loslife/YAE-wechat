@@ -40,29 +40,36 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+#item-detail {
+  overflow: auto;
+  background: #eae6e4;
+}
 #item-detail .img {
   width: 100%;
   padding-bottom: 100%;
   background-size: cover !important;
+  background-color: white !important;
 }
 #item-detail .name-price {
   background: white;
   font-size: 20px;
-  padding: 10px 0;
-  margin: 0 10px;
+  padding: 10px;
   border-bottom: 1px solid #eae6e4;
 }
 #item-detail .comment {
   padding: 10px;
   overflow: hidden;
+  background: white;
+  border-bottom: 10px solid #eae6e4;
 }
-#item-detail .back {
-  border-top: 10px solid #eae6e4;
+.back {
+  border-top: 1px solid #eae6e4;
   text-align: center;
-  padding: 10px;
+  height: 48px;
+  line-height: 48px;
   color: #f75169;
 }
-#item-detail .back:active {
+.back:active {
   background-color: #f2f0ef;
 }
 #m-item .more-item {
