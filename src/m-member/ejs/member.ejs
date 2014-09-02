@@ -4,55 +4,63 @@
         .done(config) %>
 
 <div id="m-member">
+    <% if(memberInfo.cards.length !== 0){ %>
     <div class="item card">
         <div class="title">我的会员卡</div>
 
         <ul class="list">
-            <% memberInfo.result.cards.forEach(function(card){ %>
+            <% memberInfo.cards.forEach(function(card){ %>
             <li>
-                <span><%=card.name%></span>
-                <span class="color-gray">(<%=card.card_id%>)</span>
-                <span class="fr">截止至8月11日余额：￥<%=card.current_money%></span>
+                <span><%= card.name %></span>
+                <span class="color-gray">(<%= card.card_id %>)</span>
+                <span class="fr">截止至<%= card.validity %>，余额：￥<%= Number(card.current_money).toFixed(1) %></span>
             </li>
-            <% }) %>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 
+    <% if(memberInfo.deposits.length !== 0) { %>
     <div class="item deposit">
         <div class="title">我的寄存品</div>
         <ul class="list">
-            <% memberInfo.result.deposits.forEach(function(deposits){ %>
+            <% memberInfo.deposits.forEach(function(deposit){ %>
             <li>
-                <span>高级甲油</span>
-                <span class="fr">累计使用：10次</span>
+                <span><%= deposit.name %></span>
+                <span class="fr">累计使用：<%= deposit.times %>次</span>
             </li>
-            <% }) %>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 
+    <% if(memberInfo.coupons.length !== 0) { %>
     <div class="item coupon">
         <div class="title">我的现金券</div>
 
         <ul class="list">
-            <% memberInfo.result.coupons.forEach(function(coupons){ %>
+            <% memberInfo.coupons.forEach(function(coupon){ %>
             <li>
-                <span>50元券</span>
-                <span class="fr color-gray">有效期至：2014-1-1</span>
+                <span><%= coupon.name %></span>
+                <span class="fr color-gray">有效期至：<%= coupon.validity %></span>
             </li>
-            <% }) %>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 
+    <% if(memberInfo.services.length !== 0) { %>
     <div class="item present">
         <div class="title">我的赠送服务</div>
 
         <ul class="list">
-            <% memberInfo.result.services.forEach(function(services){ %>
+            <% memberInfo.services.forEach(function(service){ %>
             <li>
-                <span>服务一</span>
-                <span class="fr color-gray">有效期至：2014-1-1</span>
+                <span><%= service.name %></span>
+                <span class="fr color-gray">有效期至：<%= service.validity %></span>
             </li>
-            <% }) %>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 </div>
