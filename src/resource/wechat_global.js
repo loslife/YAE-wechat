@@ -5,7 +5,8 @@ var g_env = {
 };
 
 $(function () {
+    var menuH = $("#menu").height();
     var windowH = window.innerHeight;
-    var menuH = document.getElementById("menu").clientHeight;
-    document.getElementById("content").style.height = (windowH - menuH) + "px";
+
+    $("#content").height(windowH - menuH);
 });
