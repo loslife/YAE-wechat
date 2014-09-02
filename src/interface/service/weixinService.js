@@ -219,7 +219,7 @@ function handleWXRequest(req, res, next){
                         _.each(cards, function(item){
 
                             var message = {
-                                picUrl: server_address + "resource/right_more.png",
+                                picUrl: server_address + "resource/card_detail.png",
                                 url: url
                             };
 
