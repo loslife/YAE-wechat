@@ -1,0 +1,50 @@
+#m-binding {
+    min-height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#m-binding .form-area {
+    background: white;
+    width: 100%;
+}
+
+.form-area form {
+    width: 100%;
+}
+
+.form-area form .input {
+    width: 100%;
+    border: 10px solid white;
+    border-top-width: 15px;
+    border-bottom-width: 15px;
+    box-sizing: border-box;
+}
+
+.form-area form .btn {
+    width: 100%;
+    border: 10px solid white;
+    border-top-width: 5px;
+    border-bottom-width: 15px;
+    box-sizing: border-box;
+}
+
+.btn button {
+    color: white;
+    background: #f75169;
+    border: none;
+    width: 100%;
+    height: 40px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.btn button:active {
+    background: #e2354f;
+}
+
+div.input input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid lightgray;
+}
