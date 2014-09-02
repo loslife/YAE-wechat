@@ -205,13 +205,27 @@ function handleWXRequest(req, res, next){
                             return;
                         }
 
-                        var message = [];
+                        var url = server_address + "svc/wsite/" + enterprise_id + "/member?m_id=" + member_id;
+
+                        var messages = [];
+
+                        var header = {
+                            title: "我的余额，点击查看更多",
+                            picUrl: server_address + "resource/news2.png",
+                            url: url
+                        };
+                        messages.push(header);
+
                         _.each(cards, function(item){
-                            var money = item.currentMoney.toFixed(1);
-                            message.push(item.name + "余额" + money + "元");
+                            var message = {
+                                title: item.name + "余额" + item.currentMoney.toFixed(1) + "元",
+                                picUrl: server_address + "resource/right_more.png",
+                                url: url
+                            };
+                            messages.push(message);
                         });
 
-                        wx.replyTextMessage(req, res, message.join("\n"));
+                        wx.replyNewsMessage(req, res, messages);
                     });
                 });
 
