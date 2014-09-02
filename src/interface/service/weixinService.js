@@ -217,11 +217,18 @@ function handleWXRequest(req, res, next){
                         messages.push(header);
 
                         _.each(cards, function(item){
+
                             var message = {
-                                title: item.name + "余额" + item.currentMoney.toFixed(1) + "元",
                                 picUrl: server_address + "resource/right_more.png",
                                 url: url
                             };
+
+                            if(item.type === "recharge"){
+                                message.title = item.name + "余额" + item.currentMoney.toFixed(1) + "元";
+                            }else{
+                                message.title = item.name + "剩余" + item.remainingTimes + "次";
+                            }
+
                             messages.push(message);
                         });
 
