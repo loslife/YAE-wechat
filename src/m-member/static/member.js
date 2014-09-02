@@ -1,5 +1,5 @@
 function onBridgeReady() {
-    WeixinJSBridge.call('hideOptionMenu');
+    WeixinJSBridge.call('showOptionMenu');
 }
 
 if (typeof WeixinJSBridge == "undefined") {
