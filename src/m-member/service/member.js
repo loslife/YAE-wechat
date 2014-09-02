@@ -8,7 +8,7 @@ exports.queryMemberCardInfo = queryMemberCardInfo;
 
 function jumpToWMember(req, res, next) {
     var enterprise_id = req.params["enterpriseId"];
-    var member_id = req.body.member_id;
+    var member_id = req.session.member_id;
 
     queryMemberData(enterprise_id, member_id, function (err, result) {
         if (err) {
