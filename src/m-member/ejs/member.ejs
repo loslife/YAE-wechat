@@ -4,62 +4,78 @@
         .done(config) %>
 
 <div id="m-member">
+    <% if(memberInfo.cards.length !== 0){ %>
     <div class="item card">
         <div class="title">我的会员卡</div>
 
         <ul class="list">
+            <% memberInfo.cards.forEach(function(card){ %>
             <li>
-                <span>金卡</span>
-                <span class="color-gray">(JK0001)</span>
-                <span class="fr">截止至8月11日余额：￥200.0</span>
-            </li>
+                <span><%= card.name %></span>
+                <span class="color-gray">(<%= card.cardNo %>)</span>
 
-            <li>
-                <span>疗程卡</span>
-                <span class="color-gray">(LC0002)</span>
-                <span class="fr">截止至8月15日余次：10次</span>
+                <span class="fr">
+                    <% if(card.type === "recharge"){ %>
+
+                        截止至<%= card.currentConsumeDate %>，余额：￥<%= Number(card.currentMoney).toFixed(1) %>
+
+                    <% } else if(card.type === "recordTimeCard") { %>
+
+                        截止至<%= card.currentConsumeDate %>，余次：<%= Number(card.remainingTimes).toFixed(0) %>
+
+                    <% } else if(card.type === "quarter") { %>
+
+                        <span class="color-gray">有效期至：<%= card.expired_time %></span>
+
+                    <% } %>
+                </span>
             </li>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 
+    <% if(memberInfo.deposits.length !== 0) { %>
     <div class="item deposit">
         <div class="title">我的寄存品</div>
-
         <ul class="list">
+            <% memberInfo.deposits.forEach(function(deposit){ %>
             <li>
-                <span>高级甲油</span>
-                <span class="fr">累计使用：10次</span>
+                <span><%= deposit.entityName %></span>
+                <span class="fr">累计使用：<%= Number(deposit.numberofuse).toFixed(0) %>次</span>
             </li>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 
+    <% if(memberInfo.coupons.length !== 0) { %>
     <div class="item coupon">
         <div class="title">我的现金券</div>
 
         <ul class="list">
+            <% memberInfo.coupons.forEach(function(coupon){ %>
             <li>
-                <span>50元券</span>
-                <span class="fr color-gray">有效期至：2014-1-1</span>
+                <span><%= coupon.name %></span>
+                <span class="fr color-gray">有效期至：<%= coupon.expired_time%></span>
             </li>
-            <li>
-                <span>100元券</span>
-                <span class="fr color-gray">有效期至：2014-1-2</span>
-            </li>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 
+    <% if(memberInfo.services.length !== 0) { %>
     <div class="item present">
         <div class="title">我的赠送服务</div>
 
         <ul class="list">
+            <% memberInfo.services.forEach(function(service){ %>
             <li>
-                <span>服务一</span>
-                <span class="fr color-gray">有效期至：2014-1-1</span>
+                <span><%= service.name %></span>
+                <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
             </li>
-            <li>
-                <span>法式OPI护理</span>
-                <span class="fr color-gray">有效期至：2014-1-2</span>
-            </li>
+            <% }); %>
         </ul>
     </div>
+    <% } %>
 </div>
