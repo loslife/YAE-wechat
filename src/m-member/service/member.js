@@ -7,9 +7,57 @@ exports.checkSession = checkSession;
 exports.queryMemberCardInfo = queryMemberCardInfo;
 
 function jumpToWMember(req, res, next) {
-
     var enterprise_id = req.params["enterpriseId"];
-    res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member"});
+    var member_id = req.body.member_id;
+
+    queryMemberData(enterprise_id, member_id, function (err, result) {
+        if (err) {
+            logger.error(enterprise_id + "会员数据查询出错:" + err);
+            next("会员数据查询失败");
+            return;
+        }
+
+        res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member", memberInfo: _rebuild(result)});
+    });
+
+    function _rebuild(memberInfo) {
+        _.each(memberInfo.cards, function (card) {
+            card.currentConsumeDate = _dateFormat(new Date(card.modify_date), "MM-dd");
+
+            if (card.type === "quarter" && card.expired_time) {
+                card.expired_time = _dateFormat(new Date(card.expired_time), "yy-MM-dd");
+            }
+        });
+
+        _.each(memberInfo.coupons, function (coupon) {
+            coupon.expired_time = _dateFormat(new Date(coupon.expired_time), "yy-MM-dd");
+        });
+
+        _.each(memberInfo.services, function (service) {
+            service.expired_time = _dateFormat(new Date(service.expired_time), "yy-MM-dd");
+        });
+
+        return memberInfo;
+
+        function _dateFormat(date, fmt) {
+            var o = {
+                "M+": date.getMonth() + 1, //月份
+                "d+": date.getDate(), //日
+                "h+": date.getHours(), //小时
+                "m+": date.getMinutes(), //分
+                "s+": date.getSeconds(), //秒
+                "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+                "S": date.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return fmt;
+        }
+    }
 }
 
 function checkSession(req, res, next) {
@@ -25,20 +73,29 @@ function checkSession(req, res, next) {
 }
 
 function queryMemberCardInfo(req, res, next) {
-
     var enterprise_id = req.params["enterpriseId"];
     var member_id = req.body.member_id;
 
+    queryMemberData(enterprise_id, member_id, function (err, result) {
+        if (err) {
+            logger.error(enterprise_id + "会员数据查询出错:" + err);
+            next(err);
+            return;
+        }
+
+        doResponse(req, res, result);
+    });
+}
+
+function queryMemberData(enterprise_id, member_id, callback) {
     var cards = [];
     var services = [];
     var deposits = [];
     var coupons = [];
 
     async.series([_queryCards, _queryServices, _queryDeposits, _queryCoupons], function (err) {
-
         if (err) {
-            console.log(err);
-            next(err);
+            callback(err);
             return;
         }
 
@@ -48,13 +105,12 @@ function queryMemberCardInfo(req, res, next) {
             deposits: deposits,
             coupons: coupons
         };
-
-        doResponse(req, res, result);
+        callback(null, result);
     });
 
     function _queryCards(callback) {
 
-        var sql = "select a.id as card_id, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date," +
+        var sql = "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date," +
             " b.name, b.baseInfo_type as type" +
             " from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
             "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id";
