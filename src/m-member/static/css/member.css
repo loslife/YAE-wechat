@@ -1,4 +1,5 @@
 #m-member {
+  height: inherit;
   background: #eae6e4;
 }
 #m-member .item {
