@@ -65,11 +65,11 @@
   content: "";
   position: absolute;
   background: url('../../../resource/right_more.png') 0 0;
-  background-size: 20px 20px;
-  width: 20px;
-  height: 20px;
-  right: 36px;
-  top: 0;
+  background-size: 18px 18px;
+  width: 18px;
+  height: 18px;
+  right: 32px;
+  top: 2px;
 }
 .item-list {
   background: white;
