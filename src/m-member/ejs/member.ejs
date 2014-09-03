@@ -21,7 +21,7 @@
 
                     <% } else if(card.type === "recordTimeCard") { %>
 
-                        截止至<%= card.currentConsumeDate %>，余次：<%= Number(card.remainingTimes).toFixed(0) %>
+                        截止至<%= card.currentConsumeDate %>，余次：<%= Number(card.remainingTimes).toFixed(0) %>次
 
                     <% } else if(card.type === "quarter") { %>
 
@@ -71,7 +71,7 @@
         <ul class="list">
             <% memberInfo.services.forEach(function(service){ %>
             <li>
-                <span><%= service.name %></span>
+                <span><%= service.serviceName %></span>
                 <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
             </li>
             <% }); %>
