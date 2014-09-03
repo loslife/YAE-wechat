@@ -59,7 +59,7 @@
 }
 .item-more a:active:before {
   background: url('../../../resource/right_more_active.png') 0 0;
-  background-size: 20px 20px;
+  background-size: 18px 18px;
 }
 .item-more a:before {
   content: "";
