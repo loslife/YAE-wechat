@@ -46,6 +46,9 @@
   padding-left: 10px;
   padding-right: 130px;
 }
+#m-shop .item {
+  margin: 10px 5px;
+}
 .item-more a {
   padding: 1px 0 0 24px;
   height: 20px;
@@ -103,7 +106,7 @@
   color: gray;
 }
 #m-shop .store {
-  margin: 10px 10px 0 10px;
+  margin: 10px 5px 0 5px;
   border: 10px solid #ffffff;
   background: white;
   overflow: hidden;
