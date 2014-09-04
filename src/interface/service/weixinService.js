@@ -225,8 +225,10 @@ function handleWXRequest(req, res, next){
 
                             if(item.type === "recharge"){
                                 message.title = item.name + "余额" + item.currentMoney.toFixed(1) + "元";
-                            }else{
+                            }else if(item.type === "recordTimeCard"){
                                 message.title = item.name + "剩余" + item.remainingTimes + "次";
+                            }else{
+                                message.title = item.name + "截止到" + new Date(item.expired_time).Format("yy-MM-dd");
                             }
 
                             messages.push(message);
