@@ -14,5 +14,15 @@ if (typeof WeixinJSBridge == "undefined") {
 }
 
 $(function () {
-
+    $(".panel-head").click(function (e) {
+        var head = $(e.target);
+        var img = head.children('span').children('img');
+        if (head.hasClass("expand")) {
+            head.removeClass("expand");
+            img.attr("src", "/resource/expand.png");
+        } else {
+            head.addClass("expand");
+            img.attr("src", "/resource/collapse.png");
+        }
+    });
 });

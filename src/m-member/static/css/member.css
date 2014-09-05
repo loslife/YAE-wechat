@@ -9,6 +9,7 @@
 .item .title {
   padding: 10px;
   border-bottom: 1px solid #eae6e4;
+  background-color: #cecac7;
 }
 .item .list {
   padding: 0 10px;
@@ -20,4 +21,45 @@
 }
 .item .list li:last-child {
   border: none;
+}
+.panel {
+  border: 1px solid #FFFFFF;
+  height: auto;
+  overflow: hidden;
+}
+.panel-head {
+  background-color: #f7f6f4;
+  height: 40px;
+  line-height: 40px;
+  color: #f97583;
+  padding-left: 10px;
+  border-bottom: 1px solid #d0d0ce;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.panel-head:active {
+  background-color: #eae6e3;
+}
+.panel-head > * {
+  vertical-align: middle;
+}
+.panel-body {
+  height: auto;
+  display: none;
+}
+.expand + .panel-body {
+  display: block;
+}
+.bill-items {
+  padding: 10px;
+  padding-top: 0px;
+}
+.bill-item {
+  padding: 10px 0px;
+  border-bottom: 1px solid #d1d0ce;
+}
+.bill-item div > label {
+  color: #a9a9a7;
+}
+.bill-item div {
+  margin-top: 5px;
 }

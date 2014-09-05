@@ -17,15 +17,15 @@
                 <span class="fr">
                     <% if(card.type === "recharge"){ %>
 
-                        截止至<%= card.currentConsumeDate %>，余额：￥<%= Number(card.currentMoney).toFixed(1) %>
+                    截止至<%= card.currentConsumeDate %>，余额：￥<%= Number(card.currentMoney).toFixed(1) %>
 
                     <% } else if(card.type === "recordTimeCard") { %>
 
-                        截止至<%= card.currentConsumeDate %>，余次：<%= Number(card.remainingTimes).toFixed(0) %>次
+                    截止至<%= card.currentConsumeDate %>，余次：<%= Number(card.remainingTimes).toFixed(0) %>次
 
                     <% } else if(card.type === "quarter") { %>
 
-                        <span class="color-gray">有效期至：<%= card.expired_time %></span>
+                    <span class="color-gray">有效期至：<%= card.expired_time %></span>
 
                     <% } %>
                 </span>
@@ -57,7 +57,7 @@
             <% memberInfo.coupons.forEach(function(coupon){ %>
             <li>
                 <span><%= coupon.name %></span>
-                <span class="fr color-gray">有效期至：<%= coupon.expired_time%></span>
+                <span class="fr color-gray">有效期至：<%= coupon.expired_time %></span>
             </li>
             <% }); %>
         </ul>
@@ -76,6 +76,36 @@
             </li>
             <% }); %>
         </ul>
+    </div>
+    <% } %>
+
+    <% if(memberInfo.bills.length !== 0) { %>
+    <div class="item present">
+        <div class="title">我的消费</div>
+
+        <% memberInfo.bills.forEach(function(bill){ %>
+        <div class="panel">
+            <div class="panel-head" style="vertical-align: middle;">
+                <img src="/resource/time.png" style="height: 20px;"/>
+                <span style="margin-left: 10px;"><%= dateFormat(bill.date, "YYYY年MM月") %></span>
+                <span style="height: inherit;line-height: inherit;float: right;margin-right: 10px;">
+                <img src="/resource/expand.png" style="height: 15px;"/>
+                </span>
+            </div>
+            <div class="panel-body">
+                <div class="bill-items">
+                    <% bill.records.forEach(function(record){ %>
+                    <div class="bill-item">
+                        <div><label><%= record.createDay %>日</label></div>
+                        <div><label>项目名称：</label><span><%= record.items %></span></div>
+                        <div><label>服务员工：</label><span><%= record.employees %></span></div>
+                        <div><label>消费金额：</label><span><%= record.amount %></span></div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+        <% }); %>
     </div>
     <% } %>
 </div>
