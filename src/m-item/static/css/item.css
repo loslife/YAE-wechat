@@ -1,16 +1,16 @@
 #m-item {
   height: inherit;
-  background: #eae6e4;
+  background: #e9e9ea;
 }
 .item-list {
   overflow: hidden;
   padding-bottom: 5px;
-  border-bottom: 5px solid #eae6e4;
+  border-bottom: 5px solid #e9e9ea;
 }
 .item-list li {
   float: left;
   width: 50%;
-  border: 5px solid #eae6e4;
+  border: 5px solid #e9e9ea;
   box-sizing: border-box;
   margin-bottom: -5px;
   background: white;
@@ -20,7 +20,7 @@
   box-sizing: border-box;
 }
 .item-list li a:active {
-  border-color: #f2f0ef;
+  border-color: #f0f0f1;
 }
 .item-list li:nth-child(odd) {
   border-right-width: 2.5px;
@@ -43,7 +43,7 @@
 }
 #item-detail {
   overflow: auto;
-  background: #eae6e4;
+  background: #e9e9ea;
 }
 #item-detail .img {
   width: 100%;
@@ -55,23 +55,23 @@
   background: white;
   font-size: 20px;
   padding: 10px;
-  border-bottom: 1px solid #eae6e4;
+  border-bottom: 1px solid #e9e9ea;
 }
 #item-detail .comment {
   padding: 10px;
   overflow: hidden;
   background: white;
-  border-bottom: 10px solid #eae6e4;
+  border-bottom: 10px solid #e9e9ea;
 }
 .back {
-  border-top: 1px solid #eae6e4;
+  border-top: 1px solid #e9e9ea;
   text-align: center;
   height: 48px;
   line-height: 48px;
   color: #f75169;
 }
 .back:active {
-  background-color: #f2f0ef;
+  background-color: #f0f0f1;
 }
 #m-item .more-item {
   background: white;
