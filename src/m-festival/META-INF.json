@@ -1,0 +1,28 @@
+{
+    "services": [
+        {
+            "name": "festivalList",
+            "path": "/wsite/:enterpriseId/festival",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.list",
+            "comment": "跳转到优惠活动列表"
+        }
+    ],
+    "statics": [
+        {
+            "name": "m-festival",
+            "path": "/m-festival",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}
