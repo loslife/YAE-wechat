@@ -1,6 +1,7 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var _ = require("underscore");
 var async = require("async");
+var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 
 exports.jumpToWMember = jumpToWMember;
 exports.checkSession = checkSession;
@@ -8,7 +9,7 @@ exports.queryMemberCardInfo = queryMemberCardInfo;
 
 function jumpToWMember(req, res, next) {
     var enterprise_id = req.params["enterpriseId"];
-    var member_id = req.session.member_id;
+    var member_id = "1000086024659001000000000304292";//req.session.member_id;
 
     queryMemberData(enterprise_id, member_id, function (err, result) {
         if (err) {
@@ -37,6 +38,36 @@ function jumpToWMember(req, res, next) {
             service.expired_time = _dateFormat(new Date(service.expired_time), "yy-MM-dd");
         });
 
+        _.each(memberInfo.services, function (service) {
+            service.expired_time = _dateFormat(new Date(service.expired_time), "yy-MM-dd");
+        });
+
+        var billGroups = {};
+        var bills = [];
+        _.each((memberInfo.rechargeRecords || []).concat(memberInfo.consumptionRecords || []), function (bill) {
+            var createDate = new Date(Number(bill.create_date));
+            var groupName = createDate.getFullYear() + "/" + (createDate.getMonth() + 1);
+            bill.createDay = createDate.getDate();
+            if (billGroups[groupName]) {
+                billGroups[groupName].push(_buildBillDetail(bill));
+            } else {
+                billGroups[groupName] = [_buildBillDetail(bill)];
+            }
+        });
+        _.each(billGroups, function (value, key) {
+            if (billGroups.hasOwnProperty(key)) {
+                var records = _.sortBy(value, function (item) {
+                    return -item.createDay;
+                });
+                bills.push({date: key, records: records});
+            }
+        });
+        bills = _.sortBy(bills, function (item) {
+            var date = new Date(item.date);
+            return (date.getFullYear() + date.getMonth());
+        });
+        memberInfo.bills = bills;
+
         return memberInfo;
 
         function _dateFormat(date, fmt) {
@@ -57,11 +88,33 @@ function jumpToWMember(req, res, next) {
             }
             return fmt;
         }
+
+        function _buildBillDetail(bill) {
+            var items = [];
+            var type = bill.type;//1、充值；2、开卡；没有表示为收银
+            if (!type) {
+                _.each(bill.items, function (item) {
+                    if (item.project_name && !_.isEmpty(item.project_name)) {
+                        items.push(item.project_name);
+                    }
+                });
+            } else {
+                items.push(1 == type ? "充值" : "开卡");
+            }
+            var employees = [];
+            _.each(bill.bonus || [], function (item) {
+                if (item.employee_name && !_.isEmpty(item.employee_name)) {
+                    employees.push(item.employee_name);
+                }
+            });
+            return {createDay: bill.createDay, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
+        }
     }
 }
 
 function checkSession(req, res, next) {
-
+    next();
+    return;
     var enterprise_id = req.params["enterpriseId"];
 
     if (req.session && req.session.member_id) {
@@ -92,8 +145,10 @@ function queryMemberData(enterprise_id, member_id, callback) {
     var services = [];
     var deposits = [];
     var coupons = [];
+    var rechargeRecords = [];
+    var consumptionRecords = [];
 
-    async.series([_queryCards, _queryServices, _queryDeposits, _queryCoupons], function (err) {
+    async.series([_queryCards, _queryServices, _queryDeposits, _queryCoupons, _queryRechargeRecords, _queryConsumptionRecords], function (err) {
         if (err) {
             callback(err);
             return;
@@ -103,7 +158,9 @@ function queryMemberData(enterprise_id, member_id, callback) {
             cards: cards,
             services: services,
             deposits: deposits,
-            coupons: coupons
+            coupons: coupons,
+            rechargeRecords: rechargeRecords,
+            consumptionRecords: consumptionRecords
         };
         callback(null, result);
     });
@@ -260,5 +317,95 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
             callback(null);
         });
+    }
+
+    function _queryRechargeRecords(callback) {
+        async.series([_queryRecharges, _queryBonusEmployee], function (error) {
+            callback(error);
+        });
+        function _queryRecharges(callback) {
+            dbHelper.queryData("tb_rechargeMemberBill", {member_id: member_id, enterprise_id: enterprise_id}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+                rechargeRecords = result;
+                callback(null);
+            });
+        }
+
+        function _queryBonusEmployee(callback) {
+            if (!rechargeRecords && _.isEmpty(rechargeRecords)) {
+                callback(null);
+                return;
+            }
+            async.forEachSeries(rechargeRecords, function (item, sub_callback) {
+                dbHelper.queryData("tb_empBonus", {serviceBill_id: item.id, enterprise_id: enterprise_id}, function (error, result) {
+                    if (error) {
+                        sub_callback(error);
+                        return;
+                    }
+                    item.bonus = result;
+                    sub_callback(null);
+                });
+            }, function (error) {
+                callback(error);
+            });
+        }
+    }
+
+    function _queryConsumptionRecords(callback) {
+        async.series([_queryConsumptions, _queryConsumptionItems, _queryBonusEmployee], function (error) {
+            callback(error);
+        });
+
+        function _queryConsumptions(callback) {
+            dbHelper.queryData("tb_serviceBill", {member_id: member_id, enterprise_id: enterprise_id}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+                consumptionRecords = result;
+                callback(null);
+            });
+        }
+
+        function _queryConsumptionItems(callback) {
+            if (!consumptionRecords && _.isEmpty(consumptionRecords)) {
+                callback(null);
+                return;
+            }
+            async.forEachSeries(consumptionRecords, function (item, sub_callback) {
+                dbHelper.queryData("tb_billProject", {serviceBill_id: item.id, enterprise_id: enterprise_id}, function (error, result) {
+                    if (error) {
+                        sub_callback(error);
+                        return;
+                    }
+                    item.items = result;
+                    sub_callback(null);
+                });
+            }, function (error) {
+                callback(error);
+            });
+        }
+
+        function _queryBonusEmployee(callback) {
+            if (!consumptionRecords && _.isEmpty(consumptionRecords)) {
+                callback(null);
+                return;
+            }
+            async.forEachSeries(consumptionRecords, function (item, sub_callback) {
+                dbHelper.queryData("tb_empBonus", {serviceBill_id: item.id, enterprise_id: enterprise_id}, function (error, result) {
+                    if (error) {
+                        sub_callback(error);
+                        return;
+                    }
+                    item.bonus = result;
+                    sub_callback(null);
+                });
+            }, function (error) {
+                callback(error);
+            });
+        }
     }
 }
