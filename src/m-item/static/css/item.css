@@ -4,14 +4,15 @@
 }
 .item-list {
   overflow: hidden;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 5px solid #eae6e4;
 }
 .item-list li {
   float: left;
   width: 50%;
-  border: 10px solid #eae6e4;
+  border: 5px solid #eae6e4;
   box-sizing: border-box;
-  margin-bottom: -10px;
+  margin-bottom: -5px;
   background: white;
 }
 .item-list li a {
@@ -22,10 +23,10 @@
   border-color: #f2f0ef;
 }
 .item-list li:nth-child(odd) {
-  border-right-width: 5px;
+  border-right-width: 2.5px;
 }
 .item-list li:nth-child(even) {
-  border-left-width: 5px;
+  border-left-width: 2.5px;
 }
 .item-list .item-img {
   width: 100%;
