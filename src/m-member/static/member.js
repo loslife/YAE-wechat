@@ -19,11 +19,11 @@ $(function () {
         var img = head.children('span').children('img');
         if (head.hasClass("expand")) {//收起
             head.removeClass("expand");
-            head.addClass("border-top-none");
+            head.addClass("border-bottom-none");
             img.attr("src", "/resource/expand.png");
         } else {//展开
             head.addClass("expand");
-            head.removeClass("border-top-none");
+            head.removeClass("border-bottom-none");
             img.attr("src", "/resource/collapse.png");
         }
     });
