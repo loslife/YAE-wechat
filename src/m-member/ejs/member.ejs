@@ -82,31 +82,29 @@
     <% if(memberInfo.bills.length !== 0) { %>
     <div class="item present">
         <div class="title">我的消费</div>
-        <div id="bills">
-            <% memberInfo.bills.forEach(function(bill){ %>
-            <div class="panel">
-                <div class="panel-head vm">
-                    <img src="/resource/time.png" style="height: 20px;"/>
-                    <span style="margin-left: 10px;"><%= dateFormat(bill.date, "YYYY年MM月") %></span>
+        <% memberInfo.bills.forEach(function(bill){ %>
+        <div class="panel">
+            <div class="panel-head vm">
+                <img src="/resource/time.png" style="height: 20px;"/>
+                <span style="margin-left: 10px;"><%= dateFormat(bill.date, "YYYY年MM月") %></span>
                 <span style="height: inherit;line-height: inherit;float: right;margin-right: 10px;">
                 <img src="/resource/expand.png" style="height: 15px;"/>
                 </span>
-                </div>
-                <div class="panel-body">
-                    <div class="bill-items">
-                        <% bill.records.forEach(function(record){ %>
-                        <div class="bill-item">
-                            <div><label><%= record.createDay %>日</label></div>
-                            <div><label>项目名称：</label><span><%= record.items %></span></div>
-                            <div><label>服务员工：</label><span><%= record.employees %></span></div>
-                            <div><label>消费金额：</label><span><%= record.amount %></span></div>
-                        </div>
-                        <% }); %>
+            </div>
+            <div class="panel-body">
+                <div class="bill-items">
+                    <% bill.records.forEach(function(record){ %>
+                    <div class="bill-item">
+                        <div><label><%= record.createDay %>日</label></div>
+                        <div><label>项目名称：</label><span><%= record.items %></span></div>
+                        <div><label>服务员工：</label><span><%= record.employees %></span></div>
+                        <div><label>消费金额：</label><span><%= record.amount %></span></div>
                     </div>
+                    <% }); %>
                 </div>
             </div>
-            <% }); %>
         </div>
+        <% }); %>
     </div>
     <% } %>
 </div>
