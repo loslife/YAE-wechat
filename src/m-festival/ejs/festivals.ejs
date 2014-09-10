@@ -1,0 +1,21 @@
+<% if(festivals.length === 0){ %>
+
+<div>
+    暂时没有优惠活动
+</div>
+
+<% }else{ %>
+
+<div>
+
+    <% for(var i = 0; i < festivals.length; i++) { %>
+
+        <div><%= festivals[i].title %></div>
+        <div><%= festivals[i].desc %></div>
+        <a href="share?fid=<%= festivals[i].id %>">马上领取</a>
+
+    <% } %>
+
+</div>
+
+<% } %>

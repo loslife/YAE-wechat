@@ -7,6 +7,14 @@
             "auth": false,
             "impl": "festival.list",
             "comment": "跳转到优惠活动列表"
+        },
+        {
+            "name": "festivalShare",
+            "path": "/wsite/:enterpriseId/share",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.share",
+            "comment": "领取优惠券"
         }
     ],
     "statics": [
