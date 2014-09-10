@@ -16,6 +16,14 @@
             "auth": false,
             "impl": "member.queryMemberCardInfo",
             "comment": "查询卡信息"
+        },
+        {
+            "name": "memberBill",
+            "path": "/wsite/:enterpriseId/memberBill",
+            "method": "get",
+            "auth": false,
+            "impl": "member.memberBill",
+            "comment": "会员消费记录"
         }
     ],
     "statics": [

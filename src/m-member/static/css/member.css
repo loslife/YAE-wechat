@@ -25,6 +25,7 @@
 .panel {
   height: auto;
   overflow: hidden;
+  border-bottom: 1px solid #d0d0ce;
 }
 .panel-head {
   background-color: #f7f6f4;
@@ -32,8 +33,6 @@
   line-height: 40px;
   color: #f97583;
   padding-left: 10px;
-  border-top: 1px solid #d0d0ce;
-  border-bottom: 1px solid #d0d0ce;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .panel-head:active {
@@ -68,6 +67,6 @@
   padding-bottom: 0px;
   border: none;
 }
-.border-top-none {
-  border-top: none;
+.border-bottom {
+  border-bottom: 1px solid #d0d0ce;
 }

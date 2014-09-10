@@ -6,20 +6,45 @@ var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 exports.jumpToWMember = jumpToWMember;
 exports.checkSession = checkSession;
 exports.queryMemberCardInfo = queryMemberCardInfo;
+exports.memberBill = memberBill;
 
 function jumpToWMember(req, res, next) {
     var enterprise_id = req.params["enterpriseId"];
-    var member_id = "1000086024659001000000000304292";//req.session.member_id;
+    var member_id = req.session.member_id;
 
-    queryMemberData(enterprise_id, member_id, function (err, result) {
-        if (err) {
-            logger.error(enterprise_id + "会员数据查询出错:" + err);
+    var memberInfo = {};
+    async.series([_queryMemberData, _queryMemberBill], function (error) {
+        if (error) {
+            logger.error(enterprise_id + "会员数据查询出错:" + error);
             next("会员数据查询失败");
             return;
         }
+        res.render("member", {enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo});
+    })
 
-        res.render("member", {name: "会员一号", enterprise_id: enterprise_id, menu: "member", memberInfo: _rebuild(result)});
-    });
+    function _queryMemberData(callback) {
+        queryMemberData(enterprise_id, member_id, function (err, result) {
+            if (err) {
+                logger.error(enterprise_id + "会员数据查询出错:" + err);
+                callback("会员数据查询失败");
+                return;
+            }
+            memberInfo = _rebuild(result);
+            callback(null);
+        });
+    }
+
+    function _queryMemberBill(callback) {
+        queryMemberBill(enterprise_id, member_id, function (err, result) {
+            if (err) {
+                logger.error(enterprise_id + "，会员（" + member_id + "）消费记录查询出错：" + err);
+                callback("会员消费记录查询失败");
+                return;
+            }
+            memberInfo.bill = result;
+            callback(null);
+        });
+    }
 
     function _rebuild(memberInfo) {
         _.each(memberInfo.cards, function (card) {
@@ -41,33 +66,6 @@ function jumpToWMember(req, res, next) {
         _.each(memberInfo.services, function (service) {
             service.expired_time = _dateFormat(new Date(service.expired_time), "yy-MM-dd");
         });
-
-        var billGroups = {};
-        var bills = [];
-        _.each((memberInfo.rechargeRecords || []).concat(memberInfo.consumptionRecords || []), function (bill) {
-            var createDate = new Date(Number(bill.create_date));
-            var groupName = createDate.getFullYear() + "/" + (createDate.getMonth() + 1);
-            bill.createDay = createDate.getDate();
-            if (billGroups[groupName]) {
-                billGroups[groupName].push(_buildBillDetail(bill));
-            } else {
-                billGroups[groupName] = [_buildBillDetail(bill)];
-            }
-        });
-        _.each(billGroups, function (value, key) {
-            if (billGroups.hasOwnProperty(key)) {
-                var records = _.sortBy(value, function (item) {
-                    return -item.createDay;
-                });
-                bills.push({date: key, records: records});
-            }
-        });
-        bills = _.sortBy(bills, function (item) {
-            var date = new Date(item.date);
-            return (date.getFullYear() + date.getMonth());
-        });
-        memberInfo.bills = bills;
-
         return memberInfo;
 
         function _dateFormat(date, fmt) {
@@ -88,33 +86,10 @@ function jumpToWMember(req, res, next) {
             }
             return fmt;
         }
-
-        function _buildBillDetail(bill) {
-            var items = [];
-            var type = bill.type;//1、充值；2、开卡；没有表示为收银
-            if (!type) {
-                _.each(bill.items, function (item) {
-                    if (item.project_name && !_.isEmpty(item.project_name)) {
-                        items.push(item.project_name);
-                    }
-                });
-            } else {
-                items.push(1 == type ? "充值" : "开卡");
-            }
-            var employees = [];
-            _.each(bill.bonus || [], function (item) {
-                if (item.employee_name && !_.isEmpty(item.employee_name)) {
-                    employees.push(item.employee_name);
-                }
-            });
-            return {createDay: bill.createDay, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
-        }
     }
 }
 
 function checkSession(req, res, next) {
-    next();
-    return;
     var enterprise_id = req.params["enterpriseId"];
 
     if (req.session && req.session.member_id) {
@@ -140,6 +115,19 @@ function queryMemberCardInfo(req, res, next) {
     });
 }
 
+function memberBill(req, res, next) {
+    var enterprise_id = req.params["enterpriseId"];
+    var member_id = req.session.member_id;
+    queryMemberBill(enterprise_id, member_id, function (error, result) {
+        if (error) {
+            logger.error(enterprise_id + "，会员（" + member_id + "）消费记录查询出错：" + error);
+            doResponse(req, res, error);
+            return;
+        }
+        doResponse(req, res, result);
+    });
+}
+
 function queryMemberData(enterprise_id, member_id, callback) {
     var cards = [];
     var services = [];
@@ -148,7 +136,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
     var rechargeRecords = [];
     var consumptionRecords = [];
 
-    async.series([_queryCards, _queryServices, _queryDeposits, _queryCoupons, _queryRechargeRecords, _queryConsumptionRecords], function (err) {
+    async.series([_queryCards, _queryServices, _queryDeposits, _queryCoupons], function (err) {
         if (err) {
             callback(err);
             return;
@@ -318,50 +306,42 @@ function queryMemberData(enterprise_id, member_id, callback) {
             callback(null);
         });
     }
+}
+
+function queryMemberBill(enterpriseId, memberId, callback) {
+    var rechargeRecords = [];
+    var consumptionRecords = [];
+    var bill = [];
+    async.series([_queryRechargeRecords, _queryConsumptionRecords, _queryBonus, _buildMemberBill], function (error) {
+        if (error) {
+            callback(error);
+            return;
+        }
+        callback(null, bill);
+    });
 
     function _queryRechargeRecords(callback) {
-        async.series([_queryRecharges, _queryBonusEmployee], function (error) {
-            callback(error);
-        });
-        function _queryRecharges(callback) {
-            dbHelper.queryData("tb_rechargeMemberBill", {member_id: member_id, enterprise_id: enterprise_id}, function (error, result) {
-                if (error) {
-                    callback(error);
-                    return;
-                }
-                rechargeRecords = result;
-                callback(null);
-            });
-        }
-
-        function _queryBonusEmployee(callback) {
-            if (!rechargeRecords && _.isEmpty(rechargeRecords)) {
-                callback(null);
+        dbHelper.queryData("tb_rechargeMemberBill", {member_id: memberId, enterprise_id: enterpriseId}, function (error, result) {
+            if (error) {
+                logger.error("查询充值、开卡记录失败，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + error);
+                callback(error);
                 return;
             }
-            async.forEachSeries(rechargeRecords, function (item, sub_callback) {
-                dbHelper.queryData("tb_empBonus", {serviceBill_id: item.id, enterprise_id: enterprise_id}, function (error, result) {
-                    if (error) {
-                        sub_callback(error);
-                        return;
-                    }
-                    item.bonus = result;
-                    sub_callback(null);
-                });
-            }, function (error) {
-                callback(error);
-            });
-        }
+            rechargeRecords = result;
+            callback(null);
+        });
     }
 
     function _queryConsumptionRecords(callback) {
-        async.series([_queryConsumptions, _queryConsumptionItems, _queryBonusEmployee], function (error) {
+        var allItems = [];
+        async.series([_queryConsumptions, _queryConsumptionItems, _buildItems], function (error) {
             callback(error);
         });
 
         function _queryConsumptions(callback) {
-            dbHelper.queryData("tb_serviceBill", {member_id: member_id, enterprise_id: enterprise_id}, function (error, result) {
+            dbHelper.queryData("tb_serviceBill", {member_id: memberId, enterprise_id: enterpriseId}, function (error, result) {
                 if (error) {
+                    logger.error("查询消费记录，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + error);
                     callback(error);
                     return;
                 }
@@ -371,41 +351,98 @@ function queryMemberData(enterprise_id, member_id, callback) {
         }
 
         function _queryConsumptionItems(callback) {
-            if (!consumptionRecords && _.isEmpty(consumptionRecords)) {
+            dbHelper.queryData("tb_billProject", {enterprise_id: enterpriseId}, function (error, result) {
+                if (error) {
+                    logger.error("查询消费项目失败，enterpriseId：" + enterpriseId + "，error：" + error);
+                    callback(error);
+                    return;
+                }
+                allItems = result;
                 callback(null);
-                return;
-            }
-            async.forEachSeries(consumptionRecords, function (item, sub_callback) {
-                dbHelper.queryData("tb_billProject", {serviceBill_id: item.id, enterprise_id: enterprise_id}, function (error, result) {
-                    if (error) {
-                        sub_callback(error);
-                        return;
-                    }
-                    item.items = result;
-                    sub_callback(null);
-                });
-            }, function (error) {
-                callback(error);
             });
         }
 
-        function _queryBonusEmployee(callback) {
-            if (!consumptionRecords && _.isEmpty(consumptionRecords)) {
-                callback(null);
+        function _buildItems(callback) {
+            _.each(consumptionRecords || [], function (record) {
+                var items = _.filter(allItems || [], function (item) {
+                    return item.serviceBill_id == record.id;
+                });
+                record.items = items || [];
+            });
+            callback(null);
+        }
+    }
+
+    function _queryBonus(callback) {
+        dbHelper.queryData("tb_empBonus", {enterprise_id: enterpriseId}, function (error, result) {
+            if (error) {
+                logger.error("查询充值、开卡提成记录失败，enterpriseId：" + enterpriseId + "，error：" + error);
+                callback(error);
                 return;
             }
-            async.forEachSeries(consumptionRecords, function (item, sub_callback) {
-                dbHelper.queryData("tb_empBonus", {serviceBill_id: item.id, enterprise_id: enterprise_id}, function (error, result) {
-                    if (error) {
-                        sub_callback(error);
-                        return;
-                    }
-                    item.bonus = result;
-                    sub_callback(null);
+            _buildBonus(rechargeRecords, result);
+            _buildBonus(consumptionRecords, result);
+            callback(null);
+        });
+    }
+
+    function _buildMemberBill(callback) {
+        var billGroups = {};
+        //根据日期，将消费记录按日期分组
+        _.each((rechargeRecords || []).concat(consumptionRecords || []), function (item) {
+            var createDate = new Date(Number(item.create_date));
+            var groupName = createDate.getFullYear() + "/" + (createDate.getMonth() + 1);
+            item.createDay = createDate.getDate();
+            if (billGroups[groupName]) {
+                billGroups[groupName].push(_buildBillDetail(item));
+            } else {
+                billGroups[groupName] = [_buildBillDetail(item)];
+            }
+        });
+        //每个月的消费记录，倒序
+        _.each(billGroups, function (value, key) {
+            if (billGroups.hasOwnProperty(key)) {
+                var records = _.sortBy(value, function (item) {
+                    return -item.createDay;
                 });
-            }, function (error) {
-                callback(error);
+                bill.push({date: key, records: records});
+            }
+        });
+        //消费记录按月倒序
+        bill = _.sortBy(bill, function (item) {
+            var date = new Date(item.date);
+            return (date.getFullYear() + date.getMonth());
+        });
+        callback(null);
+    }
+
+    function _buildBillDetail(bill) {
+        var items = [];
+        var type = bill.type;//1、充值；2、开卡；没有表示为收银
+        if (!type) {
+            _.each(bill.items, function (item) {
+                if (item.project_name && !_.isEmpty(item.project_name)) {
+                    items.push(item.project_name);
+                }
             });
+        } else {
+            items.push(1 == type ? "充值" : "开卡");
         }
+        var employees = [];
+        _.each(bill.bonus || [], function (item) {
+            if (item.employee_name && !_.isEmpty(item.employee_name)) {
+                employees.push(item.employee_name);
+            }
+        });
+        return {createDay: bill.createDay, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
+    }
+
+    function _buildBonus(records, allBonus) {
+        _.each(records || [], function (record) {
+            var bonus = _.filter(allBonus || [], function (item) {
+                return item.serviceBill_id == record.id;
+            });
+            record.bonus = bonus || [];
+        });
     }
 }
