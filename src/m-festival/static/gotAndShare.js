@@ -1,12 +1,13 @@
 $(function(){
 
     $("#btn_share").hide();
+    $("#share_tips").hide();
 
     // 如果是在微信中打开
     WeixinApi.ready(function(Api) {
 
         $("#btn_share").show().tap(function(){
-            alert("点击右上角，分享到朋友圈");
+            $("#share_tips").show();
         });
 
         attachShareCallback();
