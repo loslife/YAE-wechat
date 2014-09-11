@@ -17,3 +17,10 @@
     float: right;
     margin-top: 10px;
 }
+
+#share_tips > div{
+    width: 300px;
+    margin: 200px auto;
+    text-align: center;
+    font-size: 28px;
+}
