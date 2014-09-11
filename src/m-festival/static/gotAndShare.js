@@ -2,16 +2,11 @@ $(function(){
 
     $("#btn_share").hide();
 
+    // 如果是在微信中打开
     WeixinApi.ready(function(Api) {
 
         $("#btn_share").show().tap(function(){
-
-            var isIos = !!$.os.ios;
-            if(isIos){
-                alert("是iphone");
-            }else{
-                alert("不是iphone");
-            }
+            alert("点击右上角，分享到朋友圈");
         });
 
         attachShareCallback();
@@ -21,17 +16,14 @@ $(function(){
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
 
-            var shareURL = "http://121.40.75.73/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId;
-
             var wxData = {
                 "imgUrl" : "http://121.40.75.73/resource/share_thumb.jpg",
-                "link" : shareURL,
+                "link" : "http://121.40.75.73/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId,
                 "desc" : "优惠活动描述",
                 "title" : "优惠活动标题"
             };
 
             var wxCallbacks = {
-
                 confirm: function(resp) {
                     alert("分享成功");
                 }
