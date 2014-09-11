@@ -1,3 +1,7 @@
+<%- Loader()
+        .css("/m-festival/css/festivals.css")
+        .done(config) %>
+
 <% if(festivals.length === 0){ %>
 
 <div>
@@ -6,13 +10,15 @@
 
 <% }else{ %>
 
-<div>
+<div id="festivals_area">
 
     <% for(var i = 0; i < festivals.length; i++) { %>
 
-        <div><%= festivals[i].title %></div>
-        <div><%= festivals[i].desc %></div>
-        <a href="share?fid=<%= festivals[i].id %>">马上领取</a>
+        <div class="festival">
+            <div><%= festivals[i].title %></div>
+            <div><%= festivals[i].desc %></div>
+            <a href="share?fid=<%= festivals[i].id %>">马上领取</a>
+        </div>
 
     <% } %>
 

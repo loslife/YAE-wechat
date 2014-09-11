@@ -28,6 +28,11 @@ function share(req, res, next){
     pageCount();
 
     if(memberId){
+
+        
+
+
+
         res.render("got", {enterprise_id: enterpriseId, menu: "festival"})
     }else{
 
