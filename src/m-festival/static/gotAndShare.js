@@ -7,7 +7,9 @@ $(function(){
     WeixinApi.ready(function(Api) {
 
         $("#btn_share").show().tap(function(){
-            $("#share_tips").show();
+            $("#share_tips").show().tap(function(){
+                $(this).hide();
+            });
         });
 
         attachShareCallback();
