@@ -4,7 +4,15 @@ $(function(){
 
     WeixinApi.ready(function(Api) {
 
-        $("#btn_share").show();
+        $("#btn_share").show().tap(function(){
+
+            var isIos = !!$.os.ios;
+            if(isIos){
+                alert("是iphone");
+            }else{
+                alert("不是iphone");
+            }
+        });
 
         attachShareCallback();
 
