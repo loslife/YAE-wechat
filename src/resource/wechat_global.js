@@ -4,6 +4,19 @@ var g_env = {
     binding_url: "http://192.168.1.106:5000/svc/wsite/"
 };
 
+var YLS = {};
+
+YLS.getQueryString = function(name){
+
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
+
 $(function () {
     var menuH = $("#menu").height();
     var windowH = window.innerHeight;

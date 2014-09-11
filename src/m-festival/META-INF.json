@@ -6,15 +6,15 @@
             "method": "get",
             "auth": false,
             "impl": "festival.list",
-            "comment": "跳转到优惠活动列表"
+            "comment": "优惠活动列表"
         },
         {
-            "name": "festivalShare",
-            "path": "/wsite/:enterpriseId/share",
+            "name": "getPresent",
+            "path": "/wsite/:enterpriseId/getPresent",
             "method": "get",
             "auth": false,
-            "impl": "festival.share",
-            "comment": "已登陆直接领取优惠券，未登陆跳转到宣传页"
+            "impl": "festival.getPresent",
+            "comment": "已登陆直接领取优惠券，未登陆跳转到填写表单"
         },
         {
             "name": "walkin",
@@ -23,6 +23,14 @@
             "auth": false,
             "impl": "festival.walkinCome",
             "comment": "未登陆会员及散客领取优惠券"
+        },
+        {
+            "name": "festivalShare",
+            "path": "/wsite/:enterpriseId/share",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.share",
+            "comment": "跳转到领取成功页面，邀请分享"
         }
     ],
     "statics": [

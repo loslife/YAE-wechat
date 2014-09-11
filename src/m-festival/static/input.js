@@ -10,14 +10,16 @@ $(function(){
         }
 
         var enterprise_id = $("#enterprise_id").text();
-        var url = "/svc/wsite/" + enterprise_id + "/walkinGetPresent";
+        var festival_id = YLS.getQueryString("fid");
+
+        var url = "/svc/wsite/" + enterprise_id + "/walkinGetPresent?fid=" + festival_id;
 
         $.post(url, {phone: phone}, function (response) {
 
             if (response.code !== 0) {
-                alert("失败啦");
+                alert("领取失败，请联系客服");
             } else {
-                alert(response);
+                location.href = "share?fid=" + festival_id;
             }
         });
     });

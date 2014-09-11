@@ -2,6 +2,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var uuid = require('node-uuid');
 
 exports.list = list;
+exports.getPresent = getPresent;
 exports.share = share;
 exports.walkinCome = walkinGetPresent;
 
@@ -21,44 +22,13 @@ function list(req, res, next){
     });
 }
 
-function share(req, res, next){
+function getPresent(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var festivalId = req.query["fid"];
     var memberId = req.session.member_id;
 
-    pageCount();
-
-    if(memberId){
-
-        var condition = {enterprise_id: enterpriseId, member_id: memberId, festival_id: festivalId};
-
-        dbHelper.queryData("weixin_present_received", condition, function(err, result){
-
-            if(err){
-                console.log(err);
-                next(err);
-                return;
-            }
-
-            // 已经领取过活动礼物，返回
-            if(result.length !== 0){
-                res.render("got", {enterprise_id: enterpriseId, menu: "festival"});
-                return;
-            }
-
-            providePresent(enterpriseId, festivalId, memberId, function(err){
-
-                if(err){
-                    next(err);
-                    return;
-                }
-
-                res.render("got", {enterprise_id: enterpriseId, menu: "festival"});
-            });
-        });
-
-    }else{
+    if(!memberId){
 
         queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
@@ -69,18 +39,76 @@ function share(req, res, next){
 
             res.render("input", {enterprise_id: enterpriseId, menu: "festival", festival: festival});
         });
+
+        return;
     }
 
-    function pageCount(){
+    // 会员已经登陆的情况
+    var condition = {enterprise_id: enterpriseId, member_id: memberId, festival_id: festivalId};
 
-    }
+    dbHelper.queryData("weixin_present_received", condition, function(err, result){
+
+        if(err){
+            console.log(err);
+            next(err);
+            return;
+        }
+
+        // 不能重复领取
+        if(result.length !== 0){
+            res.redirect("share");
+            return;
+        }
+
+        providePresent(enterpriseId, festivalId, memberId, null, function(err){
+
+            if(err){
+                next(err);
+                return;
+            }
+            res.redirect("share");
+        });
+    });
+}
+
+function share(req, res, next){
+
+    var enterpriseId = req.params["enterpriseId"];
+    res.render("gotAndShare", {enterprise_id: enterpriseId, menu: "festival"});
 }
 
 function walkinGetPresent(req, res, next){
 
-    console.log(req.body);
+    var enterpriseId = req.params["enterpriseId"];
+    var phone = req.body.phone;
+    var festivalId = req.query["fid"];
 
-    doResponse(req, res, {message: "hehe"});
+    var condition = {enterprise_id: enterpriseId, phone: phone, festival_id: festivalId};
+
+    dbHelper.queryData("weixin_present_received", condition, function(err, result){
+
+        if(err){
+            console.log(err);
+            next(err);
+            return;
+        }
+
+        // 不能重复领取
+        if(result.length !== 0){
+            doResponse(req, res, {message: "repeat"});
+            return;
+        }
+
+        providePresent(enterpriseId, festivalId, null, phone, function(err){
+
+            if(err){
+                next(err);
+                return;
+            }
+
+            doResponse(req, res, {message: "ok"});
+        });
+    });
 }
 
 function queryFestivalById(enterpriseId, festivalId, callback){
@@ -102,7 +130,7 @@ function queryFestivalById(enterpriseId, festivalId, callback){
     });
 }
 
-function providePresent(enterpriseId, festivalId, memberId, callback){
+function providePresent(enterpriseId, festivalId, memberId, phone, callback){
 
     queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
@@ -114,7 +142,6 @@ function providePresent(enterpriseId, festivalId, memberId, callback){
         var data = {
             id: uuid.v1(),
             enterprise_id: enterpriseId,
-            member_id: memberId,
             festival_id: festivalId,
             receive_date: new Date().getTime(),
             client_has_sync: 0,
@@ -122,6 +149,14 @@ function providePresent(enterpriseId, festivalId, memberId, callback){
             present_id: festival.present_id,
             present_name: festival.present_name
         };
+
+        if(memberId){
+            data.member_id = memberId;
+        }
+
+        if(phone){
+            data.phone = phone;
+        }
 
         // 发放礼物
         dbHelper.addData("weixin_present_received", data, function(err, result){
