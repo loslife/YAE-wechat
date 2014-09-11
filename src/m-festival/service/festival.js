@@ -56,7 +56,7 @@ function getPresent(req, res, next){
 
         // 不能重复领取
         if(result.length !== 0){
-            res.redirect("share");
+            res.redirect("/svc/wsite/" + enterpriseId + "/share");
             return;
         }
 
@@ -66,7 +66,7 @@ function getPresent(req, res, next){
                 next(err);
                 return;
             }
-            res.redirect("share");
+            res.redirect("/svc/wsite/" + enterpriseId + "/share");
         });
     });
 }
