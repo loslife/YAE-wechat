@@ -2,8 +2,8 @@ $(function(){
 
     WeixinApi.ready(function(Api) {
 
-        var enterpriseId = $("#enterprise_id").val();
-        var festivalId = $("#festival_id").val();
+        var enterpriseId = $("#enterprise_id").text();
+        var festivalId = $("#festival_id").text();
 
         var shareURL = "http://121.40.75.73/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId;
 
