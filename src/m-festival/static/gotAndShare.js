@@ -1,5 +1,7 @@
 $(function(){
 
+    alert(YLS.openInWeixin());
+
     WeixinApi.ready(function(Api) {
 
         var enterpriseId = $("#enterprise_id").text();

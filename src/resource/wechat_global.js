@@ -17,6 +17,10 @@ YLS.getQueryString = function(name){
     return null;
 }
 
+YLS.openInWeixin = function(){
+    return /MicroMessenger/i.test(navigator.userAgent);
+}
+
 $(function () {
     var menuH = $("#menu").height();
     var windowH = window.innerHeight;
