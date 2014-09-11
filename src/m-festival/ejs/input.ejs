@@ -1,3 +1,7 @@
+<%- Loader()
+        .js('/m-festival/input.js')
+        .done(config) %>
+
 <div>
 
     <h1>活动的精彩文案在此</h1>
@@ -7,8 +11,10 @@
     <div>----------------------------------</div>
 
     <form>
-        <input type="tel" name="phone" placeholder="请输入手机号">
-        <button type="button">马上领取</button>
+        <input id="input_phone" type="tel" name="phone" placeholder="请输入手机号">
+        <button id="btn_submit" type="button">马上领取</button>
     </form>
 
 </div>
+
+<div id="enterprise_id" style="display: none"><%= enterprise_id %></div>

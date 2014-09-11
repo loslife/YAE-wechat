@@ -3,6 +3,7 @@ var uuid = require('node-uuid');
 
 exports.list = list;
 exports.share = share;
+exports.walkinCome = walkinGetPresent;
 
 function list(req, res, next){
 
@@ -73,6 +74,13 @@ function share(req, res, next){
     function pageCount(){
 
     }
+}
+
+function walkinGetPresent(req, res, next){
+
+    console.log(req.body);
+
+    doResponse(req, res, {message: "hehe"});
 }
 
 function queryFestivalById(enterpriseId, festivalId, callback){

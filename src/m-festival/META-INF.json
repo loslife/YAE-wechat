@@ -14,7 +14,15 @@
             "method": "get",
             "auth": false,
             "impl": "festival.share",
-            "comment": "领取优惠券"
+            "comment": "已登陆直接领取优惠券，未登陆跳转到宣传页"
+        },
+        {
+            "name": "walkin",
+            "path": "/wsite/:enterpriseId/walkinGetPresent",
+            "method": "post",
+            "auth": false,
+            "impl": "festival.walkinCome",
+            "comment": "未登陆会员及散客领取优惠券"
         }
     ],
     "statics": [
