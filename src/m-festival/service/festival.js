@@ -74,7 +74,9 @@ function getPresent(req, res, next){
 function share(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
-    res.render("gotAndShare", {enterprise_id: enterpriseId, menu: "festival"});
+    var festivalId = req.query["fid"];
+
+    res.render("gotAndShare", {enterprise_id: enterpriseId, menu: "festival", festival_id: festivalId});
 }
 
 function walkinGetPresent(req, res, next){

@@ -1,32 +1,27 @@
-WeixinApi.ready(function(Api) {
+$(function(){
 
-    var wxData = {
-        "appId": "",
-        "imgUrl" : 'http://www.baidufe.com/fe/blog/static/img/weixin-qrcode-2.jpg',
-        "link" : 'http://www.yilos.com',
-        "desc" : '实践出真知，分享动作有回调，URL也可自定义',
-        "title" : "分享朋友圈，可以自定义，也可以回调"
-    };
+    WeixinApi.ready(function(Api) {
 
-    var wxCallbacks = {
+        var enterpriseId = $("#enterprise_id").val();
+        var festivalId = $("#festival_id").val();
 
-        ready: function() {
-            alert("准备分享");
-        },
-        cancel: function(resp) {
-            alert("分享被取消，msg=" + resp.err_msg);
-        },
-        fail: function(resp) {
-            alert("分享失败，msg=" + resp.err_msg);
-        },
-        confirm: function(resp) {
-            alert("分享成功，msg=" + resp.err_msg);
-        },
-        all: function(resp,shareTo) {
-            alert("分享" + (shareTo ? "到" + shareTo : "") + "结束，msg=" + resp.err_msg);
-        }
-    };
+        var shareURL = "http://121.40.75.73/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId;
 
-    Api.shareToFriend(wxData, wxCallbacks);
-    Api.shareToTimeline(wxData, wxCallbacks);
+        var wxData = {
+            "imgUrl" : "http://121.40.75.73/resource/share_thumb.jpg",
+            "link" : shareURL,
+            "desc" : "优惠活动描述",
+            "title" : "优惠活动标题"
+        };
+
+        var wxCallbacks = {
+
+            confirm: function(resp) {
+                alert("分享成功");
+            }
+        };
+
+        Api.shareToFriend(wxData, wxCallbacks);
+        Api.shareToTimeline(wxData, wxCallbacks);
+    });
 });
