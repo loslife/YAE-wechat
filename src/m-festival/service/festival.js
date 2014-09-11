@@ -59,20 +59,14 @@ function share(req, res, next){
 
     }else{
 
-        dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId, id: festivalId}, function(err, result){
+        queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
             if(err){
-                console.log(err);
                 next(err);
                 return;
             }
 
-            if(result.length === 0){
-                next({message: "活动不存在"});
-                return;
-            }
-
-            res.render("input", {enterprise_id: enterpriseId, menu: "festival", festival: result[0]});
+            res.render("input", {enterprise_id: enterpriseId, menu: "festival", festival: festival});
         });
     }
 
@@ -81,7 +75,7 @@ function share(req, res, next){
     }
 }
 
-function providePresent(enterpriseId, festivalId, memberId, callback){
+function queryFestivalById(enterpriseId, festivalId, callback){
 
     dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId, id: festivalId}, function(err, result){
 
@@ -92,11 +86,22 @@ function providePresent(enterpriseId, festivalId, memberId, callback){
         }
 
         if(result.length === 0){
-            callback({errorMessage: "活动不存在"});
+            callback({errorMessage:"活动不存在"});
             return;
         }
 
-        var festival = result[0];
+        callback(null, result[0]);
+    });
+}
+
+function providePresent(enterpriseId, festivalId, memberId, callback){
+
+    queryFestivalById(enterpriseId, festivalId, function(err, festival){
+
+        if(err){
+            callback(err);
+            return;
+        }
 
         var data = {
             id: uuid.v1(),
