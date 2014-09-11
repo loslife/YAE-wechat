@@ -19,7 +19,7 @@ $(function(){
             if (response.code !== 0) {
                 alert("领取失败，请联系客服");
             } else {
-                location.href = "share?fid=" + festival_id;
+                location.href = "share?fid=" + festival_id + "&share_phone=" + phone;
             }
         });
     });

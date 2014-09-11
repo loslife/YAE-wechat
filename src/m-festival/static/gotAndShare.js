@@ -27,8 +27,22 @@ $(function(){
             };
 
             var wxCallbacks = {
+
                 confirm: function(resp) {
-                    alert("分享成功");
+
+                    var url = "/svc/wsite/" + enterpriseId + "/shareBonus?fid=" + festivalId;
+
+                    var shareId = $("#share_id").text();
+                    var sharePhone = $("share_phone").text();
+
+                    var postData = {};
+                    if(shareId){
+                        postData.share_id = shareId;
+                    }else{
+                        postData.share_phone = sharePhone;
+                    }
+
+                    $.post(url, postData, function (response) {});// nothing to do with ajax response
                 }
             };
 

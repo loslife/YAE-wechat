@@ -5,6 +5,7 @@ exports.list = list;
 exports.getPresent = getPresent;
 exports.share = share;
 exports.walkinCome = walkinGetPresent;
+exports.shareBonus = shareBonus;
 
 function list(req, res, next){
 
@@ -44,29 +45,25 @@ function getPresent(req, res, next){
     }
 
     // 会员已经登陆的情况
-    var condition = {enterprise_id: enterpriseId, member_id: memberId, festival_id: festivalId};
-
-    dbHelper.queryData("weixin_present_received", condition, function(err, result){
+    hasProvidePresent("normal", enterpriseId, festivalId, memberId, null, function(err, received){
 
         if(err){
-            console.log(err);
             next(err);
             return;
         }
 
-        // 不能重复领取
-        if(result.length !== 0){
-            res.redirect("/svc/wsite/" + enterpriseId + "/share?fid=" + festivalId);
+        if(received){
+            res.redirect("/svc/wsite/" + enterpriseId + "/share?fid=" + festivalId + "&share_id=" + memberId);
             return;
         }
 
-        providePresent(enterpriseId, festivalId, memberId, null, function(err){
+        providePresent("normal", enterpriseId, festivalId, memberId, null, function(err){
 
             if(err){
                 next(err);
                 return;
             }
-            res.redirect("/svc/wsite/" + enterpriseId + "/share?fid=" + festivalId);
+            res.redirect("/svc/wsite/" + enterpriseId + "/share?fid=" + festivalId + "&share_id=" + memberId);
         });
     });
 }
@@ -75,33 +72,70 @@ function share(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var festivalId = req.query["fid"];
+    var shareMemberId = req.query["share_id"];
+    var sharePhone = req.query["share_phone"];
 
-    res.render("gotAndShare", {enterprise_id: enterpriseId, menu: "festival", festival_id: festivalId});
+    var model = {
+        enterprise_id: enterpriseId,
+        menu: "festival",
+        festival_id: festivalId,
+        share_id: shareMemberId,
+        share_phone: sharePhone
+    };
+
+    res.render("gotAndShare", model);
 }
 
 function walkinGetPresent(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
-    var phone = req.body.phone;
     var festivalId = req.query["fid"];
+    var phone = req.body.phone;
 
-    var condition = {enterprise_id: enterpriseId, phone: phone, festival_id: festivalId};
-
-    dbHelper.queryData("weixin_present_received", condition, function(err, result){
+    hasProvidePresent("normal", enterpriseId, festivalId, null, phone, function(err, received){
 
         if(err){
-            console.log(err);
             next(err);
             return;
         }
 
-        // 不能重复领取
-        if(result.length !== 0){
+        if(received){
             doResponse(req, res, {message: "repeat"});
             return;
         }
 
-        providePresent(enterpriseId, festivalId, null, phone, function(err){
+        providePresent("normal", enterpriseId, festivalId, null, phone, function(err){
+
+            if(err){
+                next(err);
+                return;
+            }
+
+            doResponse(req, res, {message: "ok"});
+        });
+    });
+}
+
+function shareBonus(req, res, next){
+
+    var enterpriseId = req.params["enterpriseId"];
+    var festivalId = req.query["fid"];
+    var shareMemberId = req.body.share_id;
+    var sharePhone = req.body.share_phone;
+
+    hasProvidePresent("bonus", enterpriseId, festivalId, shareMemberId, sharePhone, function(err, received){
+
+        if(err){
+            next(err);
+            return;
+        }
+
+        if(received){
+            doResponse(req, res, {message: "repeat"});
+            return;
+        }
+
+        providePresent("bonus", enterpriseId, festivalId, shareMemberId, sharePhone, function(err){
 
             if(err){
                 next(err);
@@ -132,7 +166,35 @@ function queryFestivalById(enterpriseId, festivalId, callback){
     });
 }
 
-function providePresent(enterpriseId, festivalId, memberId, phone, callback){
+function hasProvidePresent(type, enterpriseId, festivalId, memberId, phone, callback){
+
+    var condition = {
+        type: type,
+        enterprise_id: enterpriseId,
+        festival_id: festivalId
+    };
+
+    if(memberId){
+        condition.member_id = memberId;
+    }
+
+    if(phone){
+        condition.phone = phone;
+    }
+
+    dbHelper.queryData("weixin_present_received", condition, function(err, result){
+
+        if(err){
+            console.log(err);
+            callback(err);
+            return;
+        }
+
+        callback(null, result.length !== 0);
+    });
+}
+
+function providePresent(type, enterpriseId, festivalId, memberId, phone, callback){
 
     queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
@@ -147,10 +209,18 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
             festival_id: festivalId,
             receive_date: new Date().getTime(),
             client_has_sync: 0,
-            present_type: festival.present_type,
-            present_id: festival.present_id,
-            present_name: festival.present_name
+            type: type
         };
+
+        if(type === "normal"){
+            data.present_type = festival.present_type;
+            data.present_id = festival.present_id;
+            data.present_name = festival.present_name;
+        }else if(type === "bonus"){
+            data.present_type = festival.share_present_type;
+            data.present_id = festival.share_present_id;
+            data.present_name = festival.share_present_name;
+        }
 
         if(memberId){
             data.member_id = memberId;

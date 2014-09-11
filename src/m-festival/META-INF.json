@@ -31,6 +31,14 @@
             "auth": false,
             "impl": "festival.share",
             "comment": "跳转到领取成功页面，邀请分享"
+        },
+        {
+            "name": "shareBonus",
+            "path": "/wsite/:enterpriseId/shareBonus",
+            "method": "post",
+            "auth": false,
+            "impl": "festival.shareBonus",
+            "comment": "分享后领取奖励"
         }
     ],
     "statics": [
