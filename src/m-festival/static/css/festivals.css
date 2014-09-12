@@ -1,6 +1,7 @@
 #m-festival {
   background-color: #eae6e4;
   padding: 10px;
+  min-height: 100%;
 }
 .festival-item {
   background-color: white;
