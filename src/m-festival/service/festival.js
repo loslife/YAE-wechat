@@ -207,7 +207,7 @@ function providePresent(type, enterpriseId, festivalId, memberId, phone, callbac
             id: uuid.v1(),
             enterprise_id: enterpriseId,
             festival_id: festivalId,
-            receive_date: new Date().getTime(),
+            create_date: new Date().getTime(),
             client_has_sync: 0,
             type: type
         };
