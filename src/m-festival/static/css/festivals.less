@@ -1,31 +1,40 @@
+@import "../../../resource/css/constant.less";
+
 #m-festival {
-  background-color: #eae6e4;
-  padding: 10px;
+  background-color: @backgroundColor;
+  padding: @baseSpace;
 }
+
 .festival-item {
   background-color: white;
-  margin-bottom: 10px;
+  margin-bottom: @baseSpace;
 }
+
 .festival-item:last-child {
   margin-bottom: 0;
 }
+
 .festival-item > img {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+  padding: @baseSpace;
 }
+
 .festival-item > .title {
-  padding-left: 10px;
+  padding-left: @baseSpace;
   font-size: 2rem;
 }
+
 .festival-item > .horizontal-line {
   height: 0;
-  margin: 10px;
-  border-bottom: 1px solid #eae6e4;
+  margin: @baseSpace;
+  border-bottom: 1px solid @backgroundColor;
 }
+
 .festival-item > .field {
-  padding: 1rem 0 1rem 10px;
+  padding: 1rem 0 1rem @baseSpace;
 }
+
 .btn {
   width: 40%;
   margin: 0 auto;
@@ -34,6 +43,7 @@
   border-bottom-width: 15px;
   box-sizing: border-box;
 }
+
 .btn > button {
   color: white;
   background: #f75169;
@@ -42,6 +52,7 @@
   height: 40px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
 .btn > button:active {
   background: #e2354f;
 }

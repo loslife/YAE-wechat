@@ -4,21 +4,42 @@
 
 <% if(festivals.length === 0){ %>
 
-<div>
-    暂时没有优惠活动
-</div>
+暂时没有优惠活动
 
 <% }else{ %>
 
-<div id="festivals_area">
+<div id="m-festival">
 
     <% for(var i = 0; i < festivals.length; i++) { %>
 
-        <div class="festival">
-            <div><%= festivals[i].title %></div>
-            <div><%= festivals[i].desc %></div>
-            <a href="getPresent?fid=<%= festivals[i].id %>">马上领取</a>
+    <div class="festival-item">
+
+        <img src="../../../resource/logo.png">
+
+        <div class="title"><%= festivals[i].title %></div>
+
+        <div class="horizontal-line"></div>
+
+        <div class="field">
+            <div class="fl color-gray">活动时间：</div>
+            <div>4月20日 - 5月10日</div>
         </div>
+
+        <div class="field">
+            <div class="fl color-gray">活动优惠：</div>
+            <div>赠送现金券</div>
+        </div>
+
+        <div class="field">
+            <div class="fl color-gray">活动详情：</div>
+            <div><%= festivals[i].desc %></div>
+        </div>
+
+        <div class="btn">
+            <button><a href="getPresent?fid=<%= festivals[i].id %>">领取优惠券</a></button>
+        </div>
+
+    </div>
 
     <% } %>
 
