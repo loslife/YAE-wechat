@@ -17,7 +17,8 @@
                 "m-item",
                 "m-festival",
                 "member-binding",
-                "resource"
+                "resource",
+                "sync"
             ]
         }
     ],
