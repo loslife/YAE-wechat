@@ -33,10 +33,10 @@ $(function(){
                     var url = "/svc/wsite/" + enterpriseId + "/shareBonus?fid=" + festivalId;
 
                     var shareId = $("#share_id").text();
-                    var sharePhone = $("share_phone").text();
+                    var sharePhone = $("#share_phone").text();
 
                     var postData = {};
-                    if(shareId){
+                    if(shareId && shareId !== "undefined"){
                         postData.share_id = shareId;
                     }else{
                         postData.share_phone = sharePhone;
