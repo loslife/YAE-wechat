@@ -2,6 +2,7 @@
   background-color: #eae6e4;
   padding: 10px;
   min-height: 100%;
+  box-sizing: border-box;
 }
 .festival-item {
   background-color: white;
