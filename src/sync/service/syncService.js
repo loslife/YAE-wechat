@@ -16,8 +16,14 @@ function festivals(req, res, next){
         return;
     }
 
-    // 全量下发
     if(latestSyncTime === "0"){
+        allDate();
+    }else{
+        additionalData();
+    }
+
+    // 全量下发
+    function allDate(){
 
         var latest_festivals = 0;
         var latest_presents = 0;
@@ -43,8 +49,6 @@ function festivals(req, res, next){
 
             doResponse(req, res, response);
         });
-
-        return;
 
         function queryAllFestivals(callback){
 
@@ -81,146 +85,151 @@ function festivals(req, res, next){
         }
     }
 
-    var latest_festivals_add = 0;
-    var latest_festivals_update = 0;
-    var latest_presents_add = 0;
-    var latest_presents_update = 0;
-
     // 增量下发
-    async.series([queryFestivalsByDate, queryPresentsByDate], function(err, results){
+    function additionalData(){
 
-        if(err){
-            next({errorCode: "500"});
-            return;
-        }
+        var latest_festivals_add = 0;
+        var latest_festivals_update = 0;
+        var latest_presents_add = 0;
+        var latest_presents_update = 0;
 
-        // 如果某条记录的create_date和modify_date都不存在，下面将得到undefined
-        var latest = Math.max(latest_festivals_add, latest_festivals_update, latest_presents_add, latest_presents_update);
-        if(!latest){
-            latest = 0;
-        }
-
-        var response = {
-            latestSyncTime: latest,
-            festivals: results[0],
-            presents: results[1]
-        };
-
-        doResponse(req, res, response);
-    });
-
-    function queryFestivalsByDate(callback){
-
-        async.series([_queryAddFestivals, _queryUpdateFestivals], function(err, results){
+        // 增量下发
+        async.series([queryFestivalsByDate, queryPresentsByDate], function(err, results){
 
             if(err){
-                callback(err);
+                next({errorCode: "500"});
                 return;
             }
 
-            callback(null, {add: results[0], update: results[1]});
-        });
-
-        function _queryAddFestivals(callback){
-
-            var conditions = {};
-            conditions.enterprise_id = enterpriseId;
-            conditions.create_date = {$gt: parseInt(latestSyncTime)};
-
-            _queryFestivals(conditions, function(err, result){
-
-                if(err){
-                    callback(err);
-                    return;
-                }
-
-                if(result.length > 0){
-                    latest_festivals_add = _resolveLatestSyncTime(result);
-                }
-
-                callback(null, result);
-            });
-        }
-
-        function _queryUpdateFestivals(callback){
-
-            var conditions = {};
-            conditions.enterprise_id = enterpriseId;
-            conditions.create_date = {$lt: parseInt(latestSyncTime)};
-            conditions.modify_date = {$gt: parseInt(latestSyncTime)};
-
-            _queryFestivals(conditions, function(err, result){
-
-                if(err){
-                    callback(err);
-                    return;
-                }
-
-                if(result.length > 0){
-                    latest_festivals_update = _resolveLatestSyncTime(result);
-                }
-
-                callback(null, result);
-            });
-        }
-    }
-
-    function queryPresentsByDate(callback){
-
-        async.series([_queryAddPresents, _queryUpdatePresents], function(err, results){
-
-            if(err){
-                callback(err);
-                return;
+            // 如果某条记录的create_date和modify_date都不存在，下面将得到undefined
+            var latest = Math.max(latest_festivals_add, latest_festivals_update, latest_presents_add, latest_presents_update);
+            if(!latest){
+                latest = 0;
             }
 
-            callback(null, {add: results[0], update: results[1]});
+            var response = {
+                latestSyncTime: latest,
+                festivals: results[0],
+                presents: results[1]
+            };
+
+            doResponse(req, res, response);
         });
 
-        function _queryAddPresents(callback){
+        function queryFestivalsByDate(callback){
 
-            var conditions = {};
-            conditions.enterprise_id = enterpriseId;
-            conditions.create_date = {$gt: parseInt(latestSyncTime)};
-
-            _queryPresents(conditions, function(err, result){
+            async.series([_queryAddFestivals, _queryUpdateFestivals], function(err, results){
 
                 if(err){
                     callback(err);
                     return;
                 }
 
-                if(result.length > 0){
-                    latest_presents_add = _resolveLatestSyncTime(result);
-                }
-
-                callback(null, result);
+                callback(null, {add: results[0], update: results[1]});
             });
+
+            function _queryAddFestivals(callback){
+
+                var conditions = {};
+                conditions.enterprise_id = enterpriseId;
+                conditions.create_date = {$gt: parseInt(latestSyncTime)};
+
+                _queryFestivals(conditions, function(err, result){
+
+                    if(err){
+                        callback(err);
+                        return;
+                    }
+
+                    if(result.length > 0){
+                        latest_festivals_add = _resolveLatestSyncTime(result);
+                    }
+
+                    callback(null, result);
+                });
+            }
+
+            function _queryUpdateFestivals(callback){
+
+                var conditions = {};
+                conditions.enterprise_id = enterpriseId;
+                conditions.create_date = {$lt: parseInt(latestSyncTime)};
+                conditions.modify_date = {$gt: parseInt(latestSyncTime)};
+
+                _queryFestivals(conditions, function(err, result){
+
+                    if(err){
+                        callback(err);
+                        return;
+                    }
+
+                    if(result.length > 0){
+                        latest_festivals_update = _resolveLatestSyncTime(result);
+                    }
+
+                    callback(null, result);
+                });
+            }
         }
 
-        function _queryUpdatePresents(callback){
+        function queryPresentsByDate(callback){
 
-            var conditions = {};
-            conditions.enterprise_id = enterpriseId;
-            conditions.create_date = {$lt: parseInt(latestSyncTime)};
-            conditions.modify_date = {$gt: parseInt(latestSyncTime)};
-
-            _queryPresents(conditions, function(err, result){
+            async.series([_queryAddPresents, _queryUpdatePresents], function(err, results){
 
                 if(err){
                     callback(err);
                     return;
                 }
 
-                if(result.length > 0){
-                    latest_presents_update = _resolveLatestSyncTime(result);
-                }
-
-                callback(null, result);
+                callback(null, {add: results[0], update: results[1]});
             });
+
+            function _queryAddPresents(callback){
+
+                var conditions = {};
+                conditions.enterprise_id = enterpriseId;
+                conditions.create_date = {$gt: parseInt(latestSyncTime)};
+
+                _queryPresents(conditions, function(err, result){
+
+                    if(err){
+                        callback(err);
+                        return;
+                    }
+
+                    if(result.length > 0){
+                        latest_presents_add = _resolveLatestSyncTime(result);
+                    }
+
+                    callback(null, result);
+                });
+            }
+
+            function _queryUpdatePresents(callback){
+
+                var conditions = {};
+                conditions.enterprise_id = enterpriseId;
+                conditions.create_date = {$lt: parseInt(latestSyncTime)};
+                conditions.modify_date = {$gt: parseInt(latestSyncTime)};
+
+                _queryPresents(conditions, function(err, result){
+
+                    if(err){
+                        callback(err);
+                        return;
+                    }
+
+                    if(result.length > 0){
+                        latest_presents_update = _resolveLatestSyncTime(result);
+                    }
+
+                    callback(null, result);
+                });
+            }
         }
     }
 
+    // 根据条件查询优惠活动
     function _queryFestivals(conditions, callback){
 
         dbHelper.queryData("weixin_festivals", conditions, function(err, result){
@@ -239,6 +248,7 @@ function festivals(req, res, next){
         });
     }
 
+    // 根据条件查询优惠券
     function _queryPresents(conditions, callback){
 
         dbHelper.queryData("weixin_present_received", conditions, function(err, result){
