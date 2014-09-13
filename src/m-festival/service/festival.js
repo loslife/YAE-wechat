@@ -96,13 +96,11 @@ function getPresent(req, res, next){
 function done(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
-    var festivalId = req.query["fid"];
     var flag = req.query["duplicate"];
 
     var model = {
         enterprise_id: enterpriseId,
         menu: "festival",
-        festival_id: festivalId,
         duplicate: flag
     };
 
