@@ -41,12 +41,12 @@
 }
 #share_tips > div {
   width: 300px;
-  margin: 200px auto;
+  margin: 150px auto;
   text-align: center;
   font-size: 28px;
 }
 .btn {
-  width: 40%;
+  width: 60%;
   margin: 0 auto;
   border: 10px solid white;
   border-top-width: 5px;
