@@ -2,47 +2,51 @@
         .css("/m-festival/css/festivals.css")
         .done(config) %>
 
-<% if(festivals.length === 0){ %>
-
-暂时没有优惠活动
-
-<% }else{ %>
-
 <div id="m-festival">
 
-    <% for(var i = 0; i < festivals.length; i++) { %>
+    <% if(festivals.length === 0){ %>
 
-    <div class="festival-item">
+    <span id="empty-list-msg">暂时没有优惠活动</span>
 
-        <img src="../../../resource/logo.png">
+    <% }else{ %>
 
-        <div class="title"><%= festivals[i].title %></div>
+    <ul id="festival-list">
 
-        <div class="horizontal-line"></div>
+        <% for(var i = 0; i < festivals.length; i++) { %>
 
-        <div class="field">
-            <div class="fl color-gray">活动时间：</div>
-            <div>4月20日 - 5月10日</div>
-        </div>
+        <li class="festival-item">
 
-        <div class="field">
-            <div class="fl color-gray">活动优惠：</div>
-            <div>赠送现金券</div>
-        </div>
+            <img src="../../../resource/logo.png">
 
-        <div class="field">
-            <div class="fl color-gray">活动详情：</div>
-            <div><%= festivals[i].desc %></div>
-        </div>
+            <div class="title"><%= festivals[i].title %></div>
 
-        <div class="btn">
-            <button><a href="route?fid=<%= festivals[i].id %>">领取优惠券</a></button>
-        </div>
+            <div class="horizontal-line"></div>
 
-    </div>
+            <div class="field">
+                <div class="fl color-gray">活动时间：</div>
+                <div>4月20日 - 5月10日</div>
+            </div>
+
+            <div class="field">
+                <div class="fl color-gray">活动优惠：</div>
+                <div>赠送现金券</div>
+            </div>
+
+            <div class="field">
+                <div class="fl color-gray">活动详情：</div>
+                <div><%= festivals[i].desc %></div>
+            </div>
+
+            <div class="btn">
+                <button><a href="route?fid=<%= festivals[i].id %>">领取优惠券</a></button>
+            </div>
+
+        </li>
+
+        <% } %>
+
+    </ul>
 
     <% } %>
 
 </div>
-
-<% } %>
