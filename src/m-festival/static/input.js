@@ -10,7 +10,7 @@ $(function(){
         }
 
         var enterprise_id = $("#enterprise_id").text();
-        var festival_id = YLS.getQueryString("fid");
+        var festival_id = $("#festival_id").text();
 
         var url = "/svc/wsite/" + enterprise_id + "/getPresent?fid=" + festival_id;
 
