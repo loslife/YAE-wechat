@@ -7,29 +7,30 @@
         <div class="store-name"><%= store.name %></div>
     </div>
 
-    <!--div class="preferential">
-        <div class="width-full h-4 lh-4">
-            <div class="fr">
-                <a href="#">更多</a>
+    <% if(festivals.length > 0){ %>
+    <div class="preferential">
+        <div class="mb-1 lh-2">
+            <div class="fr item-more">
+                <a class="" href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
             </div>
             <div>优惠活动</div>
         </div>
 
         <ul class="preferential-list">
-            <li>
-                <div style="background: url('/svc/public/preferential-example.png') no-repeat"></div>
+            <% festivals.forEach(function (item) { %>
+            <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/getPresent?fid=<%= item.id %>'">
+                <div style="background: url('<%= item.pic_url %>') no-repeat;">
+                </div>
                 <div>
-                    <span class="inline-block vm">指甲护理99元体验两次2次，覅的方式看到螺丝刀开始了开始</span><span class="vm-help"></span>
+                    <span class="inline-block vm"><%= omittedContent(item.desc, 40) %></span><span
+                            class="desc-vm-help"></span>
                 </div>
             </li>
-            <li>
-                <div style="background: url('/svc/public/preferential-example.png') no-repeat"></div>
-                <div>
-                    <span class="inline-block vm">指甲护理99元体验两次2次</span><span class="vm-help"></span>
-                </div>
-            </li>
+            <% }); %>
         </ul>
-    </div-->
+    </div>
+    <% } %>
+
     <% if(hotList.length !== 0){ %>
     <div class="item m-1">
         <div class="mb-1 lh-2">
