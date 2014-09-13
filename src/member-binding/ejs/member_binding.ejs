@@ -14,36 +14,45 @@
         .js("/resource/wechat_global.js")
         .js('/member-binding/binding.js')
         .css("/member-binding/css/binding.css")
+        .css("/resource/css/base.css")
         .done(config) %>
 
 <body>
 
-<div>
+<div id="m-binding">
+    <div class="form-area">
 
-    <form>
-
-        <span id="open_id" style="display: none"><%= open_id %></span>
-        <span id="enterprise_id" style="display: none"><%= enterprise_id %></span>
-
-        <div>
-            <label for="phone">手机号</label>
-            <input type="text" id="phone" name="phone">
+        <div class="h-4 lh-4 text-center border-bottom">
+            绑定会员
         </div>
 
-        <div>
-            <label for="pwd">验证码</label>
-            <input type="text" id="code" name="code">
-        </div>
+        <form class="width-full">
 
-        <button id="getSecurityCode" type="button">获取验证码</button>
-        <button id="btn_binding" type="button">立即绑定</button>
+            <span id="open_id" style="display: none"><%= open_id %></span>
+            <span id="enterprise_id" style="display: none"><%= enterprise_id %></span>
 
-        <div id="binding_success_tip">
-            绑定成功，将为您跳转到会员专区
-        </div>
+            <div class="input">
+                <input type="tel" id="phone" placeholder="输入手机号">
+            </div>
 
-    </form>
+            <div class="input">
+                <input type="text" id="code" placeholder="输入验证码">
+            </div>
 
+            <div class="btn">
+                <button type="button" id="getSecurityCode">获取验证码</button>
+            </div>
+
+            <div class="btn">
+                <button type="button" id="btn_binding">绑定</button>
+            </div>
+
+            <div id="binding_success_tip">
+                绑定成功，将为您跳转到会员专区
+            </div>
+
+        </form>
+    </div>
 </div>
 
 </body>

@@ -1,0 +1,58 @@
+<%- Loader()
+        .js('/m-festival/input.js')
+        .css("/m-festival/css/input.css")
+        .done(config) %>
+
+<div id="m-festival-input">
+
+    <div id="festival-introduce">
+
+        <img src="../../../resource/news2.png">
+
+        <div class="title"><%= festival.title %></div>
+
+        <div class="horizontal-line"></div>
+
+        <div class="field">
+            <div class="fl color-gray">活动时间：</div>
+            <div>4月20日 - 5月10日</div>
+        </div>
+
+        <div class="field">
+            <div class="fl color-gray">活动优惠：</div>
+            <div>赠送现金券</div>
+        </div>
+
+        <div class="field">
+            <div class="fl color-gray">活动详情：</div>
+            <div><%= festival.desc %></div>
+        </div>
+
+        <% if(expired){ %>
+
+            <span>优惠券已经全部发完了，你下次动作要快一点</span>
+
+        <% }else{ %>
+
+            <form>
+
+                <div class="input">
+                    <input id="input_phone" type="tel" name="phone" placeholder="请输入手机号">
+                </div>
+
+                <div class="btn">
+                    <button id="btn_submit">这就领取</button>
+                </div>
+            </form>
+
+        <% } %>
+
+    </div>
+
+    <div id="hidden_area">
+        <div id="enterprise_id" style="display: none"><%= enterprise_id %></div>
+        <div id="festival_id" style="display: none"><%= festival.id %></div>
+    </div>
+
+</div>
+

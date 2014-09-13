@@ -1,0 +1,21 @@
+{
+    "services": [
+        {
+            "name": "syncData",
+            "path": "/sync/:enterpriseId/festivals",
+            "method": "get",
+            "auth": false,
+            "impl": "syncService.festivals",
+            "comment": "下发优惠活动和优惠券领取情况的数据"
+        }
+    ],
+    "statics": [
+
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}
