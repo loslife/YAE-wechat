@@ -1,0 +1,29 @@
+<% if(expired){ %>
+
+    <%- Loader()
+            .css("/m-festival/css/askForShare.css")
+            .done(config) %>
+    <div>
+        <span>优惠券已经全部发完了，你下次动作要快一点</span>
+    </div>
+
+<% }else{ %>
+
+    <%- Loader()
+            .js('/m-festival/askForShare.js')
+            .css("/m-festival/css/askForShare.css")
+            .done(config) %>
+
+    <div><%= festival.title %></div>
+    <div>----------------------------------------</div>
+    <div id="btn_share">分享到朋友圈</div>
+
+    <div id="enterprise_id" style="display: none"><%= enterprise_id %></div>
+    <div id="festival_id" style="display: none"><%= festival.id %></div>
+
+    <div id="share_tips">
+        <img src="../../../resource/guide-arrows.png">
+        <div>分享到朋友圈</div>
+    </div>
+
+<% } %>

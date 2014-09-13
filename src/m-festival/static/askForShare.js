@@ -21,7 +21,7 @@ $(function(){
 
             var wxData = {
                 "imgUrl" : "http://121.40.75.73/resource/share_thumb.jpg",
-                "link" : "http://121.40.75.73/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId,
+                "link" : "http://121.40.75.73/svc/wsite/" + enterpriseId + "/route?fid=" + festivalId,
                 "desc" : "优惠活动描述",
                 "title" : "优惠活动标题"
             };
@@ -30,23 +30,20 @@ $(function(){
 
                 confirm: function(resp) {
 
-                    var url = "/svc/wsite/" + enterpriseId + "/shareBonus?fid=" + festivalId;
+                    var url = "/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId;
 
-                    var shareId = $("#share_id").text();
-                    var sharePhone = $("#share_phone").text();
+                    $.post(url, {}, function (response) {
 
-                    var postData = {};
-                    if(shareId && shareId !== "undefined"){
-                        postData.share_id = shareId;
-                    }else{
-                        postData.share_phone = sharePhone;
-                    }
-
-                    $.post(url, postData, function (response) {});// nothing to do with ajax response
+                        var status = response.result.status;
+                        if(status === 1){
+                            location.href = "done?duplicate=false";
+                        }else{
+                            location.href = "done?duplicate=true";
+                        }
+                    });
                 }
             };
 
-            Api.shareToFriend(wxData, wxCallbacks);
             Api.shareToTimeline(wxData, wxCallbacks);
         }
     });

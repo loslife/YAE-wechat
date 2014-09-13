@@ -1,19 +1,30 @@
-<%- Loader()
-        .js('/m-festival/input.js')
-        .done(config) %>
-
-<div>
+<div id="m-festival-input">
 
     <h1>活动的精彩文案在此</h1>
     <div><%= festival.title %></div>
     <div><%= festival.desc %></div>
 
-    <div>----------------------------------</div>
+    <% if(expired){ %>
+
+    <%- Loader()
+            .css("/m-festival/css/input.css")
+            .done(config) %>
+
+    <div>你来晚啦，下次要快点</div>
+
+    <% }else{ %>
+
+    <%- Loader()
+            .js('/m-festival/input.js')
+            .css("/m-festival/css/input.css")
+            .done(config) %>
 
     <form>
         <input id="input_phone" type="tel" name="phone" placeholder="请输入手机号">
         <button id="btn_submit" type="button">马上领取</button>
     </form>
+
+    <% } %>
 
 </div>
 

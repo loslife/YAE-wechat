@@ -12,14 +12,15 @@ $(function(){
         var enterprise_id = $("#enterprise_id").text();
         var festival_id = YLS.getQueryString("fid");
 
-        var url = "/svc/wsite/" + enterprise_id + "/walkinGetPresent?fid=" + festival_id;
+        var url = "/svc/wsite/" + enterprise_id + "/getPresent?fid=" + festival_id;
 
         $.post(url, {phone: phone}, function (response) {
 
-            if (response.code !== 0) {
-                alert("领取失败，请联系客服");
-            } else {
-                location.href = "share?fid=" + festival_id + "&share_phone=" + phone;
+            var status = response.result.status;
+            if(status === 1){
+                location.href = "done?duplicate=false";
+            }else{
+                location.href = "done?duplicate=true";
             }
         });
     });
