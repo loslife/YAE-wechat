@@ -14,7 +14,7 @@
   padding: 10px;
 }
 #festival-introduce > .title {
-  font-size: 2rem;
+  font-size: 1rem;
   background-color: #f75169;
   color: white;
   padding: 1rem;
@@ -64,4 +64,26 @@ form .input input {
 }
 .btn > button:active {
   background: #e2354f;
+}
+#finish-msg {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1rem;
+  padding: 1rem;
+}
+#input-area > img {
+  width: 100px;
+  margin: 0 auto;
+  display: block;
+}
+.back {
+  border-top: 1px solid #e9e9ea;
+  text-align: center;
+  height: 48px;
+  line-height: 48px;
+  color: #f75169;
+}
+.back:active {
+  background-color: #f0f0f1;
 }

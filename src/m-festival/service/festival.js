@@ -44,7 +44,7 @@ function route(req, res, next){
         dao.reachLimit(enterpriseId, festivalId, function(err, expired){
 
             if(!memberId){
-                res.render("input", {enterprise_id: enterpriseId, menu: "festival", festival: festival, expired: expired});
+                res.render("input", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired});
                 return;
             }
 

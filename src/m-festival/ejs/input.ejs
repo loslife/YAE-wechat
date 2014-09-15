@@ -13,26 +13,27 @@
 
         <div class="field">
             <div class="fl color-gray">活动时间：</div>
-            <div>4月20日 - 5月10日</div>
+            <div style="padding-left: 5rem">4月20日 - 5月10日</div>
         </div>
 
         <div class="field">
             <div class="fl color-gray">活动优惠：</div>
-            <div>赠送现金券</div>
+            <div style="padding-left: 5rem">赠送现金券</div>
         </div>
 
         <div class="field">
             <div class="fl color-gray">活动详情：</div>
-            <div><%= festival.desc %></div>
+            <div style="padding-left: 5rem"><%= festival.desc %></div>
         </div>
 
     </div>
 
     <div id="input-area">
 
-        <% if(expired){ %>
+        <% if(!expired){ %>
 
-            <span>优惠券已经全部发完了，你下次动作要快一点</span>
+            <img src="../../../resource/zepto.jpg">
+            <div id="finish-msg">您来晚了一步，已经被领完啦！</div>
 
         <% }else{ %>
 
@@ -62,3 +63,6 @@
 
 </div>
 
+<a id="back" class="back clear-fix">
+    <span class="fs-20"><</span>看看其它
+</a>
