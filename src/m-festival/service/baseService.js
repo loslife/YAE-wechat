@@ -1,5 +1,7 @@
+var datas = new (require(FRAMEWORKPATH + "/bus/request"))();
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var uuid = require('node-uuid');
+var async = require("async");
 
 exports.queryFestivalById = queryFestivalById;
 exports.hasProvidePresent = hasProvidePresent;
@@ -90,9 +92,56 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
                 return;
             }
 
-            callback(null);
+            if(memberId){
+                callback(null);
+            }else{
+                _generateSecurityCode(festival, callback);
+            }
         });
     });
+
+    function _generateSecurityCode(festival, callback){
+
+        var code = Math.round(900000 * Math.random() + 100000) + "";
+
+        async.series([_saveCode, _sendSMS], callback);
+
+        function _saveCode(callback){
+
+            festival.security_code = code;
+
+            dbHelper.updateByID("weixin_present_received", festival, function(err, result){
+                callback(err);
+            });
+        }
+
+        function _sendSMS(callback){
+
+            var message = "您已领取优惠券，激活码：" + code + "。到店凭激活码消费。";
+
+            var smsContent = {
+                message: message,
+                mobileNumbers: phone,
+                scheduleTime: '',
+                extendAccessNum: '',
+                f: '1'
+            };
+
+            datas.postResource("/svc/sms/sendSMS", "", smsContent).then(function(result){
+
+                var flag = result.result;
+
+                if(0 === flag){
+                    callback(null);
+                    return;
+                }
+                callback({errorCode: "88888601"});
+
+            }, function(){
+                callback({errorCode: "88888601"});
+            });
+        }
+    }
 }
 
 function countSentPresent(enterpriseId, festivalId, callback){
