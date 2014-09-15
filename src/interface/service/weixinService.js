@@ -205,13 +205,36 @@ function handleWXRequest(req, res, next){
                             return;
                         }
 
-                        var message = [];
+                        var url = server_address + "svc/wsite/" + enterprise_id + "/member?m_id=" + member_id;
+
+                        var messages = [];
+
+                        var header = {
+                            title: "我的余额，点击查看更多",
+                            picUrl: server_address + "resource/news2.png",
+                            url: url
+                        };
+                        messages.push(header);
+
                         _.each(cards, function(item){
-                            var money = item.currentMoney.toFixed(1);
-                            message.push(item.name + "余额" + money + "元");
+
+                            var message = {
+                                picUrl: server_address + "resource/card_detail.png",
+                                url: url
+                            };
+
+                            if(item.type === "recharge"){
+                                message.title = item.name + "余额" + item.currentMoney.toFixed(1) + "元";
+                            }else if(item.type === "recordTimeCard"){
+                                message.title = item.name + "剩余" + item.remainingTimes + "次";
+                            }else{
+                                message.title = item.name + "截止到" + new Date(item.expired_time).Format("yy-MM-dd");
+                            }
+
+                            messages.push(message);
                         });
 
-                        wx.replyTextMessage(req, res, message.join("\n"));
+                        wx.replyNewsMessage(req, res, messages);
                     });
                 });
 

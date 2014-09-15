@@ -11,6 +11,9 @@ a {
   text-decoration: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+a:visited {
+  color: inherit;
+}
 html {
   font-size: 14px;
 }
@@ -79,5 +82,5 @@ html {
   background: url('../menu_icon.png') no-repeat -144px 0 !important;
 }
 .selected .icon-activity {
-  background: url('../menu_icon.png') no-repeat -164px 0 !important;
+  background: url('../menu_icon.png') no-repeat -168px 0 !important;
 }

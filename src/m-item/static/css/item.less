@@ -7,15 +7,18 @@
 
 .item-list {
   overflow: hidden;
-  padding-bottom: @baseSpace;
+  padding-bottom: @baseSpace / 2;
+  border-bottom: @baseSpace / 2 solid @backgroundColor;
 }
 
 .item-list li {
   float: left;
   width: 50%;
-  border: @baseSpace solid @backgroundColor;
+  border: @baseSpace / 2 solid @backgroundColor;
+  //  border-right-width: @baseSpace / 2;
+  //  border-left-width: @baseSpace / 2;
   box-sizing: border-box;
-  margin-bottom: -@baseSpace;
+  margin-bottom: -@baseSpace / 2;
   background: white;
 }
 
@@ -25,15 +28,15 @@
 }
 
 .item-list li a:active {
-  border-color: #f2f0ef;
+  border-color: #f0f0f1;
 }
 
 .item-list li:nth-child(odd) {
-  border-right-width: @baseSpace / 2;
+  border-right-width: @baseSpace / 4;
 }
 
 .item-list li:nth-child(even) {
-  border-left-width: @baseSpace / 2;
+  border-left-width: @baseSpace / 4;
 }
 
 .item-list .item-img {
@@ -87,7 +90,7 @@
 }
 
 .back:active {
-  background-color: #f2f0ef;
+  background-color: #f0f0f1;
 }
 
 #m-item .more-item {

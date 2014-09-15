@@ -14,7 +14,9 @@
                 "m-member",
                 "m-login",
                 "m-item",
-                "member-binding"
+                "m-festival",
+                "member-binding",
+                "sync"
             ]
         }
     ],

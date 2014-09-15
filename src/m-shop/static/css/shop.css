@@ -1,5 +1,5 @@
 #m-shop {
-  background-color: #eae6e4;
+  background-color: #e9e9ea;
   padding-bottom: 10px;
 }
 #m-shop .home-img {
@@ -46,6 +46,9 @@
   padding-left: 10px;
   padding-right: 130px;
 }
+#m-shop .item {
+  margin: 10px 5px;
+}
 .item-more a {
   padding: 1px 0 0 24px;
   height: 20px;
@@ -59,7 +62,7 @@
 }
 .item-more a:active:before {
   background: url('../../../resource/right_more_active.png') 0 0;
-  background-size: 20px 20px;
+  background-size: 18px 18px;
 }
 .item-more a:before {
   content: "";
@@ -83,7 +86,7 @@
   box-sizing: border-box;
 }
 .item-list > li > a:active {
-  border-color: #f2f0ef;
+  border-color: #f0f0f1;
 }
 .item-list .item-img {
   width: 100%;
@@ -103,7 +106,7 @@
   color: gray;
 }
 #m-shop .store {
-  margin: 10px 10px 0 10px;
+  margin: 10px 5px 0 5px;
   border: 10px solid #ffffff;
   background: white;
   overflow: hidden;
@@ -120,7 +123,7 @@
   line-height: 40px;
   margin-bottom: 10px;
   margin-left: 110px;
-  border-bottom: 1px solid #eae6e4;
+  border-bottom: 1px solid #e9e9ea;
 }
 .store > div + div {
   margin-bottom: 10px;
