@@ -18,7 +18,7 @@
 
         <ul class="preferential-list">
             <% festivals.forEach(function (item) { %>
-            <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/getPresent?fid=<%= item.id %>'">
+            <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/route?fid=<%= item.id %>'">
                 <div style="background: url('<%= item.pic_url %>') no-repeat;">
                 </div>
                 <div>
