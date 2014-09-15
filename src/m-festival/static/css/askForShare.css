@@ -19,11 +19,6 @@
   color: white;
   padding: 1rem;
 }
-#festival-introduce > .horizontal-line {
-  height: 0;
-  margin: 10px;
-  border-bottom: 1px solid #e9e9ea;
-}
 #festival-introduce > .field {
   padding: 1rem 0 1rem 10px;
 }
