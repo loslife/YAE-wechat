@@ -41,6 +41,9 @@ $(function(){
                             location.href = "done?duplicate=true";
                         }
                     });
+
+                    var shareCountURL = "/svc/wsite/" + enterpriseId + "/countShare?fid=" + festivalId;
+                    $.post(shareCountURL, {}, function(response){});
                 }
             };
 

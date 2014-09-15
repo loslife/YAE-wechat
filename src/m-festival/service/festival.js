@@ -5,6 +5,7 @@ exports.list = list;
 exports.route = route;
 exports.getPresent = getPresent;
 exports.done = done;
+exports.countShareTimes = countShareTimes;
 
 function list(req, res, next){
 
@@ -31,6 +32,8 @@ function route(req, res, next){
     var festivalId = req.query["fid"];
     var memberId = req.session.member_id;
 
+    increasePageView();// 增加活动页面访问计数
+
     dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
         if(err){
@@ -55,6 +58,14 @@ function route(req, res, next){
             });
         });
     });
+
+    function increasePageView(){
+        dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {view_count: 1}, function(err, result){
+            if(err){
+                console.log(err);
+            }
+        });
+    }
 }
 
 // 1表示领取成功，2表示已经领取过
@@ -105,4 +116,17 @@ function done(req, res, next){
     };
 
     res.render("done", model);
+}
+
+function countShareTimes(req, res, next){
+
+    var enterpriseId = req.params["enterpriseId"];
+    var festivalId = req.query["fid"];
+
+    dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {share_count: 1}, function(err, result){
+        if(err){
+            console.log(err);
+        }
+        doResponse(req, res, {message: "ok"});
+    });
 }

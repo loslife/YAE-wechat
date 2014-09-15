@@ -92,6 +92,13 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
                 return;
             }
 
+            // 增加发放礼物次数
+            dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {send_count: 1}, function(err, result){
+                if(err){
+                    console.log(err);
+                }
+            });
+
             if(memberId){
                 callback(null);
             }else{
