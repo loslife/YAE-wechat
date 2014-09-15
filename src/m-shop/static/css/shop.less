@@ -29,16 +29,39 @@
 #m-shop .preferential {
   margin: 0 @baseSpace;
 }
-
-.preferential-list > li > div:first-child {
-  width: 120px;
-  height: 80px;
+.preferential-list{
+  border: 0.5*@baseSpace solid #ffffff;
 }
 
-.preferential-list > li > div:last-child {
-  height: 80px;
+.preferential-list > li > div:first-child {
+  background-size: cover !important;
+  width: 30%;
+  padding-bottom: 22%;
+  //  width: 120px;
+  //  height: 80px;
+}
+
+.desc-vm-help {
+  width: 0px;
+  padding-bottom: 22%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.preferential-list > li > {
+  //  height: 80px;
   background-color: #ffffff;
   line-height: @baseSpace * 2;
+  text-align: center;
+  border-bottom: 1px solid @backgroundColor;
+}
+
+.preferential-list > li:last-child {
+  //  height: 80px;
+  //background-color: #ffffff;
+  //line-height: @baseSpace * 2;
+  //text-align: center;
+  border-bottom: none;
 }
 
 .preferential-list > li:nth-child(odd) > div:first-child {
@@ -49,14 +72,18 @@
   float: right;
 }
 
-.preferential-list > li:nth-child(odd) > div:last-child {
-  padding-left: 130px;
-  padding-right: @baseSpace;
+.preferential-list > li:nth-child(odd) > div:last-child > span:first-child {
+  //  padding-left: 130px;
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px @baseSpace;
 }
 
-.preferential-list > li:nth-child(even) > div:last-child {
-  padding-left: @baseSpace;
-  padding-right: 130px;
+.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px @baseSpace;
+  //  padding-right: 130px;
 }
 
 #m-shop .item {
