@@ -1,5 +1,10 @@
 $(function(){
 
+    $("#back").on("click", function ($even) {
+        location.href = "festival";
+        $even.stopPropagation();
+    });
+
     $("#btn_share").hide();
     $("#share_tips").hide();
 
@@ -41,6 +46,9 @@ $(function(){
                             location.href = "done?duplicate=true";
                         }
                     });
+
+                    var shareCountURL = "/svc/wsite/" + enterpriseId + "/countShare?fid=" + festivalId;
+                    $.post(shareCountURL, {}, function(response){});
                 }
             };
 

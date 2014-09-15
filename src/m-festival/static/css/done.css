@@ -1,0 +1,50 @@
+#m-festival-done {
+  background-color: #e9e9ea;
+  padding: 10px;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+#get-present-success {
+  background-color: white;
+  margin-bottom: 10px;
+}
+#get-present-success > div {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  color: green;
+  font-size: 2rem;
+  padding: 1rem;
+}
+#get-present-success > img {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+#get-present-duplicate {
+  background-color: white;
+  margin-bottom: 10px;
+}
+#get-present-duplicate > div {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  color: green;
+  font-size: 2rem;
+  padding: 1rem;
+}
+#get-present-duplicate > img {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+.back {
+  border-top: 1px solid #e9e9ea;
+  text-align: center;
+  height: 48px;
+  line-height: 48px;
+  color: #f75169;
+}
+.back:active {
+  background-color: #f0f0f1;
+}

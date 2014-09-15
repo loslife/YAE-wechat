@@ -3,12 +3,26 @@
         .css("/m-festival/css/done.css")
         .done(config) %>
 
-<div>
+<div id="m-festival-done">
 
     <% if(duplicate === "false"){ %>
-        您已成功领取优惠券
+
+        <div id="get-present-success">
+            <img src="../../../resource/news2.png">
+            <div>领取成功</div>
+        </div>
+
     <% }else{ %>
-        不能重复领取
+
+        <div id="get-present-duplicate">
+            <img src="../../../resource/news2.png">
+            <div>您已经领取过一次了，看看别的吧</div>
+        </div>
+
     <% } %>
 
 </div>
+
+<a id="back" class="back clear-fix">
+    <span class="fs-20"><</span>看看其它
+</a>
