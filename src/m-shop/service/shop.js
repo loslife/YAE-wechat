@@ -4,6 +4,8 @@ var request = require("request");
 var _ = require("underscore");
 var async = require("async");
 
+var yaeUrl = "http://121.40.75.73";
+
 exports.jumpToWShop = jumpToWShop;
 
 function jumpToWShop(req, res, next) {
@@ -24,7 +26,7 @@ function jumpToWShop(req, res, next) {
 
     function _queryHotItem(callback) {
         //todo replace query
-        var queryShelvesUrl = "http://121.40.75.73/svc/weixin/queryAllShelvesItem/" + enterpriseId;
+        var queryShelvesUrl = yaeUrl + "/svc/weixin/queryAllShelvesItem/" + enterpriseId;
 
         var options = {
             method: "GET",
@@ -56,7 +58,7 @@ function jumpToWShop(req, res, next) {
 
     function _queryStoreInfo(callback) {
         //todo replace query
-        var queryUrl = "http://121.40.75.73/svc/weixin/queryStoreInfo/" + enterpriseId;
+        var queryUrl = yaeUrl + "/svc/weixin/queryStoreInfo/" + enterpriseId;
 
         var options = {
             method: "GET",
