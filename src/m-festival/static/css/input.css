@@ -1,5 +1,5 @@
 #m-festival-input {
-  background-color: #eae6e4;
+  background-color: #e9e9ea;
   padding: 10px;
   min-height: 100%;
   box-sizing: border-box;
@@ -20,7 +20,7 @@
 #festival-introduce > .horizontal-line {
   height: 0;
   margin: 10px;
-  border-bottom: 1px solid #eae6e4;
+  border-bottom: 1px solid #e9e9ea;
 }
 #festival-introduce > .field {
   padding: 1rem 0 1rem 10px;

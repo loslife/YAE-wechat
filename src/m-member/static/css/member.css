@@ -1,6 +1,6 @@
 #m-member {
   height: inherit;
-  background: #eae6e4;
+  background: #e9e9ea;
 }
 #m-member .item {
   background: white;
@@ -8,7 +8,7 @@
 }
 .item .title {
   padding: 10px;
-  border-bottom: 1px solid #eae6e4;
+  border-bottom: 1px solid #e9e9ea;
   background-color: #cecac7;
 }
 .item .list {
@@ -17,7 +17,7 @@
 .item .list li {
   overflow: hidden;
   padding: 10px 0;
-  border-bottom: 1px solid #eae6e4;
+  border-bottom: 1px solid #e9e9ea;
 }
 .item .list li:last-child {
   border: none;
