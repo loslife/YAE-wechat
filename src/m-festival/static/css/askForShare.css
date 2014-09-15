@@ -53,9 +53,7 @@
 .btn {
   width: 60%;
   margin: 0 auto;
-  border: 10px solid white;
-  border-top-width: 5px;
-  border-bottom-width: 15px;
+  padding: 1rem;
   box-sizing: border-box;
 }
 .btn > button {
