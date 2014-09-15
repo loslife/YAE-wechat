@@ -23,14 +23,28 @@
 #m-shop .preferential {
   margin: 0 10px;
 }
-.preferential-list > li > div:first-child {
-  width: 120px;
-  height: 80px;
+.preferential-list {
+  border: 5px solid #ffffff;
 }
-.preferential-list > li > div:last-child {
-  height: 80px;
+.preferential-list > li > div:first-child {
+  background-size: cover !important;
+  width: 30%;
+  padding-bottom: 22%;
+}
+.desc-vm-help {
+  width: 0px;
+  padding-bottom: 22%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.preferential-list > li {
   background-color: #ffffff;
   line-height: 20px;
+  text-align: center;
+  border-bottom: 1px solid #e9e9ea;
+}
+.preferential-list > li:last-child {
+  border-bottom: none;
 }
 .preferential-list > li:nth-child(odd) > div:first-child {
   float: left;
@@ -38,13 +52,15 @@
 .preferential-list > li:nth-child(even) > div:first-child {
   float: right;
 }
-.preferential-list > li:nth-child(odd) > div:last-child {
-  padding-left: 130px;
-  padding-right: 10px;
+.preferential-list > li:nth-child(odd) > div:last-child > span:first-child {
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px 10px;
 }
-.preferential-list > li:nth-child(even) > div:last-child {
-  padding-left: 10px;
-  padding-right: 130px;
+.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px 10px;
 }
 #m-shop .item {
   margin: 10px 5px;
