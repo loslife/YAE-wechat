@@ -1,0 +1,14 @@
+<%- Loader()
+        .js('/m-festival/done.js')
+        .css("/m-festival/css/done.css")
+        .done(config) %>
+
+<div>
+
+    <% if(duplicate === "false"){ %>
+        您已成功领取优惠券
+    <% }else{ %>
+        不能重复领取
+    <% } %>
+
+</div>
