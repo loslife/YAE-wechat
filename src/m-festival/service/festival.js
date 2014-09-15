@@ -53,7 +53,7 @@ function route(req, res, next){
                 if(received){
                     res.redirect("/svc/wsite/" + enterpriseId + "/done?duplicate=true");
                 }else{
-                    res.render("askForShare", {enterprise_id: enterpriseId, menu: "festival", festival: festival, expired: expired});
+                    res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired});
                 }
             });
         });

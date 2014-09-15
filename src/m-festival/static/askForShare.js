@@ -1,5 +1,10 @@
 $(function(){
 
+    $("#back").on("click", function ($even) {
+        location.href = "festival";
+        $even.stopPropagation();
+    });
+
     $("#btn_share").hide();
     $("#share_tips").hide();
 
