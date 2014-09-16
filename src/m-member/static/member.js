@@ -14,8 +14,14 @@ if (typeof WeixinJSBridge == "undefined") {
 }
 
 $(function () {
-    $(".panel-head").click(function (e) {
+    $(".panel-head").tap(function (e) {
         var head = $(e.target);
+        if (head[0].nodeName == "SPAN" || head[0].nodeName == "IMG") {
+            head = head.parent();
+        }
+        if (head[0].nodeName == "SPAN") {
+            head = head.parent();
+        }
         var img = head.children('span').children('img');
         if (head.hasClass("expand")) {//收起
             head.removeClass("expand");

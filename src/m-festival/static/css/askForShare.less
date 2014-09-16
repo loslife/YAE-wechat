@@ -15,22 +15,26 @@
 #festival-introduce > img {
   box-sizing: border-box;
   width: 100%;
-  padding: @baseSpace;
+  display: block;
 }
 
 #festival-introduce > .title {
-  padding-left: @baseSpace;
-  font-size: 2rem;
+  font-size: 1rem;
+  background-color: #f75169;
+  color: white;
+  padding: 1rem;
 }
 
-#festival-introduce > .horizontal-line {
-  height: 0;
-  margin: @baseSpace;
-  border-bottom: 1px solid @backgroundColor;
+#festival-introduce > .title > img {
+  width: 1rem;
 }
 
 #festival-introduce > .field {
   padding: 1rem 0 1rem @baseSpace;
+}
+
+#input-area{
+  background-color: white;
 }
 
 #share_tips{
@@ -45,23 +49,16 @@
 }
 
 #share_tips > img{
+  display: block;
+  width: 200px;
   float: right;
-  margin-top: 10px;
-}
-
-#share_tips > div{
-  width: 300px;
-  margin: 150px auto;
-  text-align: center;
-  font-size: 28px;
+  margin: 1rem 2rem 0 0;
 }
 
 .btn {
   width: 60%;
   margin: 0 auto;
-  border: 10px solid white;
-  border-top-width: 5px;
-  border-bottom-width: 15px;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
@@ -76,4 +73,31 @@
 
 .btn > button:active {
   background: #e2354f;
+}
+
+#finish-msg {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+#input-area > img {
+  width: 100px;
+  margin: 0 auto;
+  display: block;
+  padding-top: 1rem;
+}
+
+.back {
+  border-top: 1px solid @backgroundColor;
+  text-align: center;
+  height: 48px;
+  line-height: 48px;
+  color: #f75169;
+}
+
+.back:active {
+  background-color: #f0f0f1;
 }

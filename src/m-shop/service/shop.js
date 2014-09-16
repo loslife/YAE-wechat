@@ -75,7 +75,7 @@ function jumpToWShop(req, res, next) {
                 return item.promote == 1 && item.state == 1;
             });
             festivals = _.sortBy(festivals, function (item) {
-                return -item.mofidy_date;
+                return -item.modify_date;
             });
             festivals.splice(4);
             callback(null);

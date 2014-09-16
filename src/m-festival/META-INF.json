@@ -31,6 +31,14 @@
             "auth": false,
             "impl": "festival.done",
             "comment": "领取优惠活动流程结束"
+        },
+        {
+            "name": "countShareTimes",
+            "path": "/wsite/:enterpriseId/countShare",
+            "method": "post",
+            "auth": false,
+            "impl": "festival.countShareTimes",
+            "comment": "统计分享次数"
         }
     ],
     "statics": [

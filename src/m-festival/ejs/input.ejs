@@ -7,41 +7,51 @@
 
     <div id="festival-introduce">
 
-        <img src="../../../resource/news2.png">
+        <img src="../../../resource/haibao.png">
 
-        <div class="title"><%= festival.title %></div>
-
-        <div class="horizontal-line"></div>
+        <div class="title">
+            <img src="../../../resource/star.png">
+            <span><%= festival.title %></span>
+        </div>
 
         <div class="field">
             <div class="fl color-gray">活动时间：</div>
-            <div>4月20日 - 5月10日</div>
+            <div style="padding-left: 5rem">4月20日 - 5月10日</div>
         </div>
 
         <div class="field">
             <div class="fl color-gray">活动优惠：</div>
-            <div>赠送现金券</div>
+            <div style="padding-left: 5rem">赠送现金券</div>
         </div>
 
         <div class="field">
             <div class="fl color-gray">活动详情：</div>
-            <div><%= festival.desc %></div>
+            <div style="padding-left: 5rem"><%= festival.desc %></div>
         </div>
+
+    </div>
+
+    <div id="input-area">
 
         <% if(expired){ %>
 
-            <span>优惠券已经全部发完了，你下次动作要快一点</span>
+            <img src="../../../resource/no_more_present.png">
+            <div id="finish-msg">您来晚了一步，已经被领完啦！</div>
 
         <% }else{ %>
+
+            <div id="input-tips">
+                小贴士：到店使用需通过手机号验证
+            </div>
 
             <form>
 
                 <div class="input">
-                    <input id="input_phone" type="tel" name="phone" placeholder="请输入手机号">
+                    <input id="input_phone" type="tel" name="phone" placeholder="输入手机号立刻领取">
                 </div>
 
                 <div class="btn">
-                    <button id="btn_submit">这就领取</button>
+                    <button id="btn_submit" type="button">领取</button>
                 </div>
             </form>
 
@@ -56,3 +66,6 @@
 
 </div>
 
+<a id="back" class="back clear-fix">
+    <span class="fs-20"><</span>看看其它
+</a>
