@@ -1,4 +1,34 @@
-$(function(){
+if(WeixinApi.openInWeixin()){
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', init, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', init);
+            document.attachEvent('onWeixinJSBridgeReady', init);
+        }
+    } else {
+        init();
+    }
+
+}else{
+
+    $(function(){
+        init();
+    });
+}
+
+function init(){
+
+    (function(){
+
+        var menuH = $("#back").height();
+        var windowH = $(window).height();
+        var contentH = windowH - menuH;
+
+        $("#m-festival-input").height(contentH);
+
+    })();
 
     $("#btn_submit").tap(function(){
 
@@ -38,4 +68,4 @@ $(function(){
         $even.stopPropagation();
     });
 
-});
+}
