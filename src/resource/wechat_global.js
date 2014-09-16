@@ -4,26 +4,31 @@ var g_env = {
     binding_url: "http://192.168.1.106:5000/svc/wsite/"
 };
 
-var YLS = {};
+function adjustMenuPosition(){
 
-YLS.getQueryString = function(name){
-
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
-
-    if (r != null) {
-        return unescape(r[2]);
-    }
-    return null;
-}
-
-YLS.openInWeixin = function(){
-    return /MicroMessenger/i.test(navigator.userAgent);
-}
-
-$(function () {
     var menuH = $("#menu").height();
-    var windowH = window.innerHeight;
+    var windowH = $(window).height();
+    var contentH = windowH - menuH;
 
-    $("#content").height(windowH - menuH);
-});
+    $("#content").height(contentH);
+}
+
+if(WeixinApi.openInWeixin()){
+
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', adjustMenuPosition, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', adjustMenuPosition);
+            document.attachEvent('onWeixinJSBridgeReady', adjustMenuPosition);
+        }
+    } else {
+        adjustMenuPosition();
+    }
+
+}else{
+
+    $(function(){
+        adjustMenuPosition();
+    });
+}
