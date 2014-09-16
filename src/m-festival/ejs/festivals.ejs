@@ -16,7 +16,11 @@
 
         <li class="festival-item">
 
-            <img src="../../../resource/logo.jpg">
+            <% if(festivals[i].pic_url){ %>
+                <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festivals[i].pic_url %>">
+            <% }else{ %>
+                <img src="../../../resource/logo.jpg">
+            <% } %>
 
             <div class="title"><%= festivals[i].title %></div>
 
