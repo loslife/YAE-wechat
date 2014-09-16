@@ -134,7 +134,7 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
                 f: '1'
             };
 
-            datas.postResource("/svc/sms/sendSMS", "", smsContent).then(function(result){
+            datas.postResource("sms/sendSMS", "", smsContent).then(function(result){
 
                 var flag = result.result;
 
