@@ -1,28 +1,91 @@
+@import "../../../resource/css/constant.less";
+
 #m-member {
-  background: lightgray;
+  height: inherit;
+  background: @backgroundColor;
 }
 
 #m-member .item {
   background: white;
-  margin-bottom: 10px;
+  margin-bottom: @baseSpace;
 }
 
 .item .title {
-  padding: 10px;
-  border-bottom: 1px solid lightgray;
+  padding: @baseSpace;
+  border-bottom: 1px solid @backgroundColor;
+  background-color: #cecac7;
 }
 
 .item .list {
-  padding: 0 10px;
+  padding: 0 @baseSpace;
 }
 
 .item .list li {
   overflow: hidden;
-  padding: 10px 0;
-  border-bottom: 1px solid lightgray;
+  padding: @baseSpace 0;
+  border-bottom: 1px solid @backgroundColor;
 }
 
 .item .list li:last-child {
   border: none;
 }
 
+.panel {
+  height: auto;
+  overflow: hidden;
+  border-bottom: 1px solid #d0d0ce;
+}
+
+.panel-head {
+  background-color: #f7f6f4;
+  height: 4*@baseSpace;
+  line-height: 4*@baseSpace;
+  color: #f97583;
+  padding-left: @baseSpace;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.panel-head:active {
+  background-color: #eae6e3;
+}
+
+.panel-head > * {
+  vertical-align: middle;
+}
+
+.panel-body {
+  height: auto;
+  display: none;
+}
+
+.expand + .panel-body {
+  display: block;
+}
+
+.bill-items {
+  padding: @baseSpace;
+  padding-top: 0px;
+}
+
+.bill-item {
+  padding: @baseSpace 0px;
+  border-bottom: 1px solid #d1d0ce;
+}
+
+.bill-item div > label {
+  color: #a9a9a7;
+}
+
+.bill-item div {
+  margin-top: 0.5*@baseSpace;
+}
+
+.bill-item:last-child {
+  padding-top: 0.5*@baseSpace;
+  padding-bottom: 0px;
+  border: none;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #d0d0ce;
+}

@@ -6,6 +6,8 @@ var _ = require("underscore");
 
 var token = "yilos_wechat";
 var server_address = "http://121.40.75.73/";
+var default_welcome = "感谢您的关注，我们会为您提供最好的服务";
+var error_message = "微店铺似乎出了点问题，请联系乐斯";
 
 exports.enable_dev_mode = wx.enable_dev_mode(token);
 exports.handleWXRequest = handleWXRequest;
@@ -32,7 +34,7 @@ function handleWXRequest(req, res, next){
 
             if(err){
                 console.log(err);
-                wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                wx.replyTextMessage(req, res, error_message);
                 return;
             }
 
@@ -52,8 +54,42 @@ function handleWXRequest(req, res, next){
     function handleEvent(){
 
         if(req.weixin.event === "subscribe"){
-            wx.replyTextMessage(req, res, "感谢您的关注，我们会为您提供最好的服务");
+
+            async.waterfall([resolveSiteURL, resolveWelcomeWord], function(err, welcome_word){
+
+                if(err){
+                    console.log(err);
+                    wx.replyTextMessage(req, res, default_welcome);
+                    return;
+                }
+
+                wx.replyTextMessage(req, res, welcome_word);
+            });
+
             return;
+
+            function resolveWelcomeWord(url, enterprise_id, callback){
+
+                dbHelper.queryData("weixin_setting", {enterprise_id: enterprise_id}, function(err, result){
+
+                    if(err){
+                        callback(err);
+                        return;
+                    }
+
+                    if(result.length === 0){
+                        callback(null, default_welcome);
+                        return;
+                    }
+
+                    var sentence = result[0].welcomeWord;
+                    if(!sentence || sentence === ""){
+                        callback(null, default_welcome);
+                    }else{
+                        callback(null, sentence);
+                    }
+                });
+            }
         }
 
         if(req.weixin.event === "CLICK"){
@@ -64,7 +100,7 @@ function handleWXRequest(req, res, next){
 
                     if(err){
                         console.log(err);
-                        wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                        wx.replyTextMessage(req, res, error_message);
                         return;
                     }
 
@@ -86,7 +122,7 @@ function handleWXRequest(req, res, next){
 
                     if(err){
                         console.log(err);
-                        wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                        wx.replyTextMessage(req, res, error_message);
                         return;
                     }
 
@@ -102,7 +138,7 @@ function handleWXRequest(req, res, next){
                     var item = {
                         title: "点击绑定",
                         desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
-                        picUrl: server_address + "resource/logo.png",
+                        picUrl: server_address + "resource/news2.png",
                         url: url
                     };
 
@@ -117,7 +153,7 @@ function handleWXRequest(req, res, next){
 
                     if(err){
                         console.log(err);
-                        wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                        wx.replyTextMessage(req, res, error_message);
                         return;
                     }
 
@@ -130,7 +166,7 @@ function handleWXRequest(req, res, next){
                         var item = {
                             title: "请先绑定会员",
                             desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
-                            picUrl: server_address + "resource/logo.png",
+                            picUrl: server_address + "resource/news2.png",
                             url: url
                         };
 
@@ -153,13 +189,13 @@ function handleWXRequest(req, res, next){
 
                         if(err){
                             console.log(err);
-                            wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                            wx.replyTextMessage(req, res, error_message);
                             return;
                         }
 
                         var code = body.code;
                         if(code !== 0){
-                            wx.replyTextMessage(req, res, "微店铺似乎出了点问题，请联系乐斯");
+                            wx.replyTextMessage(req, res, error_message);
                             return;
                         }
 
@@ -169,13 +205,36 @@ function handleWXRequest(req, res, next){
                             return;
                         }
 
-                        var message = [];
+                        var url = server_address + "svc/wsite/" + enterprise_id + "/member?m_id=" + member_id;
+
+                        var messages = [];
+
+                        var header = {
+                            title: "我的余额，点击查看更多",
+                            picUrl: server_address + "resource/news2.png",
+                            url: url
+                        };
+                        messages.push(header);
+
                         _.each(cards, function(item){
-                            var money = item.currentMoney.toFixed(1);
-                            message.push(item.name + "余额" + money + "元");
+
+                            var message = {
+                                picUrl: server_address + "resource/card_detail.png",
+                                url: url
+                            };
+
+                            if(item.type === "recharge"){
+                                message.title = item.name + "余额" + item.currentMoney.toFixed(1) + "元";
+                            }else if(item.type === "recordTimeCard"){
+                                message.title = item.name + "剩余" + item.remainingTimes + "次";
+                            }else{
+                                message.title = item.name + "截止到" + new Date(item.expired_time).Format("yy-MM-dd");
+                            }
+
+                            messages.push(message);
                         });
 
-                        wx.replyTextMessage(req, res, message.join("\n"));
+                        wx.replyNewsMessage(req, res, messages);
                     });
                 });
 

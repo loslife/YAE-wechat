@@ -1,133 +1,104 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-
-li {
-    list-style: none;
-}
-
-a {
-    color: inherit;
-    display: block;
-    text-decoration: none;
-}
-
 .m-1 {
-    margin: 10px !important;
+  margin: 10px !important;
 }
-
+.mt-1 {
+  margin-top: 10px !important;
+}
+.mt-2 {
+  margin-top: 20px !important;
+}
 .p-1 {
-    padding: 10px !important;
+  padding: 10px !important;
 }
-
+.pt-1 {
+  padding-top: 10px !important;
+}
 .mb-1 {
-    margin-bottom: 10px !important;
+  margin-bottom: 10px !important;
 }
-
 .pl-5 {
-    padding-left: 50px !important;
+  padding-left: 50px !important;
 }
-
+.pl-8 {
+  padding-left: 80px !important;
+}
+.h-2 {
+  height: 20px;
+}
 .h-4 {
-    line-height: 40px;
+  height: 40px;
 }
-
 .lh-2 {
-    line-height: 20px;
+  line-height: 20px;
 }
-
 .lh-4 {
-    line-height: 40px;
+  line-height: 40px;
 }
-
 .fl {
-    float: left !important;
+  float: left !important;
 }
-
 .fr {
-    float: right !important;
+  float: right !important;
 }
-
 .fs-12 {
-    font-size: 12px !important;
+  font-size: 12px !important;
 }
-
 .fs-16 {
-    font-size: 16px !important;
+  font-size: 16px !important;
 }
-
 .fs-20 {
-    font-size: 20px !important;
+  font-size: 20px !important;
 }
-
 .border-bottom {
-    border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
-
 .clear-fix {
-    clear: both;
+  clear: both;
 }
-
 .text-center {
-    text-align: center !important;
+  text-align: center !important;
 }
-
 .color-gray {
-    color: gray !important;
+  color: gray !important;
 }
-
 .color-white {
-    color: white !important;
+  color: white !important;
 }
-
 .color-red {
-    color: red !important;
+  color: red !important;
 }
-
 .none {
-    display: none !important;
+  display: none !important;
 }
-
 .width-full {
-    width: 100% !important;
+  width: 100% !important;
 }
-
 .height-full {
-    height: 100% !important;
+  height: 100% !important;
 }
-
 .vm-help {
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
 }
-
 .vm {
-    vertical-align: middle !important;
+  vertical-align: middle !important;
 }
-
 .ofh {
-    overflow: hidden !important;
+  overflow: hidden !important;
 }
-
 .ofa {
-    overflow: auto !important;
+  overflow: auto !important;
 }
-
 .block {
-    display: block !important;
+  display: block !important;
 }
-
 .inline-block {
-    display: inline-block !important;
+  display: inline-block !important;
 }
-
 .pos-rel {
-    position: relative !important;
+  position: relative !important;
 }
-
 .pos-abs {
-    position: absolute !important;
+  position: absolute !important;
 }
-

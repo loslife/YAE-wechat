@@ -1,50 +1,29 @@
 var g_env = {
-    security_code_url: "http://192.168.1.117:3000/svc/getCode/",
-    check_code_url: "http://192.168.1.117:3000/svc/checkCode/",
-    binding_url: "http://192.168.1.117:5000/svc/wsite/"
+    security_code_url: "http://192.168.1.106:3000/svc/getCode/",
+    check_code_url: "http://192.168.1.106:3000/svc/checkCode/",
+    binding_url: "http://192.168.1.106:5000/svc/wsite/"
 };
 
-bindReady(function () {
-    var windowH = window.innerHeight;
-    var menuH = document.getElementById("menu").clientHeight;
-    document.getElementById("content").style.height = (windowH - menuH) + "px";
-});
+var YLS = {};
 
-function bindReady(callback) {
-    // Mozilla, Opera and webkit nightlies currently support this event
-    if (document.addEventListener) {
-        // Use the handy event callback
-        document.addEventListener("DOMContentLoaded", function () {
-            document.removeEventListener("DOMContentLoaded", null, false);
-            callback();
-        }, false);
+YLS.getQueryString = function(name){
 
-        // If IE event model is used
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+
+    if (r != null) {
+        return unescape(r[2]);
     }
-    else if (document.attachEvent) {
-        // ensure firing before onload,
-        // maybe late but safe also for iframes
-        document.attachEvent("onreadystatechange", function () {
-            if (document.readyState === "complete") {
-                document.detachEvent("onreadystatechange", null);
-                callback();
-            }
-        });
-
-        // If IE and not an iframe
-        // continually check to see if the document is ready
-        if (document.documentElement.doScroll && window == window.top) {
-            (function () {
-                try {
-                    // If IE is used, use the trick by Diego Perini
-                    // http://javascript.nwbox.com/IEContentLoaded/
-                    document.documentElement.doScroll("left");
-                }
-                catch (error) {
-                    callback();
-                }
-                // and execute any waiting functions
-            })();
-        }
-    }
+    return null;
 }
+
+YLS.openInWeixin = function(){
+    return /MicroMessenger/i.test(navigator.userAgent);
+}
+
+$(function () {
+    var menuH = $("#menu").height();
+    var windowH = window.innerHeight;
+
+    $("#content").height(windowH - menuH);
+});

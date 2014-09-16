@@ -2,35 +2,37 @@
 
 <div id="m-shop">
     <div class="home-img">
-        <img src="<%= store.picUrl %>" alt="首页图片"/>
-        <span><%= store.name %></span>
+        <div class="img" style="background:url('<%= store.picUrl %>') no-repeat">
+        </div>
+        <div class="store-name"><%= store.name %></div>
     </div>
 
-    <!--div class="preferential">
-        <div class="width-full h-4 lh-4">
-            <div class="fr">
-                <a href="#">更多</a>
+    <% if(festivals.length > 0){ %>
+    <div class="preferential">
+        <div class="mb-1 lh-2">
+            <div class="fr item-more">
+                <a class="" href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
             </div>
             <div>优惠活动</div>
         </div>
 
         <ul class="preferential-list">
-            <li>
-                <div style="background: url('/svc/public/preferential-example.png') no-repeat"></div>
+            <% festivals.forEach(function (item) { %>
+            <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/route?fid=<%= item.id %>'">
+                <div style="background: url('<%= item.pic_url %>') no-repeat;">
+                </div>
                 <div>
-                    <span class="inline-block vm">指甲护理99元体验两次2次，覅的方式看到螺丝刀开始了开始</span><span class="vm-help"></span>
+                    <span class="inline-block vm"><%= omittedContent(item.desc, 40) %></span><span
+                            class="desc-vm-help"></span>
                 </div>
             </li>
-            <li>
-                <div style="background: url('/svc/public/preferential-example.png') no-repeat"></div>
-                <div>
-                    <span class="inline-block vm">指甲护理99元体验两次2次</span><span class="vm-help"></span>
-                </div>
-            </li>
+            <% }); %>
         </ul>
-    </div-->
+    </div>
+    <% } %>
 
-    <div class="item m-1">
+    <% if(hotList.length !== 0){ %>
+    <div class="item">
         <div class="mb-1 lh-2">
             <div class="fr item-more">
                 <a class="" href="/svc/wsite/<%= enterprise_id %>/item">更多</a>
@@ -52,22 +54,32 @@
             <% } %>
         </ul>
     </div>
+    <% } %>
 
     <div class="store">
         <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat"></div>
         <div class="store-name"><%= store.name %></div>
+
         <div>
-            <span class="color-gray">电话：</span><span><%= store.phone %></span>
-        </div>
-        <div>
-            <span class="color-gray">营业时间：</span><span><%= store.workHour %></span>
-        </div>
-        <div class="clear-fix">
-            <span class="color-gray">店铺地址：</span><span><%= store.addr %></span>
+            <div class="fl color-gray">电话：</div>
+            <div><%= store.phone %></div>
         </div>
         <div>
-            <span class="color-gray">营业项目：</span><span><%= store.operateStr %></span>
+            <div class="fl color-gray">营业时间：</div>
+            <div><%= store.workHour %></div>
         </div>
-        <div><span class="color-gray">简介：</span><span><%= store.comment %></span></div>
+
+        <div class="clear-fix mt-2">
+            <div class="fl color-gray">店铺地址：</div>
+            <div style="padding-left:5em;"><%= store.addr %></div>
+        </div>
+        <div>
+            <div class="fl color-gray">营业项目：</div>
+            <div style="padding-left:5em;"><%= store.operateStr %></div>
+        </div>
+        <div>
+            <div class="fl color-gray">简介：</div>
+            <div style="padding-left:3em;"><%= store.comment %></div>
+        </div>
     </div>
 </div>

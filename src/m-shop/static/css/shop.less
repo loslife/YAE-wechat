@@ -1,0 +1,188 @@
+@import "../../../resource/css/constant.less";
+
+#m-shop {
+  background-color: @backgroundColor;
+  padding-bottom: @baseSpace;
+}
+
+#m-shop .home-img {
+  position: relative;
+  width: 100%;
+  background-color: white;
+}
+
+.home-img .img {
+  width: 100%;
+  padding-bottom: 75%;
+  margin-bottom: @baseSpace;
+  background-size: cover !important;
+}
+
+.home-img .store-name {
+  position: absolute;
+  right: @baseSpace * 2;
+  bottom: @baseSpace;
+  font-size: 20px;
+  color: white;
+}
+
+#m-shop .preferential {
+  margin: 0 @baseSpace;
+}
+.preferential-list{
+  border: 0.5*@baseSpace solid #ffffff;
+}
+
+.preferential-list > li > div:first-child {
+  background-size: cover !important;
+  width: 30%;
+  padding-bottom: 22%;
+  //  width: 120px;
+  //  height: 80px;
+}
+
+.desc-vm-help {
+  width: 0px;
+  padding-bottom: 22%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.preferential-list > li > {
+  //  height: 80px;
+  background-color: #ffffff;
+  line-height: @baseSpace * 2;
+  text-align: center;
+  border-bottom: 1px solid @backgroundColor;
+}
+
+.preferential-list > li:last-child {
+  //  height: 80px;
+  //background-color: #ffffff;
+  //line-height: @baseSpace * 2;
+  //text-align: center;
+  border-bottom: none;
+}
+
+.preferential-list > li:nth-child(odd) > div:first-child {
+  float: left;
+}
+
+.preferential-list > li:nth-child(even) > div:first-child {
+  float: right;
+}
+
+.preferential-list > li:nth-child(odd) > div:last-child > span:first-child {
+  //  padding-left: 130px;
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px @baseSpace;
+}
+
+.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px @baseSpace;
+  //  padding-right: 130px;
+}
+
+#m-shop .item {
+  margin: @baseSpace @baseSpace / 2;
+}
+
+.item-more a {
+  padding: 1px 0 0 24px;
+  height: 20px;
+  line-height: 20px;
+  position: relative;
+  text-align: right;
+  color: #f75169;
+}
+
+.item-more a:active {
+  color: #ac142a;
+}
+
+.item-more a:active:before {
+  background: url('../../../resource/right_more_active.png') 0 0;;
+  background-size: 18px 18px;
+}
+
+.item-more a:before {
+  content: "";
+  position: absolute;
+  background: url('../../../resource/right_more.png') 0 0;
+  background-size: 18px 18px;
+  width: 18px;
+  height: 18px;
+  right: 32px;
+  top: 2px;
+}
+
+.item-list {
+  background: white;
+}
+
+.item-list > li {
+  float: left;
+  width: 50%;
+}
+
+.item-list > li > a {
+  border: @baseSpace solid white;
+  box-sizing: border-box;
+}
+
+.item-list > li > a:active {
+  border-color: #f0f0f1;
+}
+
+.item-list .item-img {
+  width: 100%;
+  padding-bottom: 100%;
+  background-size: cover !important;
+  margin-bottom: @baseSpace;
+}
+
+.item-list > li div + div {
+  width: 100%;
+  height: @baseSpace * 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-list .item-name {
+}
+
+.item-list .item-comment {
+  font-size: 12px;
+  color: gray;
+}
+
+#m-shop .store {
+  margin: @baseSpace @baseSpace / 2 0 @baseSpace / 2;
+  border: @baseSpace solid white;
+  background: white;
+  overflow: hidden;
+}
+
+.store .store-img {
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: @baseSpace;
+}
+
+.store .store-name {
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+  margin-bottom: @baseSpace;
+  margin-left: 100px + @baseSpace;
+  border-bottom: 1px solid @backgroundColor;
+}
+
+.store > div + div {
+  margin-bottom: @baseSpace;
+}

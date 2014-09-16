@@ -22,7 +22,6 @@ function doLogin(req, res, next) {
             next({errorCode: 500, errorMessage: "数据库访问错误"});
             return;
         }
-
         if (result.length === 0) {
             next({errorCode: 501, errorMessage: "用户手机号错误"});
             return;

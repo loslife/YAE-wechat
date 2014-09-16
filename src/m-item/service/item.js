@@ -6,11 +6,13 @@ var request = require("request");
 exports.item = item;
 exports.itemDetail = itemDetail;
 
+var yaeUrl = "http://121.40.75.73";
+
 function item(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
 
     //todo replace url
-    var queryShelvesUrl = "http://121.40.75.73/svc/weixin/queryAllShelvesItem/" + enterpriseId;
+    var queryShelvesUrl = yaeUrl + "/svc/weixin/queryAllShelvesItem/" + enterpriseId;
 
     var options = {
         method: "GET",
@@ -19,9 +21,14 @@ function item(req, res, next) {
     };
 
     request(options, function (err, response, body) {
-        if (err || body.code != 0) {
+        if (err) {
             logger.error({err: err, detail: "调用失败" + queryShelvesUrl});
             next(err);
+            return;
+        }
+
+        if (body.code != 0) {
+            next("调用结果有误");
             return;
         }
 
@@ -38,7 +45,7 @@ function itemDetail(req, res, next) {
     var itemId = req.params.itemId;
 
     //todo replace url
-    var queryUrl = "http://121.40.75.73/svc/weixin/queryShelvesByItemId/" + itemId;
+    var queryUrl = yaeUrl + "/svc/weixin/queryShelvesByItemId/" + itemId;
 
     var options = {
         method: "GET",
@@ -47,11 +54,17 @@ function itemDetail(req, res, next) {
     };
 
     request(options, function (err, response, body) {
-        if (err || body.code != 0) {
+        if (err) {
             logger.error({err: err, detail: "调用失败" + queryUrl});
             next(err);
             return;
         }
+
+        if (body.code != 0) {
+            next("调用结果有误");
+            return;
+        }
+
 
         if (_.isEmpty(body.result)) {
             next("项目查询失败");

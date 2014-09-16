@@ -1,151 +1,146 @@
 #m-shop {
-    background-color: lightgray;
-    padding-bottom: 10px;
+  background-color: #e9e9ea;
+  padding-bottom: 10px;
 }
-
 #m-shop .home-img {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
+  background-color: white;
 }
-
-.home-img img {
-    display: block;
-    width: 100%;
+.home-img .img {
+  width: 100%;
+  padding-bottom: 75%;
+  margin-bottom: 10px;
+  background-size: cover !important;
 }
-
-.home-img span {
-    position: absolute;
-    right: 20px;
-    bottom: 10px;
-    font-size: 20px;
-    color: white;
+.home-img .store-name {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  font-size: 20px;
+  color: white;
 }
-
 #m-shop .preferential {
-    margin: 0 10px;
+  margin: 0 10px;
 }
-
+.preferential-list {
+  border: 5px solid #ffffff;
+}
 .preferential-list > li > div:first-child {
-    width: 120px;
-    height: 80px;
+  background-size: cover !important;
+  width: 30%;
+  padding-bottom: 22%;
 }
-
-.preferential-list > li > div:last-child {
-    height: 80px;
-    background-color: #ffffff;
-    line-height: 20px;
+.desc-vm-help {
+  width: 0px;
+  padding-bottom: 22%;
+  display: inline-block;
+  vertical-align: middle;
 }
-
+.preferential-list > li {
+  background-color: #ffffff;
+  line-height: 20px;
+  text-align: center;
+  border-bottom: 1px solid #e9e9ea;
+}
+.preferential-list > li:last-child {
+  border-bottom: none;
+}
 .preferential-list > li:nth-child(odd) > div:first-child {
-    float: left;
+  float: left;
 }
-
 .preferential-list > li:nth-child(even) > div:first-child {
-    float: right;
+  float: right;
 }
-
-.preferential-list > li:nth-child(odd) > div:last-child {
-    padding-left: 130px;
-    padding-right: 10px;
+.preferential-list > li:nth-child(odd) > div:last-child > span:first-child {
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px 10px;
 }
-
-.preferential-list > li:nth-child(even) > div:last-child {
-    padding-left: 10px;
-    padding-right: 130px;
+.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
+  box-sizing: border-box;
+  width: 70%;
+  padding: 0px 10px;
 }
-
+#m-shop .item {
+  margin: 10px 5px;
+}
 .item-more a {
-    padding: 0 0 0 24px;
-    height: 20px;
-    position: relative;
-    text-align: right;
-    color: deeppink;
+  padding: 1px 0 0 24px;
+  height: 20px;
+  line-height: 20px;
+  position: relative;
+  text-align: right;
+  color: #f75169;
 }
-
+.item-more a:active {
+  color: #ac142a;
+}
+.item-more a:active:before {
+  background: url('../../../resource/right_more_active.png') 0 0;
+  background-size: 18px 18px;
+}
 .item-more a:before {
-    content: "";
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border: 1px solid deeppink;
-    border-radius: 50%;
-    right: 36px;
-    top: 0;
+  content: "";
+  position: absolute;
+  background: url('../../../resource/right_more.png') 0 0;
+  background-size: 18px 18px;
+  width: 18px;
+  height: 18px;
+  right: 32px;
+  top: 2px;
 }
-
-.item-more a:after {
-    content: "";
-    width: 9px;
-    height: 9px;
-    border-top: 1px solid deeppink;
-    border-right: 1px solid deeppink;
-    position: absolute;
-    right: 38px;
-    top: 3px;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-    -webkit-transform-origin: 0% 0%;
-    -moz-transform-origin: 0% 0%;
-    -ms-transform-origin: 0% 0%;
-    -o-transform-origin: 0% 0%;
-    transform-origin: 0% 0%;
-}
-
 .item-list {
-    background: white;
+  background: white;
 }
-
 .item-list > li {
-    float: left;
-    width: 50%;
-    border: 10px solid white;
-    box-sizing: border-box;
+  float: left;
+  width: 50%;
 }
-
+.item-list > li > a {
+  border: 10px solid #ffffff;
+  box-sizing: border-box;
+}
+.item-list > li > a:active {
+  border-color: #f0f0f1;
+}
 .item-list .item-img {
-    width: 100%;
-    padding-bottom: 100%;
-    background-size: cover !important;
+  width: 100%;
+  padding-bottom: 100%;
+  background-size: cover !important;
+  margin-bottom: 10px;
 }
-
 .item-list > li div + div {
-    width: 100%;
-    height: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: 100%;
+  height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-.item-list .item-name {
-}
-
 .item-list .item-comment {
-    font-size: 12px;
-    color: gray;
+  font-size: 12px;
+  color: gray;
 }
-
 #m-shop .store {
-    margin: 10px 10px 0 10px;
-    border: 10px solid white;
-    background: white;
-    overflow: hidden;
+  margin: 10px 5px 0 5px;
+  border: 10px solid #ffffff;
+  background: white;
+  overflow: hidden;
 }
-
 .store .store-img {
-    width: 100px;
-    height: 100px;
-    float: left;
-    margin-right: 10px;
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: 10px;
 }
-
 .store .store-name {
-    height: 50px;
-    font-size: 20px;
-    line-height: 50px;
-    margin-bottom: 10px;
-    margin-left: 110px;
-    border-bottom: 1px solid lightgray;
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+  margin-bottom: 10px;
+  margin-left: 110px;
+  border-bottom: 1px solid #e9e9ea;
+}
+.store > div + div {
+  margin-bottom: 10px;
 }

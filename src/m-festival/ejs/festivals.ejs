@@ -1,0 +1,52 @@
+<%- Loader()
+        .css("/m-festival/css/festivals.css")
+        .done(config) %>
+
+<div id="m-festival">
+
+    <% if(festivals.length === 0){ %>
+
+    <span id="empty-list-msg">暂时没有优惠活动</span>
+
+    <% }else{ %>
+
+    <ul id="festival-list">
+
+        <% for(var i = 0; i < festivals.length; i++) { %>
+
+        <li class="festival-item">
+
+            <img src="../../../resource/logo.png">
+
+            <div class="title"><%= festivals[i].title %></div>
+
+            <div class="horizontal-line"></div>
+
+            <div class="field">
+                <div class="fl color-gray">活动时间：</div>
+                <div style="padding-left: 5rem">4月20日 - 5月10日</div>
+            </div>
+
+            <div class="field">
+                <div class="fl color-gray">活动优惠：</div>
+                <div style="padding-left: 5rem">赠送现金券</div>
+            </div>
+
+            <div class="field">
+                <div class="fl color-gray">活动详情：</div>
+                <div style="padding-left: 5rem"><%= festivals[i].desc %></div>
+            </div>
+
+            <div class="btn">
+                <button><a href="route?fid=<%= festivals[i].id %>">领取优惠券</a></button>
+            </div>
+
+        </li>
+
+        <% } %>
+
+    </ul>
+
+    <% } %>
+
+</div>

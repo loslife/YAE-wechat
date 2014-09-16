@@ -1,0 +1,60 @@
+{
+    "services": [
+        {
+            "name": "festivalList",
+            "path": "/wsite/:enterpriseId/festival",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.list",
+            "comment": "优惠活动列表"
+        },
+        {
+            "name": "festivalRouter",
+            "path": "/wsite/:enterpriseId/route",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.route",
+            "comment": "根据会员和非会员进行跳转"
+        },
+        {
+            "name": "getPresent",
+            "path": "/wsite/:enterpriseId/getPresent",
+            "method": "post",
+            "auth": false,
+            "impl": "festival.getPresent",
+            "comment": "领取礼物"
+        },
+        {
+            "name": "festivalDone",
+            "path": "/wsite/:enterpriseId/done",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.done",
+            "comment": "领取优惠活动流程结束"
+        },
+        {
+            "name": "countShareTimes",
+            "path": "/wsite/:enterpriseId/countShare",
+            "method": "post",
+            "auth": false,
+            "impl": "festival.countShareTimes",
+            "comment": "统计分享次数"
+        }
+    ],
+    "statics": [
+        {
+            "name": "m-festival",
+            "path": "/m-festival",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}

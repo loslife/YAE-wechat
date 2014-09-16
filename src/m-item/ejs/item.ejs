@@ -9,9 +9,10 @@
                 </div>
 
                 <div><%= shelveList[i].name %></div>
-                <div class="color-red">￥<%= shelveList[i].price %></div>
+                <div class="color-red">￥<%= Number(shelveList[i].price).toFixed(1) %></div>
             </a>
         </li>
         <% } %>
     </ul>
+    <div class="more-item">更多精品服务欢迎到店体验</div>
 </div>
