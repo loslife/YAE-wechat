@@ -1,4 +1,5 @@
 module.exports = function(req, res, next){
+
     var paths = req.path.split("/");
     var enterprise_id = paths[1];
 

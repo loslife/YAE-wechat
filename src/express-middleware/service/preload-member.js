@@ -8,6 +8,7 @@
  * 如果后续从乐斯app跳转过来，也只需要带上m_id，则与从微信跳转过来具有一样的效果
  */
 module.exports = function(req, res, next){
+
     var member_id = req.query["m_id"];
 
     if(member_id){
