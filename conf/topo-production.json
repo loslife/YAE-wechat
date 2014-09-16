@@ -10,6 +10,7 @@
             "workerno": 1,
             "applications": [
                 "interface",
+                "express-middleware",
                 "m-shop",
                 "m-member",
                 "m-login",
