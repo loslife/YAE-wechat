@@ -19,6 +19,9 @@
   color: white;
   padding: 1rem;
 }
+#festival-introduce > .title > img {
+  width: 1rem;
+}
 #festival-introduce > .field {
   padding: 1rem 0 1rem 10px;
 }
