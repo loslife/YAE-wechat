@@ -102,7 +102,7 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
             if(memberId){
                 callback(null);
             }else{
-                _generateSecurityCode(result, callback);
+                _generateSecurityCode(result[0], callback);
             }
         });
     });
