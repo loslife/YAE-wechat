@@ -8,7 +8,12 @@
   background-color: white;
   margin-bottom: 10px;
 }
-#get-present-success > div {
+#header_pic > img {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+#message_area {
   width: 60%;
   margin: 0 auto;
   text-align: center;
@@ -16,27 +21,8 @@
   font-size: 2rem;
   padding: 1rem;
 }
-#get-present-success > img {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px;
-}
-#get-present-duplicate {
-  background-color: white;
-  margin-bottom: 10px;
-}
-#get-present-duplicate > div {
-  width: 60%;
-  margin: 0 auto;
-  text-align: center;
-  color: green;
-  font-size: 2rem;
-  padding: 1rem;
-}
-#get-present-duplicate > img {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px;
+#message_area > img {
+  width: 2rem;
 }
 .back {
   border-top: 1px solid #e9e9ea;
