@@ -79,6 +79,7 @@ form .input input {
   width: 100px;
   margin: 0 auto;
   display: block;
+  padding-top: 1rem;
 }
 .back {
   border-top: 1px solid #e9e9ea;
