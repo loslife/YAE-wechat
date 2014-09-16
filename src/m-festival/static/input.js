@@ -16,7 +16,15 @@ $(function(){
 
         $.post(url, {phone: phone}, function (response) {
 
+            var code = response.code;
+
+            if(code !== 0){
+                alert("领取失败，请联系客服");
+                return;
+            }
+
             var status = response.result.status;
+
             if(status === 1){
                 location.href = "done?duplicate=false";
             }else{

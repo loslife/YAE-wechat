@@ -93,16 +93,16 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
             }
 
             // 增加发放礼物次数
-            dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {send_count: 1}, function(err, result){
-                if(err){
-                    console.log(err);
-                }
-            });
+            if(memberId){
+                dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {send_count_member: 1}, function(err, result){});
+            }else{
+                dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {send_count_walkin: 1}, function(err, result){});
+            }
 
             if(memberId){
                 callback(null);
             }else{
-                _generateSecurityCode(result, callback);
+                _generateSecurityCode(result[0], callback);
             }
         });
     });
@@ -134,7 +134,7 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
                 f: '1'
             };
 
-            datas.postResource("/svc/sms/sendSMS", "", smsContent).then(function(result){
+            datas.postResource("sms/sendSMS", "", smsContent).then(function(result){
 
                 var flag = result.result;
 

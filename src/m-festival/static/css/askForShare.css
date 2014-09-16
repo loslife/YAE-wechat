@@ -11,13 +11,16 @@
 #festival-introduce > img {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+  display: block;
 }
 #festival-introduce > .title {
   font-size: 1rem;
   background-color: #f75169;
   color: white;
   padding: 1rem;
+}
+#festival-introduce > .title > img {
+  width: 1rem;
 }
 #festival-introduce > .field {
   padding: 1rem 0 1rem 10px;
@@ -36,14 +39,10 @@
   z-index: 1;
 }
 #share_tips > img {
+  display: block;
+  width: 200px;
   float: right;
-  margin-top: 10px;
-}
-#share_tips > div {
-  width: 300px;
-  margin: 150px auto;
-  text-align: center;
-  font-size: 28px;
+  margin: 1rem 2rem 0 0;
 }
 .btn {
   width: 60%;
@@ -73,6 +72,7 @@
   width: 100px;
   margin: 0 auto;
   display: block;
+  padding-top: 1rem;
 }
 .back {
   border-top: 1px solid #e9e9ea;

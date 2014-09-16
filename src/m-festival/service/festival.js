@@ -111,7 +111,7 @@ function done(req, res, next){
 
     var model = {
         enterprise_id: enterpriseId,
-        menu: "festival",
+        menu: "none",
         duplicate: flag
     };
 

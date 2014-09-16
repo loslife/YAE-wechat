@@ -8,35 +8,24 @@
   background-color: white;
   margin-bottom: 10px;
 }
-#get-present-success > div {
-  width: 60%;
-  margin: 0 auto;
-  text-align: center;
-  color: green;
-  font-size: 2rem;
-  padding: 1rem;
-}
-#get-present-success > img {
+#header_pic > img {
   box-sizing: border-box;
   width: 100%;
   padding: 10px;
 }
-#get-present-duplicate {
-  background-color: white;
-  margin-bottom: 10px;
-}
-#get-present-duplicate > div {
+#message_area {
   width: 60%;
   margin: 0 auto;
   text-align: center;
-  color: green;
-  font-size: 2rem;
+  font-size: 1rem;
   padding: 1rem;
 }
-#get-present-duplicate > img {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px;
+#message_area > img {
+  width: 1rem;
+}
+#msg_success {
+  color: #67b449;
+  vertical-align: top;
 }
 .back {
   border-top: 1px solid #e9e9ea;
