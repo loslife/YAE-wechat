@@ -1,5 +1,5 @@
 $(function () {
-    $(".panel-head").click(function (e) {
+    $(".panel-head").tap(function (e) {
         var head = $(e.target);
         if (head[0].nodeName == "SPAN" || head[0].nodeName == "IMG") {
             head = head.parent();

@@ -1,5 +1,4 @@
 #m-item {
-  height: inherit;
   background: #e9e9ea;
 }
 .item-list {
@@ -16,7 +15,7 @@
   background: white;
 }
 .item-list li a {
-  border: 10px solid #ffffff;
+  border: 5px solid #ffffff;
   box-sizing: border-box;
 }
 .item-list li a:active {
@@ -75,7 +74,6 @@
 }
 #m-item .more-item {
   background: white;
-  margin: 0 10px;
   padding: 10px 0;
   text-align: center;
 }

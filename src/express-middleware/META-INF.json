@@ -1,0 +1,18 @@
+{
+    "services": [
+    ],
+    "loadMiddleWare": {
+        "name": "loadMiddleWare",
+        "impl": "middleware.loadMiddleWare",
+        "comment": ""
+    },
+    "statics": [
+
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}
