@@ -98,7 +98,7 @@
   width: 50%;
 }
 .item-list > li > a {
-  border: 10px solid #ffffff;
+  border: 5px solid #ffffff;
   box-sizing: border-box;
 }
 .item-list > li > a:active {
