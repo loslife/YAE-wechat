@@ -23,9 +23,8 @@ function list(req, res, next){
     });
 }
 
-// 1. 散客，跳转到输入手机号的页面，已经查询好优惠券是否已经发完
-// 2. 会员，如果已经领取过，重定向到领取成功页面
-// 3. 会员，如果没有领取过，跳转到分享后领取的页面，已经查询好优惠券是否已经发完
+// 1. 散客，跳转到输入手机号的页面，查询优惠券是否已经发完
+// 2. 会员，跳转到分享领取的页面，查询好优惠券是否发完，会员是否已经领取过
 function route(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
@@ -49,12 +48,7 @@ function route(req, res, next){
             }
 
             dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
-
-                if(received){
-                    res.redirect("/svc/wsite/" + enterpriseId + "/done?duplicate=true");
-                }else{
-                    res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired});
-                }
+                res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired, duplicated: received});
             });
         });
     });
