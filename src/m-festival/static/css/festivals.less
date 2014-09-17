@@ -16,25 +16,26 @@
   margin-bottom: 0;
 }
 
+.item-header > .title {
+  display: inline-block;
+  padding: 1rem 0 0 1rem;
+}
+
+.item-header > a {
+  display: inline-block;
+  float: right;
+  padding: 1rem 1rem 0 0;
+  color: #f75169;
+}
+
 .festival-item > img {
   box-sizing: border-box;
   width: 100%;
   padding: @baseSpace;
 }
 
-.festival-item > .title {
-  padding-left: @baseSpace;
-  font-size: 2rem;
-}
-
-.festival-item > .horizontal-line {
-  height: 0;
-  margin: @baseSpace;
-  border-bottom: 1px solid @backgroundColor;
-}
-
-.festival-item > .field {
-  padding: 1rem 0 1rem @baseSpace;
+.festival-item > div.item-desc {
+  padding: 0 1rem 1rem 1rem;
 }
 
 .btn {

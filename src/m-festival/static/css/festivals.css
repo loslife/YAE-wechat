@@ -11,22 +11,23 @@
 .festival-item:last-child {
   margin-bottom: 0;
 }
+.item-header > .title {
+  display: inline-block;
+  padding: 1rem 0 0 1rem;
+}
+.item-header > a {
+  display: inline-block;
+  float: right;
+  padding: 1rem 1rem 0 0;
+  color: #f75169;
+}
 .festival-item > img {
   box-sizing: border-box;
   width: 100%;
   padding: 10px;
 }
-.festival-item > .title {
-  padding-left: 10px;
-  font-size: 2rem;
-}
-.festival-item > .horizontal-line {
-  height: 0;
-  margin: 10px;
-  border-bottom: 1px solid #e9e9ea;
-}
-.festival-item > .field {
-  padding: 1rem 0 1rem 10px;
+.festival-item > div.item-desc {
+  padding: 0 1rem 1rem 1rem;
 }
 .btn {
   width: 40%;

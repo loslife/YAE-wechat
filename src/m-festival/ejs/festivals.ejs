@@ -16,34 +16,18 @@
 
         <li class="festival-item">
 
+            <div class="item-header">
+                <div class="title"><%= festivals[i].title %></div>
+                <a href="route?fid=<%= festivals[i].id %>">详情</a>
+            </div>
+
             <% if(festivals[i].pic_url){ %>
                 <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festivals[i].pic_url %>">
             <% }else{ %>
                 <img src="../../../resource/logo.jpg">
             <% } %>
 
-            <div class="title"><%= festivals[i].title %></div>
-
-            <div class="horizontal-line"></div>
-
-            <div class="field">
-                <div class="fl color-gray">活动时间：</div>
-                <div style="padding-left: 5rem">4月20日 - 5月10日</div>
-            </div>
-
-            <div class="field">
-                <div class="fl color-gray">活动优惠：</div>
-                <div style="padding-left: 5rem">赠送现金券</div>
-            </div>
-
-            <div class="field">
-                <div class="fl color-gray">活动详情：</div>
-                <div style="padding-left: 5rem"><%= festivals[i].desc %></div>
-            </div>
-
-            <div class="btn">
-                <button><a href="route?fid=<%= festivals[i].id %>">领取优惠券</a></button>
-            </div>
+            <div class="item-desc"><%= festivals[i].desc %></div>
 
         </li>
 
