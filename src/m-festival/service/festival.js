@@ -101,12 +101,10 @@ function getPresent(req, res, next){
 function done(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
-    var flag = req.query["duplicate"];
 
     var model = {
         enterprise_id: enterpriseId,
-        menu: "none",
-        duplicate: flag
+        menu: "none"
     };
 
     res.render("done", model);
