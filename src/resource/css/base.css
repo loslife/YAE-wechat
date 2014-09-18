@@ -13,6 +13,9 @@
 .pt-1 {
   padding-top: 10px !important;
 }
+.mb-0 {
+  margin-bottom: 0px !important;
+}
 .mb-1 {
   margin-bottom: 10px !important;
 }
@@ -48,6 +51,9 @@
 }
 .fs-20 {
   font-size: 20px !important;
+}
+.mh-20 {
+  min-height: 20px !important;
 }
 .border-bottom {
   border-bottom: 1px solid lightgray;

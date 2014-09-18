@@ -29,19 +29,20 @@
 #m-shop .preferential {
   margin: 0 0.5*@baseSpace;
 }
-.preferential-list{
-  border: 0.5*@baseSpace solid #ffffff;
-}
+
+//.preferential-list{
+//  border: 0.5*@baseSpace solid #ffffff;
+//}
 
 .preferential-list > li > div:first-child {
   background-size: cover !important;
-  width: 30%;
-  padding-bottom: 22%;
+  width: 36%;
+  padding-bottom: 27%;
 }
 
 .desc-vm-help {
   width: 0px;
-  padding-bottom: 22%;
+  padding-bottom: 27%;
   display: inline-block;
   vertical-align: middle;
 }
@@ -50,39 +51,52 @@
   //  height: 80px;
   background-color: #ffffff;
   line-height: @baseSpace * 2;
-  text-align: center;
   border-bottom: 1px solid @backgroundColor;
+  overflow: hidden;
 }
 
 .preferential-list > li:last-child {
   //  height: 80px;
   //background-color: #ffffff;
   //line-height: @baseSpace * 2;
-  //text-align: center;
   border-bottom: none;
 }
 
 .preferential-list > li:nth-child(odd) > div:first-child {
   float: left;
+  border: 1px solid #ffffff;
+  border-right: none;
+  box-sizing: border-box;
 }
 
 .preferential-list > li:nth-child(even) > div:first-child {
   float: right;
+  border: 1px solid #ffffff;
+  border-left: none;
+  box-sizing: border-box;
 }
 
-.preferential-list > li:nth-child(odd) > div:last-child > span:first-child {
-  //  padding-left: 130px;
+.festivalsInfo{
   box-sizing: border-box;
-  width: 70%;
-  padding: 0px @baseSpace;
+  width: 64%;
+  padding: 0px 1.5*@baseSpace 0px 1.2*@baseSpace;
 }
 
-.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
-  box-sizing: border-box;
-  width: 70%;
-  padding: 0px @baseSpace;
-  //  padding-right: 130px;
+.festivalsTitle {
+  font-size: 1.4*@baseSpace;
+  margin-bottom: 5px;
 }
+
+.festivalsDesc {
+  font-size: 1.2*@baseSpace;
+}
+
+//.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
+//  box-sizing: border-box;
+//  width: 64%;
+//  padding: 0px @baseSpace;
+//  //  padding-right: 130px;
+//}
 
 #m-shop .item {
   margin: @baseSpace @baseSpace / 2;
