@@ -2,6 +2,7 @@
   background-color: #e9e9ea;
   padding: 10px;
   box-sizing: border-box;
+  overflow: auto;
 }
 #festival-introduce {
   background-color: white;
@@ -23,6 +24,9 @@
 }
 #festival-introduce > .field {
   padding: 1rem 0 0 10px;
+}
+#festival-introduce > .field:last-child {
+  padding-bottom: 1rem;
 }
 #input-area {
   background-color: white;
