@@ -20,15 +20,6 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
-    (function(){
-
-        var windowH = $(window).height();
-        var shareHeight = windowH - 49;
-
-        $("#m-festival-share").height(shareHeight);
-
-    })();
-
     $("#back").on("click", function ($even) {
         location.href = "festival";
         $even.stopPropagation();

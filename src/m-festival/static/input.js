@@ -20,15 +20,6 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
-    (function(){
-
-        var windowH = $(window).height();
-        var contentH = windowH - 49;
-
-        $("#m-festival-input").height(contentH);
-
-    })();
-
     $("#present_form").submit(function($event){
 
         $event.preventDefault();
