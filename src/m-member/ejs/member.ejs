@@ -98,7 +98,9 @@
                         <div><label><%= record.createDay %>日</label></div>
                         <div><label>项目名称：</label><span><%= record.items %></span></div>
                         <div><label>服务员工：</label><span><%= record.employees %></span></div>
-                        <div><label>消费金额：</label><span><%= record.amount %></span></div>
+                        <div>
+                            <label>消费金额：</label><span>￥<%= (record.amount || 0 == record.amount) ? record.amount.toFixed(1) : 0.0 %></span>
+                        </div>
                     </div>
                     <% }); %>
                 </div>
