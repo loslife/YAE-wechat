@@ -1,0 +1,39 @@
+#m-festival-done {
+  background-color: #e9e9ea;
+  padding: 10px;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+#get-present-success {
+  background-color: white;
+  margin-bottom: 10px;
+}
+#header_pic > img {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+}
+#message_area {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1rem;
+  padding: 1rem;
+}
+#message_area > img {
+  width: 1rem;
+}
+#msg_success {
+  color: #67b449;
+  vertical-align: top;
+}
+.back {
+  border-top: 1px solid #e9e9ea;
+  text-align: center;
+  height: 48px;
+  line-height: 48px;
+  color: #f75169;
+}
+.back:active {
+  background-color: #f0f0f1;
+}

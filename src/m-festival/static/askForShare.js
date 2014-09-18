@@ -1,5 +1,10 @@
 $(function(){
 
+    $("#back").on("click", function ($even) {
+        location.href = "festival";
+        $even.stopPropagation();
+    });
+
     $("#btn_share").hide();
     $("#share_tips").hide();
 
@@ -22,8 +27,8 @@ $(function(){
             var wxData = {
                 "imgUrl" : "http://121.40.75.73/resource/share_thumb.jpg",
                 "link" : "http://121.40.75.73/svc/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "desc" : "优惠活动描述",
-                "title" : "优惠活动标题"
+                "desc" : "各位朋友，我在测试，请不要点进来",
+                "title": "优惠活动标题"
             };
 
             var wxCallbacks = {
@@ -41,6 +46,9 @@ $(function(){
                             location.href = "done?duplicate=true";
                         }
                     });
+
+                    var shareCountURL = "/svc/wsite/" + enterpriseId + "/countShare?fid=" + festivalId;
+                    $.post(shareCountURL, {}, function(response){});
                 }
             };
 
