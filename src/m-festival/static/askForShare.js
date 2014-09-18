@@ -71,9 +71,9 @@ function init(){
 
                         var status = response.result.status;
                         if(status === 1){
-                            location.href = "done?duplicate=false";
+                            location.href = "done";
                         }else{
-                            location.href = "done?duplicate=true";
+                            location.href = "done";
                         }
                     });
 
