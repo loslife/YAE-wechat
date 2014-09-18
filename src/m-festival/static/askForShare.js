@@ -22,11 +22,10 @@ function init(){
 
     (function(){
 
-        var menuH = $("#back").height();
         var windowH = $(window).height();
-        var contentH = windowH - menuH;
+        var shareHeight = windowH - 49;
 
-        $("#m-festival-share").height(contentH);
+        $("#m-festival-share").height(shareHeight);
 
     })();
 
@@ -34,9 +33,6 @@ function init(){
         location.href = "festival";
         $even.stopPropagation();
     });
-
-    $("#btn_share").hide();
-    $("#share_tips").hide();
 
     // 如果是在微信中打开
     WeixinApi.ready(function(Api) {
