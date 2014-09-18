@@ -7,7 +7,11 @@
 
     <div id="festival-introduce">
 
-        <img src="../../../resource/haibao.jpg">
+        <% if(festival.pic_url){ %>
+            <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>">
+        <% }else{ %>
+            <img src="../../../resource/haibao.jpg">
+        <% } %>
 
         <div class="title">
             <img src="../../../resource/star.png">
