@@ -59,7 +59,7 @@ function init(){
             if(status === 1){
                 location.href = "done";
             }else{
-                alert("不能重复领取");
+                $("#repeat-deny").show();
             }
         });
     });
@@ -67,6 +67,10 @@ function init(){
     $("#back").on("click", function ($even) {
         location.href = "festival";
         $even.stopPropagation();
+    });
+
+    $("#repeat-deny").tap(function(){
+        $(this).hide();
     });
 
     // 如果是在微信中打开
