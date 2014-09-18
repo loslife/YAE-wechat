@@ -16,6 +16,8 @@
     <%- body %>
 </div>
 
+<div id="empty-placeholder" style="width: 100%;height: 49px"></div>
+
 <ul id="menu" class="menu <% if (menu == 'none') { %>none<% } %>">
     <li class="<% if (menu == 'store') { %>selected<% } %>">
         <a class="block" href="/svc/wsite/<%= enterprise_id %>/shop">
