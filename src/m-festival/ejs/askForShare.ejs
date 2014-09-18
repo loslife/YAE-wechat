@@ -16,7 +16,7 @@
 
         <div class="field">
             <div class="fl color-gray">活动时间：</div>
-            <div style="padding-left: 5rem">4月20日 - 5月10日</div>
+            <div style="padding-left: 5rem"><%= dateFormat(new Date(festival.begin_date), "MM月DD日")%> - <%= dateFormat(new Date(festival.end_date), "MM月DD日")%></div>
         </div>
 
         <div class="field">
