@@ -8,19 +8,15 @@
   background-color: white;
   margin-bottom: 10px;
 }
+.festival-item:active {
+  background: #e9e9ea;
+}
 .festival-item:last-child {
   margin-bottom: 0;
 }
 .item-header > .title {
-  display: inline-block;
   padding: 1.2rem 0 1.2rem 1rem;
   font-size: 1.2rem;
-}
-.item-header > a {
-  display: inline-block;
-  float: right;
-  padding: 1.2rem 1rem 1.2rem 0;
-  color: #f75169;
 }
 .festival-item > img {
   box-sizing: border-box;

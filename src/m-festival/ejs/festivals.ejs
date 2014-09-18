@@ -1,5 +1,6 @@
 <%- Loader()
         .css("/m-festival/css/festivals.css")
+        .js("/m-festival/festivals.js")
         .done(config) %>
 
 <div id="m-festival">
@@ -18,7 +19,6 @@
 
             <div class="item-header">
                 <div class="title"><%= festivals[i].title %></div>
-                <a href="route?fid=<%= festivals[i].id %>">详情</a>
             </div>
 
             <% if(festivals[i].pic_url){ %>
@@ -29,6 +29,8 @@
 
             <div class="item-desc"><%= festivals[i].desc %></div>
 
+            <span style="display: none"><%= festivals[i].id %></span>
+
         </li>
 
         <% } %>
@@ -38,3 +40,4 @@
     <% } %>
 
 </div>
+

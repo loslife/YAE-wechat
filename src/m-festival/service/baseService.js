@@ -72,7 +72,9 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
             state: 0,
             present_type: festival.present_type,
             present_id: festival.present_id,
-            present_name: festival.present_name
+            present_name: festival.present_name,
+            consume_state: 0,
+            festival_consume: 0
         };
 
         if(memberId){
