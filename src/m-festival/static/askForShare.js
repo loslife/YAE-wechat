@@ -68,8 +68,6 @@ function init(){
                         var status = response.result.status;
                         if(status === 1){
                             location.href = "done";
-                        }else{
-                            location.href = "done";
                         }
                     });
 
