@@ -4,26 +4,26 @@
   box-sizing: border-box;
   overflow: auto;
 }
-#get-present-success {
+#wrapper {
   background-color: white;
   margin-bottom: 10px;
 }
-#header_pic > img {
+#wrapper > img {
   box-sizing: border-box;
   width: 100%;
   padding: 10px;
 }
-#message_area {
+#message {
   width: 60%;
   margin: 0 auto;
   text-align: center;
   font-size: 1rem;
   padding: 1rem;
 }
-#message_area > img {
+#message > img {
   width: 1rem;
 }
-#msg_success {
+#message > span {
   color: #67b449;
   vertical-align: top;
 }
