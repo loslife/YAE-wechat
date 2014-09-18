@@ -29,7 +29,9 @@ function init(){
 
     })();
 
-    $("#btn_submit").tap(function(){
+    $("#present_form").submit(function($event){
+
+        $event.preventDefault();
 
         var phone = $("#input_phone").val();
 
