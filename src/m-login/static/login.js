@@ -27,12 +27,12 @@ $(function () {
         }
 
         var url = g_env.check_code_url + phone + "?u=weixin_login&c=" + secure_code;
+
         $.get(url, function (response) {
+
             if (response.code !== 0) {
-                alert("登陆失败，请检查手机号是否正确");
-            }
-            else {
-                window.location = "member";
+                alert("验证码错误");
+                return;
             }
 
             var enterprise_id = $("#enterprise_id").text();
