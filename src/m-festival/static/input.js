@@ -50,7 +50,12 @@ function init(){
             if(status === 1){
                 location.href = "done";
             }else{
-                $("#repeat-deny").show();
+
+                var windowHeight = $(window).height();
+                var contentHeight = $("#content").height();
+                var max = Math.max(windowHeight, contentHeight);
+                
+                $("#repeat-deny").height(max).show();
             }
         });
     });
