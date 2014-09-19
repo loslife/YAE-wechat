@@ -28,7 +28,7 @@ function init(){
     // 如果是在微信中打开
     WeixinApi.ready(function(Api) {
 
-        $("#btn_share").show().tap(function(){
+        $("#btn_share").tap(function(){
 
             var windowHeight = $(window).height();
             var contentHeight = $("#content").height();
