@@ -1,5 +1,9 @@
 @import "../../../resource/css/constant.less";
 
+body {
+  background-color: @backgroundColor;
+}
+
 #m-festival-done {
   background-color: @backgroundColor;
   padding: @baseSpace;
@@ -27,10 +31,13 @@
 }
 
 #message > img {
-  width: 1rem;
+  position: relative;
+  top: 3px;
+  width: 1.2rem;
 }
 
 #message > span {
+  font-size: 1.5rem;
   color: #67b449;
   vertical-align: top;
 }
