@@ -75,7 +75,7 @@ function init(){
             var festivalId = $("#festival_id").text();
 
             var wxData = {
-                "imgUrl" : "http://121.40.75.73/resource/share_thumb.jpg",
+                "imgUrl" : "http://121.40.75.73/resource/share_thumb.png",
                 "link" : "http://121.40.75.73/svc/wsite/" + enterpriseId + "/route?fid=" + festivalId,
                 "desc" : "各位朋友，我在测试，请不要点进来",
                 "title": "优惠活动标题"
