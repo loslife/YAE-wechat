@@ -2,6 +2,7 @@ body {
   background-color: #e9e9ea;
 }
 #m-festival-share {
+  position: relative;
   background-color: #e9e9ea;
   padding: 10px;
   box-sizing: border-box;
