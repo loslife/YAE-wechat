@@ -29,7 +29,12 @@ function init(){
     WeixinApi.ready(function(Api) {
 
         $("#btn_share").show().tap(function(){
-            $("#share_tips").show().tap(function(){
+
+            var windowHeight = $(window).height();
+            var contentHeight = $("#content").height();
+            var max = Math.max(windowHeight, contentHeight);
+
+            $("#share_tips").height(max).show().tap(function(){
                 $(this).hide();
             });
         });
