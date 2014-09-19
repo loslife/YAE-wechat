@@ -288,9 +288,13 @@ function queryMemberData(enterprise_id, member_id, callback) {
 }
 
 function queryMemberBill(enterpriseId, memberId, callback) {
+    var bill = [];
+    if (!memberId || !enterpriseId) {
+        callback(null, bill)
+        return;
+    }
     var rechargeRecords = [];
     var consumptionRecords = [];
-    var bill = [];
     async.series([_queryRechargeRecords, _queryConsumptionRecords, _queryBonus, _buildMemberBill], function (error) {
         if (error) {
             callback(error);
