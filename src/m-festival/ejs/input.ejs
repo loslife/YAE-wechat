@@ -7,7 +7,11 @@
 
     <div id="festival-introduce">
 
-        <img src="../../../resource/haibao.png">
+        <% if(festival.pic_url){ %>
+            <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>">
+        <% }else{ %>
+            <img src="../../../resource/haibao.jpg">
+        <% } %>
 
         <div class="title">
             <img src="../../../resource/star.png">
@@ -16,12 +20,7 @@
 
         <div class="field">
             <div class="fl color-gray">活动时间：</div>
-            <div style="padding-left: 5rem">4月20日 - 5月10日</div>
-        </div>
-
-        <div class="field">
-            <div class="fl color-gray">活动优惠：</div>
-            <div style="padding-left: 5rem">赠送现金券</div>
+            <div style="padding-left: 5rem"><%= dateFormat(new Date(festival.begin_date), "MM月DD日")%> - <%= dateFormat(new Date(festival.end_date), "MM月DD日")%></div>
         </div>
 
         <div class="field">
@@ -44,19 +43,27 @@
                 小贴士：到店使用需通过手机号验证
             </div>
 
-            <form>
+            <form id="present_form">
 
                 <div class="input">
                     <input id="input_phone" type="tel" name="phone" placeholder="输入手机号立刻领取">
                 </div>
 
                 <div class="btn">
-                    <button id="btn_submit" type="button">领取</button>
+                    <button type="submit">领取</button>
                 </div>
             </form>
 
         <% } %>
+    </div>
 
+    <div id="empty-placeholder" class="placeholder"></div>
+
+    <div id="repeat-deny" style="display: none">
+        <div id="msg-body">
+            <img src="../../../resource/present_got_duplicate.png">
+            <div>您已经领取过一次了，看看别的吧。</div>
+        </div>
     </div>
 
     <div id="hidden_area">
