@@ -136,6 +136,33 @@ form .input input {
   padding-top: 1rem;
 }
 
+.store {
+  margin-top: @baseSpace;
+  border: @baseSpace solid white;
+  background: white;
+  overflow: hidden;
+}
+
+.store .store-img {
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: @baseSpace;
+}
+
+.store .store-name {
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+  margin-bottom: @baseSpace;
+  margin-left: 100px + @baseSpace;
+  border-bottom: 1px solid @backgroundColor;
+}
+
+.store > div + div {
+  margin-bottom: @baseSpace;
+}
+
 #hidden_area {
   display: none;
 }

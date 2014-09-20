@@ -1,11 +1,14 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var dao = require("./baseService");
+var request = require("request");
 
 exports.list = list;
 exports.route = route;
 exports.getPresent = getPresent;
 exports.done = done;
 exports.countShareTimes = countShareTimes;
+
+var http_server = "http://10.171.203.219/svc/";
 
 function list(req, res, next){
 
@@ -43,7 +46,16 @@ function route(req, res, next){
         dao.reachLimit(enterpriseId, festivalId, function(err, expired){
 
             if(!memberId){
-                res.render("input", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired});
+
+                _queryStoreInfo(function(err, store){
+
+                    if(err){
+                        next(err);
+                        return;
+                    }
+                    res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired});
+                });
+
                 return;
             }
 
@@ -58,6 +70,28 @@ function route(req, res, next){
             if(err){
                 console.log(err);
             }
+        });
+    }
+
+    function _queryStoreInfo(callback) {
+
+        var queryUrl = http_server + "weixin/queryStoreInfo/" + enterpriseId;
+
+        var options = {
+            method: "GET",
+            uri: queryUrl,
+            json: true
+        };
+
+        request(options, function (err, response, body){
+
+            if (err || body.code != 0) {
+                logger.error({err: err, detail: "调用失败" + queryUrl});
+                callback(err);
+                return;
+            }
+
+            callback(null, body.result.store);
         });
     }
 }

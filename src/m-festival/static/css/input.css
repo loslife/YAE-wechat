@@ -114,6 +114,29 @@ form .input input {
   display: block;
   padding-top: 1rem;
 }
+.store {
+  margin-top: 10px;
+  border: 10px solid #ffffff;
+  background: white;
+  overflow: hidden;
+}
+.store .store-img {
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: 10px;
+}
+.store .store-name {
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+  margin-bottom: 10px;
+  margin-left: 110px;
+  border-bottom: 1px solid #e9e9ea;
+}
+.store > div + div {
+  margin-bottom: 10px;
+}
 #hidden_area {
   display: none;
 }

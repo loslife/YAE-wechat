@@ -61,6 +61,33 @@
         <% } %>
     </div>
 
+    <div class="store">
+        <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat"></div>
+        <div class="store-name mh-20"><%= store.name %></div>
+
+        <div>
+            <div class="fl color-gray">电话：</div>
+            <div class="mh-20"><%= store.phone %></div>
+        </div>
+        <div>
+            <div class="fl color-gray">营业时间：</div>
+            <div class="mh-20"><%= store.workHour %></div>
+        </div>
+
+        <div class="clear-fix mt-2">
+            <div class="fl color-gray">店铺地址：</div>
+            <div style="padding-left:5em;" class="mh-20"><%= store.addr %></div>
+        </div>
+        <div>
+            <div class="fl color-gray">营业项目：</div>
+            <div style="padding-left:5em;" class="mh-20"><%= store.operateStr %></div>
+        </div>
+        <div class="mb-0">
+            <div class="fl color-gray">简介：</div>
+            <div style="padding-left:3em;" class="mh-20"><%= store.comment %></div>
+        </div>
+    </div>
+
     <div id="hidden_area">
         <div id="enterprise_id"><%= enterprise_id %></div>
         <div id="festival_id"><%= festival.id %></div>
