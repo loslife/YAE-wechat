@@ -147,6 +147,47 @@ function handleWXRequest(req, res, next){
                     wx.replyNewsMessage(req, res, contents);
                 });
 
+            }else if(req.weixin.event_key === "MEMBER_UNBIND"){
+
+                resolveSiteURL(function(err, url, enterprise_id){
+
+                    if(err){
+                        wx.replyTextMessage(req, res, error_message);
+                        return;
+                    }
+
+                    var cardService = server_address + "svc/wsite/" + enterprise_id + "/unbind";
+
+                    var options = {
+                        method: "POST",
+                        uri: cardService,
+                        body: {open_id: req.weixin.fan_open_id},
+                        json: true
+                    };
+
+                    request(options, function(err, response, body) {
+
+                        if(err){
+                            console.log(err);
+                            wx.replyTextMessage(req, res, error_message);
+                            return;
+                        }
+
+                        var code = body.code;
+                        if(code !== 0){
+                            var errorCode = body.error.errorCode;
+                            if(errorCode === 501){
+                                wx.replyTextMessage(req, res, "您尚未绑定会员，无法解除");
+                            }else{
+                                wx.replyTextMessage(req, res, error_message);
+                            }
+                            return;
+                        }
+
+                        wx.replyTextMessage(req, res, "解除绑定成功");
+                    });
+                });
+
             }else if(req.weixin.event_key === "MY_CARD"){
 
                 async.waterfall([resolveSiteURL, hasMemberBinding], function(err, flag, enterprise_id, member_id){

@@ -28,8 +28,13 @@ function init(){
     // 如果是在微信中打开
     WeixinApi.ready(function(Api) {
 
-        $("#btn_share").show().tap(function(){
-            $("#share_tips").show().tap(function(){
+        $("#btn_share").tap(function(){
+
+            var windowHeight = $(window).height();
+            var contentHeight = $("#content").height();
+            var max = Math.max(windowHeight, contentHeight);
+
+            $("#share_tips").height(max).show().tap(function(){
                 $(this).hide();
             });
         });
@@ -40,12 +45,13 @@ function init(){
 
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
+            var slogan = $("#slogan").text();
 
             var wxData = {
-                "imgUrl" : "http://121.40.75.73/resource/share_thumb.jpg",
+                "imgUrl" : "http://121.40.75.73/resource/share_thumb.png",
                 "link" : "http://121.40.75.73/svc/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "desc" : "各位朋友，我在测试，请不要点进来",
-                "title": "优惠活动标题"
+                "desc" : slogan,
+                "title": ""
             };
 
             var wxCallbacks = {

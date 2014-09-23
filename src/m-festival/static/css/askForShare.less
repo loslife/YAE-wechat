@@ -9,11 +9,13 @@ body{
   padding: @baseSpace;
   box-sizing: border-box;
   overflow: auto;
+  padding-bottom: 49px;
 }
 
 #festival-introduce {
   background-color: white;
   margin-bottom: @baseSpace;
+  position: relative;
 }
 
 #festival-introduce > img {
@@ -22,15 +24,29 @@ body{
   display: block;
 }
 
+#festival-introduce > #header_slogan {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.5rem;
+  background-color: rgba(51, 09, 13, 0.3);
+  color: white;
+  padding: 0.75rem 0;
+}
+
 #festival-introduce > .title {
-  font-size: 1rem;
+  font-size: 1.2rem;
   background-color: #f75169;
   color: white;
-  padding: 1rem;
+  padding: 0.9rem;
 }
 
 #festival-introduce > .title > img {
-  width: 1rem;
+  position: relative;
+  top: 1px;
+  width: 1.2rem;
 }
 
 #festival-introduce > .field {
@@ -43,23 +59,6 @@ body{
 
 #input-area{
   background-color: white;
-}
-
-#share_tips{
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-#share_tips > img{
-  display: block;
-  width: 200px;
-  float: right;
-  margin: 1rem 2rem 0 0;
 }
 
 .btn {
@@ -101,11 +100,6 @@ body{
   padding-top: 1rem;
 }
 
-.placeholder {
-  width: 100%;
-  height: 49px;
-}
-
 .back {
   display: block;
   width: 100%;
@@ -121,4 +115,20 @@ body{
 
 .back:active {
   background-color: #f0f0f1;
+}
+
+#share_tips{
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#share_tips > img{
+  display: block;
+  width: 200px;
+  float: right;
+  margin: 1rem 2rem 0 0;
 }

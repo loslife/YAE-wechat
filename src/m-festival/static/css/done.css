@@ -1,3 +1,6 @@
+body {
+  background-color: #e9e9ea;
+}
 #m-festival-done {
   background-color: #e9e9ea;
   padding: 10px;
@@ -21,9 +24,12 @@
   padding: 1rem;
 }
 #message > img {
-  width: 1rem;
+  position: relative;
+  top: 3px;
+  width: 1.2rem;
 }
 #message > span {
+  font-size: 1.5rem;
   color: #67b449;
   vertical-align: top;
 }

@@ -13,6 +13,10 @@
             <img src="../../../resource/haibao.jpg">
         <% } %>
 
+        <% if(festival.slogan){ %>
+            <div id="header_slogan"><%= festival.slogan %></div>
+        <% }%>
+
         <div class="title">
             <img src="../../../resource/star.png">
             <span><%= festival.title %></span>
@@ -57,22 +61,46 @@
         <% } %>
     </div>
 
-    <div id="empty-placeholder" class="placeholder"></div>
+    <div class="store">
+        <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat"></div>
+        <div class="store-name mh-20"><%= store.name %></div>
 
-    <div id="repeat-deny" style="display: none">
-        <div id="msg-body">
-            <img src="../../../resource/present_got_duplicate.png">
-            <div>您已经领取过一次了，看看别的吧。</div>
+        <div>
+            <div class="fl color-gray">电话：</div>
+            <div class="mh-20"><%= store.phone %></div>
+        </div>
+        <div>
+            <div class="fl color-gray">营业时间：</div>
+            <div class="mh-20"><%= store.workHour %></div>
+        </div>
+
+        <div class="clear-fix mt-2">
+            <div class="fl color-gray">店铺地址：</div>
+            <div style="padding-left:5em;" class="mh-20"><%= store.addr %></div>
+        </div>
+        <div>
+            <div class="fl color-gray">营业项目：</div>
+            <div style="padding-left:5em;" class="mh-20"><%= store.operateStr %></div>
+        </div>
+        <div class="mb-0">
+            <div class="fl color-gray">简介：</div>
+            <div style="padding-left:3em;" class="mh-20"><%= store.comment %></div>
         </div>
     </div>
 
     <div id="hidden_area">
-        <div id="enterprise_id" style="display: none"><%= enterprise_id %></div>
-        <div id="festival_id" style="display: none"><%= festival.id %></div>
+        <div id="enterprise_id"><%= enterprise_id %></div>
+        <div id="festival_id"><%= festival.id %></div>
+        <div id="slogan"><%= festival.slogan %></div>
     </div>
 
 </div>
 
-<a id="back" class="back clear-fix">
-    <span class="fs-20"><</span>看看其它
-</a>
+<a id="back" class="back clear-fix">看看其它</a>
+
+<div id="repeat-deny" style="display: none">
+    <div id="msg-body">
+        <img src="../../../resource/present_got_duplicate.png">
+        <div>您已经领取过一次了，看看别的吧。</div>
+    </div>
+</div>
