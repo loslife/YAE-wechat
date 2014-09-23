@@ -8,25 +8,24 @@
   background-color: white;
   margin-bottom: 10px;
 }
+.festival-item:active {
+  background: #e9e9ea;
+}
 .festival-item:last-child {
   margin-bottom: 0;
+}
+.item-header > .title {
+  padding: 1.2rem 0 1.2rem 1rem;
+  font-size: 1.2rem;
 }
 .festival-item > img {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+  padding: 0 10px;
 }
-.festival-item > .title {
-  padding-left: 10px;
-  font-size: 2rem;
-}
-.festival-item > .horizontal-line {
-  height: 0;
-  margin: 10px;
-  border-bottom: 1px solid #e9e9ea;
-}
-.festival-item > .field {
-  padding: 1rem 0 1rem 10px;
+.festival-item > div.item-desc {
+  padding: 1rem;
+  color: gray;
 }
 .btn {
   width: 40%;

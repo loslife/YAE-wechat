@@ -107,6 +107,10 @@ function festivals(req, res, next){
                 latest = 0;
             }
 
+            if(latest === 0){
+                latest = latestSyncTime;
+            }
+
             var response = {
                 latestSyncTime: latest,
                 festivals: results[0],

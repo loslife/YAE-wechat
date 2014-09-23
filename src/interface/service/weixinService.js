@@ -41,7 +41,7 @@ function handleWXRequest(req, res, next){
             var item = {
                 title: "请访问我们的微网站",
                 desc: "查看店铺资料，产品和优惠信息",
-                picUrl: server_address + "resource/logo.png",
+                picUrl: server_address + "resource/logo.jpg",
                 url: url
             };
 
@@ -107,7 +107,7 @@ function handleWXRequest(req, res, next){
                     var item = {
                         title: "请访问我们的微网站",
                         desc: "查看店铺资料，产品和优惠信息",
-                        picUrl: server_address + "resource/logo.png",
+                        picUrl: server_address + "resource/logo.jpg",
                         url: url
                     };
 

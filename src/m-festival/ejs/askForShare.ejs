@@ -7,7 +7,11 @@
 
     <div id="festival-introduce">
 
-        <img src="../../../resource/haibao.png">
+        <% if(festival.pic_url){ %>
+            <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>">
+        <% }else{ %>
+            <img src="../../../resource/haibao.jpg">
+        <% } %>
 
         <div class="title">
             <img src="../../../resource/star.png">
@@ -16,12 +20,7 @@
 
         <div class="field">
             <div class="fl color-gray">活动时间：</div>
-            <div style="padding-left: 5rem">4月20日 - 5月10日</div>
-        </div>
-
-        <div class="field">
-            <div class="fl color-gray">活动优惠：</div>
-            <div style="padding-left: 5rem">赠送现金券</div>
+            <div style="padding-left: 5rem"><%= dateFormat(new Date(festival.begin_date), "MM月DD日")%> - <%= dateFormat(new Date(festival.end_date), "MM月DD日")%></div>
         </div>
 
         <div class="field">
@@ -29,17 +28,23 @@
             <div style="padding-left: 5rem"><%= festival.desc %></div>
         </div>
 
-        <% if(!expired){ %>
+        <% if(duplicated){ %>
 
             <div class="btn">
-                <button id="btn_share">分享立即领取</button>
+                <button disabled>已领取</button>
+            </div>
+
+        <% }else if(!expired){ %>
+
+            <div class="btn">
+                <button id="btn_share" style="display: none">领取</button>
             </div>
 
         <% } %>
 
     </div>
 
-    <% if(expired){ %>
+    <% if(!duplicated && expired){ %>
 
     <div id="input-area">
         <img src="../../../resource/no_more_present.png">
@@ -48,7 +53,9 @@
 
     <% } %>
 
-    <div id="share_tips">
+    <div id="empty-placeholder" class="placeholder"></div>
+
+    <div id="share_tips" style="display: none">
         <img src="../../../resource/share_guide.png">
     </div>
 

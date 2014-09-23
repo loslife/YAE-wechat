@@ -20,9 +20,8 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
-    $("#back").on("click", function ($even) {
-        location.href = "festival";
-        $even.stopPropagation();
+    $(".festival-item").tap(function(){
+        var fid = $(this).children("span").text();
+        location.href = "route?fid=" + fid;
     });
 }
-
