@@ -3,9 +3,11 @@ var wx = require("wechat-toolkit");
 var async = require("async");
 var request = require("request");
 var _ = require("underscore");
+var _s = require("underscore.string");
 
 var token = "yilos_wechat";
-var server_address = "http://121.40.75.73/";
+var baseurl = global["_g_clusterConfig"].baseurl;
+var server_address = _s.endsWith(baseurl, "svc") ? _s.rtrim(baseurl, "svc") : baseurl;//"http://121.40.75.73/";
 var default_welcome = "感谢您的关注，我们会为您提供最好的服务";
 var error_message = "微店铺似乎出了点问题，请联系乐斯";
 

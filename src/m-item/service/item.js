@@ -6,13 +6,14 @@ var request = require("request");
 exports.item = item;
 exports.itemDetail = itemDetail;
 
-var yaeUrl = "http://121.40.75.73";
+//http://121.40.75.73/svc
+var yaeUrl = global["_g_clusterConfig"].baseurl;//"http://121.40.75.73";
 
 function item(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
 
     //todo replace url
-    var queryShelvesUrl = yaeUrl + "/svc/weixin/queryAllShelvesItem/" + enterpriseId;
+    var queryShelvesUrl = yaeUrl + "/weixin/queryAllShelvesItem/" + enterpriseId;
 
     var options = {
         method: "GET",
@@ -45,7 +46,7 @@ function itemDetail(req, res, next) {
     var itemId = req.params.itemId;
 
     //todo replace url
-    var queryUrl = yaeUrl + "/svc/weixin/queryShelvesByItemId/" + itemId;
+    var queryUrl = yaeUrl + "/weixin/queryShelvesByItemId/" + itemId;
 
     var options = {
         method: "GET",

@@ -8,7 +8,7 @@ exports.getPresent = getPresent;
 exports.done = done;
 exports.countShareTimes = countShareTimes;
 
-var http_server = "http://10.171.203.219/svc/";
+var http_server = global["_g_clusterConfig"].baseurl + "/";//"http://10.171.203.219/svc/";
 
 function list(req, res, next){
 

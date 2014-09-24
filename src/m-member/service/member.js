@@ -220,7 +220,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
         async.series([_queryFromPad, _queryFromWechat], callback);
 
-        function _queryFromPad(callback){
+        function _queryFromPad(callback) {
 
             var sql = "select value as times, def_str3 as serviceName, def_int2 as validDays, create_date" +
                 " from planx_graph.tb_memberCardAttrMap" +
@@ -247,7 +247,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
             });
         }
 
-        function _queryFromWechat(callback){
+        function _queryFromWechat(callback) {
 
             var conditions = {
                 enterprise_id: enterprise_id,
@@ -256,14 +256,14 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 state: 0
             };
 
-            dbHelper.queryData("weixin_present_received", conditions, function(err, results){
+            dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
-                if(err){
+                if (err) {
                     callback(err);
                     return;
                 }
 
-                _.each(results, function(item){
+                _.each(results, function (item) {
 
                     var service = {};
                     service.serviceName = item.present_name + "（来自优惠活动）";
@@ -296,7 +296,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
         async.series([_queryFromPad, _queryFromWechat], callback);
 
-        function _queryFromPad(callback){
+        function _queryFromPad(callback) {
 
             var sql = "select def_str3 as name, def_rea2 as money, def_int1 as valid, create_date as dateTime" +
                 " from planx_graph.tb_memberCardAttrMap where def_str2 = :member_id and groupName = 'coupon' and enterprise_id = :enterprise_id;";
@@ -322,7 +322,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
             });
         }
 
-        function _queryFromWechat(callback){
+        function _queryFromWechat(callback) {
 
             var conditions = {
                 enterprise_id: enterprise_id,
@@ -331,14 +331,14 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 state: 0
             };
 
-            dbHelper.queryData("weixin_present_received", conditions, function(err, results){
+            dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
-                if(err){
+                if (err) {
                     callback(err);
                     return;
                 }
 
-                _.each(results, function(item){
+                _.each(results, function (item) {
 
                     var coupon = {};
                     coupon.name = item.present_name + "（来自优惠活动）";
@@ -458,7 +458,7 @@ function queryMemberBill(enterpriseId, memberId, callback) {
         //消费记录按月倒序
         bill = _.sortBy(bill, function (item) {
             var date = new Date(item.date);
-            return (date.getFullYear() + date.getMonth());
+            return -(date.getFullYear() + date.getMonth());
         });
         callback(null);
     }
@@ -476,9 +476,16 @@ function queryMemberBill(enterpriseId, memberId, callback) {
             items.push(1 == type ? "充值" : "开卡");
         }
         var employees = [];
-        _.each(bill.bonus || [], function (item) {
-            if (item.employee_name && !_.isEmpty(item.employee_name)) {
-                employees.push(item.employee_name);
+        //过滤相同员工
+        var bonus = _.groupBy(bill.bonus || [], function (item) {
+            return item.employee_id;
+        });
+        _.each(bonus, function (value, key) {
+            if (!_.isEmpty(value)) {
+                var item = value[0];
+                if (item && !_.isEmpty(item.employee_name)) {
+                    employees.push(item.employee_name);
+                }
             }
         });
         return {createDay: bill.createDay, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
