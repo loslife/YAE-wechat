@@ -40,7 +40,7 @@ function handleWXRequest(req, res, next){
 
             var item = {
                 title: "请访问我们的微网站",
-                desc: "查看店铺资料，产品和优惠信息",
+                description: "查看店铺资料，产品和优惠信息",
                 picUrl: server_address + "resource/logo.jpg",
                 url: url
             };
@@ -106,7 +106,7 @@ function handleWXRequest(req, res, next){
 
                     var item = {
                         title: "请访问我们的微网站",
-                        desc: "查看店铺资料，产品和优惠信息",
+                        description: "查看店铺资料，产品和优惠信息",
                         picUrl: server_address + "resource/logo.jpg",
                         url: url
                     };
@@ -137,7 +137,7 @@ function handleWXRequest(req, res, next){
 
                     var item = {
                         title: "点击绑定",
-                        desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
+                        description: "绑定后即可访问会员专区，查看会员卡余额，预约",
                         picUrl: server_address + "resource/news2.png",
                         url: url
                     };
@@ -165,7 +165,7 @@ function handleWXRequest(req, res, next){
 
                         var item = {
                             title: "请先绑定会员",
-                            desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
+                            description: "绑定后即可访问会员专区，查看会员卡余额，预约",
                             picUrl: server_address + "resource/news2.png",
                             url: url
                         };
