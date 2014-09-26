@@ -1,15 +1,20 @@
-body {
-  background-color: #e9e9ea;
+html,
+body,
+#content {
+  height: 100%;
 }
 #m-festival-done {
   background-color: #e9e9ea;
   padding: 10px;
   box-sizing: border-box;
   overflow: auto;
+  height: 100%;
+  padding-bottom: 49px;
 }
 #wrapper {
   background-color: white;
   margin-bottom: 10px;
+  height: 90%;
 }
 #wrapper > img {
   box-sizing: border-box;
