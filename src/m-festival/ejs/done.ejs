@@ -1,7 +1,18 @@
+<% if(env === "dev"){ %>
+
 <%- Loader()
         .js('/m-festival/done.js')
         .css("/m-festival/css/done.css")
         .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/m-festival/done.min.js')
+        .css("/m-festival/css/done.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-festival-done">
 

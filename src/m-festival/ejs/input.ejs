@@ -1,7 +1,18 @@
+<% if(env === "dev"){ %>
+
 <%- Loader()
         .js('/m-festival/input.js')
         .css("/m-festival/css/input.css")
         .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/m-festival/input.min.js')
+        .css("/m-festival/css/input.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-festival-input">
 
