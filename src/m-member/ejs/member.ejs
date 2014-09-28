@@ -1,7 +1,18 @@
+<% if(env === "dev"){ %>
+
 <%- Loader()
         .js('/m-member/member.js')
         .css("/m-member/css/member.css")
         .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/m-member/member.min.js')
+        .css("/m-member/css/member.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-member">
     <% if(memberInfo.cards.length !== 0){ %>

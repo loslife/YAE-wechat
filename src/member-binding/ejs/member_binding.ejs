@@ -10,6 +10,8 @@
     <script src="/svc/portal/setting"></script>
 </head>
 
+<% if(env === "dev"){ %>
+
 <%- Loader()
         .js("/3rd-lib/zepto.min.js")
         .js("/resource/wechat_global.js")
@@ -17,6 +19,17 @@
         .css("/member-binding/css/binding.css")
         .css("/resource/css/base.css")
         .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/3rd-lib/wechat-global.min.js")
+        .js('/member-binding/binding.min.js')
+        .css("/resource/css/wechat.min.css")
+        .css("/member-binding/css/binding.min.css")
+        .done(config) %>
+
+<% } %>
 
 <body>
 
