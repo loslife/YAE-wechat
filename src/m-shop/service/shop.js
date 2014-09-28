@@ -4,7 +4,7 @@ var request = require("request");
 var _ = require("underscore");
 var async = require("async");
 
-var http_server = "http://121.40.75.73/svc/";
+var http_server = global["_g_clusterConfig"].baseurl + "/";//"http://121.40.75.73/svc/";
 
 exports.jumpToWShop = jumpToWShop;
 

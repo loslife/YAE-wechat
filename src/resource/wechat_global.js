@@ -1,5 +1,5 @@
 var g_env = {
-    security_code_url: "http://192.168.1.106:3000/svc/getCode/",
-    check_code_url: "http://192.168.1.106:3000/svc/checkCode/",
-    binding_url: "http://192.168.1.106:5000/svc/wsite/"
+    security_code_url: "/svc/getCode/",//YAE服务
+    check_code_url: "/svc/checkCode/",//YAE服务
+    binding_url: "/svc/wsite/"//YAE-wechat服务
 };

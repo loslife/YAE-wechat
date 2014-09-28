@@ -9,7 +9,7 @@ $(function () {
             return;
         }
 
-        var url = g_env.security_code_url + phone + "?u=weixin_login";
+        var url = global["_g_server"].serviceurl + "/getCode/" + phone + "?u=weixin_login";
 
         $.get(url, function (response) {
             alert("验证码已发送到您的手机");
@@ -26,7 +26,7 @@ $(function () {
             return;
         }
 
-        var url = g_env.check_code_url + phone + "?u=weixin_login&c=" + secure_code;
+        var url = global["_g_server"].serviceurl + "/checkCode/" + phone + "?u=weixin_login&c=" + secure_code;
 
         $.get(url, function (response) {
 
