@@ -1,7 +1,18 @@
+<% if(env === "dev"){ %>
+
 <%- Loader()
         .js('/m-festival/askForShare.js')
         .css("/m-festival/css/askForShare.css")
         .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/m-festival/askForShare.min.js')
+        .css("/m-festival/css/askForShare.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-festival-share">
 

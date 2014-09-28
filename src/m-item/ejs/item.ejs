@@ -1,4 +1,12 @@
+<% if(env === "dev"){ %>
+
 <%- Loader().js("/m-item/item.js").css("/m-item/css/item.css").done(config) %>
+
+<% }else{ %>
+
+<%- Loader().js('/m-item/item.min.js').css("/m-item/css/item.min.css").done(config) %>
+
+<% } %>
 
 <div id="m-item">
     <ul class="item-list">

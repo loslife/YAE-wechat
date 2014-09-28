@@ -31,6 +31,11 @@ function init(){
             return;
         }
 
+        if(!_checkPhone()){
+            alert("手机号有误，请重新输入");
+            return;
+        }
+
         var enterprise_id = $("#enterprise_id").text();
         var festival_id = $("#festival_id").text();
 
@@ -58,6 +63,10 @@ function init(){
                 $("#repeat-deny").height(max).show();
             }
         });
+
+        function _checkPhone(){
+            return (/^13\d{9}$/g.test(phone)||(/^15\d{9}$/g.test(phone))||(/^18\d{9}$/g.test(phone)));
+        }
     });
 
     $("#back").on("click", function ($even) {

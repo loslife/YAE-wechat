@@ -149,3 +149,6 @@
 .store > div + div {
   margin-bottom: 10px;
 }
+#hidden_area {
+  display: none;
+}

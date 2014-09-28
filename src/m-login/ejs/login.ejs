@@ -1,4 +1,12 @@
+<% if(env === "dev"){ %>
+
 <%- Loader().js('/m-login/login.js').css("/m-login/css/login.css").done(config) %>
+
+<% }else{ %>
+
+<%- Loader().js('/m-login/login.min.js').css("/m-login/css/login.min.css").done(config) %>
+
+<% } %>
 
 <div id="m-login">
     <div class="form-area">

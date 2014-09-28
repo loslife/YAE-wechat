@@ -1,6 +1,7 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var dao = require("./baseService");
 var request = require("request");
+var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 
 exports.list = list;
 exports.route = route;
