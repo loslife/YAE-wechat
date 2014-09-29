@@ -1,9 +1,9 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js("/m-shop/shop.js")
+        .js("/m-shop/static/shop.js")
         .js("http://api.map.baidu.com/api?type=quick&ak=077cf00d4471f3852b96fba32ff879fd&v=1.0")
-        .css("/m-shop/css/shop.css")
+        .css("/m-shop/static/css/shop.css")
         .done(config) %>
 
 <% }else{ %>

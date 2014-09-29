@@ -1,10 +1,9 @@
-var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 var request = require("request");
 var _ = require("underscore");
 var async = require("async");
 
-var http_server = global["_g_clusterConfig"].baseurl + "/";//"http://121.40.75.73/svc/";
+var http_server = global["_g_clusterConfig"].baseurl;
 
 exports.jumpToWShop = jumpToWShop;
 
@@ -26,8 +25,8 @@ function jumpToWShop(req, res, next) {
     });
 
     function _queryHotItem(callback) {
-        //todo replace query
-        var queryShelvesUrl = http_server + "weixin/queryAllShelvesItem/" + enterpriseId;
+
+        var queryShelvesUrl = http_server + "/weixin/queryAllShelvesItem/" + enterpriseId;
 
         var options = {
             method: "GET",
@@ -58,7 +57,8 @@ function jumpToWShop(req, res, next) {
     }
 
     function _queryFestivals(callback) {
-        var queryFestivalsUrl = http_server + "weixin/queryFestivals/" + enterpriseId;
+
+        var queryFestivalsUrl = http_server + "/weixin/queryFestivals/" + enterpriseId;
 
         var options = {
             method: "GET",
@@ -83,8 +83,8 @@ function jumpToWShop(req, res, next) {
     }
 
     function _queryStoreInfo(callback) {
-        //todo replace query
-        var queryUrl = http_server + "weixin/queryStoreInfo/" + enterpriseId;
+
+        var queryUrl = http_server + "/weixin/queryStoreInfo/" + enterpriseId;
 
         var options = {
             method: "GET",
