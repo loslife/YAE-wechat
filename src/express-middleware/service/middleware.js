@@ -6,7 +6,6 @@ exports.loadMiddleWare = loadMiddleWare;
 
 function loadMiddleWare(app, clusterConfig) {
 
-    app.use("/svc/wsite", session_refresh);
     app.use("/svc/wsite", preload_member);
     app.use("/svc/weixinInterface", wx.xml_parser());
 }
