@@ -39,7 +39,9 @@ function handleMessage(req, res, next){
                 return;
             }
 
-            token = result[0].token;
+            if(result[0].token){
+                token = result[0].token;
+            }
             callback(null);
         });
     }
