@@ -26,7 +26,7 @@
         },
         {
             "name": "shareBinding",
-            "path": "/wsite/bindingAll",
+            "path": "/wsite/shareBind",
             "method": "get",
             "auth": false,
             "impl": "shareBinding.shareBind",
