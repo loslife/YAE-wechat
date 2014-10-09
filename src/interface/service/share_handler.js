@@ -87,7 +87,7 @@ function handleMessage(req, res, next){
                 }
 
                 function handleMyCard(){
-
+                    wx.replyTextMessage(req, res, "我的会员卡");
                 }
             }
 
