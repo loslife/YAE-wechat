@@ -78,20 +78,12 @@ function handleMessage(req, res, next){
 
                 switch(req.weixin.event_key){
 
-                    case "MEMBER_BINDING":
-                        handleMemberBinding();
-                        break;
-
                     case "MY_CARD":
                         handleMyCard();
                         break;
 
                     default :
                         wx.replyTextMessage(req, res, "无法识别的点击事件");
-                }
-
-                function handleMemberBinding(){
-
                 }
 
                 function handleMyCard(){
