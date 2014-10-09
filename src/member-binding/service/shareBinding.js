@@ -2,6 +2,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var uuid = require('node-uuid');
 var api = require("wechat-toolkit");
 var request = require("request");
+var async = require("async");
 
 var baseurl = global["_g_clusterConfig"].baseurl;
 var app_id = "wxd37396c2dc23ba21";
