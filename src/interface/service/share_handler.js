@@ -21,10 +21,10 @@ function handleMessage(req, res, next){
     }
 
     function handleTextMessage(){
-
+        res.send("收到文字消息");
     }
 
     function handleEvent(){
-
+        res.send("收到事件推送");
     }
 }
