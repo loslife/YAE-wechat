@@ -7,7 +7,7 @@ var _s = require("underscore.string");
 
 var token = "yilos_wechat";
 var baseurl = global["_g_clusterConfig"].baseurl;
-var server_address = _s.endsWith(baseurl, "svc") ? _s.rtrim(baseurl, "svc") : baseurl;//"http://121.40.75.73/";
+var server_address = _s.endsWith(baseurl, "svc") ? _s.rtrim(baseurl, "svc") : baseurl;
 var default_welcome = "感谢您的关注，我们会为您提供最好的服务";
 var error_message = "微店铺似乎出了点问题，请联系乐斯";
 
