@@ -1,0 +1,21 @@
+{
+    "services": [
+        {
+            "name": "wsiteRouter",
+            "path": "/wsite/router",
+            "method": "get",
+            "auth": false,
+            "impl": "router.route",
+            "comment": "借助微信OAuth2跳转"
+        }
+    ],
+    "statics": [
+
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}

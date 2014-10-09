@@ -45,7 +45,8 @@ function bindMember(req, res, next){
             id: uuid.v1(),
             enterprise_id: enterprise_id,
             member_id: member.id,
-            wx_open_id: open_id
+            wx_open_id: open_id,
+            phone: member_phone
         }
 
         dbHelper.addData("weixin_member_binding", model, function(err, result){
