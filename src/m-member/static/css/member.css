@@ -63,11 +63,11 @@
   padding: 10px 0px;
   border-bottom: 1px solid #d1d0ce;
 }
-.bill-item div > label {
-  color: #a9a9a7;
-}
-.bill-item div {
+.bill-item > div {
   margin-top: 5px;
+}
+.bill-item div > *:first-child {
+  color: #a9a9a7;
 }
 .bill-item:last-child {
   padding-top: 5px;

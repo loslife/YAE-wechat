@@ -31,6 +31,11 @@ function init(){
             return;
         }
 
+        if(!_checkPhone()){
+            alert("手机号有误，请重新输入");
+            return;
+        }
+
         var enterprise_id = $("#enterprise_id").text();
         var festival_id = $("#festival_id").text();
 
@@ -50,9 +55,18 @@ function init(){
             if(status === 1){
                 location.href = "done";
             }else{
-                $("#repeat-deny").show();
+
+                var windowHeight = $(window).height();
+                var contentHeight = $("#content").height();
+                var max = Math.max(windowHeight, contentHeight);
+                
+                $("#repeat-deny").height(max).show();
             }
         });
+
+        function _checkPhone(){
+            return (/^13\d{9}$/g.test(phone)||(/^15\d{9}$/g.test(phone))||(/^18\d{9}$/g.test(phone)));
+        }
     });
 
     $("#back").on("click", function ($even) {
@@ -73,12 +87,13 @@ function init(){
 
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
+            var slogan = $("#slogan").text();
 
             var wxData = {
-                "imgUrl" : "http://121.40.75.73/resource/share_thumb.jpg",
-                "link" : "http://121.40.75.73/svc/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "description" : "各位朋友，我在测试，请不要点进来",
-                "title": "优惠活动标题"
+                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",//"http://121.40.75.73/resource/share_thumb.png",
+                "link": global["_g_server"].serviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,//"http://121.40.75.73/svc/wsite/" + enterpriseId + "/route?fid=" + festivalId,
+                "desc": slogan,
+                "title": ""
             };
 
             var wxCallbacks = {

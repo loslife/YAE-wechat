@@ -7,15 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+    <script src="/svc/portal/setting"></script>
 </head>
+
+<% if(env === "dev"){ %>
 
 <%- Loader()
         .js("/3rd-lib/zepto.min.js")
         .js("/resource/wechat_global.js")
-        .js('/member-binding/binding.js')
-        .css("/member-binding/css/binding.css")
+        .js('/member-binding/static/binding.js')
+        .css("/member-binding/static/css/binding.css")
         .css("/resource/css/base.css")
         .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/3rd-lib/wechat-global.min.js")
+        .js('/member-binding/binding.min.js')
+        .css("/resource/css/wechat.min.css")
+        .css("/member-binding/css/binding.min.css")
+        .done(config) %>
+
+<% } %>
 
 <body>
 

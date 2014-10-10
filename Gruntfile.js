@@ -3,10 +3,71 @@ module.exports = function (grunt) {
     var sourceDir = "src";// 源码目录
     var frontDir = "frontend";// 前端目录
     var serverDir = "webapps";// 后端目录
-    var distDir = "YAE-wechat";// 最终交付目录
+    var distDir = "dist";// 最终交付目录
+
+    // 从src拷贝到部署目录时，去掉中间的static路径
+    function clipStaticPath(dest, src){
+        var arr = src.split("/");
+        arr.splice(1, 1);
+        var splicePath = arr.join("/");
+        return dest + "/" + splicePath;
+    }
+
+    var thirdJSFiles = {};
+
+    thirdJSFiles[frontDir + "/3rd-lib/wechat-global.min.js"] = [
+        sourceDir + "/3rd-lib/*.js",
+        sourceDir + "/resource/*.js"
+    ];
+
+    var globalCSSFiles = {};
+    globalCSSFiles[frontDir + "/resource/css/wechat.min.css"] = [sourceDir + "/resource/css/*.css"];
 
     grunt.initConfig({
 
+        uglify: {
+            build: {
+                options: {
+                    mangle: true
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: false,
+                        cwd: sourceDir,
+                        src: ["**/static/**/*.js"],
+                        filter: "isFile",
+                        dest: frontDir,
+                        ext: ".min.js",
+                        rename: clipStaticPath
+                    }
+                ]
+            },
+            thirdjs: {
+                options: {
+                    mangle: true
+                },
+                files: thirdJSFiles
+            }
+        },
+        cssmin: {
+            global: {
+                files: globalCSSFiles
+            },
+            build: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: false,
+                        cwd: sourceDir,
+                        src: ["**/static/css/**/*.css"],
+                        dest: frontDir,
+                        ext: ".min.css",
+                        rename: clipStaticPath
+                    }
+                ]
+            }
+        },
         copy: {
             frontend: {
                 files: [
@@ -14,29 +75,7 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: false,
                         cwd: sourceDir,
-                        src: ['**/static/**/*'],
-                        filter: 'isFile',
-                        dest: frontDir,
-                        rename: function (dest, src) {
-                            var arr = src.split("/");
-                            arr.splice(1, 1);// 去掉中间的static
-                            var splicePath = arr.join("/");
-                            return dest + "/" + splicePath;
-                        }
-                    },
-                    {
-                        expand: true,
-                        flatten: false,
-                        cwd: sourceDir,
-                        src: ['3rd-lib/**/*', '!3rd-lib/META-INF.json'],
-                        filter: 'isFile',
-                        dest: frontDir
-                    },
-                    {
-                        expand: true,
-                        flatten: false,
-                        cwd: sourceDir,
-                        src: ['resource/**/*', '!resource/META-INF.json'],
+                        src: ['resource/**/*.jpg', 'resource/**/*.png'],
                         filter: 'isFile',
                         dest: frontDir
                     }
@@ -48,7 +87,7 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: false,
                         cwd: sourceDir,
-                        src: ['**/*', '!**/test/**/*', '!**/static/**/*', "!3rd-lib/**/*"],
+                        src: ['**/*', '!**/test/**/*', '!**/static/**/*', "!3rd-lib/**/*", "!resource/**/*"],
                         filter: 'isFile',
                         dest: serverDir
                     }
@@ -59,7 +98,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: false,
-                        src: ['bin/**/*', 'conf/**/*', frontDir + '/**/*', 'lib/**/*', serverDir + '/**/*', 'package.json'],
+                        src: ['conf/**/*', frontDir + '/**/*', serverDir + '/**/*', 'package.json'],
                         dest: distDir
                     }
                 ]
@@ -79,8 +118,10 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('default', ['copy', 'mkdir', 'clean']);
+    grunt.registerTask('default', ['uglify', 'cssmin', 'copy', 'mkdir', 'clean']);
 };

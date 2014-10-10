@@ -104,7 +104,7 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
             if(memberId){
                 callback(null);
             }else{
-                _generateSecurityCode(result[0], callback);
+                _generateSecurityCode(data, callback);
             }
         });
     });

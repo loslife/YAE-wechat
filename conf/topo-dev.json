@@ -6,7 +6,7 @@
             "ip": "",
             "port": 5000,
             "protocol": "http",
-            "baseurl": "",
+            "baseurl": "http://127.0.0.1/svc",
             "workerno": 1,
             "applications": [
                 "3rd-lib",
@@ -19,7 +19,8 @@
                 "m-festival",
                 "member-binding",
                 "resource",
-                "sync"
+                "sync",
+                "wx-router"
             ]
         }
     ],

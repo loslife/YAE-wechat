@@ -15,6 +15,30 @@
             "auth": false,
             "impl": "bindingService.bindMember",
             "comment": "绑定会员"
+        },
+        {
+            "name": "unbind",
+            "path": "/wsite/:enterpriseId/unbind",
+            "method": "post",
+            "auth": false,
+            "impl": "bindingService.unbindMember",
+            "comment": "解除绑定"
+        },
+        {
+            "name": "shareBinding",
+            "path": "/wsite/shareBind",
+            "method": "get",
+            "auth": false,
+            "impl": "shareBinding.shareBind",
+            "comment": "共享账号，会员绑定商户"
+        },
+        {
+            "name": "bindAll",
+            "path": "/wsite/bindingAll",
+            "method": "post",
+            "auth": false,
+            "impl": "shareBinding.bindAllEnterpriseByPhone",
+            "comment": "根据手机号，绑定所有商户"
         }
     ],
     "statics": [

@@ -218,29 +218,61 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
     function _queryServices(callback) {
 
-        var sql = "select value as times, def_str3 as serviceName, def_int2 as validDays, create_date" +
-            " from planx_graph.tb_memberCardAttrMap" +
-            " where groupName = 'presentService' and def_str2 = :member_id and enterprise_id = :enterprise_id";
+        async.series([_queryFromPad, _queryFromWechat], callback);
 
-        dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
+        function _queryFromPad(callback) {
 
-            if (err) {
-                callback(err);
-                return;
-            }
+            var sql = "select value as times, def_str3 as serviceName, def_int2 as validDays, create_date" +
+                " from planx_graph.tb_memberCardAttrMap" +
+                " where groupName = 'presentService' and def_str2 = :member_id and enterprise_id = :enterprise_id";
 
-            _.each(result, function (item) {
+            dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
-                if (!item.validDays) {
-                    item.validDays = 365;
+                if (err) {
+                    callback(err);
+                    return;
                 }
 
-                item.expired_time = item.create_date + item.validDays * 24 * 60 * 60 * 1000;
-                services.push(item);
-            });
+                _.each(result, function (item) {
 
-            callback(null);
-        });
+                    if (!item.validDays) {
+                        item.validDays = 365;
+                    }
+
+                    item.expired_time = item.create_date + item.validDays * 24 * 60 * 60 * 1000;
+                    services.push(item);
+                });
+
+                callback(null);
+            });
+        }
+
+        function _queryFromWechat(callback) {
+
+            var conditions = {
+                enterprise_id: enterprise_id,
+                member_id: member_id,
+                present_type: "present",
+                state: 0
+            };
+
+            dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
+
+                if (err) {
+                    callback(err);
+                    return;
+                }
+
+                _.each(results, function (item) {
+
+                    var service = {};
+                    service.serviceName = item.present_name + "（来自优惠活动）";
+                    services.push(service);
+                });
+
+                callback(null);
+            });
+        }
     }
 
     function _queryDeposits(callback) {
@@ -262,35 +294,71 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
     function _queryCoupons(callback) {
 
-        var sql = "select def_str3 as name, def_rea2 as money, def_int1 as valid, create_date as dateTime" +
-            " from planx_graph.tb_memberCardAttrMap where def_str2 = :member_id and groupName = 'coupon' and enterprise_id = :enterprise_id;";
+        async.series([_queryFromPad, _queryFromWechat], callback);
 
-        dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
+        function _queryFromPad(callback) {
 
-            if (err) {
-                callback(err);
-                return;
-            }
+            var sql = "select def_str3 as name, def_rea2 as money, def_int1 as valid, create_date as dateTime" +
+                " from planx_graph.tb_memberCardAttrMap where def_str2 = :member_id and groupName = 'coupon' and enterprise_id = :enterprise_id;";
 
-            _.each(result, function (item) {
+            dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
-                if (!item.valid) {
-                    item.valid = 365;
+                if (err) {
+                    callback(err);
+                    return;
                 }
 
-                item.expired_time = item.dateTime + item.valid * 24 * 60 * 60 * 1000;
-                coupons.push(item);
-            });
+                _.each(result, function (item) {
 
-            callback(null);
-        });
+                    if (!item.valid) {
+                        item.valid = 365;
+                    }
+
+                    item.expired_time = item.dateTime + item.valid * 24 * 60 * 60 * 1000;
+                    coupons.push(item);
+                });
+
+                callback(null);
+            });
+        }
+
+        function _queryFromWechat(callback) {
+
+            var conditions = {
+                enterprise_id: enterprise_id,
+                member_id: member_id,
+                present_type: "coupon",
+                state: 0
+            };
+
+            dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
+
+                if (err) {
+                    callback(err);
+                    return;
+                }
+
+                _.each(results, function (item) {
+
+                    var coupon = {};
+                    coupon.name = item.present_name + "（来自优惠活动）";
+                    coupons.push(coupon);
+                });
+
+                callback(null);
+            });
+        }
     }
 }
 
 function queryMemberBill(enterpriseId, memberId, callback) {
+    var bill = [];
+    if (!memberId || !enterpriseId) {
+        callback(null, bill)
+        return;
+    }
     var rechargeRecords = [];
     var consumptionRecords = [];
-    var bill = [];
     async.series([_queryRechargeRecords, _queryConsumptionRecords, _queryBonus, _buildMemberBill], function (error) {
         if (error) {
             callback(error);
@@ -390,7 +458,7 @@ function queryMemberBill(enterpriseId, memberId, callback) {
         //消费记录按月倒序
         bill = _.sortBy(bill, function (item) {
             var date = new Date(item.date);
-            return (date.getFullYear() + date.getMonth());
+            return -(date.getFullYear() + date.getMonth());
         });
         callback(null);
     }
@@ -408,9 +476,16 @@ function queryMemberBill(enterpriseId, memberId, callback) {
             items.push(1 == type ? "充值" : "开卡");
         }
         var employees = [];
-        _.each(bill.bonus || [], function (item) {
-            if (item.employee_name && !_.isEmpty(item.employee_name)) {
-                employees.push(item.employee_name);
+        //过滤相同员工
+        var bonus = _.groupBy(bill.bonus || [], function (item) {
+            return item.employee_id;
+        });
+        _.each(bonus, function (value, key) {
+            if (!_.isEmpty(value)) {
+                var item = value[0];
+                if (item && !_.isEmpty(item.employee_name)) {
+                    employees.push(item.employee_name);
+                }
             }
         });
         return {createDay: bill.createDay, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};

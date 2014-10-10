@@ -1,7 +1,18 @@
+<% if(env === "dev"){ %>
+
 <%- Loader()
-        .js('/m-festival/done.js')
-        .css("/m-festival/css/done.css")
+        .js('/m-festival/static/done.js')
+        .css("/m-festival/static/css/done.css")
         .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/m-festival/done.min.js')
+        .css("/m-festival/css/done.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-festival-done">
 
@@ -17,6 +28,4 @@
 
 </div>
 
-<a id="back" class="back clear-fix">
-    <span class="fs-20"><</span>看看其它
-</a>
+<a id="back" class="back clear-fix">看看其它</a>

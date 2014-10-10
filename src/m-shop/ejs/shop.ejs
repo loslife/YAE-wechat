@@ -1,4 +1,20 @@
-<%- Loader().js("/m-shop/shop.js").css("/m-shop/css/shop.css").done(config) %>
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js("/m-shop/static/shop.js")
+        .js("http://api.map.baidu.com/api?type=quick&ak=077cf00d4471f3852b96fba32ff879fd&v=1.0")
+        .css("/m-shop/static/css/shop.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/m-shop/shop.min.js")
+        .js("http://api.map.baidu.com/api?type=quick&ak=077cf00d4471f3852b96fba32ff879fd&v=1.0")
+        .css("/m-shop/css/shop.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-shop">
     <div class="home-img">
@@ -83,5 +99,14 @@
             <div class="fl color-gray">简介：</div>
             <div style="padding-left:3em;" class="mh-20"><%= store.comment %></div>
         </div>
+    </div>
+    <div id="mapDiv" style="margin: 10px 5px 0px 5px;" class="<% if (!store.addr) { %>none<% } %>">
+
+        <div id="hidden_area">
+            <div id="store_addr"><%= store.addr %></div>
+        </div>
+
+        <div id="enterpriseMap" style="height: 150px;"></div>
+
     </div>
 </div>
