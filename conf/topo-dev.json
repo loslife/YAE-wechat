@@ -42,7 +42,7 @@
     "clientAccess": {
         "staticurl": "",
         "authurl": "",
-        "serviceurl": "",
+        "serviceurl": "http://127.0.0.1/",
         "uploadurl": ""
     },
     "connector":{

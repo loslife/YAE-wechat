@@ -6,7 +6,7 @@
             "ip": "10.171.203.219",
             "port": 8080,
             "protocol": "http",
-            "baseurl": "http://10.171.203.219:8080/svc",
+            "baseurl": "http://10.160.26.76/svc",
             "workerno": 1,
             "applications": [
                 "interface",
@@ -30,9 +30,9 @@
             "password": "yilos_dev"
         },
         "mongodb": {
-            "ip": "10.171.203.219",
+            "ip": "10.161.135.104",
             "port": "2222",
-            "connectionurl": "10.171.203.219:2222",
+            "connectionurl": "10.161.135.104:2222",
             "user": "",
             "password": ""
         }
