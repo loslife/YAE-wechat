@@ -24,10 +24,10 @@
     ],
     "dataServer": {
         "mysql": {
-            "ip": "yilosdev.mysql.rds.aliyuncs.com",
+            "ip": "rdsn3m2ybn3m2yb.mysql.rds.aliyuncs.com",
             "port": 3306,
-            "user": "yilos_dev",
-            "password": "yilos_dev"
+            "user": "yilos",
+            "password": "yilos123456"
         },
         "mongodb": {
             "ip": "10.161.135.104",
@@ -41,7 +41,8 @@
         "staticurl": "http://www.yilos.com",
         "authurl": "http://www.yilos.com/svc",
         "serviceurl": "http://www.yilos.com/svc",
-        "uploadurl": "http://www.yilos.com/svc/file-upload"
+        "uploadurl": "http://www.yilos.com/svc/file-upload",
+        "wxserviceurl": "http://wx.yilos.com/svc"
     },
     "connector":{
         "nail_pc_url":"http://www.yilos.com"
