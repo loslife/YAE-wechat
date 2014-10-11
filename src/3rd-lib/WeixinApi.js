@@ -43,7 +43,7 @@ var WeixinApi = (function () {
                 "img_url":theData.imgUrl,
                 "link":theData.link,
                 "desc":theData.title,
-                "title":theData.desc, // 注意这里要分享出去的内容是desc
+                "title":theData.description, // 注意这里要分享出去的内容是desc
                 "img_width":"640",
                 "img_height":"640"
             }, function (resp) {
@@ -112,7 +112,7 @@ var WeixinApi = (function () {
                 "appid":theData.appId ? theData.appId : '',
                 "img_url":theData.imgUrl,
                 "link":theData.link,
-                "desc":theData.desc,
+                "desc":theData.description,
                 "title":theData.title,
                 "img_width":"640",
                 "img_height":"640"
@@ -176,7 +176,7 @@ var WeixinApi = (function () {
         callbacks = callbacks || {};
         var shareWeibo = function (theData) {
             WeixinJSBridge.invoke('shareWeibo', {
-                "content":theData.desc,
+                "content":theData.description,
                 "url":theData.link
             }, function (resp) {
                 switch (resp.err_msg) {
@@ -245,8 +245,8 @@ var WeixinApi = (function () {
             // 如果是分享到朋友圈，则需要把title和desc交换一下
             if(general.shareTo == 'timeline') {
                 var title = theData.title;
-                theData.title = theData.desc || title;
-                theData.desc = title;
+                theData.title = theData.description || title;
+                theData.description = title;
             }
 
             // 分享出去
@@ -254,7 +254,7 @@ var WeixinApi = (function () {
                 "appid":theData.appId ? theData.appId : '',
                 "img_url":theData.imgUrl,
                 "link":theData.link,
-                "desc":theData.desc,
+                "desc":theData.description,
                 "title":theData.title,
                 "img_width":"640",
                 "img_height":"640"
