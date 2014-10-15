@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+    <script src="/svc/portal/setting"></script>
+</head>
+
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js("/3rd-lib/zepto.min.js")
+        .js("/resource/wechat_global.js")
+        .js('/wx-router/static/input.js')
+        .css("/resource/css/base.css")
+        .css("/wx-router/static/css/input.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/3rd-lib/wechat-global.min.js")
+        .js('/wx-router/input.min.js')
+        .css("/resource/css/wechat.min.css")
+        .css("/member-binding/css/input.min.css")
+        .done(config) %>
+
+<% } %>
+
+<body>
+
+<div id="m-binding">
+    <div class="form-area">
+
+        <div class="h-4 lh-4 text-center border-bottom">
+            绑定会员
+        </div>
+
+        <form class="width-full">
+
+            <span id="open_id" style="display: none"><%= open_id %></span>
+
+            <div class="input">
+                <input type="tel" id="phone" placeholder="输入手机号">
+            </div>
+
+            <div class="input">
+                <input type="text" id="code" placeholder="输入验证码">
+            </div>
+
+            <div class="btn">
+                <button type="button" id="getSecurityCode">获取验证码</button>
+            </div>
+
+            <div class="btn">
+                <button type="button" id="btn_binding">绑定</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>
