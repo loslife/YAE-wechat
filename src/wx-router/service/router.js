@@ -8,6 +8,7 @@ var PARAM_SPLITTER = "##";
 
 exports.route = route;
 exports.selectShop = selectShop;
+exports.inputPhone = inputPhone;
 
 // 500: 数据库访问错误
 // 501: 获取open_id错误
@@ -42,7 +43,7 @@ function route(req, res, next){
 
             // 根据此open_id无法判断所属店铺，要求用户输入手机号
             if(result.length === 0){
-                res.render("input", {layout: false, open_id: result.openid});
+                res.redirect("inputPhone?open_id=" + condition.wx_open_id);
                 return;
             }
 
@@ -83,4 +84,10 @@ function selectShop(req, res, next){
     }
 
     res.render("selection", {layout: false, params: params});
+}
+
+function inputPhone(req, res, next){
+
+    var open_id = req.query["open_id"];
+    res.render("input", {layout: false, open_id: open_id});
 }

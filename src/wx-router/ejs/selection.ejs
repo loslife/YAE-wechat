@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+    <script src="/svc/portal/setting"></script>
+</head>
+
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js("/3rd-lib/zepto.min.js")
+        .js("/resource/wechat_global.js")
+        .css("/resource/css/base.css")
+        .css("/wx-router/static/css/selection.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/3rd-lib/wechat-global.min.js")
+        .js('/wx-router/selection.min.js')
+        .css("/resource/css/wechat.min.css")
+        .done(config) %>
+
+<% } %>
+
+<body>
+
+<div id="m-selection">
+
+    <% for(var i = 0; i < params.length; i++){ %>
+
+    <div>
+        <a href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
+            <div>店铺<%= i + 1 %></div>
+        </a>
+    </div>
+
+    <% } %>
+
+</div>
+
+</body>
+
+</html>

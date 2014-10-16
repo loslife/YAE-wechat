@@ -7,6 +7,7 @@ var async = require("async");
 var baseurl = global["_g_clusterConfig"].baseurl;
 var app_id = "wxd37396c2dc23ba21";
 var app_secret = "9600186549bc52bdf0d2d7390b05fd2c";
+var PARAM_SPLITTER = "##";
 
 exports.shareBind = shareBind;
 exports.bindAllEnterpriseByPhone = bindAllEnterpriseByPhone;
@@ -75,12 +76,35 @@ function shareBind(req, res, next){
                         return;
                     }
 
-                    // TODO 绑定完成之后的处理
+                    var bindings = body.result;
+
+                    if(bindings.length === 0){
+                        res.send("没有找到您的手机号");
+                        return;
+                    }
+
+                    if(bindings.length === 1){
+                        var enterprise_id = bindings[0].enterprise_id;
+                        var member_id = bindings[0].member_id;
+                        res.redirect("../" + enterprise_id + "/shop?m_id=" + member_id);
+                        return;
+                    }
+
+                    var enterprises = [];
+                    var members = [];
+
+                    _.each(bindings, function(item){
+                        enterprises.push(item.enterprise_id);
+                        members.push(item.member_id);
+                    });
+
+                    var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
+                    res.redirect("selection?" + params);
                 });
             }
 
             function redirectToBindPage(){
-                res.send("请输入手机号");
+                res.redirect("inputPhone?open_id=" + open_id);
             }
         });
     });

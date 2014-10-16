@@ -43,18 +43,34 @@ $(function(){
                 var code = response.code;
 
                 if(code !== 0){
-                    var errorCode = response.error.errorCode;
-                    if(errorCode === 501){
-                        alert("会员不存在");
-                    }else{
-                        alert("绑定失败，请联系客服");
-                    }
+                    alert("绑定失败");
                     return;
                 }
 
-                setTimeout(function(){
-                    location.href = g_env.binding_url + enterprise_id + "/member?m_id=" + response.member_id;
-                },2000);
+                var bindings = response.result;
+
+                if(bindings.length === 0){
+                    alert("没有找到您的手机号");
+                    return;
+                }
+
+                if(bindings.length === 1){
+                    var enterprise_id = bindings[0].enterprise_id;
+                    var member_id = bindings[0].member_id;
+                    location.href = "../" + enterprise_id + "/shop?m_id=" + member_id;
+                    return;
+                }
+
+                var enterprises = [];
+                var members = [];
+
+                _.each(bindings, function(item){
+                    enterprises.push(item.enterprise_id);
+                    members.push(item.member_id);
+                });
+
+                var params = "eid=" + enterprises.join("##") + "&mid=" + members.join("##");
+                location.href = "selection?" + params;
             });
         });
     });
