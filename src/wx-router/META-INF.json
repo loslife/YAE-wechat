@@ -15,6 +15,14 @@
             "auth": false,
             "impl": "router.selectShop",
             "comment": "商户选择页面"
+        },
+        {
+            "name": "inputPhone",
+            "path": "/wsite/inputPhone",
+            "method": "get",
+            "auth": false,
+            "impl": "router.inputPhone",
+            "comment": "输入手机号界面"
         }
     ],
     "statics": [

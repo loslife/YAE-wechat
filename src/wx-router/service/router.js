@@ -43,7 +43,7 @@ function route(req, res, next){
 
             // 根据此open_id无法判断所属店铺，要求用户输入手机号
             if(result.length === 0){
-                res.redirect("inputPhone?open_id=" + condition.wx_open_id);
+                res.redirect("../inputPhone?open_id=" + condition.wx_open_id);
                 return;
             }
 
@@ -65,7 +65,7 @@ function route(req, res, next){
             });
 
             var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
-            res.redirect("selection?" + params);
+            res.redirect("../selection?" + params);
         });
     });
 }
@@ -89,5 +89,5 @@ function selectShop(req, res, next){
 function inputPhone(req, res, next){
 
     var open_id = req.query["open_id"];
-    res.render("input", {layout: false, open_id: open_id});
+    res.render("inputPhone", {layout: false, open_id: open_id});
 }

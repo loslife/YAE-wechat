@@ -99,12 +99,12 @@ function shareBind(req, res, next){
                     });
 
                     var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
-                    res.redirect("selection?" + params);
+                    res.redirect("../selection?" + params);
                 });
             }
 
             function redirectToBindPage(){
-                res.redirect("inputPhone?open_id=" + open_id);
+                res.redirect("../inputPhone?open_id=" + open_id);
             }
         });
     });
