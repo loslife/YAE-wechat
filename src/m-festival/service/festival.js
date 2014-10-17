@@ -67,11 +67,28 @@ function route(req, res, next){
     });
 
     function increasePageView(){
+
         dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {view_count: 1}, function(err, result){
             if(err){
                 console.log(err);
             }
         });
+
+        _refreshModifyDate();
+
+        function _refreshModifyDate(){
+
+            dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
+
+                festival.modify_date = new Date().getTime();
+
+                dbHelper.updateByID("weixin_festivals", festival, function(err, result){
+                    if(err){
+                        console.log("update modify_date fail");
+                    }
+                });
+            });
+        }
     }
 
     function _queryStoreInfo(callback) {
@@ -156,4 +173,20 @@ function countShareTimes(req, res, next){
         }
         doResponse(req, res, {message: "ok"});
     });
+
+    _refreshModifyDate();
+
+    function _refreshModifyDate(){
+
+        dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
+
+            festival.modify_date = new Date().getTime();
+
+            dbHelper.updateByID("weixin_festivals", festival, function(err, result){
+                if(err){
+                    console.log("update modify_date fail");
+                }
+            });
+        });
+    }
 }
