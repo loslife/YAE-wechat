@@ -299,7 +299,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
         function _queryFromPad(callback) {
 
             var sql = "select def_str3 as name, def_rea2 as money, def_int1 as valid, create_date as dateTime" +
-                " from planx_graph.tb_memberCardAttrMap where def_str2 = :member_id and groupName = 'coupon' and enterprise_id = :enterprise_id;";
+                " from planx_graph.tb_memberCardAttrMap" +
+                " where def_str2 = :member_id and groupName = 'coupon' and (status is null or status != 0) and enterprise_id = :enterprise_id;";
 
             dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
