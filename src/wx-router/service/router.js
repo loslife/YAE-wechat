@@ -9,6 +9,7 @@ var PARAM_SPLITTER = "##";
 exports.route = route;
 exports.selectShop = selectShop;
 exports.inputPhone = inputPhone;
+exports.foundNoMember = foundNoMember;
 
 // 500: 数据库访问错误
 // 501: 获取open_id错误
@@ -90,4 +91,9 @@ function inputPhone(req, res, next){
 
     var open_id = req.query["open_id"];
     res.render("inputPhone", {layout: false, open_id: open_id});
+}
+
+function foundNoMember(req, res, next){
+
+    res.render("memberNotFound", {layout: false});
 }

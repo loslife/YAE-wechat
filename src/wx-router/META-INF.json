@@ -23,6 +23,14 @@
             "auth": false,
             "impl": "router.inputPhone",
             "comment": "输入手机号界面"
+        },
+        {
+            "name": "memberNotFound",
+            "path": "/wsite/memberNotFound",
+            "method": "get",
+            "auth": false,
+            "impl": "router.foundNoMember",
+            "comment": "根据输入的手机号，无法找到店铺"
         }
     ],
     "statics": [
