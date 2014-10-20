@@ -1,0 +1,12 @@
+#m-selection > div {
+  width: 80%;
+  margin: 0 auto 1rem;
+  text-align: center;
+  background-color: green;
+  height: 5rem;
+  line-height: 5rem;
+}
+#m-selection > div > a {
+  text-decoration: none;
+  color: inherit;
+}
