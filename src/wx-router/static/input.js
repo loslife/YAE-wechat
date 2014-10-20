@@ -1,5 +1,7 @@
 $(function(){
 
+    var PARAM_SPLITTER = "___";
+
     $("#getSecurityCode").tap(function(){
 
         var phone = $("#phone").val();
@@ -69,7 +71,7 @@ $(function(){
                     members.push(item.member_id);
                 });
 
-                var params = "eid=" + enterprises.join("##") + "&mid=" + members.join("##");
+                var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
                 location.href = "selection?" + params;
             });
         });

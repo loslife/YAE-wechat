@@ -4,7 +4,7 @@ var _ = require("underscore");
 
 var app_id = "wxd37396c2dc23ba21";
 var app_secret = "9600186549bc52bdf0d2d7390b05fd2c";
-var PARAM_SPLITTER = "##";
+var PARAM_SPLITTER = "___";
 
 exports.route = route;
 exports.selectShop = selectShop;
