@@ -23,8 +23,8 @@
 
 <%- Loader()
         .js("/3rd-lib/wechat-global.min.js")
-        .css('/wx-router/selection.min.css')
         .css("/resource/css/wechat.min.css")
+        .css('/wx-router/selection.min.css')
         .done(config) %>
 
 <% } %>
@@ -37,7 +37,7 @@
 
     <div>
         <a href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
-            <div>店铺<%= i + 1 %></div>
+            <%= params[i].enterprise_name %>
         </a>
     </div>
 

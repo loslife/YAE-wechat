@@ -1,10 +1,12 @@
 var api = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var _ = require("underscore");
+var request = require("request");
 
 var app_id = "wxd37396c2dc23ba21";
 var app_secret = "9600186549bc52bdf0d2d7390b05fd2c";
 var PARAM_SPLITTER = "___";
+var baseurl = global["_g_clusterConfig"].baseurl;
 
 exports.route = route;
 exports.selectShop = selectShop;
@@ -71,6 +73,7 @@ function route(req, res, next){
     });
 }
 
+// 500: 查询企业名称失败
 function selectShop(req, res, next){
 
     var member_ids = req.query["mid"];
@@ -79,12 +82,48 @@ function selectShop(req, res, next){
     var members = member_ids.split(PARAM_SPLITTER);
     var enterprises = enterprise_ids.split(PARAM_SPLITTER);
 
-    var params = [];
-    for(var i = 0; i < members.length; i++){
-        params.push({enterprise_id: enterprises[i], member_id: members[i]});
-    }
+    var url = baseurl + "/enterprise/names?ids=" + enterprise_ids;
 
-    res.render("selection", {layout: false, params: params});
+    var options = {
+        method: "GET",
+        uri: url,
+        json: true
+    };
+
+    request(options, function(err, response, body) {
+
+        if(err){
+            next({errorCode: 500, errorMessage: "查询企业名称失败"});
+            return;
+        }
+
+        var code = body.code;
+        if(code !== 0){
+            next({errorCode: 500, errorMessage: "查询企业名称失败"});
+            return;
+        }
+
+        var params = [];
+
+        var results = body.result;
+
+        for(var i = 0; i < members.length; i++){
+
+            var name = "";
+
+            for(var j = 0; j < results.length; j++){
+
+                if(results[j].id === enterprises[i]){
+                    name = results[j].name;
+                    break;
+                }
+            }
+
+            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name});
+        }
+
+        res.render("selection", {layout: false, params: params});
+    });
 }
 
 function inputPhone(req, res, next){
