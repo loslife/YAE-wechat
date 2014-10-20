@@ -50,7 +50,7 @@ $(function(){
                 var bindings = response.result;
 
                 if(bindings.length === 0){
-                    alert("没有找到您的手机号");
+                    location.href = "memberNotFound";
                     return;
                 }
 

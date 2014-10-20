@@ -79,7 +79,7 @@ function shareBind(req, res, next){
                     var bindings = body.result;
 
                     if(bindings.length === 0){
-                        res.send("没有找到您的手机号");
+                        res.redirect("../memberNotFound");
                         return;
                     }
 
