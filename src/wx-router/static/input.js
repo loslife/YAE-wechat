@@ -22,23 +22,9 @@ function init(){
 
     var PARAM_SPLITTER = "___";
 
-    $("#getSecurityCode").tap(function(){
+    $("#getSecurityCode").getCodeButton();
 
-        var phone = $("#phone").val();
-
-        if(!phone){
-            alert("请输入手机号");
-            return;
-        }
-
-        var url = g_env.security_code_url + phone + "?u=weixin_binding";
-
-        $.get(url, function(response){
-            alert("验证码已发送到您的手机");
-        });
-    });
-
-    $("#btn_binding").tap(function(){
+    $("#btn_binding").click(function(){
 
         var phone = $("#phone").val();
         var secure_code = $("#code").val();
