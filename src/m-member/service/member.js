@@ -57,7 +57,9 @@ function jumpToWMember(req, res, next) {
         });
 
         _.each(memberInfo.coupons, function (coupon) {
-            coupon.expired_time = new Date(coupon.expired_time).Format("yy-MM-dd");
+            if(coupon.expired_time){
+                coupon.expired_time = new Date(coupon.expired_time).Format("yy-MM-dd");
+            }
         });
 
         _.each(memberInfo.services, function (service) {
