@@ -7,14 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
-    <script src="/svc/portal/setting"></script>
 </head>
 
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js("/3rd-lib/zepto.min.js")
-        .js("/resource/wechat_global.js")
         .css("/resource/css/base.css")
         .css("/wx-router/static/css/memberNotFound.css")
         .done(config) %>
@@ -22,26 +19,21 @@
 <% }else{ %>
 
 <%- Loader()
-        .js("/3rd-lib/wechat-global.min.js")
-        .css('/wx-router/memberNotFound.min.js')
         .css("/resource/css/wechat.min.css")
+        .css('/wx-router/memberNotFound.min.css')
         .done(config) %>
 
 <% } %>
 
 <body>
 
-<div id="m-selection">
+<div id="m-no-shop">
 
-    <% for(var i = 0; i < params.length; i++){ %>
+    <div>根据您的手机号，没有找到商户</div>
 
-    <div>
-        <a href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
-            <div>店铺<%= i + 1 %></div>
-        </a>
+    <div class="btn">
+        <button type="button"><a href="./inputphone">返回</a></button>
     </div>
-
-    <% } %>
 
 </div>
 

@@ -2,9 +2,10 @@
   width: 80%;
   margin: 0 auto 1rem;
   text-align: center;
-  background-color: green;
+  background-color: #f75169;
   height: 5rem;
   line-height: 5rem;
+  color: white;
 }
 #m-selection > div > a {
   text-decoration: none;
