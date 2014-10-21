@@ -13,6 +13,7 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
+        .js("/3rd-lib/WeixinApi.js")
         .js("/3rd-lib/zepto.min.js")
         .js("/resource/wechat_global.js")
         .js('/wx-router/static/input.js')
