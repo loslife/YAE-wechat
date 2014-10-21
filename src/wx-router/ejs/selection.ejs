@@ -29,9 +29,11 @@
 
 <div id="m-selection">
 
+    <div id="title">请选择商户</div>
+
     <% for(var i = 0; i < params.length; i++){ %>
 
-    <div>
+    <div class="shop-item">
         <a href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
             <%= params[i].enterprise_name %>
         </a>
