@@ -1,30 +1,56 @@
 $(function(){
 
-    $("#binding_success_tip").hide();
+    $("#getSecurityCode").click(function(){
 
-    $("#getSecurityCode").tap(function(){
+        var self = this;
+
+        $(this).prop("disabled", true);
 
         var phone = $("#phone").val();
 
         if(!phone){
             alert("请输入手机号");
+            $(this).prop("disabled", false);
             return;
         }
 
         var url = g_env.security_code_url + phone + "?u=weixin_binding";
 
+        var count = 60;
+        var intervalTag;
+
         $.get(url, function(response){
             alert("验证码已发送到您的手机");
+            intervalTag = setInterval(countDown, 1000);
         });
+
+        function countDown(){
+
+            count --;
+
+            if(count > 0){
+                $(self).text(count + "秒后可重新获取");
+                return;
+            }
+
+            $(self).prop("disabled", false);
+            $(self).text("获取验证码");
+            clearInterval(intervalTag);
+        }
     });
 
-    $("#btn_binding").tap(function(){
+    $("#btn_binding").click(function(){
+
+        var self = this;
+
+        $(this).prop("disabled", true);
 
         var phone = $("#phone").val();
         var secure_code = $("#code").val();
 
         if(!phone || !secure_code){
             alert("输入不能为空");
+            $(this).prop("disabled", false);
             return;
         }
 
@@ -34,6 +60,7 @@ $(function(){
             var code = response.code;
             if(code !== 0){
                 alert("验证码错误");
+                $(self).prop("disabled", false);
                 return;
             }
 
@@ -52,9 +79,11 @@ $(function(){
                     }else{
                         alert("绑定失败，请联系客服");
                     }
+                    $(self).prop("disabled", false);
                     return;
                 }
 
+                $(self).prop("disabled", false);
                 $("#binding_success_tip").show();
                 setTimeout(function(){
                     location.href = g_env.binding_url + enterprise_id + "/member?m_id=" + response.member_id;
