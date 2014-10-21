@@ -26,11 +26,16 @@ function init(){
 
     $("#btn_binding").click(function(){
 
+        var self = this;
+
+        $(this).prop("disabled", true);
+
         var phone = $("#phone").val();
         var secure_code = $("#code").val();
 
         if(!phone || !secure_code){
             alert("输入不能为空");
+            $(this).prop("disabled", false);
             return;
         }
 
@@ -40,11 +45,11 @@ function init(){
             var code = response.code;
             if(code !== 0){
                 alert("验证码错误");
+                $(this).prop("disabled", false);
                 return;
             }
 
             var open_id = $("#open_id").text();
-
             var bindingURL = g_env.binding_url + "bindingAll";
             $.post(bindingURL, {open_id: open_id, phone: phone}, function(response){
 
@@ -52,33 +57,41 @@ function init(){
 
                 if(code !== 0){
                     alert("绑定失败");
+                    $(this).prop("disabled", false);
                     return;
                 }
 
                 var bindings = response.result;
 
-                if(bindings.length === 0){
-                    location.href = "memberNotFound";
-                    return;
-                }
+                var dist = "";
 
-                if(bindings.length === 1){
+                if(bindings.length === 0){
+
+                    dist = "memberNotFound";
+                }else if(bindings.length === 1){
+
                     var enterprise_id = bindings[0].enterprise_id;
                     var member_id = bindings[0].member_id;
-                    location.href = "../" + enterprise_id + "/shop?m_id=" + member_id;
-                    return;
+                    dist = "../" + enterprise_id + "/shop?m_id=" + member_id;
+                }else{
+
+                    var enterprises = [];
+                    var members = [];
+
+                    _.each(bindings, function(item){
+                        enterprises.push(item.enterprise_id);
+                        members.push(item.member_id);
+                    });
+
+                    var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
+                    dist = "selection?" + params;
                 }
 
-                var enterprises = [];
-                var members = [];
-
-                _.each(bindings, function(item){
-                    enterprises.push(item.enterprise_id);
-                    members.push(item.member_id);
-                });
-
-                var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
-                location.href = "selection?" + params;
+                $(self).prop("disabled", false);
+                $("#binding_success_tip").show();
+                setTimeout(function(){
+                    location.href = dist;
+                },2000);
             });
         });
     });
