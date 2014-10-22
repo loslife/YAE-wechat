@@ -20,7 +20,8 @@
                 "member-binding",
                 "resource",
                 "sync",
-                "wx-router"
+                "wx-router",
+                "light-entrance"
             ]
         }
     ],
@@ -40,10 +41,11 @@
         }
     },
     "clientAccess": {
-        "staticurl": "",
-        "authurl": "",
-        "serviceurl": "",
-        "uploadurl": ""
+        "staticurl": "http://127.0.0.1",
+        "authurl": "http://127.0.0.1/svc",
+        "serviceurl": "http://127.0.0.1/svc",
+        "uploadurl": "http://127.0.0.1/svc/file-upload",
+        "wxserviceurl": "http://127.0.0.1/svc"
     },
     "connector":{
         "nail_pc_url":""

@@ -13,20 +13,21 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
+        .js("/3rd-lib/WeixinApi.js")
         .js("/3rd-lib/zepto.min.js")
         .js("/resource/wechat_global.js")
-        .js('/member-binding/static/binding.js')
-        .css("/member-binding/static/css/binding.css")
+        .js('/wx-router/static/input.js')
         .css("/resource/css/base.css")
+        .css("/wx-router/static/css/input.css")
         .done(config) %>
 
 <% }else{ %>
 
 <%- Loader()
         .js("/3rd-lib/wechat-global.min.js")
-        .js('/member-binding/binding.min.js')
+        .js('/wx-router/input.min.js')
         .css("/resource/css/wechat.min.css")
-        .css("/member-binding/css/binding.min.css")
+        .css("/wx-router/css/input.min.css")
         .done(config) %>
 
 <% } %>
@@ -43,7 +44,6 @@
         <form class="width-full">
 
             <span id="open_id" style="display: none"><%= open_id %></span>
-            <span id="enterprise_id" style="display: none"><%= enterprise_id %></span>
 
             <div class="input">
                 <input type="tel" id="phone" placeholder="输入手机号">
@@ -62,7 +62,7 @@
             </div>
 
             <div id="binding_success_tip" style="display: none">
-                绑定成功，将为您跳转到会员专区
+                绑定成功，即将为您跳转
             </div>
 
         </form>

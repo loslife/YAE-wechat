@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+</head>
+
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .css("/resource/css/base.css")
+        .css("/wx-router/static/css/memberNotFound.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .css("/resource/css/wechat.min.css")
+        .css('/wx-router/css/memberNotFound.min.css')
+        .done(config) %>
+
+<% } %>
+
+<body>
+
+<div id="m-no-shop">
+
+    <div>根据您的手机号，没有找到商户</div>
+
+    <div class="btn">
+        <button type="button"><a href="./inputphone">返回</a></button>
+    </div>
+
+</div>
+
+</body>
+
+</html>

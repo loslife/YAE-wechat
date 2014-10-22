@@ -101,6 +101,8 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
                 dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {send_count_walkin: 1}, function(err, result){});
             }
 
+            _refreshModifyDate();
+
             if(memberId){
                 callback(null);
             }else{
@@ -108,6 +110,20 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
             }
         });
     });
+
+    function _refreshModifyDate(){
+
+        queryFestivalById(enterpriseId, festivalId, function(err, festival){
+
+            festival.modify_date = new Date().getTime();
+
+            dbHelper.updateByID("weixin_festivals", festival, function(err, result){
+                if(err){
+                    console.log("update modify_date fail");
+                }
+            });
+        });
+    }
 
     function _generateSecurityCode(model, callback){
 

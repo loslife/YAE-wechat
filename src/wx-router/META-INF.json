@@ -6,14 +6,41 @@
             "method": "get",
             "auth": false,
             "impl": "router.route",
-            "comment": "借助微信OAuth2跳转"
+            "comment": "判断是进入微站首页，还是进入绑定页面，还是进入商户选择页面"
+        },
+        {
+            "name": "selectShop",
+            "path": "/wsite/selection",
+            "method": "get",
+            "auth": false,
+            "impl": "router.selectShop",
+            "comment": "商户选择页面"
+        },
+        {
+            "name": "inputPhone",
+            "path": "/wsite/inputPhone",
+            "method": "get",
+            "auth": false,
+            "impl": "router.inputPhone",
+            "comment": "输入手机号界面"
+        },
+        {
+            "name": "memberNotFound",
+            "path": "/wsite/memberNotFound",
+            "method": "get",
+            "auth": false,
+            "impl": "router.foundNoMember",
+            "comment": "根据输入的手机号，无法找到店铺"
         }
     ],
     "statics": [
 
     ],
     "ejsviews": [
-
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
     ],
     "errorHandler": [
 

@@ -1,5 +1,4 @@
 var wx = require("wechat-toolkit");
-var session_refresh = require("./session-refresh");
 var preload_member = require("./preload-member");
 
 exports.loadMiddleWare = loadMiddleWare;

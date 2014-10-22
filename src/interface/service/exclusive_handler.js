@@ -3,10 +3,13 @@ var wx = require("wechat-toolkit");
 var async = require("async");
 var request = require("request");
 var _ = require("underscore");
-var _s = require("underscore.string");
 
-var baseurl = global["_g_clusterConfig"].baseurl;
-var server_address = _s.endsWith(baseurl, "svc") ? _s.rtrim(baseurl, "svc") : baseurl;
+var server_address = "http://wx.yilos.com/";
+
+if(global["_g_topo"].env == "dev"){
+    server_address = global["_g_topo"].clientAccess.serviceurl;
+}
+
 var default_welcome = "感谢您的关注，我们会为您提供最好的服务";
 var error_message = "微店铺似乎出了点问题，请联系乐斯";
 
@@ -21,7 +24,7 @@ function handleMessage(req, res, next){
 
         if(err){
             console.log(err);
-            wx.replyTextMessage(error_message);
+            wx.replyTextMessage(req, res, error_message);
         }
     });
 

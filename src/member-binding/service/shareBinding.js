@@ -7,6 +7,7 @@ var async = require("async");
 var baseurl = global["_g_clusterConfig"].baseurl;
 var app_id = "wxd37396c2dc23ba21";
 var app_secret = "9600186549bc52bdf0d2d7390b05fd2c";
+var PARAM_SPLITTER = "___";
 
 exports.shareBind = shareBind;
 exports.bindAllEnterpriseByPhone = bindAllEnterpriseByPhone;
@@ -75,12 +76,35 @@ function shareBind(req, res, next){
                         return;
                     }
 
-                    res.send("重新绑定成功");
+                    var bindings = body.result;
+
+                    if(bindings.length === 0){
+                        res.redirect("../memberNotFound");
+                        return;
+                    }
+
+                    if(bindings.length === 1){
+                        var enterprise_id = bindings[0].enterprise_id;
+                        var member_id = bindings[0].member_id;
+                        res.redirect("../" + enterprise_id + "/shop?m_id=" + member_id);
+                        return;
+                    }
+
+                    var enterprises = [];
+                    var members = [];
+
+                    _.each(bindings, function(item){
+                        enterprises.push(item.enterprise_id);
+                        members.push(item.member_id);
+                    });
+
+                    var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
+                    res.redirect("../selection?" + params);
                 });
             }
 
             function redirectToBindPage(){
-                res.send("请输入手机号");
+                res.redirect("../inputPhone?open_id=" + open_id);
             }
         });
     });
@@ -92,7 +116,7 @@ function bindAllEnterpriseByPhone(req, res, next){
     var open_id = req.body.open_id;
     var member_phone = req.body.phone;
 
-    async.waterfall([_removeOldBinding, _queryAllEnterprise, _doBinding], function(err){
+    async.waterfall([_removeOldBinding, _queryAllEnterprise, _doBinding], function(err, members){
 
         if(err){
             console.log(err);
@@ -100,12 +124,19 @@ function bindAllEnterpriseByPhone(req, res, next){
             return;
         }
 
-        res.send({code: 0, message: "ok"});
+        var results = [];
+        _.each(members, function(item){
+            results.push({member_id: item.id, enterprise_id: item.enterprise_id});
+        });
+
+        doResponse(req, res, results);
     });
 
     function _removeOldBinding(callback){
 
-        dbHelper.deleteDataByCondition("weixin_member_binding", {wx_open_id: open_id}, callback);
+        dbHelper.deleteDataByCondition("weixin_member_binding", {wx_open_id: open_id}, function(err, conditions){
+            callback(err);
+        });
     }
 
     function _queryAllEnterprise(callback){
@@ -123,7 +154,16 @@ function bindAllEnterpriseByPhone(req, res, next){
 
     function _doBinding(members, callback){
 
-        async.each(members, bind, callback);
+        async.each(members, bind, function(err){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            callback(null, members);
+
+        });
 
         function bind(item, next){
 

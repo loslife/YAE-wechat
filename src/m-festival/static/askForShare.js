@@ -46,10 +46,11 @@ function init(){
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
             var slogan = $("#slogan").text();
+
             var wxData = {
-                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",//"http://121.40.75.73/resource/share_thumb.png",
-                "link": global["_g_server"].serviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,//"http://121.40.75.73/svc/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "description" : slogan,
+                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
+                "desc" : slogan,
                 "title": ""
             };
 

@@ -13,20 +13,21 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
+
         .js("/3rd-lib/zepto.min.js")
         .js("/resource/wechat_global.js")
-        .js('/member-binding/static/binding.js')
-        .css("/member-binding/static/css/binding.css")
+        .js('/light-entrance/static/lightEntrance.js')
         .css("/resource/css/base.css")
+        .css("/light-entrance/static/css/lightEntrance.css")
         .done(config) %>
 
 <% }else{ %>
 
 <%- Loader()
         .js("/3rd-lib/wechat-global.min.js")
-        .js('/member-binding/binding.min.js')
+        .js('/light-entrance/lightEntrance.min.js')
         .css("/resource/css/wechat.min.css")
-        .css("/member-binding/css/binding.min.css")
+        .css("/light-entrance/css/lightEntrance.min.css")
         .done(config) %>
 
 <% } %>
@@ -37,13 +38,10 @@
     <div class="form-area">
 
         <div class="h-4 lh-4 text-center border-bottom">
-            绑定会员
+            登陆
         </div>
 
         <form class="width-full">
-
-            <span id="open_id" style="display: none"><%= open_id %></span>
-            <span id="enterprise_id" style="display: none"><%= enterprise_id %></span>
 
             <div class="input">
                 <input type="tel" id="phone" placeholder="输入手机号">
@@ -62,7 +60,7 @@
             </div>
 
             <div id="binding_success_tip" style="display: none">
-                绑定成功，将为您跳转到会员专区
+                登陆成功，即将为您跳转
             </div>
 
         </form>

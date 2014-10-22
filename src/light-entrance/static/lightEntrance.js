@@ -27,29 +27,28 @@ $(function(){
                 return;
             }
 
-            var enterprise_id = $("#enterprise_id").text();
-            var open_id = $("#open_id").text();
-
-            var bindingURL = g_env.binding_url + enterprise_id + "/doBinding";
-            $.post(bindingURL, { open_id: open_id, phone: phone }, function(response){
+            var queryURL = g_env.binding_url + "findEnterpriseByPhone?phone=" + phone;
+            $.get(queryURL, function(response){
 
                 var code = response.code;
-
                 if(code !== 0){
-                    var errorCode = response.error.errorCode;
-                    if(errorCode === 501){
-                        alert("会员不存在");
-                    }else{
-                        alert("绑定失败，请联系客服");
-                    }
+                    alert("登陆失败");
+                    $(self).prop("disabled", false);
+                    return;
+                }
+
+                var result = response.result;
+                if(result.length === 0){
+                    alert("手机号不存在");
                     $(self).prop("disabled", false);
                     return;
                 }
 
                 $(self).prop("disabled", false);
                 $("#binding_success_tip").show();
+
                 setTimeout(function(){
-                    location.href = g_env.binding_url + enterprise_id + "/member?m_id=" + response.member_id;
+                    location.href = "./" + result[0].eid + "/shop?m_id=" + result[0].mid;
                 },2000);
             });
         });

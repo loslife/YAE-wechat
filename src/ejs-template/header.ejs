@@ -1,4 +1,7 @@
+<script src="/svc/portal/setting"></script>
+
 <% if(env === "dev"){ %>
+
 <%- Loader()
         .js("/3rd-lib/WeixinApi.js")
         .js("/3rd-lib/zepto.min.js")
@@ -6,11 +9,13 @@
         .css("/resource/css/base.css")
         .css("/resource/css/wechat.css")
         .done(config) %>
+
 <% }else{ %>
+
 <%- Loader()
         .js("/3rd-lib/wechat-global.min.js")
         .css("/resource/css/wechat.min.css")
         .done(config) %>
 
 <% } %>
-<script src="/svc/portal/setting"></script>
+

@@ -1,10 +1,17 @@
 var api = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
+var _ = require("underscore");
+var request = require("request");
 
 var app_id = "wxd37396c2dc23ba21";
 var app_secret = "9600186549bc52bdf0d2d7390b05fd2c";
+var PARAM_SPLITTER = "___";
+var baseurl = global["_g_clusterConfig"].baseurl;
 
 exports.route = route;
+exports.selectShop = selectShop;
+exports.inputPhone = inputPhone;
+exports.foundNoMember = foundNoMember;
 
 // 500: 数据库访问错误
 // 501: 获取open_id错误
@@ -39,7 +46,7 @@ function route(req, res, next){
 
             // 根据此open_id无法判断所属店铺，要求用户输入手机号
             if(result.length === 0){
-                res.send("不认识的手机号，请输入手机号");
+                res.redirect("../inputPhone?open_id=" + condition.wx_open_id);
                 return;
             }
 
@@ -52,7 +59,80 @@ function route(req, res, next){
             }
 
             // 多个店铺的情况
-            res.send("多个店铺");
+            var enterprises = [];
+            var members = [];
+
+            _.each(result, function(item){
+                enterprises.push(item.enterprise_id);
+                members.push(item.member_id);
+            });
+
+            var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
+            res.redirect("../selection?" + params);
         });
     });
+}
+
+// 500: 查询企业名称失败
+function selectShop(req, res, next){
+
+    var member_ids = req.query["mid"];
+    var enterprise_ids = req.query["eid"];
+
+    var members = member_ids.split(PARAM_SPLITTER);
+    var enterprises = enterprise_ids.split(PARAM_SPLITTER);
+
+    var url = baseurl + "/enterprise/names?ids=" + enterprise_ids;
+
+    var options = {
+        method: "GET",
+        uri: url,
+        json: true
+    };
+
+    request(options, function(err, response, body) {
+
+        if(err){
+            next({errorCode: 500, errorMessage: "查询企业名称失败"});
+            return;
+        }
+
+        var code = body.code;
+        if(code !== 0){
+            next({errorCode: 500, errorMessage: "查询企业名称失败"});
+            return;
+        }
+
+        var params = [];
+
+        var results = body.result;
+
+        for(var i = 0; i < members.length; i++){
+
+            var name = "";
+
+            for(var j = 0; j < results.length; j++){
+
+                if(results[j].id === enterprises[i]){
+                    name = results[j].name;
+                    break;
+                }
+            }
+
+            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name});
+        }
+
+        res.render("selection", {layout: false, params: params});
+    });
+}
+
+function inputPhone(req, res, next){
+
+    var open_id = req.query["open_id"];
+    res.render("inputPhone", {layout: false, open_id: open_id});
+}
+
+function foundNoMember(req, res, next){
+
+    res.render("memberNotFound", {layout: false});
 }
