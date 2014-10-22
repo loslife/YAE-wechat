@@ -20,7 +20,8 @@
                 "member-binding",
                 "resource",
                 "sync",
-                "wx-router"
+                "wx-router",
+                "light-entrance"
             ]
         }
     ],

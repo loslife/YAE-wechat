@@ -18,7 +18,8 @@
                 "m-festival",
                 "member-binding",
                 "sync",
-                "wx-router"
+                "wx-router",
+                "light-entrance"
             ]
         }
     ],
