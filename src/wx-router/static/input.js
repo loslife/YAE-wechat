@@ -78,10 +78,10 @@ function init(){
                     var enterprises = [];
                     var members = [];
 
-                    _.each(bindings, function(item){
-                        enterprises.push(item.enterprise_id);
-                        members.push(item.member_id);
-                    });
+                    for(var i = 0; i < bindings.length; i++){
+                        enterprises.push(bindings[i].enterprise_id);
+                        members.push(bindings[i].member_id);
+                    }
 
                     var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
                     dist = "selection?" + params;
