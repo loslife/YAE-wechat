@@ -45,7 +45,7 @@ function init(){
             var code = response.code;
             if(code !== 0){
                 alert("验证码错误");
-                $(this).prop("disabled", false);
+                $(self).prop("disabled", false);
                 return;
             }
 
@@ -57,7 +57,7 @@ function init(){
 
                 if(code !== 0){
                     alert("绑定失败");
-                    $(this).prop("disabled", false);
+                    $(self).prop("disabled", false);
                     return;
                 }
 
