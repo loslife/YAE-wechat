@@ -18,7 +18,7 @@
         .js("/3rd-lib/zepto.min.js")
         .js("/resource/wechat_global.js")
         .css("/resource/css/base.css")
-        .css("/resource/css/input_phone.css")
+        .css("/member-binding/css/input_phone.css")
         .done(config) %>
 
 <% }else{ %>
@@ -26,6 +26,7 @@
 <%- Loader()
         .js("/3rd-lib/wechat-global.min.js")
         .css("/resource/css/wechat.min.css")
+        .css("/member-binding/css/input_phone.min.css")
         .done(config) %>
 
 <% } %>
