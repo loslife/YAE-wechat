@@ -1,5 +1,6 @@
 var wx = require("wechat-toolkit");
 var async = require("async");
+var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 var token = "yilos_wechat";
 var error_message = "微店铺似乎出了点问题，请联系乐斯";
@@ -87,7 +88,31 @@ function handleMessage(req, res, next){
                 }
 
                 function handleMyCard(){
-                    wx.replyTextMessage(req, res, "我的会员卡");
+
+                    dbHelper.queryData("weixin_member_binding", {wx_open_id: fan_open_id}, function(err, result){
+
+                        if(err){
+                            callback(err);
+                            return;
+                        }
+
+                        if(result.length === 0){
+                            wx.replyTextMessage(req, res, "请先绑定会员");
+                            return;
+                        }
+
+                        async.each(result, function(item, next){
+
+                        }, function(err){
+
+                            if(err){
+                                callback(err);
+                                return;
+                            }
+
+                            // 输出结果
+                        });
+                    });
                 }
             }
 
