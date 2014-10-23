@@ -94,36 +94,31 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
                 return;
             }
 
-            // 增加发放礼物次数
-            if(memberId){
-                dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {send_count_member: 1}, function(err, result){});
-            }else{
-                dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {send_count_walkin: 1}, function(err, result){});
-            }
-
-            _refreshModifyDate();
+            _addSendCount();
 
             if(memberId){
                 callback(null);
             }else{
                 _generateSecurityCode(data, callback);
             }
+
+            function _addSendCount(){
+
+                festival.modify_date = new Date().getTime();
+                if(memberId){
+                    festival.send_count_member ++;
+                }else{
+                    festival.send_count_walkin ++;
+                }
+
+                dbHelper.updateByID("weixin_festivals", festival, function(err, result){
+                    if(err){
+                        console.log("update modify_date fail");
+                    }
+                });
+            }
         });
     });
-
-    function _refreshModifyDate(){
-
-        queryFestivalById(enterpriseId, festivalId, function(err, festival){
-
-            festival.modify_date = new Date().getTime();
-
-            dbHelper.updateByID("weixin_festivals", festival, function(err, result){
-                if(err){
-                    console.log("update modify_date fail");
-                }
-            });
-        });
-    }
 
     function _generateSecurityCode(model, callback){
 

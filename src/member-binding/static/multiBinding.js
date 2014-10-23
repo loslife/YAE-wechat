@@ -72,7 +72,7 @@ function init(){
 
                     var enterprise_id = bindings[0].enterprise_id;
                     var member_id = bindings[0].member_id;
-                    dist = "../" + enterprise_id + "/shop?m_id=" + member_id;
+                    dist = "./" + enterprise_id + "/shop?m_id=" + member_id;
                 }else{
 
                     var enterprises = [];

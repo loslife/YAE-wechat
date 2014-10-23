@@ -86,7 +86,7 @@ function shareBind(req, res, next){
                     if(bindings.length === 1){
                         var enterprise_id = bindings[0].enterprise_id;
                         var member_id = bindings[0].member_id;
-                        res.redirect("../" + enterprise_id + "/shop?m_id=" + member_id);
+                        res.redirect("./" + enterprise_id + "/shop?m_id=" + member_id);
                         return;
                     }
 
@@ -104,7 +104,7 @@ function shareBind(req, res, next){
             }
 
             function redirectToBindPage(){
-                res.redirect("../inputPhone?open_id=" + open_id);
+                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: open_id, enterprise_id: ""});
             }
         });
     });

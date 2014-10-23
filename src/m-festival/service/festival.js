@@ -35,14 +35,14 @@ function route(req, res, next){
     var festivalId = req.query["fid"];
     var memberId = req.session.member_id;
 
-    increasePageView();// 增加活动页面访问计数
-
     dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
         if(err){
             next(err);
             return;
         }
+
+        increasePageView();// 增加活动页面访问计数
 
         dao.reachLimit(enterpriseId, festivalId, function(err, expired){
 
@@ -64,54 +64,42 @@ function route(req, res, next){
                 res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired, duplicated: received});
             });
         });
-    });
 
-    function increasePageView(){
+        function increasePageView(){
 
-        dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {view_count: 1}, function(err, result){
-            if(err){
-                console.log(err);
-            }
-        });
+            festival.modify_date = new Date().getTime();
+            festival.view_count ++;
 
-        _refreshModifyDate();
+            dbHelper.updateByID("weixin_festivals", festival, function(err, result){
 
-        function _refreshModifyDate(){
-
-            dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
-
-                festival.modify_date = new Date().getTime();
-
-                dbHelper.updateByID("weixin_festivals", festival, function(err, result){
-                    if(err){
-                        console.log("update modify_date fail");
-                    }
-                });
+                if(err){
+                    console.log("update view_count fail");
+                }
             });
         }
-    }
 
-    function _queryStoreInfo(callback) {
+        function _queryStoreInfo(callback) {
 
-        var queryUrl = http_server + "weixin/queryStoreInfo/" + enterpriseId;
+            var queryUrl = http_server + "weixin/queryStoreInfo/" + enterpriseId;
 
-        var options = {
-            method: "GET",
-            uri: queryUrl,
-            json: true
-        };
+            var options = {
+                method: "GET",
+                uri: queryUrl,
+                json: true
+            };
 
-        request(options, function (err, response, body){
+            request(options, function (err, response, body){
 
-            if (err || body.code != 0) {
-                logger.error({err: err, detail: "调用失败" + queryUrl});
-                callback(err);
-                return;
-            }
+                if (err || body.code != 0) {
+                    logger.error({err: err, detail: "调用失败" + queryUrl});
+                    callback(err);
+                    return;
+                }
 
-            callback(null, body.result.store);
-        });
-    }
+                callback(null, body.result.store);
+            });
+        }
+    });
 }
 
 // 1表示领取成功，2表示已经领取过
@@ -167,26 +155,18 @@ function countShareTimes(req, res, next){
     var enterpriseId = req.params["enterpriseId"];
     var festivalId = req.query["fid"];
 
-    dbHelper.updateInc({enterprise_id: enterpriseId, id: festivalId}, "weixin_festivals", {share_count: 1}, function(err, result){
-        if(err){
-            console.log(err);
-        }
-        doResponse(req, res, {message: "ok"});
-    });
+    dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
-    _refreshModifyDate();
+        festival.modify_date = new Date().getTime();
+        festival.share_count ++;
 
-    function _refreshModifyDate(){
+        dbHelper.updateByID("weixin_festivals", festival, function(err, result){
 
-        dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
+            if(err){
+                console.log("update share_count fail");
+            }
 
-            festival.modify_date = new Date().getTime();
-
-            dbHelper.updateByID("weixin_festivals", festival, function(err, result){
-                if(err){
-                    console.log("update modify_date fail");
-                }
-            });
+            doResponse(req, res, {message: "ok"});
         });
-    }
+    });
 }
