@@ -15,7 +15,7 @@ function bind(req, res, next){
         return;
     }
 
-    res.render("member_binding", {layout: false, enterprise_id: enterprise_id, open_id: open_id});
+    res.render("inputPhone", {layout: false, type: "single_binding", open_id: open_id, enterprise_id: enterprise_id});
 }
 
 // 500: 数据库访问错误

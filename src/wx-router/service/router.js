@@ -10,7 +10,6 @@ var baseurl = global["_g_clusterConfig"].baseurl;
 
 exports.route = route;
 exports.selectShop = selectShop;
-exports.inputPhone = inputPhone;
 exports.foundNoMember = foundNoMember;
 
 // 500: 数据库访问错误
@@ -46,7 +45,7 @@ function route(req, res, next){
 
             // 根据此open_id无法判断所属店铺，要求用户输入手机号
             if(result.length === 0){
-                res.redirect("../inputPhone?open_id=" + condition.wx_open_id);
+                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: condition.wx_open_id, enterprise_id: ""});
                 return;
             }
 
@@ -124,12 +123,6 @@ function selectShop(req, res, next){
 
         res.render("selection", {layout: false, params: params});
     });
-}
-
-function inputPhone(req, res, next){
-
-    var open_id = req.query["open_id"];
-    res.render("inputPhone", {layout: false, open_id: open_id});
 }
 
 function foundNoMember(req, res, next){

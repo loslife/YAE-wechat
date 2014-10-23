@@ -104,7 +104,7 @@ function shareBind(req, res, next){
             }
 
             function redirectToBindPage(){
-                res.redirect("../inputPhone?open_id=" + open_id);
+                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: open_id, enterprise_id: ""});
             }
         });
     });
