@@ -12,17 +12,16 @@
 
 input {
   width: 100%;
-  height: 30px;
+  height: 35px;
   border: 1px solid lightgray;
 }
 
 // 手机号输入框
 .input_phone {
   width: 100%;
-  border: 10px solid white;
-  border-top-width: 15px;
-  border-bottom-width: 15px;
   box-sizing: border-box;
+  margin: 1rem 0;
+  padding: 0 1rem;
 }
 
 .input_phone > input {
@@ -35,32 +34,31 @@ input {
 // 验证码输入框
 .input_code{
   width: 60%;
-  float:left;
-  border: 10px solid white;
-  border-top-width: 15px;
-  border-bottom-width: 15px;
   box-sizing: border-box;
-  display:inline;
+  float:left;
+  padding-left: 1rem;
+}
+
+.input_code > input {
+  box-sizing: border-box;
 }
 
 // 获取验证码按钮
 .btn_code {
   width: 40%;
-  float:left;
-  border: 10px solid white;
-  border-top-width: 15px;
-  border-bottom-width: 15px;
   box-sizing: border-box;
-  display:inline;
+  float:left;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
 }
 
 // 绑定按钮
 .btn_binding {
   width: 100%;
-  border: 10px solid white;
-  border-top-width: 5px;
-  border-bottom-width: 15px;
   box-sizing: border-box;
+  clear: both;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
 }
 
 // 全局按钮
@@ -101,5 +99,5 @@ button:disabled {
 .message{
   font-size: 12px;
   color: gray;
-  padding: 10px;
+  padding-left: 1rem;
 }
