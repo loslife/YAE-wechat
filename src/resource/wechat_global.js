@@ -36,7 +36,7 @@ $.fn.getCodeButton = function(){
             count --;
 
             if(count > 0){
-                $(self).text(count + "秒后可重新获取");
+                $(self).text(count);
                 return;
             }
 
