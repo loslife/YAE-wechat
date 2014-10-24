@@ -13,6 +13,7 @@ input {
   height: 35px;
   border: 1px solid lightgray;
   padding-left: 1rem;
+  border-radius: 1rem;
 }
 .input_phone {
   width: 100%;
