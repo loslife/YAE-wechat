@@ -90,7 +90,7 @@
 
         <div class="h-4 lh-4 text-center border-bottom">
             <% if(type === "entrance"){ %>
-            登陆
+            登录
             <% }else{ %>
             绑定
             <% } %>
@@ -116,7 +116,13 @@
             </div>
 
             <div class="btn_binding">
-                <button type="button" id="btn_binding">绑定</button>
+                <button type="button" id="btn_binding">
+                    <% if(type === "entrance"){ %>
+                    登录
+                    <% }else{ %>
+                    绑定
+                    <% } %>
+                </button>
             </div>
 
             <% if(type === "entrance"){ %>
@@ -125,7 +131,7 @@
 
             <div id="binding_success_tip" class="none">
                 <% if(type === "entrance"){ %>
-                登陆成功，即将为您跳转
+                登录成功，即将为您跳转
                 <% }else{ %>
                 绑定成功，即将为您跳转
                 <% } %>
