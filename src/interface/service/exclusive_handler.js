@@ -3,6 +3,7 @@ var wx = require("wechat-toolkit");
 var async = require("async");
 var request = require("request");
 var _ = require("underscore");
+var memberService = require("./memberService");
 
 var server_address = "http://wx.yilos.com/";
 
@@ -160,7 +161,7 @@ function handleMessage(req, res, next){
 
                     var url = server_address + "svc/wsite/" + enterprise_id + "/shop";
 
-                    hasMemberBinding(fan_open_id, function(err, flag, member_id){
+                    memberService.hasMemberBinding(fan_open_id, enterprise_id, function(err, flag, member_id){
 
                         if(err){
                             callback(err);
@@ -186,7 +187,7 @@ function handleMessage(req, res, next){
 
                 function handleMemberBinding(){
 
-                    hasMemberBinding(fan_open_id, function(err, flag, member_id){
+                    memberService.hasMemberBinding(fan_open_id, enterprise_id, function(err, flag, member_id){
 
                         if(err){
                             callback(err);
@@ -251,110 +252,40 @@ function handleMessage(req, res, next){
 
                 function handleMyCard(){
 
-                    hasMemberBinding(fan_open_id, function(err, flag, member_id){
+                    var condition = {
+                        wx_open_id: fan_open_id,
+                        enterprise_id: enterprise_id
+                    };
+
+                    memberService.queryCardsByCondition(condition, function(err, messages){
 
                         if(err){
-                            callback(err);
-                            return;
-                        }
 
-                        if(!flag){
+                            if(err.message && err.message === "no_bindings"){
 
-                            var url = server_address + "svc/wsite/" + enterprise_id + "/binding?open_id=" + fan_open_id;
+                                var url = server_address + "svc/wsite/" + enterprise_id + "/binding?open_id=" + fan_open_id;
 
-                            var item = {
-                                title: "请先绑定会员",
-                                desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
-                                picUrl: server_address + "resource/news2.png",
-                                url: url
-                            };
-
-                            var contents = [item];
-
-                            wx.replyNewsMessage(req, res, contents);
-                            callback(null);
-                            return;
-                        }
-
-                        var cardServiceUrl = server_address + "svc/wsite/" + enterprise_id + "/membercards";
-
-                        var options = {
-                            method: "POST",
-                            uri: cardServiceUrl,
-                            body: {member_id: member_id},
-                            json: true
-                        };
-
-                        request(options, function(err, response, body) {
-
-                            if(err){
-                                callback(err);
-                                return;
-                            }
-
-                            var code = body.code;
-                            if(code !== 0){
-                                callback({message: "查询会员信息失败"});
-                                return;
-                            }
-
-                            var cards = body.result.cards;
-                            if(cards.length === 0){
-                                wx.replyTextMessage(req, res, "您还没有会员卡，快到店里办理吧");
-                                callback(null);
-                                return;
-                            }
-
-                            var url = server_address + "svc/wsite/" + enterprise_id + "/member?m_id=" + member_id;
-
-                            var messages = [];
-
-                            var header = {
-                                title: "我的余额，点击查看更多",
-                                picUrl: server_address + "resource/news2.png",
-                                url: url
-                            };
-                            messages.push(header);
-
-                            _.each(cards, function(item){
-
-                                var message = {
-                                    picUrl: server_address + "resource/card_detail.png",
+                                var item = {
+                                    title: "请先绑定会员",
+                                    desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
+                                    picUrl: server_address + "resource/news2.png",
                                     url: url
                                 };
 
-                                if(item.type === "recharge"){
-                                    message.title = item.name + "余额" + item.currentMoney.toFixed(1) + "元";
-                                }else if(item.type === "recordTimeCard"){
-                                    message.title = item.name + "剩余" + item.remainingTimes + "次";
-                                }else{
-                                    message.title = item.name + "截止到" + new Date(item.expired_time).Format("yy-MM-dd");
-                                }
+                                var contents = [item];
 
-                                messages.push(message);
-                            });
+                                wx.replyNewsMessage(req, res, contents);
 
-                            wx.replyNewsMessage(req, res, messages);
-                            callback(null);
-                        });
-                    });
-                }
+                            }else{
+                                callback(err);
+                            }
 
-                function hasMemberBinding(fan_open_id, callback){
-
-                    dbHelper.queryData("weixin_member_binding", {enterprise_id: enterprise_id, wx_open_id: fan_open_id}, function(err, result){
-
-                        if(err){
-                            callback(err);
                             return;
                         }
 
-                        if(result.length === 0){
-                            callback(null, false);
-                        }else{
-                            var member_id = result[0].member_id;
-                            callback(null, true, member_id);
-                        }
+                        _.each(messages, function(message){
+                            wx.replyNewsMessage(req, res, message);
+                        });
                     });
                 }
             }
