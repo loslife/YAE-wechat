@@ -109,16 +109,20 @@ function selectShop(req, res, next){
         for(var i = 0; i < members.length; i++){
 
             var name = "";
+            var phone = "";
+            var addr = "";
 
             for(var j = 0; j < results.length; j++){
 
                 if(results[j].id === enterprises[i]){
                     name = results[j].name;
+                    phone = results[j].phone;
+                    addr = results[i].address;
                     break;
                 }
             }
 
-            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name});
+            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr});
         }
 
         res.render("selection", {layout: false, params: params});
