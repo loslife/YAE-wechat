@@ -5,8 +5,8 @@ var request = require("request");
 var async = require("async");
 
 var baseurl = global["_g_clusterConfig"].baseurl;
-var app_id = "wxd37396c2dc23ba21";
-var app_secret = "9600186549bc52bdf0d2d7390b05fd2c";
+var app_id = "wxb5243e6a07f2e09a";
+var app_secret = "06808347d62dd6a1fc33243556c50a5d";
 var PARAM_SPLITTER = "___";
 
 exports.shareBind = shareBind;
