@@ -115,9 +115,9 @@ function selectShop(req, res, next){
             for(var j = 0; j < results.length; j++){
 
                 if(results[j].id === enterprises[i]){
-                    name = results[j].name;
-                    phone = results[j].phone;
-                    addr = results[j].address;
+                    name = results[j].name || "未命名店铺";
+                    phone = results[j].phone || "";
+                    addr = results[j].address || "";
                     break;
                 }
             }
