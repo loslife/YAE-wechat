@@ -9,6 +9,17 @@
 <% } %>
 
 <div id="m-item">
+
+    <% if(shelveList.length === 0){ %>
+
+    <div id="empty-list-image">
+        <img src="../../../resource/no_products.png">
+    </div>
+
+    <div id="empty-list-msg">店家还没上线任何产品</div>
+
+    <% }else{ %>
+
     <ul class="item-list">
         <% for(var i = 0; i < shelveList.length; i++) { %>
         <li>
@@ -22,5 +33,9 @@
         </li>
         <% } %>
     </ul>
+
     <div class="more-item">更多精品服务欢迎到店体验</div>
+
+    <% } %>
+
 </div>
