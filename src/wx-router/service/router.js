@@ -117,7 +117,7 @@ function selectShop(req, res, next){
                 if(results[j].id === enterprises[i]){
                     name = results[j].name;
                     phone = results[j].phone;
-                    addr = results[i].address;
+                    addr = results[j].address;
                     break;
                 }
             }
