@@ -2,9 +2,10 @@ var wx = require("wechat-toolkit");
 var async = require("async");
 var _ = require("underscore");
 var memberService = require("./memberService");
+var tokenHelper = require("./access_token_helper");
 
+var error_message = "乐斯美蜜似乎出了点问题，正在修复中";
 var token = "yilos_wechat";
-var error_message = "微店铺似乎出了点问题，请联系乐斯";
 
 exports.handle = handleMessage;
 
@@ -107,8 +108,48 @@ function handleMessage(req, res, next){
                             return;
                         }
 
-                        _.each(messages, function(message){
-                            wx.replyNewsMessage(req, res, message);
+                        async.eachSeries(messages, function(message, next){
+
+                            wx.csReplyNews(global.wx_access_token, fan_open_id, message, function(err, code, message){
+
+                                if(err){
+                                    next(err);
+                                    return;
+                                }
+
+                                switch(code){
+
+                                    case 0:
+                                        next(null);
+                                        break;
+
+                                    case 42001:
+                                        tokenHelper.refreshAccessToken(function(err){
+
+                                            if(err){
+                                                next(err);
+                                                return;
+                                            }
+
+                                            wx.csReplyNews(global.wx_access_token, fan_open_id, message, function(err, code, message){
+                                                next(null);
+                                            });
+                                        });
+                                        break;
+
+                                    default:
+                                        next({code: code, message: message});
+                                }
+                            });
+
+                        }, function(err){
+
+                            if(err){
+                                callback(err);
+                                return;
+                            }
+
+                            res.send("");
                         });
                     });
                 }
