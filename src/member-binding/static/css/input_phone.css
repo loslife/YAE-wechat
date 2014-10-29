@@ -81,3 +81,6 @@ button:disabled {
   color: gray;
   padding-left: 1rem;
 }
+#binding_success_tip {
+  display: none;
+}
