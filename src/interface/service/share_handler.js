@@ -15,7 +15,7 @@ function handleMessage(req, res, next){
 
         if(err){
             console.log(err);
-            wx.replyTextMessage(error_message);
+            wx.replyTextMessage(req, res, error_message);
         }
     });
 
