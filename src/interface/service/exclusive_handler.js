@@ -235,12 +235,7 @@ function handleMessage(req, res, next){
 
                         var code = body.code;
                         if(code !== 0){
-                            var errorCode = body.error.errorCode;
-                            if(errorCode === 501){
-                                wx.replyTextMessage(req, res, "您尚未绑定会员，无法解除");
-                            }else{
-                                wx.replyTextMessage(req, res, error_message);
-                            }
+                            wx.replyTextMessage(req, res, "您尚未绑定会员，无法解除");
                             callback(null);
                             return;
                         }
