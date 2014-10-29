@@ -70,7 +70,7 @@ function handleMessage(req, res, next){
 
             function handleSubscribe(){
 
-                var sentence = '欢迎使用乐斯微店铺，请先输入您办理会员时留下的手机号，<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5243e6a07f2e09a&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2FshareBind&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect">绑定会员</a>后即可使用各种服务';
+                var sentence = '欢迎进入乐斯美蜜，请先输入您办理会员时留下的手机号，<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5243e6a07f2e09a&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2FshareBind&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect">确认会员身份</a>后可以享受更多增值服务。';
                 wx.replyTextMessage(req, res, sentence);
             }
 
