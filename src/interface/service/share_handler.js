@@ -108,6 +108,8 @@ function handleMessage(req, res, next){
                             return;
                         }
 
+                        res.send("");// response with customer service message
+
                         async.eachSeries(messages, function(message, next){
 
                             wx.csReplyNews(global.wx_access_token, fan_open_id, message, function(err, code, message){
@@ -145,11 +147,8 @@ function handleMessage(req, res, next){
                         }, function(err){
 
                             if(err){
-                                callback(err);
-                                return;
+                                console.log(err);
                             }
-
-                            res.send("");
                         });
                     });
                 }
