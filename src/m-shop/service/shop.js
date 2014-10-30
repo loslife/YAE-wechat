@@ -16,12 +16,21 @@ function jumpToWShop(req, res, next) {
     var store = {};
 
     async.parallel([_queryHotItem, _queryFestivals, _queryStoreInfo], function (err) {
+
         if (err) {
             next(err);
             return;
         }
 
-        res.render("shop", {enterprise_id: enterpriseId, layout: "layout", menu: "store", festivals: festivals, hotList: hotShelvesList, store: _.extend(store, wechatSetting)});
+        var info = _.extend(store, wechatSetting);
+        info.name = info.name || "未命名店铺";
+        info.phone = info.phone || "";
+        info.workHour = info.workHour || "";
+        info.addr = info.addr || "";
+        info.comment = info.addr || "老板还没有写店铺介绍噢";
+        info.logUrl = info.logUrl || "/svc/public/wechat/enterprise_default.png";
+
+        res.render("shop", {enterprise_id: enterpriseId, layout: "layout", menu: "store", festivals: festivals, hotList: hotShelvesList, store: info});
     });
 
     function _queryHotItem(callback) {

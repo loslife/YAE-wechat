@@ -44,7 +44,6 @@ $(function(){
                     return;
                 }
 
-                $(self).prop("disabled", false);
                 $("#binding_success_tip").show();
 
                 setTimeout(function(){

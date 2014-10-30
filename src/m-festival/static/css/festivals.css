@@ -1,8 +1,25 @@
-#m-festival {
+body {
   background-color: #e9e9ea;
+}
+#m-festival {
   padding: 10px;
   min-height: 100%;
   box-sizing: border-box;
+}
+#empty-list-image {
+  width: 80%;
+  margin: 100px auto 1rem auto;
+  text-align: center;
+}
+#empty-list-image > img {
+  width: 150px;
+  height: 150px;
+}
+#empty-list-msg {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  color: gray;
 }
 .festival-item {
   background-color: white;

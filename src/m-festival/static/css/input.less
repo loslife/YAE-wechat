@@ -69,20 +69,6 @@ body{
   padding-top: 1rem;
 }
 
-#msg-body > img {
-  display: block;
-  width: 25%;
-  margin: 0 auto;
-  padding-top: @baseSpace;
-}
-
-#msg-body > div {
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-  padding: @baseSpace 0;
-}
-
 form .input {
   width: 100%;
   border: 10px solid white;
@@ -194,6 +180,27 @@ form .input input {
 }
 
 #repeat-deny > #msg-body {
+  position: fixed;
+  top: 100px;
+  width: 100%;
+}
+
+#msg-body > div {
+  width: 80%;
+  margin: 0 auto;
   background-color: white;
-  margin: 150px @baseSpace 0 @baseSpace;
+}
+
+#msg-body > div > img {
+  display: block;
+  margin: 0 auto;
+  padding-top: @baseSpace;
+  width: 30%;
+}
+
+#msg-body > div > div {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding: @baseSpace 0;
 }

@@ -29,15 +29,30 @@
 
 <div id="m-selection">
 
-    <div id="title">请选择商户</div>
+    <div id="title">选择您要进入的店铺</div>
 
     <% for(var i = 0; i < params.length; i++){ %>
 
-    <div class="shop-item">
-        <a href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
-            <%= params[i].enterprise_name %>
-        </a>
-    </div>
+    <a class="shop-item" href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
+
+        <div class="logo">
+            <img src="../../../resource/test.png">
+        </div>
+        <div class="description">
+            <div class="name"><%= params[i].enterprise_name %></div>
+            <div class="inner">
+                <div>
+                    <span class="color-gray">电话：</span>
+                    <span><%= params[i].phone %></span>
+                </div>
+                <div>
+                    <span class="color-gray">地址：</span>
+                    <span><%= params[i].addr %></span>
+                </div>
+            </div>
+        </div>
+
+    </a>
 
     <% } %>
 

@@ -1,20 +1,60 @@
-#m-selection > div#title {
-  width: 80%;
-  margin: 1rem auto;
-  text-align: center;
+body{
+  margin: 0;
+  padding: 0;
 }
 
-#m-selection > div.shop-item {
-  width: 80%;
-  margin: 0 auto 1rem;
+#m-selection {
+  background-color: #e9e9ea;
+  min-height: 500px;
+}
+
+#m-selection > #title {
+  width: 100%;
   text-align: center;
   background-color: #f75169;
-  height: 5rem;
-  line-height: 5rem;
   color: white;
+  height: 49px;
+  line-height: 49px;
 }
 
-#m-selection > div.shop-item > a {
+#m-selection > .shop-item {
+  display: block;
+  margin: .5rem 0;
+  background-color: white;
   text-decoration: none;
   color: inherit;
+  font-size: 0;
+  position: relative;
+}
+
+#m-selection > .shop-item > .logo {
+  display: inline-block;
+  width: 35%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+#m-selection > .shop-item > .logo > img {
+  width: 100%;
+}
+
+#m-selection > .shop-item > .description {
+  display: inline-block;
+  width: 65%;
+  box-sizing: border-box;
+  padding: 10px;
+  vertical-align: top;
+}
+
+#m-selection > .shop-item > .description > .name {
+  box-sizing: border-box;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9e9ea;
+  font-size: 20px;
+}
+
+#m-selection > .shop-item > .description > .inner {
+  position: absolute;
+  bottom: 10px;
+  font-size: 1rem;
 }

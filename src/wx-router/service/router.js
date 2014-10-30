@@ -3,8 +3,8 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var _ = require("underscore");
 var request = require("request");
 
-var app_id = "wxd37396c2dc23ba21";
-var app_secret = "9600186549bc52bdf0d2d7390b05fd2c";
+var app_id = "wxb5243e6a07f2e09a";
+var app_secret = "06808347d62dd6a1fc33243556c50a5d";
 var PARAM_SPLITTER = "___";
 var baseurl = global["_g_clusterConfig"].baseurl;
 
@@ -109,16 +109,20 @@ function selectShop(req, res, next){
         for(var i = 0; i < members.length; i++){
 
             var name = "";
+            var phone = "";
+            var addr = "";
 
             for(var j = 0; j < results.length; j++){
 
                 if(results[j].id === enterprises[i]){
-                    name = results[j].name;
+                    name = results[j].name || "未命名店铺";
+                    phone = results[j].phone || "";
+                    addr = results[j].address || "";
                     break;
                 }
             }
 
-            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name});
+            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr});
         }
 
         res.render("selection", {layout: false, params: params});

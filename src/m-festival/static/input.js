@@ -20,6 +20,8 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
+    $("#btn_get").prop("disabled", false);
+
     $("#present_form").submit(function($event){
 
         $event.preventDefault();

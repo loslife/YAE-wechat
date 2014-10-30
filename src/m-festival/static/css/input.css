@@ -56,18 +56,6 @@ body {
   color: gray;
   padding-top: 1rem;
 }
-#msg-body > img {
-  display: block;
-  width: 25%;
-  margin: 0 auto;
-  padding-top: 10px;
-}
-#msg-body > div {
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-  padding: 10px 0;
-}
 form .input {
   width: 100%;
   border: 10px solid white;
@@ -164,6 +152,24 @@ form .input input {
   z-index: 1;
 }
 #repeat-deny > #msg-body {
+  position: fixed;
+  top: 100px;
+  width: 100%;
+}
+#msg-body > div {
+  width: 80%;
+  margin: 0 auto;
   background-color: white;
-  margin: 150px 10px 0 10px;
+}
+#msg-body > div > img {
+  display: block;
+  margin: 0 auto;
+  padding-top: 10px;
+  width: 30%;
+}
+#msg-body > div > div {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px 0;
 }

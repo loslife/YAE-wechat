@@ -87,7 +87,6 @@ function init(){
                     dist = "selection?" + params;
                 }
 
-                $(self).prop("disabled", false);
                 $("#binding_success_tip").show();
                 setTimeout(function(){
                     location.href = dist;

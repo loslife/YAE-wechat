@@ -46,7 +46,6 @@ $(function(){
                     return;
                 }
 
-                $(self).prop("disabled", false);
                 $("#binding_success_tip").show();
                 setTimeout(function(){
                     location.href = g_env.binding_url + enterprise_id + "/member?m_id=" + response.member_id;
