@@ -18,8 +18,7 @@ global.FRAMEWORKPATH = "/users/apple/git_local/YAE-SERVER/lib";
 var target = require("../src/interface/service/memberService");
 
 var condition = {
-    wx_open_id: "dddd",
-    enterprise_id: "100027902021700200"
+    wx_open_id: "6555"
 };
 
 target.queryCardsByCondition(condition, function(err, messages){
