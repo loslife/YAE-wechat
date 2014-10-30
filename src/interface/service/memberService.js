@@ -114,7 +114,7 @@ function queryCardsByCondition(condition, callback){
                     if(cards.length === 0){
 
                         var no_cards = {
-                            title: "您在" + name + "店内还没有会员卡",
+                            title: name + "：您在店内还没有办理会员卡",
                             picUrl: server_address + "resource/news2.png",
                             url: url
                         };
@@ -123,7 +123,7 @@ function queryCardsByCondition(condition, callback){
                     }else{
 
                         var header = {
-                            title: "你在" + name + "店内的会员卡信息，点击查看更多",
+                            title: name + "：您在店内的会员卡信息",
                             picUrl: server_address + "resource/news2.png",
                             url: url
                         };
