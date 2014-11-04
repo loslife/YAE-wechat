@@ -21,9 +21,8 @@
     <div class="item card">
 
         <div class="title">
-            <img class="header_logo" src="/resource/member_card.png">
+            <img src="/resource/member_card.png">
             <span>会员卡</span>
-            <img class="header_tips" src="/resource/arrow_up.png">
         </div>
 
         <ul class="list">
@@ -64,9 +63,8 @@
     <div class="item coupon">
 
         <div class="title">
-            <img class="header_logo" src="/resource/member_coupon.png">
+            <img src="/resource/member_coupon.png">
             <span>现金券</span>
-            <img class="header_tips" src="/resource/arrow_up.png">
         </div>
 
         <ul class="list">
@@ -105,15 +103,14 @@
     <div class="item present">
 
         <div class="title">
-            <img class="header_logo" src="/resource/member_service.png">
+            <img src="/resource/member_service.png">
             <span>赠送服务</span>
-            <img class="header_tips" src="/resource/arrow_up.png">
         </div>
 
         <ul class="list">
             <% memberInfo.services.forEach(function(service){ %>
             <li>
-                <span><%= service.serviceName %></span>
+                <span style="color: #434040;"><%= service.serviceName %></span>
                 <% if(service.expired_time){ %>
                 <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
                 <% } %>
@@ -129,21 +126,20 @@
     <div class="item deposit">
 
         <div class="title">
-            <img class="header_logo" src="/resource/member_deposit.png">
+            <img src="/resource/member_deposit.png">
             <span>寄存品</span>
-            <img class="header_tips" src="/resource/arrow_up.png">
         </div>
 
         <ul class="list">
             <% memberInfo.deposits.forEach(function(deposit){ %>
             <li>
-                <span><%= deposit.entityName %></span>
+                <span style="color: #434040;"><%= deposit.entityName %></span>
                 <span class="fr">累计使用：<%= Number(deposit.numberofuse).toFixed(0) %>次</span>
             </li>
             <% }); %>
         </ul>
     </div>
-    
+
     <% } %>
 
     <% if(memberInfo.bill.length !== 0) { %>

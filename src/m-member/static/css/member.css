@@ -16,10 +16,11 @@
   line-height: 45px;
   padding-left: 10px;
   border-bottom: 1px solid #e9e9ea;
-  background-color: #f75169;
+  background-color: #f8f8f9;
   font-size: 16px;
+  color: #000000;
 }
-.title > .header_logo {
+.title > img {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
@@ -28,14 +29,6 @@
   display: inline-block;
   height: 100%;
   vertical-align: middle;
-}
-.title > .header_tips {
-  display: inline-block;
-  height: 6px;
-  vertical-align: middle;
-  position: absolute;
-  right: 10px;
-  top: 20px;
 }
 .card_shape {
   position: relative;
