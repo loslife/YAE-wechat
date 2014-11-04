@@ -149,39 +149,46 @@
     <% } %>
 
     <% if(memberInfo.bill.length !== 0) { %>
-    <div class="item present">
-        <div class="title">我的消费</div>
-        <% memberInfo.bill.forEach(function(item){ %>
-        <div class="panel">
-            <div class="panel-head vm">
-                <img src="/resource/time.png" style="height: 20px;"/>
-                <span style="margin-left: 10px;"><%= dateFormat(item.date, "YYYY年MM月") %></span>
-                <span style="height: inherit;line-height: inherit;float: right;margin-right: 10px;">
-                <img src="/resource/expand.png" style="height: 15px;"/>
-                </span>
-            </div>
-            <div class="panel-body">
-                <div class="bill-items">
-                    <% item.records.forEach(function(record){ %>
-                    <div class="bill-item">
-                        <div><label><%= record.createDay %>日</label></div>
-                        <div>
-                            <div class="fl">项目名称：</div>
-                            <div style="padding-left: 5rem"><%= record.items %></div>
-                        </div>
-                        <div>
-                            <div class="fl">服务员工：</div>
-                            <div style="padding-left: 5rem"><%= record.employees %></div>
-                        </div>
-                        <div>
-                            <label>消费金额：</label><span>￥<%= (record.amount || 0 == record.amount) ? record.amount.toFixed(1) : 0.0 %></span>
-                        </div>
-                    </div>
-                    <% }); %>
-                </div>
-            </div>
+
+    <div class="item bill">
+
+        <div class="title">
+            <img src="/resource/member_bill.png">
+            <span>消费记录</span>
         </div>
+
+        <ul class="list">
+
+        <% [1, 2].forEach(function(item){ %>
+
+            <li>
+                <div class="bill_item">
+
+                    <div class="bill_time">
+                        <img src="/resource/clock.png">
+                        <span>2014年8月09日</span>
+                    </div>
+
+                    <div class="bill_field">
+                        <span class="bill_key color-gray">项目名称：</span>
+                        <span class="bill_value">指甲修护</span>
+                    </div>
+
+                    <div class="bill_field">
+                        <span class="bill_key color-gray">服务员工：</span>
+                        <span class="bill_value">小红</span>
+                    </div>
+
+                    <div class="bill_field">
+                        <span class="bill_key color-gray">消费金额：</span>
+                        <span class="bill_value">￥100.0</span>
+                    </div>
+                </div>
+            </li>
         <% }); %>
+
+        </ul>
+
     </div>
     <% } %>
 </div>
