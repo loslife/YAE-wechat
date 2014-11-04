@@ -63,7 +63,9 @@ function jumpToWMember(req, res, next) {
         });
 
         _.each(memberInfo.services, function (service) {
-            service.expired_time = new Date(service.expired_time).Format("yy-MM-dd");
+            if(service.expired_time){
+                service.expired_time = new Date(service.expired_time).Format("yy-MM-dd");
+            }
         });
 
         return memberInfo;

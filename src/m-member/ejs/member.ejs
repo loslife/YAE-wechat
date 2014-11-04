@@ -84,7 +84,9 @@
             <% memberInfo.services.forEach(function(service){ %>
             <li>
                 <span><%= service.serviceName %></span>
-                <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
+                <% if(service.expired_time){ %>
+                    <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
+                <% } %>
             </li>
             <% }); %>
         </ul>
