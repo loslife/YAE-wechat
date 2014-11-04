@@ -56,6 +56,72 @@
             <% }); %>
         </ul>
     </div>
+
+    <% } %>
+
+    <% if(memberInfo.coupons.length !== 0) { %>
+
+    <div class="item coupon">
+
+        <div class="title">
+            <img class="header_logo" src="/resource/member_coupon.png">
+            <span>现金券</span>
+            <img class="header_tips" src="/resource/arrow_up.png">
+        </div>
+
+        <ul class="list">
+            <% memberInfo.coupons.forEach(function(coupon){ %>
+            <li>
+
+                <div class="card_shape">
+
+                    <div class="top_half">
+                        <span class="card_name">国庆促销大优惠</span>
+                    </div>
+
+                    <div class="bottom_half">
+
+                        <div class="money">
+                            <span>面值：</span>
+                            <span class="remaining">￥100</span>
+                        </div>
+
+                        <div class="expired_time">
+                            使用时间：2014.09.12 - 2014.10.12
+                        </div>
+
+                    </div>
+
+                </div>
+            </li>
+            <% }); %>
+        </ul>
+    </div>
+
+    <% } %>
+
+    <% if(memberInfo.services.length !== 0) { %>
+
+    <div class="item present">
+
+        <div class="title">
+            <img class="header_logo" src="/resource/member_service.png">
+            <span>赠送服务</span>
+            <img class="header_tips" src="/resource/arrow_up.png">
+        </div>
+
+        <ul class="list">
+            <% memberInfo.services.forEach(function(service){ %>
+            <li>
+                <span><%= service.serviceName %></span>
+                <% if(service.expired_time){ %>
+                <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
+                <% } %>
+            </li>
+            <% }); %>
+        </ul>
+    </div>
+
     <% } %>
 
     <% if(memberInfo.deposits.length !== 0) { %>
@@ -77,40 +143,7 @@
             <% }); %>
         </ul>
     </div>
-    <% } %>
-
-    <% if(memberInfo.coupons.length !== 0) { %>
-    <div class="item coupon">
-        <div class="title">我的现金券</div>
-
-        <ul class="list">
-            <% memberInfo.coupons.forEach(function(coupon){ %>
-            <li>
-                <span><%= coupon.name %></span>
-                <% if(coupon.expired_time){ %>
-                    <span class="fr color-gray">有效期至：<%= coupon.expired_time %></span>
-                <% } %>
-            </li>
-            <% }); %>
-        </ul>
-    </div>
-    <% } %>
-
-    <% if(memberInfo.services.length !== 0) { %>
-    <div class="item present">
-        <div class="title">我的赠送服务</div>
-
-        <ul class="list">
-            <% memberInfo.services.forEach(function(service){ %>
-            <li>
-                <span><%= service.serviceName %></span>
-                <% if(service.expired_time){ %>
-                    <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
-                <% } %>
-            </li>
-            <% }); %>
-        </ul>
-    </div>
+    
     <% } %>
 
     <% if(memberInfo.bill.length !== 0) { %>
