@@ -74,7 +74,7 @@
                 <div class="card_shape">
 
                     <div class="top_half">
-                        <span class="card_name">国庆促销大优惠</span>
+                        <span class="card_name"><%= coupon.name %></span>
                     </div>
 
                     <div class="bottom_half">
@@ -84,9 +84,11 @@
                             <span class="remaining">￥100</span>
                         </div>
 
+                        <% if(coupon.expired_time){ %>
                         <div class="expired_time">
-                            使用时间：2014.09.12 - 2014.10.12
+                            有效期至：<%= coupon.expired_time %>
                         </div>
+                        <% } %>
 
                     </div>
 
@@ -112,7 +114,7 @@
             <li>
                 <span style="color: #434040;"><%= service.serviceName %></span>
                 <% if(service.expired_time){ %>
-                <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
+                <span class="color-gray fr">有效期至：<%= service.expired_time %></span>
                 <% } %>
             </li>
             <% }); %>
@@ -134,7 +136,11 @@
             <% memberInfo.deposits.forEach(function(deposit){ %>
             <li>
                 <span style="color: #434040;"><%= deposit.entityName %></span>
-                <span class="fr">累计使用：<%= Number(deposit.numberofuse).toFixed(0) %>次</span>
+
+                <div class="fr used_count">
+                    <span>累计使用：</span>
+                    <span class="used_total"><%= Number(deposit.numberofuse).toFixed(0) %>次</span>
+                </div>
             </li>
             <% }); %>
         </ul>
