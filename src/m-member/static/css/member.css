@@ -8,15 +8,65 @@
 #m-member .item {
   background: white;
   margin-bottom: 10px;
+  color: #ffffff;
 }
-.item .title {
+.title {
+  position: relative;
   height: 45px;
   line-height: 45px;
   padding-left: 10px;
   border-bottom: 1px solid #e9e9ea;
-  background-color: #c7c7ca;
-  color: #ffffff;
+  background-color: #f75169;
   font-size: 16px;
+}
+.title > .header_logo {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.title > span {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.title > .header_tips {
+  display: inline-block;
+  height: 6px;
+  vertical-align: middle;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+.card_shape {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+.card_shape > .top_half {
+  background-color: #f37686;
+  border-radius: 5px 5px 0 0;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 1rem;
+}
+.top_half > .card_name {
+  font-size: 1.5rem;
+}
+.card_shape > .bottom_half {
+  background-color: #fabdc5;
+  border-radius: 0 0 5px 5px;
+  height: 120px;
+  padding-left: 1rem;
+}
+.bottom_half > .money {
+  padding: 1rem 0;
+}
+.bottom_half > .money > span:last-child {
+  font-size: 2rem;
+}
+.bottom_half > .expired_time {
+  position: absolute;
+  bottom: 1rem;
 }
 .item .list {
   padding: 0 10px;

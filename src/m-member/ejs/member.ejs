@@ -15,30 +15,43 @@
 <% } %>
 
 <div id="m-member">
+
     <% if(memberInfo.cards.length !== 0){ %>
+
     <div class="item card">
-        <div class="title">我的会员卡</div>
+
+        <div class="title">
+            <img class="header_logo" src="/resource/member_card.png">
+            <span>会员卡</span>
+            <img class="header_tips" src="/resource/arrow_up.png">
+        </div>
 
         <ul class="list">
             <% memberInfo.cards.forEach(function(card){ %>
             <li>
-                <span><%= card.name %></span>
-                <!--<span class="color-gray">(card.cardNo)</span>-->
-                <span class="fr">
-                    <% if(card.type === "recharge"){ %>
 
-                    截止<%= card.currentConsumeDate %>，余额：￥<%= Number(card.currentMoney).toFixed(1) %>
+                <div class="card_shape">
 
-                    <% } else if(card.type === "recordTimeCard") { %>
+                    <div class="top_half">
+                        <span class="card_name">金卡</span>
+                        <span class="card_no">JK679790</span>
+                    </div>
 
-                    截止<%= card.currentConsumeDate %>，余次：<%= Number(card.remainingTimes).toFixed(0) %>次
+                    <div class="bottom_half">
 
-                    <% } else if(card.type === "quarter") { %>
+                        <div class="money">
+                            <span>余额：</span>
+                            <span class="remaining">￥500</span>
+                        </div>
 
-                    <span class="color-gray">有效期至：<%= card.expired_time %></span>
+                        <div class="expired_time">
+                            有效期至：2018.09.12
+                        </div>
 
-                    <% } %>
-                </span>
+                    </div>
+
+                </div>
+
             </li>
             <% }); %>
         </ul>
@@ -46,8 +59,15 @@
     <% } %>
 
     <% if(memberInfo.deposits.length !== 0) { %>
+
     <div class="item deposit">
-        <div class="title">我的寄存品</div>
+
+        <div class="title">
+            <img class="header_logo" src="/resource/member_deposit.png">
+            <span>寄存品</span>
+            <img class="header_tips" src="/resource/arrow_up.png">
+        </div>
+
         <ul class="list">
             <% memberInfo.deposits.forEach(function(deposit){ %>
             <li>
