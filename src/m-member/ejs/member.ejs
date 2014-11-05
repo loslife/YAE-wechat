@@ -26,25 +26,37 @@
         </div>
 
         <ul class="list">
-            <% memberInfo.cards.forEach(function(card){ %>
-            <li>
 
+            <% memberInfo.cards.forEach(function(card){ %>
+
+            <li>
                 <div class="card_shape">
 
                     <div class="top_half">
-                        <span class="card_name">金卡</span>
-                        <span class="card_no">JK679790</span>
+                        <span class="card_name"><%= card.name %></span>
+                        <span class="card_no"><%= card.cardNo %></span>
                     </div>
 
                     <div class="bottom_half">
 
                         <div class="money">
+
+                        <% if(card.type === "recharge"){ %>
+
                             <span>余额：</span>
-                            <span class="remaining">￥500</span>
+                            <span class="remaining">￥<%= Number(card.currentMoney).toFixed(1) %></span>
+
+                        <% } else if(card.type === "recordTimeCard") { %>
+
+                            <span>余次：</span>
+                            <span class="remaining"><%= Number(card.remainingTimes).toFixed(0) %>次</span>
+
+                        <% } %>
+
                         </div>
 
                         <div class="expired_time">
-                            有效期至：2018.09.12
+                            有效期至：<%= card.expired_time %>
                         </div>
 
                     </div>
@@ -52,6 +64,7 @@
                 </div>
 
             </li>
+
             <% }); %>
         </ul>
     </div>

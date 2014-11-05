@@ -51,7 +51,7 @@ function jumpToWMember(req, res, next) {
 
             card.currentConsumeDate = new Date(card.modify_date).Format("MM-dd");
 
-            if (card.type === "quarter" && card.expired_time) {
+            if (card.expired_time) {
                 card.expired_time = new Date(card.expired_time).Format("yy-MM-dd");
             }
         });
@@ -160,6 +160,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 // 充值卡
                 if (!card.type) {
                     card.type = "recharge";
+                    card.expired_time = card.create_date + card.periodOfValidity * 24 * 60 * 60 * 1000;
                     next(null);
                     return;
                 }
@@ -189,6 +190,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
                         });
 
                         card.remainingTimes = remaining;
+                        card.expired_time = card.create_date + card.periodOfValidity * 24 * 60 * 60 * 1000;
 
                         next(null);
                     });
@@ -198,8 +200,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
                 // 年卡
                 if (card.type === "quarter") {
-                    var millis_of_validity = card.periodOfValidity * 24 * 60 * 60 * 1000;
-                    card.expired_time = card.create_date + millis_of_validity;
+                    card.expired_time = card.create_date + card.periodOfValidity * 24 * 60 * 60 * 1000;
                     next(null);
                     return;
                 }
