@@ -28,6 +28,8 @@ $.fn.getCodeButton = function(usage){
         var count = 60;
         var intervalTag;
 
+        $(this).text("正在发送");
+
         $.get(url, function(response){
             alert("验证码已发送到您的手机");
             intervalTag = setInterval(countDown, 1000);
