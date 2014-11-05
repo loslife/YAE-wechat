@@ -1,14 +1,12 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/m-member/static/member.js')
         .css("/m-member/static/css/member.css")
         .done(config) %>
 
 <% }else{ %>
 
 <%- Loader()
-        .js('/m-member/member.min.js')
         .css("/m-member/css/member.min.css")
         .done(config) %>
 
