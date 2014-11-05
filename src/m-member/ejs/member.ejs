@@ -159,29 +159,29 @@
 
         <ul class="list">
 
-        <% [1, 2].forEach(function(item){ %>
+        <% memberInfo.bill.forEach(function(item){ %>
 
             <li>
                 <div class="bill_item">
 
                     <div class="bill_time">
                         <img src="/resource/clock.png">
-                        <span>2014年8月09日</span>
+                        <span><%= dateFormat(item.date, "YYYY年MM月DD日") %></span>
                     </div>
 
                     <div class="bill_field">
                         <span class="bill_key color-gray">项目名称：</span>
-                        <span class="bill_value">指甲修护</span>
+                        <span class="bill_value"><%= item.items %></span>
                     </div>
 
                     <div class="bill_field">
                         <span class="bill_key color-gray">服务员工：</span>
-                        <span class="bill_value">小红</span>
+                        <span class="bill_value"><%= item.employees %></span>
                     </div>
 
                     <div class="bill_field">
                         <span class="bill_key color-gray">消费金额：</span>
-                        <span class="bill_value">￥100.0</span>
+                        <span class="bill_value">￥<%= (item.amount || 0 == item.amount) ? item.amount.toFixed(1) : 0.0 %></span>
                     </div>
                 </div>
             </li>

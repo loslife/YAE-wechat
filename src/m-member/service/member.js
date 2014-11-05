@@ -439,61 +439,46 @@ function queryMemberBill(enterpriseId, memberId, callback) {
     }
 
     function _buildMemberBill(callback) {
-        var billGroups = {};
-        //根据日期，将消费记录按日期分组
-        _.each((rechargeRecords || []).concat(consumptionRecords || []), function (item) {
-            var createDate = new Date(Number(item.create_date));
-            var groupName = createDate.getFullYear() + "/" + (createDate.getMonth() + 1);
-            item.createDay = createDate.getDate();
-            if (billGroups[groupName]) {
-                billGroups[groupName].push(_buildBillDetail(item));
-            } else {
-                billGroups[groupName] = [_buildBillDetail(item)];
-            }
-        });
-        //每个月的消费记录，倒序
-        _.each(billGroups, function (value, key) {
-            if (billGroups.hasOwnProperty(key)) {
-                var records = _.sortBy(value, function (item) {
-                    return -item.createDay;
-                });
-                bill.push({date: key, records: records});
-            }
-        });
-        //消费记录按月倒序
-        bill = _.sortBy(bill, function (item) {
-            var date = new Date(item.date);
-            return -(date.getFullYear() + date.getMonth());
-        });
-        callback(null);
-    }
 
-    function _buildBillDetail(bill) {
-        var items = [];
-        var type = bill.type;//1、充值；2、开卡；没有表示为收银
-        if (!type) {
-            _.each(bill.items, function (item) {
-                if (item.project_name && !_.isEmpty(item.project_name)) {
-                    items.push(item.project_name);
+        // 填充消费信息
+        _.each((rechargeRecords || []).concat(consumptionRecords || []), function (item) {
+            bill.push(_buildBillDetail(item));
+        });
+
+        // 按时间排序
+        bill = _.sortBy(bill, function (item) {
+            return item.date;
+        });
+
+        callback(null);
+
+        function _buildBillDetail(bill) {
+            var items = [];
+            var type = bill.type;//1、充值；2、开卡；没有表示为收银
+            if (!type) {
+                _.each(bill.items, function (item) {
+                    if (item.project_name && !_.isEmpty(item.project_name)) {
+                        items.push(item.project_name);
+                    }
+                });
+            } else {
+                items.push(1 == type ? "充值" : "开卡");
+            }
+            var employees = [];
+            //过滤相同员工
+            var bonus = _.groupBy(bill.bonus || [], function (item) {
+                return item.employee_id;
+            });
+            _.each(bonus, function (value, key) {
+                if (!_.isEmpty(value)) {
+                    var item = value[0];
+                    if (item && !_.isEmpty(item.employee_name)) {
+                        employees.push(item.employee_name);
+                    }
                 }
             });
-        } else {
-            items.push(1 == type ? "充值" : "开卡");
+            return {date: bill.create_date, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
         }
-        var employees = [];
-        //过滤相同员工
-        var bonus = _.groupBy(bill.bonus || [], function (item) {
-            return item.employee_id;
-        });
-        _.each(bonus, function (value, key) {
-            if (!_.isEmpty(value)) {
-                var item = value[0];
-                if (item && !_.isEmpty(item.employee_name)) {
-                    employees.push(item.employee_name);
-                }
-            }
-        });
-        return {createDay: bill.createDay, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
     }
 
     function _buildBonus(records, allBonus) {
