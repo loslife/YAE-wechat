@@ -7,6 +7,14 @@ var tokenHelper = require("./access_token_helper");
 var error_message = "乐斯美蜜似乎出了点问题，正在修复中";
 var token = "yilos_wechat";
 
+var server_address;
+
+if(global["_g_topo"].env === "dev"){
+    server_address = "http://127.0.0.1/";
+}else{
+    server_address = "http://wx.yilos.com/";
+}
+
 exports.handle = handleMessage;
 
 function handleMessage(req, res, next){
@@ -100,7 +108,20 @@ function handleMessage(req, res, next){
                         if(err){
 
                             if(err.message && err.message === "no_bindings"){
-                                wx.replyTextMessage(req, res, "请先绑定会员");
+
+                                var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5243e6a07f2e09a&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2FshareBind&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect";
+
+                                var item = {
+                                    title: "请先绑定会员",
+                                    desc: "绑定后即可访问会员专区，查看会员卡余额",
+                                    picUrl: server_address + "resource/news2.png",
+                                    url: url
+                                };
+
+                                var contents = [item];
+
+                                wx.replyNewsMessage(req, res, contents);
+
                             }else{
                                 callback(err);
                             }
