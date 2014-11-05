@@ -343,14 +343,29 @@ function queryMemberData(enterprise_id, member_id, callback) {
                     return;
                 }
 
-                _.each(results, function (item) {
+                async.each(results, function(item, next){
 
                     var coupon = {};
                     coupon.name = item.present_name + "（来自优惠活动）";
-                    coupons.push(coupon);
-                });
 
-                callback(null);
+                    dbHelper.queryData("tb_membercardcategory", {id: item.present_id}, function (err, results){
+
+                        if(err){
+                            next(err);
+                            return;
+                        }
+
+                        if(results.length === 0){
+                            coupon.money = "未知";
+                        }else{
+                            coupon.money = results[0].baseInfo_minMoney;
+                        }
+
+                        coupons.push(coupon);
+                        next(null);
+                    });
+
+                }, callback);
             });
         }
     }
