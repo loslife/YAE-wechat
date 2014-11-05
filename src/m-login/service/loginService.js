@@ -6,8 +6,7 @@ exports.doLogin = doLogin;
 function login(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
-
-    res.render("login", {enterprise_id: enterprise_id, menu: "member"});
+    res.render("inputPhone", {menu: "member", type: "login", open_id: "", enterprise_id: enterprise_id});
 }
 
 function doLogin(req, res, next) {

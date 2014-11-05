@@ -1,37 +1,28 @@
 $(function () {
 
-    $("#getSecurityCode").tap(function () {
+    $("#getSecurityCode").getCodeButton("weixin_login");
 
-        var phone = $("#input_phone").val();
+    $("#btn_binding").click(function () {
 
-        if (!phone) {
-            alert("请输入手机号");
-            return;
-        }
+        var self = this;
 
-        var url = g_env.security_code_url + phone + "?u=weixin_login";
+        $(this).prop("disabled", true);
 
-        $.get(url, function (response) {
-            alert("验证码已发送到您的手机");
-        });
-    });
-
-    $("#btn_submit").tap(function () {
-
-        var phone = $("#input_phone").val();
+        var phone = $("#phone").val();
         var secure_code = $("#code").val();
 
-        if (!phone || !secure_code) {
+        if(!phone || !secure_code) {
             alert("输入不能为空");
+            $(this).prop("disabled", false);
             return;
         }
 
         var url = g_env.check_code_url + phone + "?u=weixin_login&c=" + secure_code;
-
         $.get(url, function (response) {
 
             if (response.code !== 0) {
                 alert("验证码错误");
+                $(self).prop("disabled", false);
                 return;
             }
 
@@ -42,9 +33,15 @@ $(function () {
             $.post(url, {phone: phone}, function (response) {
 
                 if (response.code !== 0) {
+
                     alert("登陆失败，请检查手机号是否正确");
+                    $(self).prop("disabled", false);
                 } else {
-                    window.location = "member";
+
+                    $("#binding_success_tip").show();
+                    setTimeout(function(){
+                        window.location = "member";
+                    },2000);
                 }
             });
         });

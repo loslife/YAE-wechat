@@ -5,7 +5,9 @@ var g_env = {
 };
 
 // button点击获取验证码
-$.fn.getCodeButton = function(){
+$.fn.getCodeButton = function(usage){
+
+    usage = usage || "weixin_binding";
 
     this.click(function(){
 
@@ -21,7 +23,7 @@ $.fn.getCodeButton = function(){
             return;
         }
 
-        var url = g_env.security_code_url + phone + "?u=weixin_binding";
+        var url = g_env.security_code_url + phone + "?u=" + usage;
 
         var count = 60;
         var intervalTag;
