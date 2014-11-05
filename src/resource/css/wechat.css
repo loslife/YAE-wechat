@@ -27,7 +27,8 @@ html {
   width: 100%;
   height: 48px;
   overflow: hidden;
-  border-top: 1px solid #e9e9ea;
+  border-top: 1px solid white;
+  box-shadow: 0 -10px 6px -9px #b5b5b5;
 }
 .menu li {
   float: left;
@@ -35,25 +36,25 @@ html {
   font-size: 12px;
   height: 48px;
   text-align: center;
-  color: white;
-  background-color: #f75169;
   vertical-align: middle;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#efeff0), to(#e3e3e5));
+  color: #8d8d8d;
 }
 .menu li.selected {
   font-weight: bold;
-  color: #ac142a;
+  color: #fc2f5b;
 }
 .menu li a {
   height: 48px;
 }
 .menu li a:active {
-  background: -webkit-gradient(linear, 0 0, 0 100%, from(#e2354f), to(#f75169));
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#e3e3e5), to(#efeff0));
 }
 .menu li a:visited {
-  color: white;
+  color: #8d8d8d;
 }
 .menu li.selected a:visited {
-  color: #ac142a;
+  color: #fc2f5b;
 }
 .menu li .icon {
   margin-top: 4px;
