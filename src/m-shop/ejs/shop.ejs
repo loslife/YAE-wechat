@@ -52,14 +52,14 @@
             </div>
 
             <div id="call_icon">
-                <img src="<%= store.logUrl %>">
+                <a href="tel:<%= store.phone %>"><img src="<%= store.logUrl %>"></a>
             </div>
 
         </div>
 
         <div id="store_address">
             <span class="color-gray">店铺地址：</span>
-            <span>海桐苑F座601</span>
+            <span><%= store.addr %></span>
             <img src="/resource/arrow_down.png">
         </div>
 

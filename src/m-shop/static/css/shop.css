@@ -53,7 +53,7 @@
   height: 0;
   vertical-align: top;
 }
-#call_icon > img {
+#call_icon img {
   width: 100%;
 }
 #fields > .field {
