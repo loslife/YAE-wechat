@@ -53,13 +53,57 @@
   display: inline-block;
   width: 80%;
   font-size: 1rem;
+  vertical-align: top;
 }
 
 .store #call_icon {
   display: inline-block;
   width: 20%;
-  background-color: #556b2f;
-  height: 84px;
+  padding-bottom: 20%;
+  height: 0;
+  vertical-align: top;
+}
+
+#call_icon > img {
+  width: 100%;
+}
+
+#fields > .field {
+  font-size: 0;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 1.5rem;
+}
+
+.field > .field_key {
+  display: inline-block;
+  width: 5rem;
+  font-size: 1rem;
+}
+
+.field > .field_value {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+#store_address {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 1.5rem;
+  border-top: 1px solid gray;
+  margin-top: 1rem;
+}
+
+#store_address > img {
+  position: absolute;
+  right: 1rem;
+  top: 17px;
+  width: 11px;
+}
+
+#mapDiv {
+  margin: 10px 5px 0 5px;
 }
 
 #m-shop .preferential {
@@ -80,7 +124,6 @@
 }
 
 .preferential-list > li {
-  //  height: 80px;
   background-color: #ffffff;
   line-height: @baseSpace * 2;
   border-bottom: 1px solid @backgroundColor;
@@ -88,9 +131,6 @@
 }
 
 .preferential-list > li:last-child {
-  //  height: 80px;
-  //background-color: #ffffff;
-  //line-height: @baseSpace * 2;
   border-bottom: none;
 }
 
