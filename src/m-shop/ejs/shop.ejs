@@ -76,29 +76,36 @@
     </div>
 
     <% if(festivals.length > 0){ %>
+
     <div class="preferential">
-        <div class="mb-1 lh-2">
+
+        <div id="pre_title" class="mb-1 lh-2">
             <div class="fr item-more">
-                <a class="" href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
+                <a href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
             </div>
             <div>优惠活动</div>
         </div>
 
         <ul class="preferential-list">
+
             <% festivals.forEach(function (item) { %>
+
             <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/route?fid=<%= item.id %>'">
-                <div style="background: url('<%= item.pic_url %>') no-repeat;">
+
+                <div class="pre-img" style="background-image: url('<%= item.pic_url %>');">
                 </div>
-                <div>
-                    <span class="inline-block vm festivalsInfo">
-                        <div class="festivalsTitle"><%= item.title %></div>
-                        <div class="color-gray festivalsDesc"><%= item.short_desc %></div>
-                    </span><span class="desc-vm-help"></span>
-                </div>
+
+                <div class="pre-name"><%= item.title %></div>
+
+                <div class="pre-desc"><%= item.short_desc %></div>
+
             </li>
+
             <% }); %>
+
         </ul>
     </div>
+
     <% } %>
 
     <% if(hotList.length !== 0){ %>
