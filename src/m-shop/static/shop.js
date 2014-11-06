@@ -34,4 +34,8 @@ function init(){
             $("#mapDiv").addClass("none");
         }
     }, "");
+
+    $("#store_address").click(function(){
+        $("#mapDiv").toggle();
+    });
 }
