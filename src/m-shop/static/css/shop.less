@@ -11,28 +11,60 @@
   background-color: white;
 }
 
-.home-img .img {
+.home-img > .img {
   width: 100%;
   padding-bottom: 75%;
-  margin-bottom: @baseSpace;
   background-size: cover !important;
 }
 
-.home-img .store-name {
+.home-img > img {
   position: absolute;
-  right: @baseSpace * 2;
-  bottom: @baseSpace;
-  font-size: 20px;
+  bottom: 1rem;
+  left: 20px;
+  width: 100px;
+  z-index: 1;
+  border: 2px solid white;
+}
+
+.home-img > .store-name {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 150px;
   color: white;
+  background-color: rgba(51, 09, 13, 0.3);
+  font-size: 20px;
+  height: 40px;
+  line-height: 40px;
+}
+
+#m-shop .store {
+  margin: 0;
+  background: white;
+  overflow: hidden;
+}
+
+.store > #base_info {
+  font-size: 0;
+}
+
+.store #fields {
+  display: inline-block;
+  width: 80%;
+  font-size: 1rem;
+}
+
+.store #call_icon {
+  display: inline-block;
+  width: 20%;
+  background-color: #556b2f;
+  height: 84px;
 }
 
 #m-shop .preferential {
   margin: 0 0.5*@baseSpace;
 }
-
-//.preferential-list{
-//  border: 0.5*@baseSpace solid #ffffff;
-//}
 
 .preferential-list > li > div:first-child {
   background-size: cover !important;
@@ -47,7 +79,7 @@
   vertical-align: middle;
 }
 
-.preferential-list > li > {
+.preferential-list > li {
   //  height: 80px;
   background-color: #ffffff;
   line-height: @baseSpace * 2;
@@ -90,13 +122,6 @@
 .festivalsDesc {
   font-size: 1.2*@baseSpace;
 }
-
-//.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
-//  box-sizing: border-box;
-//  width: 64%;
-//  padding: 0px @baseSpace;
-//  //  padding-right: 130px;
-//}
 
 #m-shop .item {
   margin: @baseSpace @baseSpace / 2;
@@ -170,33 +195,6 @@
 .item-list .item-comment {
   font-size: 12px;
   color: gray;
-}
-
-#m-shop .store {
-  margin: @baseSpace @baseSpace / 2 0 @baseSpace / 2;
-  border: @baseSpace solid white;
-  background: white;
-  overflow: hidden;
-}
-
-.store .store-img {
-  width: 100px;
-  height: 100px;
-  float: left;
-  margin-right: @baseSpace;
-}
-
-.store .store-name {
-  height: 40px;
-  font-size: 20px;
-  line-height: 40px;
-  margin-bottom: @baseSpace;
-  margin-left: 100px + @baseSpace;
-  border-bottom: 1px solid @backgroundColor;
-}
-
-.store > div + div {
-  margin-bottom: @baseSpace;
 }
 
 #hidden_area {

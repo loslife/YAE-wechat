@@ -29,6 +29,7 @@ html {
   overflow: hidden;
   border-top: 1px solid white;
   box-shadow: 0 -10px 6px -9px #b5b5b5;
+  z-index: 2;
 }
 .menu li {
   float: left;

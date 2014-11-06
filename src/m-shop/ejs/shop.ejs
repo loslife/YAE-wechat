@@ -17,10 +17,61 @@
 <% } %>
 
 <div id="m-shop">
+
     <div class="home-img">
+
         <div class="img" style="background:url('<%= store.picUrl %>') no-repeat">
         </div>
+
+        <img src="<%= store.logUrl %>">
+
         <div class="store-name"><%= store.name %></div>
+    </div>
+
+    <div class="store">
+
+        <div id="base_info">
+
+            <div id="fields">
+
+                <div class="field">
+                    <div class="field_key">营业时间：</div>
+                    <div class="field_value"><%= store.workHour %></div>
+                </div>
+
+                <div class="field">
+                    <div class="field_key">电话：</div>
+                    <div class="field_value"><%= store.phone %></div>
+                </div>
+
+                <div class="field">
+                    <div class="field_key">主营：</div>
+                    <div class="field_value"><%= store.operateStr %></div>
+                </div>
+
+            </div>
+
+            <div id="call_icon">
+            </div>
+
+        </div>
+
+        <div id="store_address">
+            <span>店铺地址：</span>
+            <span>海桐苑F座601</span>
+            <span style="background:url('/resource/arrow_down.png') no-repeat"></span>
+        </div>
+
+    </div>
+
+    <div id="mapDiv" style="margin: 10px 5px 0px 5px;" class="<% if (!store.addr) { %>none<% } %>">
+
+        <div id="hidden_area">
+            <div id="store_addr"><%= store.addr %></div>
+        </div>
+
+        <div id="enterpriseMap" style="height: 150px;"></div>
+
     </div>
 
     <% if(festivals.length > 0){ %>
@@ -74,39 +125,4 @@
     </div>
     <% } %>
 
-    <div class="store">
-        <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat; background-size: 100px"></div>
-        <div class="store-name mh-20"><%= store.name %></div>
-
-        <div>
-            <div class="fl color-gray">电话：</div>
-            <div class="mh-20"><%= store.phone %></div>
-        </div>
-        <div>
-            <div class="fl color-gray">营业时间：</div>
-            <div class="mh-20"><%= store.workHour %></div>
-        </div>
-
-        <div class="clear-fix mt-2">
-            <div class="fl color-gray">店铺地址：</div>
-            <div style="padding-left:5em;" class="mh-20"><%= store.addr %></div>
-        </div>
-        <div>
-            <div class="fl color-gray">营业项目：</div>
-            <div style="padding-left:5em;" class="mh-20"><%= store.operateStr %></div>
-        </div>
-        <div class="mb-0">
-            <div class="fl color-gray">简介：</div>
-            <div style="padding-left:3em;" class="mh-20"><%= store.comment %></div>
-        </div>
-    </div>
-    <div id="mapDiv" style="margin: 10px 5px 0px 5px;" class="<% if (!store.addr) { %>none<% } %>">
-
-        <div id="hidden_area">
-            <div id="store_addr"><%= store.addr %></div>
-        </div>
-
-        <div id="enterpriseMap" style="height: 150px;"></div>
-
-    </div>
 </div>
