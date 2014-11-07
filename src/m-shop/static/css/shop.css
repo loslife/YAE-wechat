@@ -9,7 +9,7 @@
 }
 .home-img > .img {
   width: 100%;
-  padding-bottom: 75%;
+  padding-bottom: 33%;
   background-size: cover !important;
 }
 .home-img > img {
@@ -66,18 +66,26 @@
   display: inline-block;
   width: 5rem;
   font-size: 1rem;
+  color: #928d8d;
 }
 .field > .field_value {
   display: inline-block;
   font-size: 1rem;
+  color: #434040;
 }
 #store_address {
   position: relative;
   height: 40px;
   line-height: 40px;
   padding-left: 1.5rem;
-  border-top: 1px solid gray;
+  border-top: 1px solid #928d8d;
   margin-top: 1rem;
+}
+#store_address > .addr_label {
+  color: #928d8d;
+}
+#store_address > .addr_value {
+  color: #434040;
 }
 #store_address > img {
   position: absolute;
@@ -113,7 +121,7 @@
 .pre-name {
   position: absolute;
   top: 0;
-  width: 40%;
+  width: 60%;
   color: white;
   background-color: #f75169;
   font-size: 20px;
