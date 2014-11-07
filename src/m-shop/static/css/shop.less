@@ -135,9 +135,9 @@ body {
 .preferential-list > li {
   position: relative;
   background-color: #ffffff;
-  line-height: @baseSpace * 2;
   border-bottom: 1px solid @backgroundColor;
   overflow: hidden;
+  padding: 5px
 }
 
 .preferential-list > li:last-child {
@@ -146,33 +146,27 @@ body {
 
 .pre-img {
   width: 100%;
-  padding-bottom: 75%;
+  padding-bottom: 50%;
   height: 0;
   background-size: cover;
 }
 
-.pre-name {
+.pre-info {
   position: absolute;
-  top: 0;
-  width: 60%;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
   color: white;
-  background-color: #f75169;
+  background-color: rgba(51, 09, 13, 0.3);
+}
+
+.pre-name {
   font-size: 20px;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 1rem;
 }
 
 .pre-desc {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  background-color: rgba(51, 09, 13, 0.3);
-  font-size: 20px;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 1rem;
+  font-size: 1rem;
 }
 
 #m-shop .item {

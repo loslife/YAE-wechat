@@ -83,7 +83,7 @@
             <div class="fr item-more">
                 <a href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
             </div>
-            <div style="color: #434040;">优惠活动</div>
+            <div style="color: #434040; font-weight: bold">优惠活动</div>
         </div>
 
         <ul class="preferential-list">
@@ -95,13 +95,10 @@
                 <div class="pre-img" style="background-image: url('<%= item.pic_url %>');">
                 </div>
 
-                <div>
-                    
+                <div class="pre-info">
+                    <div class="pre-name"><%= item.title %></div>
+                    <div class="pre-desc"><%= item.short_desc %></div>
                 </div>
-
-                <div class="pre-name"><%= item.title %></div>
-
-                <div class="pre-desc"><%= item.short_desc %></div>
 
             </li>
 
@@ -113,15 +110,18 @@
     <% } %>
 
     <% if(hotList.length !== 0){ %>
+
     <div class="item">
+
         <div class="mb-1 lh-2">
             <div class="fr item-more">
                 <a class="" href="/svc/wsite/<%= enterprise_id %>/item">更多</a>
             </div>
-            <div>特色项目</div>
+            <div style="color: #434040; font-weight: bold">特色项目</div>
         </div>
 
         <ul class="item-list ofh">
+
             <% for(var i = 0; i < hotList.length; i++) { %>
             <li>
                 <a href="/svc/wsite/<%= enterprise_id %>/itemDetail/<%= hotList[i].itemId %>">
@@ -133,8 +133,11 @@
                 </a>
             </li>
             <% } %>
+
         </ul>
+
     </div>
+    
     <% } %>
 
 </div>

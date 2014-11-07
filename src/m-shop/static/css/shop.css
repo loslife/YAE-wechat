@@ -112,40 +112,33 @@ body {
 .preferential-list > li {
   position: relative;
   background-color: #ffffff;
-  line-height: 20px;
   border-bottom: 1px solid #e9e9ea;
   overflow: hidden;
+  padding: 5px;
 }
 .preferential-list > li:last-child {
   border-bottom: none;
 }
 .pre-img {
   width: 100%;
-  padding-bottom: 75%;
+  padding-bottom: 50%;
   height: 0;
   background-size: cover;
 }
-.pre-name {
-  position: absolute;
-  top: 0;
-  width: 60%;
-  color: white;
-  background-color: #f75169;
-  font-size: 20px;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 1rem;
-}
-.pre-desc {
+.pre-info {
   position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
+  padding: 5px;
   color: white;
   background-color: rgba(51, 9, 13, 0.3);
+}
+.pre-name {
   font-size: 20px;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 1rem;
+}
+.pre-desc {
+  font-size: 1rem;
 }
 #m-shop .item {
   margin: 10px 5px;
