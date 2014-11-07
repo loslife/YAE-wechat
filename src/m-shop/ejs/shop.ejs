@@ -83,7 +83,7 @@
             <div class="fr item-more">
                 <a href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
             </div>
-            <div>优惠活动</div>
+            <div style="color: #434040;">优惠活动</div>
         </div>
 
         <ul class="preferential-list">
@@ -93,6 +93,10 @@
             <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/route?fid=<%= item.id %>'">
 
                 <div class="pre-img" style="background-image: url('<%= item.pic_url %>');">
+                </div>
+
+                <div>
+                    
                 </div>
 
                 <div class="pre-name"><%= item.title %></div>
