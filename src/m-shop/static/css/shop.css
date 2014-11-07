@@ -143,6 +143,10 @@ body {
 #m-shop .item {
   margin: 10px 5px;
 }
+#item_title {
+  margin-top: 10px;
+  padding-left: 1rem;
+}
 .item-more a {
   padding: 1px 0 0 24px;
   height: 20px;
@@ -174,6 +178,8 @@ body {
 .item-list > li {
   float: left;
   width: 50%;
+  border: 5px solid #e9e9ea;
+  box-sizing: border-box;
 }
 .item-list > li > a {
   border: 5px solid #ffffff;

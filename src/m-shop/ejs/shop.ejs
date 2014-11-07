@@ -113,7 +113,7 @@
 
     <div class="item">
 
-        <div class="mb-1 lh-2">
+        <div id="item_title" class="mb-1 lh-2">
             <div class="fr item-more">
                 <a class="" href="/svc/wsite/<%= enterprise_id %>/item">更多</a>
             </div>
@@ -125,6 +125,7 @@
             <% for(var i = 0; i < hotList.length; i++) { %>
             <li>
                 <a href="/svc/wsite/<%= enterprise_id %>/itemDetail/<%= hotList[i].itemId %>">
+
                     <div class="item-img" style="background: url('<%= hotList[i].imgPath %>') no-repeat">
                     </div>
 
