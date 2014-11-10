@@ -41,44 +41,39 @@ body {
   overflow: hidden;
 }
 .store > #base_info {
-  font-size: 0;
   position: relative;
 }
-.store #fields {
-  display: inline-block;
-  width: 100%;
-  font-size: 1rem;
-  vertical-align: top;
+#fields {
+  padding-right: 120px;
 }
-.store #call_icon {
-  display: inline-block;
+#call_icon {
   position: absolute;
+  top: 0;
   right: 0;
   width: 120px;
   height: 120px;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 3rem;
   border-left: 1px solid #d0cfd0;
 }
 #call_icon img {
   width: 100%;
 }
 #fields > .field {
-  font-size: 0;
   height: 40px;
   line-height: 40px;
   padding-left: 1.5rem;
 }
 .field > .field_key {
-  display: inline-block;
   width: 5rem;
-  font-size: 1rem;
   color: #928d8d;
+  float: left;
 }
 .field > .field_value {
-  display: inline-block;
-  font-size: 1rem;
   color: #434040;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #store_address {
   position: relative;
