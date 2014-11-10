@@ -43,6 +43,7 @@
   padding-left: 1rem;
 }
 .top_half > .card_name {
+  float: left;
   font-size: 1.5rem;
 }
 .card_shape > .bottom_half {
