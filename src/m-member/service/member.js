@@ -35,13 +35,19 @@ function jumpToWMember(req, res, next) {
     }
 
     function _queryMemberBill(callback) {
+
         queryMemberBill(enterprise_id, member_id, function (err, result) {
             if (err) {
                 logger.error(enterprise_id + "，会员（" + member_id + "）消费记录查询出错：" + err);
                 callback("会员消费记录查询失败");
                 return;
             }
-            memberInfo.bill = result;
+
+            var sorted = _.sortBy(result, function (item) {
+                return -item.date;
+            });
+
+            memberInfo.bill = _.first(sorted, 5);
             callback(null);
         });
     }
