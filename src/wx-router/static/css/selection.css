@@ -34,6 +34,7 @@ body {
 }
 #m-selection > .shop-item > .description {
   float: left;
+  width: 65%;
   box-sizing: border-box;
   padding: 10px;
   vertical-align: top;
