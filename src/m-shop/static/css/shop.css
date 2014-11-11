@@ -98,7 +98,9 @@ body {
   width: 11px;
 }
 #mapDiv {
-  margin: 10px 5px 0 5px;
+  margin: 0 5px;
+  padding: 0 5px;
+  background-color: white;
 }
 #m-shop .preferential {
   margin: 0 5px;
