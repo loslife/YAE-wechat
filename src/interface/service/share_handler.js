@@ -131,46 +131,71 @@ function handleMessage(req, res, next){
 
                         res.send("");// response with customer service message
 
-                        async.eachSeries(messages, function(message, next){
+                        sendCustomerServiceMessage();
 
-                            wx.csReplyNews(global.wx_access_token, fan_open_id, message, function(err, code, message){
+                        function sendCustomerServiceMessage(){
+
+                            var global_access_token;
+
+                            async.series([_initAccessToken, _doSend], function(err){
 
                                 if(err){
-                                    next(err);
-                                    return;
-                                }
-
-                                switch(code){
-
-                                    case 0:
-                                        next(null);
-                                        break;
-
-                                    case 42001:
-                                        tokenHelper.refreshAccessToken(function(err){
-
-                                            if(err){
-                                                next(err);
-                                                return;
-                                            }
-
-                                            wx.csReplyNews(global.wx_access_token, fan_open_id, message, function(err, code, message){
-                                                next(null);
-                                            });
-                                        });
-                                        break;
-
-                                    default:
-                                        next({code: code, message: message});
+                                    console.log(err);
                                 }
                             });
 
-                        }, function(err){
+                            function _initAccessToken(callback){
 
-                            if(err){
-                                console.log(err);
+                                tokenHelper.getShareAccessToken(function(err, access_token){
+
+                                    if(err){
+                                        callback(err);
+                                        return;
+                                    }
+
+                                    global_access_token = access_token;
+                                    callback(null);
+                                });
                             }
-                        });
+
+                            function _doSend(callback){
+
+                                async.eachSeries(messages, function(message, next){
+
+                                    wx.csReplyNews(global_access_token, fan_open_id, message, function(err, code, message){
+
+                                        if(err){
+                                            next(err);
+                                            return;
+                                        }
+
+                                        switch(code){
+
+                                            case 0:
+                                                next(null);
+                                                break;
+
+                                            case 42001:
+                                                tokenHelper.refreshAccessToken("", function(err, access_token){
+
+                                                    if(err){
+                                                        next(err);
+                                                        return;
+                                                    }
+
+                                                    global_access_token = access_token;
+                                                    wx.csReplyNews(global_access_token, fan_open_id, message, next);
+                                                });
+                                                break;
+
+                                            default:
+                                                next({code: code, message: message});
+                                        }
+                                    });
+
+                                }, callback);
+                            }
+                        }
                     });
                 }
             }
