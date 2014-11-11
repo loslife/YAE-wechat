@@ -44,27 +44,29 @@ body {
   position: relative;
 }
 #fields {
-  padding-right: 120px;
+  padding-right: 78px;
 }
 #call_icon {
   position: absolute;
   top: 0;
   right: 0;
-  width: 120px;
-  height: 120px;
+  width: 78px;
+  height: 78px;
   box-sizing: border-box;
 }
 #call_icon > a {
   margin: 10px;
-  padding: 2rem;
+  padding: 10px;
   border-left: 1px solid #d0cfd0;
 }
 #call_icon img {
+  position: relative;
+  left: 6px;
   width: 100%;
 }
 #fields > .field {
-  height: 40px;
-  line-height: 40px;
+  height: 26px;
+  line-height: 26px;
   padding-left: 1.5rem;
 }
 .field > .field_key {
