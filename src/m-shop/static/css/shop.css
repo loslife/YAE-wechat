@@ -102,6 +102,30 @@ body {
   padding: 0 5px;
   background-color: white;
 }
+.map-expand {
+  height: 150px;
+  -webkit-animation: expand 0.5s linear 1;
+}
+.map-fold {
+  height: 0;
+  -webkit-animation: fold 0.5s linear 1;
+}
+@-webkit-keyframes expand {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 150px;
+  }
+}
+@-webkit-keyframes fold {
+  0% {
+    height: 150px;
+  }
+  100% {
+    height: 0;
+  }
+}
 #m-shop .preferential {
   margin: 0 5px;
 }

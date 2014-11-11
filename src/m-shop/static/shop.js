@@ -20,6 +20,8 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
+    var expand = false;
+
     var storeAddr = $("#store_addr").text();
 
     var map = new BMap.Map("enterpriseMap");
@@ -36,6 +38,13 @@ function init(){
     }, "");
 
     $("#store_address").click(function(){
-        $("#mapDiv").toggle();
+
+        if(!expand){
+            $("#enterpriseMap").addClass("map-expand").removeClass("map-fold");
+        }else{
+            $("#enterpriseMap").addClass("map-fold").removeClass("map-expand");
+        }
+
+        expand = !expand;
     });
 }
