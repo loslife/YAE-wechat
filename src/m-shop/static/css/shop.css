@@ -130,14 +130,14 @@ body {
   width: 100%;
   padding: 5px;
   color: white;
-  background-color: rgba(51, 9, 13, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .pre-name {
-  font-size: 20px;
+  font-size: 18px;
 }
 .pre-desc {
   font-size: 1rem;
-  margin-top: 1rem;
+  margin-top: 12px;
 }
 #m-shop .item {
   margin: 10px 5px;
