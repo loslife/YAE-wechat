@@ -137,13 +137,11 @@ body {
 }
 .preferential-list > li {
   position: relative;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e9e9ea;
   overflow: hidden;
   padding: 5px;
-}
-.preferential-list > li:last-child {
-  border-bottom: none;
+  background-color: #ffffff;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
 }
 .pre-img {
   width: 100%;
