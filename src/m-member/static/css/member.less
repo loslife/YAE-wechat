@@ -40,11 +40,22 @@
   display: inline-block;
   width: 378px;
   height: 244px;
-  background: url("/resource/cardtype_recharge.png") no-repeat;
   background-size: cover !important;
   vertical-align: top;
   color: white;
   margin-right: 20px;
+}
+
+#card_list > ul > li.cardtype_recharge {
+  background: url("/resource/cardtype_recharge.png") no-repeat;
+}
+
+#card_list > ul > li.cardtype_record {
+  background: url("/resource/cardtype_record.png") no-repeat;
+}
+
+#card_list > ul > li.cardtype_year {
+  background: url("/resource/cardtype_year.png") no-repeat;
 }
 
 li.card > .header {
@@ -69,6 +80,41 @@ li.card > .expired_time {
   position: absolute;
   left: 20px;
   bottom: 40px;
+}
+
+li.card_shape {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+li.card_shape > .left_half {
+  position: relative;
+  width: 70%;
+  height: 120px;
+  background-color: #fabdc5;
+  border-radius: 5px 0 0 5px;
+}
+
+li.card_shape > .right_half {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 30%;
+  height: 120px;
+  background-color: #f37686;
+  border-radius: 0 5px 5px 0;
+}
+
+.left_half > .card_name {
+  font-size: 1.5rem;
+  padding: 10px 0 0 10px;
+}
+
+.left_half > .expired_time {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
 }
 
 #m-member .item {

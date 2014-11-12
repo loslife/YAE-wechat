@@ -26,7 +26,13 @@
 
                 <% memberInfo.cards.forEach(function(card){ %>
 
-                <li class="card">
+                <% if(card.type === "recharge"){ %>
+                <li class="card cardtype_recharge">
+                    <% }else if(card.type === "recordTimeCard"){ %>
+                <li class="card cardtype_record">
+                    <% }else{ %>
+                <li class="card cardtype_year">
+                    <% } %>
 
                     <div class="header">
                         <span class="card_name"><%= card.name %></span>
@@ -70,31 +76,27 @@
         </div>
 
         <ul class="list">
+
             <% memberInfo.coupons.forEach(function(coupon){ %>
-            <li>
 
-                <div class="card_shape">
+            <li class="card_shape">
 
-                    <div class="top_half">
-                        <span class="card_name"><%= coupon.name %></span>
+                <div class="left_half">
+
+                    <div class="card_name"><%= coupon.name %></div>
+
+                    <% if(coupon.expired_time){ %>
+                    <div class="expired_time">
+                        有效期至：<%= coupon.expired_time %>
                     </div>
-
-                    <div class="bottom_half">
-
-                        <div class="money">
-                            <span>面值：</span>
-                            <span class="remaining">￥<%= coupon.money %></span>
-                        </div>
-
-                        <% if(coupon.expired_time){ %>
-                        <div class="expired_time">
-                            有效期至：<%= coupon.expired_time %>
-                        </div>
-                        <% } %>
-
-                    </div>
-
+                    <% } %>
                 </div>
+
+                <div class="right_half">
+                    <span>￥</span>
+                    <span><%= coupon.money %></span>
+                </div>
+
             </li>
             <% }); %>
         </ul>
