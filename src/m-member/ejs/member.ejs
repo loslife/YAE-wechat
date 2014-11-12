@@ -14,60 +14,51 @@
 
 <div id="m-member">
 
-    <% if(memberInfo.cards.length !== 0){ %>
+    <div id="cards_area">
 
-    <div class="item card">
+        <img src="/resource/member_card_background.png">
 
-        <div class="title">
-            <img src="/resource/member_card.png">
-            <span>会员卡</span>
-        </div>
+        <div id="my_name">戴青青</div>
 
-        <ul class="list">
+        <div id="card_list">
 
-            <% memberInfo.cards.forEach(function(card){ %>
+            <ul>
 
-            <li>
-                <div class="card_shape">
+                <% memberInfo.cards.forEach(function(card){ %>
 
-                    <div class="top_half">
+                <li class="card">
+
+                    <div class="header">
                         <span class="card_name"><%= card.name %></span>
                         <span class="card_no"><%= card.cardNo %></span>
                     </div>
 
-                    <div class="bottom_half">
-
-                        <div class="money">
+                    <div class="money">
 
                         <% if(card.type === "recharge"){ %>
 
-                            <span>余额：</span>
-                            <span class="remaining">￥<%= Number(card.currentMoney).toFixed(1) %></span>
+                        <span>￥<%= Number(card.currentMoney).toFixed(1) %></span>
 
                         <% } else if(card.type === "recordTimeCard") { %>
 
-                            <span>余次：</span>
-                            <span class="remaining"><%= Number(card.remainingTimes).toFixed(0) %>次</span>
+                        <span><%= Number(card.remainingTimes).toFixed(0) %>次</span>
 
                         <% } %>
 
-                        </div>
-
-                        <div class="expired_time">
-                            有效期至：<%= card.expired_time %>
-                        </div>
-
                     </div>
 
-                </div>
+                    <div class="expired_time">
+                        有效期至：<%= card.expired_time %>
+                    </div>
 
-            </li>
+                </li>
 
-            <% }); %>
-        </ul>
+                <% }); %>
+            </ul>
+
+        </div>
+
     </div>
-
-    <% } %>
 
     <% if(memberInfo.coupons.length !== 0) { %>
 
@@ -170,7 +161,7 @@
 
         <ul class="list">
 
-        <% memberInfo.bill.forEach(function(item){ %>
+            <% memberInfo.bill.forEach(function(item){ %>
 
             <li>
                 <div class="bill_item">
@@ -196,7 +187,7 @@
                     </div>
                 </div>
             </li>
-        <% }); %>
+            <% }); %>
 
         </ul>
 
