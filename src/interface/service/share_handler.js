@@ -175,6 +175,8 @@ function handleMessage(req, res, next){
                                                 next(null);
                                                 break;
 
+                                            case 40001:
+
                                             case 42001:
                                                 tokenHelper.refreshAccessToken("", function(err, access_token){
 
