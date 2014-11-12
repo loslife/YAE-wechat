@@ -86,6 +86,7 @@ body {
   height: 48px;
   line-height: 48px;
   color: #f75169;
+  background-color: white;
 }
 .back:active {
   background-color: #f0f0f1;
