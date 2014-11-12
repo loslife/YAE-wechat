@@ -87,6 +87,9 @@ body {
   padding-left: 10px;
   border-top: 1px solid #d0cfd0;
 }
+#store_address:active {
+  border: none;
+}
 #store_address > .addr_label {
   color: #928d8d;
 }
