@@ -108,8 +108,8 @@ li.card_shape > .right_half {
 }
 .item > .title {
   position: relative;
-  height: 45px;
-  line-height: 45px;
+  height: 72px;
+  line-height: 72px;
   padding-left: 10px;
   border-bottom: 1px solid #e9e9ea;
   background-color: #f8f8f9;
@@ -118,12 +118,10 @@ li.card_shape > .right_half {
 }
 .item > .title > img {
   display: inline-block;
-  height: 100%;
   vertical-align: middle;
 }
 .item > .title > span {
   display: inline-block;
-  height: 100%;
   vertical-align: middle;
 }
 .item .list {
