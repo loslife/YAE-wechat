@@ -156,7 +156,8 @@ li.card_shape > .right_half {
   padding-left: .5rem;
 }
 .bill_item > div {
-  padding: 10px 0 10px 1rem;
+  height: 26px;
+  line-height: 26px;
 }
 .bill_value {
   color: #434040;
