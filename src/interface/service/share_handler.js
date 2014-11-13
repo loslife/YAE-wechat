@@ -54,7 +54,7 @@ function handleMessage(req, res, next){
         }
 
         function handleTextMessage(){
-            res.send("您好，您的留言我们已收到，稍后与您联系");
+            wx.replyTextMessage(req, res, "您好，您的留言我们已收到，稍后与您联系");
         }
 
         function handleEvent(){
