@@ -51,7 +51,8 @@ function init(){
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
                 "desc" : slogan,
-                "title": ""
+                "title": "送你一份好礼",
+                "appId": "wxb5243e6a07f2e09a"
             };
 
             var wxCallbacks = {
@@ -74,6 +75,7 @@ function init(){
             };
 
             Api.shareToTimeline(wxData, wxCallbacks);
+            Api.shareToFriend(wxData);
         }
     });
 }
