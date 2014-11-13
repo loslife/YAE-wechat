@@ -28,6 +28,7 @@
   overflow: scroll;
   white-space: nowrap;
   box-sizing: border-box;
+  text-shadow: 2px 2px 2px #000;
 }
 #card_list > li.card {
   position: relative;
