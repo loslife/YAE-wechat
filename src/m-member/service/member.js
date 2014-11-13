@@ -124,8 +124,9 @@ function queryMemberData(enterprise_id, member_id, callback) {
     var coupons = [];
     var rechargeRecords = [];
     var consumptionRecords = [];
+    var name = "";
 
-    async.series([_queryCards, _queryServices, _queryDeposits, _queryCoupons], function (err) {
+    async.series([_queryBaseinfo, _queryCards, _queryServices, _queryDeposits, _queryCoupons], function (err) {
         if (err) {
             callback(err);
             return;
@@ -137,10 +138,30 @@ function queryMemberData(enterprise_id, member_id, callback) {
             deposits: deposits,
             coupons: coupons,
             rechargeRecords: rechargeRecords,
-            consumptionRecords: consumptionRecords
+            consumptionRecords: consumptionRecords,
+            name: name
         };
         callback(null, result);
     });
+
+    function _queryBaseinfo(callback){
+
+        dbHelper.queryData("tb_member", {id: member_id, enterprise_id: enterprise_id}, function(err, results) {
+
+            if (err) {
+                callback(err);
+                return;
+            }
+
+            if(results.length === 0){
+                name = "会员";
+            }else{
+                name = results[0].name;
+            }
+
+            callback(null);
+        });
+    }
 
     function _queryCards(callback) {
 
