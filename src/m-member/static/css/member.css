@@ -41,7 +41,7 @@
   margin-right: 20px;
 }
 #card_list > li.card:first-child {
-  margin-left: 100px;
+  margin-left: 25%;
 }
 #card_list > li.cardtype_recharge {
   background: url("/resource/cardtype_recharge.png") no-repeat;
