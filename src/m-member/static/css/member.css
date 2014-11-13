@@ -30,6 +30,7 @@
   box-sizing: border-box;
 }
 #card_list > li.card {
+  position: relative;
   display: inline-block;
   width: 50%;
   padding-bottom: 33%;
@@ -58,13 +59,16 @@ li.card > .header {
   font-size: 1.5rem;
 }
 li.card > .money {
-  padding-top: 20%;
+  position: absolute;
+  top: 40%;
   font-size: 2rem;
   width: 100%;
   text-align: center;
 }
 li.card > .expired_time {
-  padding: 20% 0 0 20px;
+  position: absolute;
+  top: 80%;
+  padding-left: 20px;
 }
 li.card_shape {
   position: relative;
