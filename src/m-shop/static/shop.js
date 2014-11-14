@@ -42,9 +42,11 @@ function init(){
         if(!expand){
             $("#enterpriseMap").addClass("map-expand").removeClass("map-fold");
             $("#mapDiv").addClass("expand");
+            $("#switch").prop("src", "/resource/arrow_up.png");
         }else{
             $("#enterpriseMap").addClass("map-fold").removeClass("map-expand");
             $("#mapDiv").removeClass("expand");
+            $("#switch").prop("src", "/resource/arrow_down.png");
         }
 
         expand = !expand;
