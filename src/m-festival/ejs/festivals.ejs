@@ -37,9 +37,15 @@
             </div>
 
             <% if(festivals[i].pic_url){ %>
-                <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festivals[i].pic_url %>">
+
+                <div class="img" style="background: url('/svc/public/wechat/<%= enterprise_id %>/<%= festivals[i].pic_url %>') no-repeat;">
+                </div>
+
             <% }else{ %>
-                <img src="/svc/public/wechat/festivals_default.png">
+
+                <div class="img" style="background: url('/svc/public/wechat/festivals_default.png') no-repeat;">
+                </div>
+
             <% } %>
 
             <div class="item-desc"><%= festivals[i].description %></div>
