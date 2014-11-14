@@ -138,11 +138,7 @@
             <% memberInfo.deposits.forEach(function(deposit){ %>
             <li>
                 <span style="color: #434040;"><%= deposit.entityName %></span>
-
-                <div class="fr used_count">
-                    <span>累计使用：</span>
-                    <span class="used_total"><%= Number(deposit.numberofuse).toFixed(0) %>次</span>
-                </div>
+                <span class="fr used_count">累计使用：<%= Number(deposit.numberofuse).toFixed(0) %>次</span>
             </li>
             <% }); %>
         </ul>
