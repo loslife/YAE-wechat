@@ -78,7 +78,7 @@ li.card_shape {
 }
 li.card_shape > .left_half {
   position: relative;
-  width: 70%;
+  width: 65%;
   height: 120px;
   background-color: #fabdc5;
   border-radius: 5px 0 0 5px;
@@ -87,12 +87,13 @@ li.card_shape > .right_half {
   position: absolute;
   top: 10px;
   right: 0;
-  width: 30%;
+  width: 35%;
   height: 120px;
   line-height: 120px;
   background-color: #f37686;
   border-radius: 0 5px 5px 0;
   text-align: center;
+  border-left: 1px dotted #a60817;
 }
 .left_half > .card_name {
   font-size: 1.5rem;
