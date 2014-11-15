@@ -204,13 +204,14 @@ body {
   top: 4px;
 }
 .item-list {
-  background: white;
+  background: #e9e9ea;
 }
 .item-list > li {
   float: left;
   width: 50%;
   border: 5px solid #e9e9ea;
   box-sizing: border-box;
+  background-color: white;
 }
 .item-list > li > a {
   border: 5px solid #ffffff;
