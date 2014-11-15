@@ -57,6 +57,7 @@ li.card > .header {
   padding: 10px 0 0 12px;
 }
 .header > .card_name {
+  float: left;
   font-size: 14px;
 }
 .header > .card_no {
