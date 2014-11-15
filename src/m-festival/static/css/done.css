@@ -3,40 +3,21 @@ body,
 #content {
   height: 100%;
 }
+body {
+  background-color: #e63b46;
+}
 #m-festival-done {
-  background-color: #e9e9ea;
-  padding: 10px;
-  box-sizing: border-box;
-  overflow: auto;
-  height: 100%;
   padding-bottom: 49px;
 }
-#wrapper {
-  background-color: white;
-  margin-bottom: 10px;
-  height: 90%;
+#m-festival-done > img {
+  display: block;
+  width: 80%;
+  margin: 10px auto 0 auto;
 }
-#wrapper > img {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px;
-}
-#message {
-  width: 60%;
-  margin: 0 auto;
+#m-festival-done > div {
   text-align: center;
   font-size: 1rem;
-  padding: 1rem;
-}
-#message > img {
-  position: relative;
-  top: 3px;
-  width: 1.2rem;
-}
-#message > span {
-  font-size: 1.5rem;
-  color: #67b449;
-  vertical-align: top;
+  color: white;
 }
 .back {
   display: block;
