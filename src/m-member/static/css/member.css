@@ -28,7 +28,7 @@
   overflow: scroll;
   white-space: nowrap;
   box-sizing: border-box;
-  text-shadow: 2px 2px 2px #000;
+  text-shadow: 1px 1px 1px #000;
 }
 #card_list > li.card {
   position: relative;
@@ -54,22 +54,26 @@
   background: url("/resource/cardtype_year.png") no-repeat;
 }
 li.card > .header {
-  padding: 10px 0 0 20px;
+  padding: 10px 0 0 12px;
 }
 .header > .card_name {
-  font-size: 1.5rem;
+  font-size: 14px;
+}
+.header > .card_no {
+  font-size: 12px;
 }
 li.card > .money {
   position: absolute;
-  top: 40%;
-  font-size: 2rem;
+  top: 38%;
+  font-size: 18px;
   width: 100%;
   text-align: center;
 }
 li.card > .expired_time {
   position: absolute;
-  top: 80%;
-  padding-left: 20px;
+  top: 70%;
+  padding-left: 12px;
+  font-size: 12px;
 }
 li.card_shape {
   position: relative;
