@@ -67,7 +67,7 @@ function init(){
         });
 
         function _checkPhone(){
-            return (/^13\d{9}$/g.test(phone)||(/^15\d{9}$/g.test(phone))||(/^18\d{9}$/g.test(phone)));
+            return (/^13\d{9}$/g.test(phone) || (/^15\d{9}$/g.test(phone)) || (/^18\d{9}$/g.test(phone)) || (/^17\d{9}$/g.test(phone)));
         }
     });
 
