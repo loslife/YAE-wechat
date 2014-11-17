@@ -27,7 +27,7 @@ body {
   padding: 0 10px;
 }
 .festival-item:active {
-  background: #e9e9ea;
+  background: #f0f0f1;
 }
 .festival-item:last-child {
   margin-bottom: 0;
