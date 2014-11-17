@@ -126,8 +126,8 @@ li.card_shape > .right_half {
 }
 .item > .title {
   position: relative;
-  height: 55px;
-  line-height: 55px;
+  height: 40px;
+  line-height: 40px;
   padding-left: 10px;
   border-bottom: 1px solid #e9e9ea;
   font-size: 16px;
