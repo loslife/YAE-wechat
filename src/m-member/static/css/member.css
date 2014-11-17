@@ -58,15 +58,17 @@ li.card > .header {
 }
 .header > .card_name {
   float: left;
-  font-size: 14px;
+  font-size: 16px;
 }
 .header > .card_no {
+  position: relative;
+  top: 4px;
   font-size: 12px;
 }
 li.card > .money {
   position: absolute;
-  top: 38%;
-  font-size: 18px;
+  top: 36%;
+  font-size: 24px;
   width: 100%;
   text-align: center;
 }
