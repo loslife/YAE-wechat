@@ -86,6 +86,7 @@ body {
   line-height: 40px;
   padding-left: 10px;
   border-top: 1px solid #d0cfd0;
+  border-bottom: 1px solid #dadbdc;
 }
 #store_address:active {
   border-top: 1px solid #d0cfd0;
@@ -106,9 +107,12 @@ body {
   margin: 0 5px;
   padding: 0 5px;
   background-color: white;
+  border-left: 1px solid #dadbdc;
+  border-right: 1px solid #dadbdc;
 }
 #mapDiv.expand {
   padding-bottom: 5px;
+  border-bottom: 1px solid #dadbdc;
 }
 .map-expand {
   height: 200px;
