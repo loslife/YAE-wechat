@@ -59,6 +59,9 @@ body {
   padding: 10px;
   border-left: 1px solid #d0cfd0;
 }
+#call_icon > a:active {
+  background: #f0f0f1;
+}
 #call_icon img {
   position: relative;
   left: 6px;
