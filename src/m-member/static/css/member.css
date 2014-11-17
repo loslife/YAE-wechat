@@ -54,7 +54,7 @@
   background: url("/resource/cardtype_year.png") no-repeat;
 }
 li.card > .header {
-  padding: 10px 0 0 12px;
+  padding: 12px 0 0 12px;
 }
 .header > .card_name {
   float: left;
