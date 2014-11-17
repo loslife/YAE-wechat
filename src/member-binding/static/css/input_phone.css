@@ -61,7 +61,7 @@ button {
   border-radius: 4px;
 }
 button:disabled {
-  background-color: gray !important;
+  background-color: #c6c6c6 !important;
 }
 .btn_code button {
   background: #7accbe;

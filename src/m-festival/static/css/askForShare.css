@@ -67,7 +67,7 @@ body {
   background: #e2354f;
 }
 .btn > button:disabled {
-  background-color: #e9e9ea;
+  background-color: #c6c6c6;
 }
 #finish-msg {
   width: 80%;
