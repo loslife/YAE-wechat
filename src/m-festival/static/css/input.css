@@ -124,11 +124,14 @@ form .input input {
 }
 .store .store-name {
   height: 40px;
-  font-size: 20px;
   line-height: 40px;
+  font-size: 20px;
   margin-bottom: 10px;
   margin-left: 110px;
   border-bottom: 1px solid #e9e9ea;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .store > div + div {
   margin-bottom: 10px;
