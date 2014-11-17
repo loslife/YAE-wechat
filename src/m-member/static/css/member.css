@@ -31,7 +31,6 @@
   overflow: scroll;
   white-space: nowrap;
   box-sizing: border-box;
-  text-shadow: 1px 1px 1px #000;
 }
 #card_list > li.card {
   position: relative;
@@ -43,6 +42,7 @@
   vertical-align: top;
   color: white;
   margin-right: 20px;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
 }
 #card_list > li.card:first-child {
   margin-left: 25%;
