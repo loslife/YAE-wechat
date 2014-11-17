@@ -26,7 +26,11 @@ function doLogin(req, res, next) {
             return;
         }
 
-        req.session.member_id = result[0].id;
+        if(!req.session[enterprise_id]){
+            req.session[enterprise_id] = {};
+        }
+        req.session[enterprise_id].member_id = result[0].id;
+
         res.send({code: 0, message: "ok"});
     });
 }

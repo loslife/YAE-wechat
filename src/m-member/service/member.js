@@ -9,8 +9,9 @@ exports.queryMemberCardInfo = queryMemberCardInfo;
 exports.memberBill = memberBill;
 
 function jumpToWMember(req, res, next) {
+
     var enterprise_id = req.params["enterpriseId"];
-    var member_id = req.session.member_id;
+    var member_id = req.session[enterprise_id].member_id;
 
     var memberInfo = {};
     async.series([_queryMemberData, _queryMemberBill], function (error) {
@@ -79,9 +80,10 @@ function jumpToWMember(req, res, next) {
 }
 
 function checkSession(req, res, next) {
+
     var enterprise_id = req.params["enterpriseId"];
 
-    if (req.session && req.session.member_id) {
+    if (req.session && req.session[enterprise_id] && req.session[enterprise_id].member_id) {
         next();
         return;
     }
@@ -105,8 +107,9 @@ function queryMemberCardInfo(req, res, next) {
 }
 
 function memberBill(req, res, next) {
+
     var enterprise_id = req.params["enterpriseId"];
-    var member_id = req.session.member_id;
+    var member_id = req.session[enterprise_id].member_id;
     queryMemberBill(enterprise_id, member_id, function (error, result) {
         if (error) {
             logger.error(enterprise_id + "，会员（" + member_id + "）消费记录查询出错：" + error);

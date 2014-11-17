@@ -33,7 +33,11 @@ function route(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var festivalId = req.query["fid"];
-    var memberId = req.session.member_id;
+    var memberId = null;
+
+    if(req.session[enterpriseId]){
+        memberId = req.session[enterpriseId].member_id;
+    }
 
     dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
@@ -107,8 +111,12 @@ function getPresent(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var festivalId = req.query["fid"];
-    var memberId = req.session.member_id;
     var phone = req.body.phone;
+    var memberId = null;
+
+    if(req.session[enterpriseId]){
+        memberId = req.session[enterpriseId].member_id;
+    }
 
     dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
