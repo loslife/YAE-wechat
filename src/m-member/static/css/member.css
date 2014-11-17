@@ -1,3 +1,6 @@
+#content {
+  background-color: #e9e9ea;
+}
 #m-member {
   height: inherit;
   background: #e9e9ea;
@@ -115,9 +118,11 @@ li.card_shape > .right_half {
   font-size: 2rem;
 }
 #m-member .item {
-  background: white;
-  margin: 10px 0;
+  margin: 0 10px 10px 10px;
+  background-color: white;
   color: #ffffff;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
 }
 .item > .title {
   position: relative;
@@ -125,7 +130,6 @@ li.card_shape > .right_half {
   line-height: 55px;
   padding-left: 10px;
   border-bottom: 1px solid #e9e9ea;
-  background-color: #f8f8f9;
   font-size: 16px;
   color: #000000;
 }

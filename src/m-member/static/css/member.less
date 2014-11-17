@@ -1,5 +1,9 @@
 @import "../../../resource/css/constant.less";
 
+#content {
+  background-color: #e9e9ea;
+}
+
 #m-member {
   height: inherit;
   background: @backgroundColor;
@@ -138,9 +142,11 @@ li.card_shape > .right_half {
 }
 
 #m-member .item {
-  background: white;
-  margin: @baseSpace 0;
+  margin: 0 10px 10px 10px;
+  background-color: white;
   color: #ffffff;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
 }
 
 .item > .title {
@@ -149,7 +155,6 @@ li.card_shape > .right_half {
   line-height: 55px;
   padding-left: @baseSpace;
   border-bottom: 1px solid @backgroundColor;
-  background-color: #f8f8f9;
   font-size: 1.6*@baseSpace;
   color: #000000;
 }
