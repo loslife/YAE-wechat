@@ -12,10 +12,10 @@ body {
   background-color: white;
   margin-bottom: 10px;
 }
-#festival-introduce > img {
-  box-sizing: border-box;
+#festival-introduce > .img {
+  background-size: cover !important;
   width: 100%;
-  display: block;
+  padding-bottom: 50%;
 }
 #festival-introduce > .title {
   font-size: 1.2rem;

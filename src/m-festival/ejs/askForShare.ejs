@@ -19,9 +19,9 @@
     <div id="festival-introduce">
 
         <% if(festival.pic_url){ %>
-            <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>">
+            <div class="img" style="background: url('/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>') no-repeat"></div>
         <% }else{ %>
-            <img src="../../../resource/haibao.jpg">
+            <div class="img" style="background: url('/svc/public/wechat/festivals_default.png') no-repeat"></div>
         <% } %>
 
         <div class="title">
