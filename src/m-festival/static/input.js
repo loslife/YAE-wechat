@@ -89,12 +89,11 @@ function init(){
 
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
-            var slogan = $("#slogan").text();
 
             var wxData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "desc": slogan,
+                "desc": "优惠活动超火爆，就等你快来",
                 "title": ""
             };
 
