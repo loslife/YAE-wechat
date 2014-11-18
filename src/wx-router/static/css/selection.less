@@ -28,10 +28,8 @@ body{
 }
 
 #m-selection > .shop-item > .logo {
-  float: left;
-  width: 35%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 10px 65% 10px 10px;
 }
 
 #m-selection > .shop-item > .logo > img {
@@ -39,11 +37,13 @@ body{
 }
 
 #m-selection > .shop-item > .description {
-  float: left;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
   width: 65%;
   box-sizing: border-box;
   padding: 10px;
-  vertical-align: top;
 }
 
 #m-selection > .shop-item > .description > .name {
@@ -51,6 +51,9 @@ body{
   padding-bottom: 10px;
   border-bottom: 1px solid #e9e9ea;
   font-size: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 #m-selection > .shop-item > .description > .inner {
