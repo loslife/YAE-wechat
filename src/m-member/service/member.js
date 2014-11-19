@@ -301,7 +301,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 _.each(results, function (item) {
 
                     var service = {};
-                    service.serviceName = item.present_name + "（来自优惠活动）";
+                    service.serviceName = item.present_name + "（活动领取）";
                     services.push(service);
                 });
 
@@ -377,7 +377,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 async.each(results, function(item, next){
 
                     var coupon = {};
-                    coupon.name = item.present_name + "（来自优惠活动）";
+                    coupon.name = item.present_name + "（活动领取）";
 
                     dbHelper.queryData("tb_membercardcategory", {id: item.present_id}, function (err, results){
 

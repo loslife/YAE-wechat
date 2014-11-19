@@ -90,7 +90,7 @@ button:disabled {
 .message {
   font-size: 12px;
   color: gray;
-  padding-left: 1rem;
+  padding: 0 0 1rem 1rem;
 }
 #binding_success_tip {
   display: none;
