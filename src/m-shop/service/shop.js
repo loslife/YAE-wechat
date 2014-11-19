@@ -24,6 +24,11 @@ function jumpToWShop(req, res, next) {
             return;
         }
 
+        if(result[0].state === 0){
+            res.render("shop_unavailable", {layout: false});
+            return;
+        }
+
         var festivals = [];
         var hotShelvesList = [];
         var wechatSetting = {};
