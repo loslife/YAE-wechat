@@ -1,15 +1,15 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/m-festival/static/done.js')
-        .css("/m-festival/static/css/done.css")
+        .js('/m-festival/static/result.js')
+        .css("/m-festival/static/css/result.css")
         .done(config) %>
 
 <% }else{ %>
 
 <%- Loader()
-        .js('/m-festival/done.min.js')
-        .css("/m-festival/css/done.min.css")
+        .js('/m-festival/result.min.js')
+        .css("/m-festival/css/result.min.css")
         .done(config) %>
 
 <% } %>
