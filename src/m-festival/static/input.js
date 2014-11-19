@@ -22,6 +22,13 @@ function init(){
 
     $("#btn_get").prop("disabled", false);
 
+    // 手机上弹出键盘时，底部按钮遮挡的问题
+    $("#input_phone").focus(function(){
+        $("#back").removeClass("fixed-bottom0");
+    }).blur(function(){
+            $("#back").addClass("fixed-bottom0");
+        });
+
     $("#present_form").submit(function($event){
 
         $event.preventDefault();
