@@ -39,10 +39,9 @@ body {
   background-color: white;
 }
 .btn {
-  width: 60%;
-  margin: 0 auto;
-  padding: 1rem;
+  width: 100%;
   box-sizing: border-box;
+  padding: 1rem 10px;
 }
 .btn > button {
   color: white;
