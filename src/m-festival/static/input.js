@@ -55,14 +55,9 @@ function init(){
             var status = response.result.status;
 
             if(status === 1){
-                location.href = "done";
+                location.href = "done?type=success";
             }else{
-
-                var windowHeight = $(window).height();
-                var contentHeight = $("#content").height();
-                var max = Math.max(windowHeight, contentHeight);
-                
-                $("#repeat-deny").height(max).show();
+                location.href = "done?type=repeat";
             }
         });
 
@@ -74,10 +69,6 @@ function init(){
     $("#back").on("click", function ($even) {
         location.href = "festival";
         $even.stopPropagation();
-    });
-
-    $("#repeat-deny").tap(function(){
-        $(this).hide();
     });
 
     // 如果是在微信中打开

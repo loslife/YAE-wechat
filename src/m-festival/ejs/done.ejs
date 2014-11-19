@@ -16,9 +16,18 @@
 
 <div id="m-festival-done">
 
-    <img src="/resource/diamond.png">
-    <div>已发送短信至您的手机，请凭短信到店消费。</div>
+    <% if(type === "success"){ %>
+        <img src="/resource/diamond.png">
+        <div>已发送短信至您的手机，请凭短信到店消费。</div>
+    <% }else{ %>
+        <img src="/resource/present_got_duplicate.png">
+        <div>您已经领取过一次了，看看别的吧。</div>
+    <% } %>
 
 </div>
 
 <a id="back" class="back clear-fix">确定</a>
+
+<div class="none">
+    <span id="type"><%= type %></span>
+</div>

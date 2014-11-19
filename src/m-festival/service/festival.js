@@ -148,11 +148,13 @@ function getPresent(req, res, next){
 
 function done(req, res, next){
 
+    var type = req.query["type"];
     var enterpriseId = req.params["enterpriseId"];
 
     var model = {
         enterprise_id: enterpriseId,
-        menu: "none"
+        menu: "none",
+        type: type
     };
 
     res.render("done", model);

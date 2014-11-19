@@ -3,8 +3,11 @@ body,
 #content {
   height: 100%;
 }
-body {
+body.success {
   background-color: #e63b46;
+}
+body.duplicate {
+  background-color: #f8f8f9;
 }
 #m-festival-done {
   padding-bottom: 49px;
@@ -12,12 +15,17 @@ body {
 #m-festival-done > img {
   display: block;
   width: 80%;
-  margin: 10px auto 0 auto;
+  margin: 0 auto;
 }
 #m-festival-done > div {
   text-align: center;
   font-size: 1rem;
+}
+body.success #m-festival-done > div {
   color: white;
+}
+body.duplicate #m-festival-done > div {
+  color: black;
 }
 .back {
   display: block;

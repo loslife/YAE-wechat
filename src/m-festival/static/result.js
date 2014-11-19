@@ -20,6 +20,13 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
+    var type = $("#type").text();
+    if(type === "success"){
+        $("body").addClass("success");
+    }else{
+        $("body").addClass("duplicate");
+    }
+
     $("#back").on("click", function ($even) {
         location.href = "festival";
         $even.stopPropagation();
