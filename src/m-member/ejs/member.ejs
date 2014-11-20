@@ -14,56 +14,70 @@
 
 <div id="m-member">
 
-    <div id="cards_area">
+    <div id="header">
 
         <img src="/resource/member_card_background.png">
 
-        <div id="my_name"><%= memberInfo.name %></div>
+        <div><%= memberInfo.name %></div>
 
+    </div>
 
-            <ul id="card_list">
+    <% if(memberInfo.cards.length !== 0) { %>
 
-                <% memberInfo.cards.forEach(function(card){ %>
+    <ul id="cards_area">
 
-                <% if(card.type === "recharge"){ %>
-                <li class="card cardtype_recharge">
-                    <% }else if(card.type === "recordTimeCard"){ %>
-                <li class="card cardtype_record">
-                    <% }else{ %>
-                <li class="card cardtype_year">
-                    <% } %>
+        <% memberInfo.cards.forEach(function(card){ %>
 
-                    <div class="header">
-                        <span class="card_name fl"><%= card.name %></span>
-                        <span class="fl">&nbsp;</span>
-                        <span class="card_no"><%= card.cardNo %></span>
-                    </div>
+        <li>
 
-                    <div class="money">
+            <% if(card.type === "recharge"){ %>
+
+            <div class="card_shape card_recharge">
+
+            <% }else if(card.type === "recordTimeCard") { %>
+
+            <div class="card_shape card_record">
+
+            <% } else{ %>
+
+            <div class="card_shape card_time">
+
+            <% } %>
+
+                <div class="top_half">
+                    <span class="card_name"><%= card.name %></span>
+                    <span class="card_no"><%= card.cardNo %></span>
+                </div>
+
+                <div class="bottom_half">
+
+                    <span class="card_money">
 
                         <% if(card.type === "recharge"){ %>
 
-                        <span>￥<%= Number(card.currentMoney).toFixed(1) %></span>
+                        ￥<%= Number(card.currentMoney).toFixed(1) %>
 
                         <% } else if(card.type === "recordTimeCard") { %>
 
-                        <span><%= Number(card.remainingTimes).toFixed(0) %>次</span>
+                        <%= Number(card.remainingTimes).toFixed(0) %>次
 
                         <% } %>
 
-                    </div>
+                    </span>
 
-                    <div class="expired_time">
-                        有效期至：<%= card.expired_time %>
-                    </div>
+                    <span class="card_expired">有效期至：<%= card.expired_time %></span>
 
-                </li>
+                </div>
 
-                <% }); %>
-            </ul>
+            </div>
 
+        </li>
 
-    </div>
+        <% }); %>
+
+    </ul>
+
+    <% } %>
 
     <% if(memberInfo.coupons.length !== 0) { %>
 
