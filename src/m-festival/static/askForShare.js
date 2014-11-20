@@ -51,7 +51,7 @@ function init(){
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
                 "desc" : "优惠活动超火爆，就等你快来",
                 "title": "送你一份好礼",
-                "appId": "wxb5243e6a07f2e09a"
+                "appId": "wxf932fcca3e6bf697"
             };
 
             var wxCallbacks = {
