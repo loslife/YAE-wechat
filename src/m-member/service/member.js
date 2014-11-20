@@ -335,7 +335,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
             var sql = "select def_str3 as name, def_rea2 as money, def_int1 as valid, create_date as dateTime" +
                 " from planx_graph.tb_memberCardAttrMap" +
-                " where def_str2 = :member_id and groupName = 'coupon' and (status is null or status != 0) and enterprise_id = :enterprise_id;";
+                " where def_str2 = :member_id and groupName = 'coupon' and (status is null or status != 0) and enterprise_id = :enterprise_id and value = 'unused';";
 
             dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
@@ -379,7 +379,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
                     var coupon = {};
                     coupon.name = item.present_name + "（活动领取）";
 
-                    dbHelper.queryData("tb_membercardcategory", {id: item.present_id}, function (err, results){
+                    dbHelper.queryData("tb_memberCardCategory", {id: item.present_id}, function (err, results){
 
                         if(err){
                             next(err);
