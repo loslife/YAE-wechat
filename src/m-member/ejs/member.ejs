@@ -2,12 +2,14 @@
 
 <%- Loader()
         .css("/m-member/static/css/member.css")
+        .js("/m-member/static/member.js")
         .done(config) %>
 
 <% }else{ %>
 
 <%- Loader()
         .css("/m-member/css/member.min.css")
+        .js("/m-member/member.min.js")
         .done(config) %>
 
 <% } %>
@@ -34,49 +36,73 @@
 
         <div class="card_shape card_recharge">
 
-            <% }else if(card.type === "recordTimeCard") { %>
+        <% }else if(card.type === "recordTimeCard") { %>
 
-            <div class="card_shape card_record">
+        <div class="card_shape card_record">
 
-                <% } else{ %>
+        <% } else{ %>
 
-                <div class="card_shape card_time">
+        <div class="card_shape card_time">
+
+        <% } %>
+
+            <div class="top_half">
+
+                <span class="card_name"><%= card.name %></span>
+                <div class="card_no">
+                    <span><%= card.cardNo %></span>
+                    <% if(card.type === "recordTimeCard"){ %>
+                    <img class="btn_expand" src="/resource/card_arrow_down.png">
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="bottom_half">
+
+                <div class="card_info">
+
+                    <% if(card.type === "recharge"){ %>
+
+                        <span class="card_info_title">余额：</span>
+                        <span class="card_info_value"><%= Number(card.currentMoney).toFixed(1) %></span>
+
+                    <% } else if(card.type === "recordTimeCard"){ %>
+
+                        <span class="card_info_title">剩余：</span>
+                        <span class="card_info_value"><%= Number(card.remainingTimes).toFixed(0) %>次</span>
 
                     <% } %>
 
-                    <div class="top_half">
-                        <span class="card_name"><%= card.name %></span>
-                        <div class="card_no">
-                            <span><%= card.cardNo %></span>
-                        <% if(card.type === "recordTimeCard"){ %>
-                            <img src="/resource/card_expand.png">
-                        <% } %>
-                        </div>
-                    </div>
-
-                    <div class="bottom_half">
-
-                        <div class="card_info">
-
-                        <% if(card.type === "recharge"){ %>
-
-                            <span class="card_info_title">余额：</span>
-                            <span class="card_info_value"><%= Number(card.currentMoney).toFixed(1) %></span>
-
-                        <% } else if(card.type === "recordTimeCard"){ %>
-
-                            <span class="card_info_title">剩余：</span>
-                            <span class="card_info_value"><%= Number(card.remainingTimes).toFixed(0) %>次</span>
-
-                        <% } %>
-
-                        </div>
-
-                        <span class="card_expired">有效期至 <%= card.expired_time %></span>
-
-                    </div>
-
                 </div>
+
+                <span class="card_expired">有效期至 <%= card.expired_time %></span>
+
+            </div>
+
+            <% if(card.type === "recordTimeCard"){ %>
+
+               <div class="bottom_half_expand">
+
+                   <ul>
+                       <li>
+                           <span class="item_name">雕花水晶甲</span>
+                           <span class="item_count">1次</span>
+                       </li>
+                       <li>
+                           <span class="item_name">炫彩美甲</span>
+                           <span class="item_count">2次</span>
+                       </li>
+                       <li>
+                           <span class="item_name">新娘妆节日特典</span>
+                           <span class="item_count">13次</span>
+                       </li>
+                   </ul>
+
+               </div>
+
+            <% } %>
+
+        </div>
 
     </li>
 
@@ -93,7 +119,7 @@
             </div>
 
             <div class="bottom_half">
-                
+
                 <div class="card_info">
                     <span class="card_info_title">金额：</span>
                     <span class="card_info_value"><%= coupon.money %></span>
@@ -195,6 +221,7 @@
                 </div>
             </div>
         </li>
+
         <% }); %>
 
     </ul>

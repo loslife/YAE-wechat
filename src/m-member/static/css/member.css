@@ -90,9 +90,10 @@
   margin-bottom: 10px;
 }
 #cards_area > li {
+  box-sizing: border-box;
   height: 96px;
-  background-color: #e9e9ea;
   border-bottom: 1px solid #dadbdc;
+  background-color: #e9e9ea;
   color: white;
 }
 li > .card_shape {
@@ -100,7 +101,6 @@ li > .card_shape {
   top: 7px;
   width: 90%;
   margin: 0 auto;
-  height: 89px;
 }
 #cards_area > li:first-child {
   height: 50px;
@@ -120,6 +120,10 @@ li > .card_shape {
 .card_shape > .bottom_half {
   position: relative;
   height: 50px;
+}
+.card_shape > .bottom_half_expand {
+  display: none;
+  background-color: #6da8ba;
 }
 .card_recharge > .top_half {
   background-color: #d7c4a4;
