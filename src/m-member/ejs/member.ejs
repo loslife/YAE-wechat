@@ -56,19 +56,21 @@
 
                     <div class="bottom_half">
 
-                        <span class="card_money">
+                        <div class="card_info">
 
                         <% if(card.type === "recharge"){ %>
 
-                        ￥<%= Number(card.currentMoney).toFixed(1) %>
+                            <span class="card_info_title">余额：</span>
+                            <span class="card_info_value"><%= Number(card.currentMoney).toFixed(1) %></span>
 
-                        <% } else if(card.type === "recordTimeCard") { %>
+                        <% } else if(card.type === "recordTimeCard"){ %>
 
-                        <%= Number(card.remainingTimes).toFixed(0) %>次
+                            <span class="card_info_title">剩余：</span>
+                            <span class="card_info_value"><%= Number(card.remainingTimes).toFixed(0) %>次</span>
 
                         <% } %>
 
-                        </span>
+                        </div>
 
                         <span class="card_expired">有效期至 <%= card.expired_time %></span>
 
@@ -91,7 +93,11 @@
             </div>
 
             <div class="bottom_half">
-                <span class="card_money">￥<%= coupon.money %></span>
+                
+                <div class="card_info">
+                    <span class="card_info_title">金额：</span>
+                    <span class="card_info_value"><%= coupon.money %></span>
+                </div>
 
                 <% if(coupon.expired_time){ %>
                     <span class="card_expired">有效期至 <%= coupon.expired_time %></span>

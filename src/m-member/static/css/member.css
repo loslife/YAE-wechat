@@ -161,9 +161,15 @@ li > .card_shape {
   top: 1px;
   width: 12px;
 }
-.card_money {
+.card_info {
   position: absolute;
   bottom: 5px;
+}
+.card_info > .card_info_title {
+  font-size: 12px;
+}
+.card_info > .card_info_value {
+  font-size: 30px;
 }
 .card_expired {
   position: absolute;
