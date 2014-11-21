@@ -15,7 +15,7 @@ li > .card_shape {
   top: 7px;
   width: 90%;
   margin: 0 auto;
-  height: 90px;
+  height: 89px;
 }
 
 #cards_area > li:first-child {
@@ -31,6 +31,7 @@ li > .card_shape {
 }
 
 .card_shape > .top_half {
+  position: relative;
   height: 39px;
   line-height: 39px;
   border-radius: 6px 6px 0 0;
@@ -73,9 +74,24 @@ li > .card_shape {
   background-color: #e65b70;
 }
 
+.card_name {
+  font-size: 18px;
+}
+
 .card_no {
-  float: right;
-  padding-right: 5px;
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+
+.card_no > span {
+  font-size: 12px;
+}
+
+.card_no > img {
+  position: relative;
+  top: 1px;
+  width: 12px;
 }
 
 .card_money {
@@ -87,4 +103,5 @@ li > .card_shape {
   position: absolute;
   right: 5px;
   bottom: 5px;
+  font-size: 12px;
 }
