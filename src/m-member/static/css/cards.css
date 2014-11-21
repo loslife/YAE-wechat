@@ -51,15 +51,21 @@ li > .card_shape {
 .card_time > .bottom_half {
   background-color: #af85c7;
 }
-.card_shape .card_no {
+.card_coupon > .top_half {
+  background: url("/resource/member_coupon.png") repeat-x;
+}
+.card_coupon > .bottom_half {
+  background-color: #e65b70;
+}
+.card_no {
   float: right;
   padding-right: 5px;
 }
-.card_shape .card_money {
+.card_money {
   position: absolute;
   bottom: 5px;
 }
-.card_shape .card_expired {
+.card_expired {
   position: absolute;
   right: 5px;
   bottom: 5px;
