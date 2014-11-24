@@ -1,38 +1,38 @@
 @import "../../../resource/css/constant.less";
 
-html, body, #content{
-  height: 100%;
-}
-
-body.success {
-  background-color: #e63b46;
-}
-
-body.duplicate {
-  background-color: #f8f8f9;
+body{
+  background-color: #e9e9ea;
 }
 
 #m-festival-done {
+  position: relative;
   padding-bottom: 49px;
+  background-size: cover !important;
+  min-height: 440px;
+}
+
+#m-festival-done.success {
+  background: url("/resource/done_success_bg.png") no-repeat;
+}
+
+#m-festival-done.repeat {
+  background: url("/resource/done_repeat_bg.png") no-repeat;
 }
 
 #m-festival-done > img {
   display: block;
   width: 80%;
   margin: 0 auto;
+  padding-top: 100px;
 }
 
 #m-festival-done > div {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 30px;
   text-align: center;
-  font-size: 1rem;
-}
-
-body.success #m-festival-done > div {
   color: white;
-}
-
-body.duplicate #m-festival-done > div {
-  color: black;
 }
 
 .back {

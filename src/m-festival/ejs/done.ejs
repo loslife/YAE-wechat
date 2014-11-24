@@ -14,7 +14,11 @@
 
 <% } %>
 
-<div id="m-festival-done">
+<% if(type === "success"){ %>
+    <div id="m-festival-done" class="success">
+<% }else{ %>
+    <div id="m-festival-done" class="repeat">
+<% } %>
 
     <% if(type === "success"){ %>
         <img src="/resource/diamond.png">
@@ -27,7 +31,3 @@
 </div>
 
 <a id="back" class="back clear-fix">确定</a>
-
-<div class="none">
-    <span id="type"><%= type %></span>
-</div>
