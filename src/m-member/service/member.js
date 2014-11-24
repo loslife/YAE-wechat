@@ -125,8 +125,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
     var services = [];
     var deposits = [];
     var coupons = [];
-    var rechargeRecords = [];
-    var consumptionRecords = [];
     var name = "";
 
     async.series([_queryBaseinfo, _queryCards, _queryServices, _queryDeposits, _queryCoupons], function (err) {
@@ -140,8 +138,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
             services: services,
             deposits: deposits,
             coupons: coupons,
-            rechargeRecords: rechargeRecords,
-            consumptionRecords: consumptionRecords,
             name: name
         };
         callback(null, result);
