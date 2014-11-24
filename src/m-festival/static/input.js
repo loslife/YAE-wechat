@@ -87,12 +87,15 @@ function init(){
 
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
+            var storeName = $(".store-name").text();
+            var festivalTitle = $("#f_title").text();
+            var festivalDesc = $("#f_desc").text();
 
             var wxData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "desc": "优惠活动超火爆，就等你快来",
-                "title": "送你一份好礼",
+                "desc": festivalDesc,
+                "title": storeName + "·" + festivalTitle,
                 "appId": "wxf932fcca3e6bf697"
             };
 

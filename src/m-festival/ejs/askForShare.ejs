@@ -26,7 +26,7 @@
 
         <div class="title">
             <img src="../../../resource/star.png">
-            <span><%= festival.title %></span>
+            <span id="f_title"><%= festival.title %></span>
         </div>
 
         <div class="field">
@@ -36,7 +36,7 @@
 
         <div class="field">
             <div class="fl color-gray">活动详情：</div>
-            <div style="padding-left: 5rem"><%= festival.description %></div>
+            <div id="f_desc" style="padding-left: 5rem"><%= festival.description %></div>
         </div>
 
         <% if(duplicated){ %>
@@ -67,6 +67,7 @@
     <div id="hidden_area" style="display: none">
         <div id="enterprise_id"><%= enterprise_id %></div>
         <div id="festival_id"><%= festival.id %></div>
+        <div class="store-name"><%= store.name %></div>
     </div>
 
 </div>

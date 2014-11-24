@@ -50,22 +50,20 @@ function route(req, res, next){
 
         dao.reachLimit(enterpriseId, festivalId, function(err, expired){
 
-            if(!memberId){
+            _queryStoreInfo(function(err, store){
 
-                _queryStoreInfo(function(err, store){
+                if(err){
+                    next(err);
+                    return;
+                }
 
-                    if(err){
-                        next(err);
-                        return;
-                    }
+                if(!memberId){
                     res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired});
-                });
-
-                return;
-            }
-
-            dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
-                res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired, duplicated: received});
+                }else{
+                    dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
+                        res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, duplicated: received});
+                    });
+                }
             });
         });
 
