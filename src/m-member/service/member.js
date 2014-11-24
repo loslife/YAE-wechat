@@ -194,11 +194,11 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 // 计次卡
                 if (card.type === "recordTimeCard") {
 
-                    var sql = "select b.name as serviceName, a.value, a.def_int1 as bind_group" +
+                    var sql1 = "select b.name as serviceName, a.value, a.def_int1 as bind_group" +
                         " from planx_graph.tb_membercardattrmap a, planx_graph.tb_service b" +
                         " where a.groupName = 'recordCardBalance' and a.memberCardId = :card_id and a.enterprise_id = :enterprise_id and a.keyName = b.id";
 
-                    dbHelper.execSql(sql, {enterprise_id: enterprise_id, card_id: card.card_id}, function (err, result) {
+                    dbHelper.execSql(sql1, {enterprise_id: enterprise_id, card_id: card.card_id}, function (err, result) {
 
                         if (err) {
                             next(err);
@@ -233,8 +233,29 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
                 // 年卡
                 if (card.type === "quarter") {
-                    card.expired_time = card.create_date + card.periodOfValidity * 24 * 60 * 60 * 1000;
-                    next(null);
+
+                    var sql2 = "select value from planx_graph.tb_membercardattrmap" +
+                        " where groupName = 'quarterCardUsed' and memberCardId = :card_id and enterprise_id = :enterprise_id";
+
+                    dbHelper.execSql(sql2, {enterprise_id: enterprise_id, card_id: card.card_id}, function (err, result) {
+
+                        if (err) {
+                            next(err);
+                            return;
+                        }
+
+                        var totalUsed = 0;
+
+                        _.each(result, function (item) {
+                            totalUsed += item.value;
+                        });
+
+                        card.total_used = totalUsed;
+                        card.expired_time = card.create_date + card.periodOfValidity * 24 * 60 * 60 * 1000;
+
+                        next(null);
+                    });
+
                     return;
                 }
 

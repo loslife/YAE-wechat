@@ -71,6 +71,11 @@
                         <span class="card_info_title">剩余：</span>
                         <span class="card_info_value"><%= Number(card.remainingTimes).toFixed(0) %>次</span>
 
+                    <% } else if(card.type === "quarter"){ %>
+
+                        <span class="card_info_title">已使用：</span>
+                        <span class="card_info_value"><%= Number(card.total_used).toFixed(0) %>次</span>
+
                     <% } %>
 
                 </div>
