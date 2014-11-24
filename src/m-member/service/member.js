@@ -563,8 +563,8 @@ function queryMemberBill(enterpriseId, memberId, callback) {
                         items.push(item.project_name);
                     }
                 });
-            }else if(bill.type === 7 || bill.type === 9 || bill.type === 8 || bill.type === 10){
-                items.push(bill.comment);// 赠送服务，优惠活动赠送服务，现金券，优惠活动现金券
+            }else if(bill.type === 7 || bill.type === 9 || bill.type === 8 || bill.type === 10 || bill.type == 5){
+                items.push(bill.comment);// 赠送服务，优惠活动赠送服务，现金券，优惠活动现金券，注销
             }else{
                 items.push(bill.memberCard_name);// 开新卡，充值卡
             }
@@ -594,8 +594,10 @@ function queryMemberBill(enterpriseId, memberId, callback) {
                 type = "service";
             }else if(bill.type === 8 || bill.type === 10){
                 type = "coupon";
+            }else if(bill.type === 5){
+                type = "cancel";// 注销
             }else{
-                type = "consume";// 无法识别，视为普通消费
+                type = "unknown";// 无法识别
             }
 
             return {date: bill.create_date, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount, type: type};
