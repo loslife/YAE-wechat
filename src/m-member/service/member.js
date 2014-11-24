@@ -24,14 +24,45 @@ function jumpToWMember(req, res, next) {
     })
 
     function _queryMemberData(callback) {
-        queryMemberData(enterprise_id, member_id, function (err, result) {
+
+        queryMemberData(enterprise_id, member_id, function(err, result) {
+
             if (err) {
                 logger.error(enterprise_id + "会员数据查询出错:" + err);
                 callback("会员数据查询失败");
                 return;
             }
-            memberInfo = _rebuild(result);
+
+            memberInfo = _rebuild();
+
             callback(null);
+
+            function _rebuild() {
+
+                _.each(result.cards, function (card) {
+
+                    card.currentConsumeDate = new Date(card.modify_date).Format("MM-dd");
+                    if (card.expired_time) {
+                        card.expired_time = new Date(card.expired_time).Format("yy-MM-dd");
+                    }
+                });
+
+                _.each(result.coupons, function (coupon) {
+
+                    if(coupon.expired_time){
+                        coupon.expired_time = new Date(coupon.expired_time).Format("yy-MM-dd");
+                    }
+                });
+
+                _.each(result.services, function (service) {
+
+                    if(service.expired_time){
+                        service.expired_time = new Date(service.expired_time).Format("yy-MM-dd");
+                    }
+                });
+
+                return result;
+            }
         });
     }
 
@@ -48,34 +79,9 @@ function jumpToWMember(req, res, next) {
                 return -item.date;
             });
 
-            memberInfo.bill = _.first(sorted, 5);
+            memberInfo.bill = _.first(sorted, 5);// 按时间排序，只显示最近5条
             callback(null);
         });
-    }
-
-    function _rebuild(memberInfo) {
-        _.each(memberInfo.cards, function (card) {
-
-            card.currentConsumeDate = new Date(card.modify_date).Format("MM-dd");
-
-            if (card.expired_time) {
-                card.expired_time = new Date(card.expired_time).Format("yy-MM-dd");
-            }
-        });
-
-        _.each(memberInfo.coupons, function (coupon) {
-            if(coupon.expired_time){
-                coupon.expired_time = new Date(coupon.expired_time).Format("yy-MM-dd");
-            }
-        });
-
-        _.each(memberInfo.services, function (service) {
-            if(service.expired_time){
-                service.expired_time = new Date(service.expired_time).Format("yy-MM-dd");
-            }
-        });
-
-        return memberInfo;
     }
 }
 
