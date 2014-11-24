@@ -36,7 +36,26 @@ li > .card_shape {
 }
 .card_shape > .bottom_half_expand {
   display: none;
+  min-height: 50px;
   background-color: #6da8ba;
+}
+.bottom_half_expand li {
+  padding-top: 7px;
+}
+.bottom_half_expand > div {
+  position: relative;
+  height: 14px;
+  padding-top: 7px;
+}
+.bottom_half_expand .item_count {
+  float: right;
+  margin-right: 5px;
+}
+.expand_expired {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 12px;
 }
 .card_recharge > .top_half {
   background-color: #d7c4a4;
