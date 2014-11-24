@@ -1,9 +1,9 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #e9e9ea;
 }
 #m-selection {
-  background-color: #e9e9ea;
   min-height: 500px;
 }
 #m-selection > #title {
@@ -16,34 +16,37 @@ body {
 }
 #m-selection > .shop-item {
   display: block;
-  margin: .5rem 0;
-  background-color: white;
   text-decoration: none;
   color: inherit;
   position: relative;
   overflow: hidden;
 }
+.odd {
+  background-color: #f8f8f9;
+}
+.even {
+  background-color: white;
+}
 #m-selection > .shop-item > .logo {
+  float: left;
   box-sizing: border-box;
-  padding: 10px 65% 10px 10px;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
 }
 #m-selection > .shop-item > .logo > img {
   width: 100%;
+  border: 1px solid white;
+  box-shadow: 5px 5px 14px -8px #000000;
 }
 #m-selection > .shop-item > .description {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 65%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 10px 0;
+  margin-left: 80px;
 }
 #m-selection > .shop-item > .description > .name {
   box-sizing: border-box;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9e9ea;
-  font-size: 20px;
+  font-size: 16px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -51,5 +54,10 @@ body {
 #m-selection > .shop-item > .description > .inner {
   position: absolute;
   bottom: 10px;
-  font-size: 1rem;
+}
+.inner img {
+  width: 12px;
+}
+.inner span {
+  font-size: 12px;
 }

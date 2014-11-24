@@ -33,7 +33,11 @@
 
     <% for(var i = 0; i < params.length; i++){ %>
 
-    <a class="shop-item" href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
+    <% if(i % 2 === 0){ %>
+    <a class="shop-item odd" href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
+    <% }else{ %>
+    <a class="shop-item even" href="/svc/wsite/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>">
+    <% } %>
 
         <div class="logo">
             <img src="../../../resource/test.png">
@@ -42,11 +46,11 @@
             <div class="name"><%= params[i].enterprise_name %></div>
             <div class="inner">
                 <div>
-                    <span class="color-gray">电话：</span>
+                    <img src="/resource/icon_phone.png">
                     <span><%= params[i].phone %></span>
                 </div>
                 <div>
-                    <span class="color-gray">地址：</span>
+                    <img src="/resource/icon_addr.png">
                     <span><%= params[i].addr %></span>
                 </div>
             </div>
