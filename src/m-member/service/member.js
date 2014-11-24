@@ -433,14 +433,19 @@ function queryMemberData(enterprise_id, member_id, callback) {
 }
 
 function queryMemberBill(enterpriseId, memberId, callback) {
+
     var bill = [];
+
     if (!memberId || !enterpriseId) {
-        callback(null, bill)
+        callback(null, bill);
         return;
     }
+
     var rechargeRecords = [];
     var consumptionRecords = [];
-    async.series([_queryRechargeRecords, _queryConsumptionRecords, _queryBonus, _buildMemberBill], function (error) {
+
+    async.series([_queryRechargeRecords, _queryConsumptionRecords, _queryBonus, _buildMemberBill], function(error){
+
         if (error) {
             callback(error);
             return;
@@ -449,19 +454,24 @@ function queryMemberBill(enterpriseId, memberId, callback) {
     });
 
     function _queryRechargeRecords(callback) {
+
         dbHelper.queryData("tb_rechargeMemberBill", {member_id: memberId, enterprise_id: enterpriseId}, function (error, result) {
+
             if (error) {
                 logger.error("查询充值、开卡记录失败，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + error);
                 callback(error);
                 return;
             }
+
             rechargeRecords = result;
             callback(null);
         });
     }
 
     function _queryConsumptionRecords(callback) {
+
         var allItems = [];
+
         async.series([_queryConsumptions, _queryConsumptionItems, _buildItems], function (error) {
             callback(error);
         });
@@ -502,15 +512,29 @@ function queryMemberBill(enterpriseId, memberId, callback) {
     }
 
     function _queryBonus(callback) {
+
         dbHelper.queryData("tb_empBonus", {enterprise_id: enterpriseId}, function (error, result) {
+
             if (error) {
                 logger.error("查询充值、开卡提成记录失败，enterpriseId：" + enterpriseId + "，error：" + error);
                 callback(error);
                 return;
             }
-            _buildBonus(rechargeRecords, result);
-            _buildBonus(consumptionRecords, result);
+
+            _buildBonus();
             callback(null);
+
+            function _buildBonus() {
+
+                _.each(rechargeRecords.concat(consumptionRecords), function(record) {
+
+                    var bonus = _.filter(result || [], function (item) {
+                        return item.serviceBill_id == record.id;
+                    });
+
+                    record.bonus = bonus || [];
+                });
+            }
         });
     }
 
@@ -555,14 +579,5 @@ function queryMemberBill(enterpriseId, memberId, callback) {
             });
             return {date: bill.create_date, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
         }
-    }
-
-    function _buildBonus(records, allBonus) {
-        _.each(records || [], function (record) {
-            var bonus = _.filter(allBonus || [], function (item) {
-                return item.serviceBill_id == record.id;
-            });
-            record.bonus = bonus || [];
-        });
     }
 }
