@@ -211,7 +211,21 @@
                 </div>
 
                 <div class="bill_field">
-                    <span class="bill_key color-gray">项目名称：</span>
+
+                    <span class="bill_key color-gray">
+                        <% if(item.type === "new"){ %>
+                        开新卡：
+                        <% }else if(item.type === "recharge"){ %>
+                        充值卡：
+                        <% }else if(item.type === "service"){  %>
+                        赠送服务：
+                        <% }else if(item.type === "coupon"){ %>
+                        现金券：
+                        <% }else{ %>
+                        项目名称：
+                        <% } %>
+                    </span>
+
                     <span class="bill_value"><%= item.items %></span>
                 </div>
 
@@ -221,7 +235,15 @@
                 </div>
 
                 <div class="bill_field">
-                    <span class="bill_key color-gray">消费金额：</span>
+                    <span class="bill_key color-gray">
+                        <% if(item.type === "new"){ %>
+                        开卡金额：
+                        <% }else if(item.type === "recharge"){ %>
+                        充值金额：
+                        <% }else{  %>
+                        消费金额：
+                        <% } %>
+                    </span>
                     <span class="bill_value">￥<%= (item.amount || 0 == item.amount) ? item.amount.toFixed(1) : 0.0 %></span>
                 </div>
             </div>

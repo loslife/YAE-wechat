@@ -21,7 +21,7 @@ function jumpToWMember(req, res, next) {
             return;
         }
         res.render("member", {enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo});
-    })
+    });
 
     function _queryMemberData(callback) {
 
@@ -540,8 +540,8 @@ function queryMemberBill(enterpriseId, memberId, callback) {
 
     function _buildMemberBill(callback) {
 
-        // 填充消费信息
-        _.each((rechargeRecords || []).concat(consumptionRecords || []), function (item) {
+        // 构造数据
+        _.each(rechargeRecords.concat(consumptionRecords), function(item) {
             bill.push(_buildBillDetail(item));
         });
 
@@ -553,19 +553,24 @@ function queryMemberBill(enterpriseId, memberId, callback) {
         callback(null);
 
         function _buildBillDetail(bill) {
+
             var items = [];
-            var type = bill.type;//1、充值；2、开卡；没有表示为收银
-            if (!type) {
+
+            // 项目名称
+            if(!bill.type) {
                 _.each(bill.items, function (item) {
                     if (item.project_name && !_.isEmpty(item.project_name)) {
                         items.push(item.project_name);
                     }
                 });
-            } else {
-                items.push(1 == type ? "充值" : "开卡");
+            }else if(bill.type === 7 || bill.type === 9 || bill.type === 8 || bill.type === 10){
+                items.push(bill.comment);// 赠送服务，优惠活动赠送服务，现金券，优惠活动现金券
+            }else{
+                items.push(bill.memberCard_name);// 开新卡，充值卡
             }
+
+            // 过滤相同员工
             var employees = [];
-            //过滤相同员工
             var bonus = _.groupBy(bill.bonus || [], function (item) {
                 return item.employee_id;
             });
@@ -577,7 +582,23 @@ function queryMemberBill(enterpriseId, memberId, callback) {
                     }
                 }
             });
-            return {date: bill.create_date, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount};
+
+            var type = "";
+            if(!bill.type){
+                type = "consume";
+            }else if(bill.type === 1){
+                type = "new";
+            }else if(bill.type === 2){
+                type = "recharge";
+            }else if(bill.type === 7 || bill.type === 9){
+                type = "service";
+            }else if(bill.type === 8 || bill.type === 10){
+                type = "coupon";
+            }else{
+                type = "consume";// 无法识别，视为普通消费
+            }
+
+            return {date: bill.create_date, items: items.toString(), employees: _.isEmpty(employees) ? "无" : employees.toString(), amount: bill.amount, type: type};
         }
     }
 }
