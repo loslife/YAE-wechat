@@ -164,9 +164,9 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
     function _queryCards(callback) {
 
-        var sql = "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date," +
-            " b.name, b.baseInfo_type as type" +
-            " from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
+        var sql = "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date, " +
+            "b.name, b.baseInfo_type as type " +
+            "from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
             "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id";
 
         dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
@@ -194,9 +194,9 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 // 计次卡
                 if (card.type === "recordTimeCard") {
 
-                    var sql = "select a.value, a.def_int1 as bind_group" +
-                        " from planx_graph.tb_membercardattrmap a" +
-                        " where a.groupName = 'recordCardBalance' and a.memberCardId = :card_id and a.enterprise_id = :enterprise_id";
+                    var sql = "select b.name as serviceName, a.value, a.def_int1 as bind_group" +
+                        " from planx_graph.tb_membercardattrmap a, planx_graph.tb_service b" +
+                        " where a.groupName = 'recordCardBalance' and a.memberCardId = :card_id and a.enterprise_id = :enterprise_id and a.keyName = b.id";
 
                     dbHelper.execSql(sql, {enterprise_id: enterprise_id, card_id: card.card_id}, function (err, result) {
 
@@ -205,6 +205,13 @@ function queryMemberData(enterprise_id, member_id, callback) {
                             return;
                         }
 
+                        // 统计各项服务剩余次数
+                        card.services = [];
+                        _.each(result, function(item){
+                            card.services.push({name: item.serviceName, count: item.value});
+                        });
+
+                        // 统计服务总剩余次数
                         var grouped = _.values(_.groupBy(result, function (item) {
                             return item.bind_group;
                         }));

@@ -84,18 +84,16 @@
                <div class="bottom_half_expand">
 
                    <ul>
+
+                       <% card.services.forEach(function(service){ %>
+
                        <li>
-                           <span class="item_name">雕花水晶甲</span>
-                           <span class="item_count">1次</span>
+                           <span class="item_name"><%= service.name %></span>
+                           <span class="item_count"><%= service.count %>次</span>
                        </li>
-                       <li>
-                           <span class="item_name">炫彩美甲</span>
-                           <span class="item_count">2次</span>
-                       </li>
-                       <li>
-                           <span class="item_name">新娘妆节日特典</span>
-                           <span class="item_count">13次</span>
-                       </li>
+
+                       <% }); %>
+
                    </ul>
 
                    <div>
