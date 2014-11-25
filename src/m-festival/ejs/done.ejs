@@ -1,14 +1,12 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/m-festival/static/result.js')
         .css("/m-festival/static/css/result.css")
         .done(config) %>
 
 <% }else{ %>
 
 <%- Loader()
-        .js('/m-festival/result.min.js')
         .css("/m-festival/css/result.min.css")
         .done(config) %>
 
@@ -21,18 +19,37 @@
 <% } %>
 
     <% if(type === "success"){ %>
+
         <img src="/resource/diamond.png">
+
+        <% if(isMember === "no"){ %>
         <div>已发送短信至您的手机，请凭短信到店消费。</div>
+        <% } %>
+
     <% }else{ %>
+
         <img src="/resource/present_got_duplicate.png">
-        <div>您已经领取过一次了，看看别的吧。</div>
+        <div>已经领取过一次了，下次再来吧！</div>
+
     <% } %>
 
 </div>
 
 <div id="follow">
-    <div>想了解更多优惠活动，请点击</div>
-    <a href="#">关注公众号</a>
-</div>
 
-<a id="back" class="back clear-fix">确定</a>
+    <% if(subscribe === "0"){ %>
+
+    <div>关注我们的公众号，了解更多精彩活动</div>
+    <a href="#">关注公众号</a>
+
+    <% }else if(isMember === "yes"){ %>
+
+    <a href="./member">查看优惠券</a>
+
+    <% }else{ %>
+
+    <a href="./shop">去店里逛逛</a>
+
+    <% } %>
+
+</div>

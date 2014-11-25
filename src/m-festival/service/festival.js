@@ -1,13 +1,17 @@
+var api = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var dao = require("./baseService");
 var request = require("request");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
+var tokenHelper = require("../../wx-utils/service/access_token_helper");
+var async = require("async");
 
 exports.list = list;
 exports.route = route;
 exports.getPresent = getPresent;
-exports.done = done;
+exports.doneRoute = doneRoute;
 exports.countShareTimes = countShareTimes;
+exports.done = done;
 
 var http_server = global["_g_clusterConfig"].baseurl + "/";//"http://10.171.203.219/svc/";
 
@@ -144,18 +148,104 @@ function getPresent(req, res, next){
     });
 }
 
-function done(req, res, next){
+// 从微信OAuth跳转到此链接
+function doneRoute(req, res, next){
 
-    var type = req.query["type"];
+    var type = req.query["state"];
+    var code = req.query["code"];
+
     var enterpriseId = req.params["enterpriseId"];
+    var member_id;
 
-    var model = {
-        enterprise_id: enterpriseId,
-        menu: "none",
-        type: type
-    };
+    if(req.session && req.session[enterpriseId]){
+        member_id = req.session[enterpriseId].member_id;
+    }
 
-    res.render("done", model);
+    // 非微信OAuth跳转
+    if(!code){
+        res.send("请通过微信打开此页面");
+        return;
+    }
+
+    async.waterfall([_resolveApp, _resolveOpenId, _queryFanInfo], function(err, subscribe){
+
+        var isMember = member_id ? "yes" : "no";
+
+        // 如果查询用户身份过程中出错，则视为未关注用户
+        if(err){
+            console.log(err);
+            res.redirect("/svc/wsite/" + enterpriseId + "/done?type=" + type + "&subscribe=0&isMember=" + isMember);
+        }else{
+            res.redirect("/svc/wsite/" + enterpriseId + "/done?type=" + type + "&subscribe=" + subscribe + "&isMember=" + isMember);
+        }
+    });
+
+    function _resolveApp(callback){
+
+        var app_id = "wxb5243e6a07f2e09a";
+        var app_secret = "06808347d62dd6a1fc33243556c50a5d";
+        callback(null, app_id, app_secret);
+    }
+
+    function _resolveOpenId(app_id, app_secret, callback){
+
+        api.exchangeAccessToken(app_id, app_secret, code, function(err, result){
+
+            if(err){
+                callback({errorCode: 501, errorMessage: "获取open_id失败"});
+                return;
+            }
+
+            callback(null, result.openid);
+        });
+    }
+
+    function _queryFanInfo(open_id, callback){
+
+        tokenHelper.getShareAccessToken(function(err, access_token){
+
+            if(err){
+                callback({errorCode: 502, errorMessage: "获取access_token失败"});
+                return;
+            }
+
+            api.getFanInfo(access_token, open_id, function(err, info){
+
+                if(!err){
+                    callback(null, info.subscribe);
+                    return;
+                }
+
+                switch(err.errcode){
+
+                    case 40001:
+                    case 42001:
+
+                        tokenHelper.refreshAccessToken("", function(err, access_token){
+
+                            if(err){
+                                callback({errorCode: 502, errorMessage: "刷新access_token失败"});
+                                return;
+                            }
+
+                            api.getFanInfo(access_token, result.openid, function(err, info){
+
+                                if(err){
+                                    callback(err);
+                                    return;
+                                }
+
+                                callback(null, info.subscribe);
+                            });
+                        });
+                        break;
+
+                    default:
+                        callback({code: err.errcode, message: err.errmsg});
+                }
+            });
+        });
+    }
 }
 
 function countShareTimes(req, res, next){
@@ -177,4 +267,23 @@ function countShareTimes(req, res, next){
             doResponse(req, res, {message: "ok"});
         });
     });
+}
+
+function done(req, res, next){
+
+    var enterpriseId = req.params["enterpriseId"];
+
+    var type = req.query["type"];
+    var subscribe = req.query["subscribe"];
+    var isMember = req.query["isMember"];
+
+    var model = {
+        enterprise_id: enterpriseId,
+        menu: "none",
+        type: type,
+        subscribe: subscribe,
+        isMember: isMember
+    };
+
+    res.render("done", model);
 }

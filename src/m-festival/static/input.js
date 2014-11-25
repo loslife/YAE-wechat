@@ -62,9 +62,9 @@ function init(){
             var status = response.result.status;
 
             if(status === 1){
-                location.href = "done?type=success";
+                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5243e6a07f2e09a&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + enterpriseId +"%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
             }else{
-                location.href = "done?type=repeat";
+                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5243e6a07f2e09a&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + enterpriseId +"%2FdoneRoute&response_type=code&scope=snsapi_base&state=repeat#wechat_redirect";
             }
         });
 

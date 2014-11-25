@@ -1,0 +1,19 @@
+{
+    "initial": {
+        "name": "initAccessToken",
+        "impl": "access_token_helper.initAccessToken",
+        "comment": "启动时，获取access_token"
+    },
+    "services": [
+
+    ],
+    "statics": [
+
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}

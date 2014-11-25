@@ -25,12 +25,20 @@
             "comment": "领取礼物"
         },
         {
+            "name": "festivalDoneRoute",
+            "path": "/wsite/:enterpriseId/doneRoute",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.doneRoute",
+            "comment": "领取优惠活动流程结束，从微信OAuth跳转"
+        },
+        {
             "name": "festivalDone",
             "path": "/wsite/:enterpriseId/done",
             "method": "get",
             "auth": false,
             "impl": "festival.done",
-            "comment": "领取优惠活动流程结束"
+            "comment": "领取优惠活动结果页面"
         },
         {
             "name": "countShareTimes",

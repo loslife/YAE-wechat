@@ -2,7 +2,7 @@ var wx = require("wechat-toolkit");
 var async = require("async");
 var _ = require("underscore");
 var memberService = require("./memberService");
-var tokenHelper = require("./access_token_helper");
+var tokenHelper = require("./../../wx-utils/service/access_token_helper");
 
 var error_message = "乐斯美蜜似乎出了点问题，正在修复中";
 var token = "yilos_wechat";
