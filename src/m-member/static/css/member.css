@@ -165,6 +165,10 @@ li > .card_shape {
 .card_name {
   font-size: 18px;
 }
+.card_coupon .card_name {
+  position: relative;
+  top: 5px;
+}
 .card_no {
   position: absolute;
   top: 0;
