@@ -32,7 +32,11 @@
 
     <li>
 
-        <% if(card.type === "recharge"){ %>
+        <% if(card.expired === true){ %>
+
+        <div class="card_shape is_expired">
+
+        <% }else if(card.type === "recharge"){ %>
 
         <div class="card_shape card_recharge">
 
@@ -49,6 +53,11 @@
             <div class="top_half">
 
                 <span class="card_name"><%= card.name %></span>
+
+                <% if(card.expired === true){ %>
+                <span class="expired_tag">过期</span>
+                <% } %>
+
                 <div class="card_no">
                     <span><%= card.cardNo %></span>
                     <% if(card.type === "recordTimeCard" && card.services.length > 1){ %>
@@ -120,11 +129,18 @@
     <% memberInfo.coupons.forEach(function(coupon){ %>
 
     <li>
-
+        <% if(coupon.expired === true){ %>
+        <div class="card_shape is_expired">
+        <% }else{ %>
         <div class="card_shape card_coupon">
+        <% } %>
 
             <div class="top_half">
                 <span class="card_name"><%= coupon.name %></span>
+
+                <% if(coupon.expired === true){ %>
+                <span class="expired_tag">过期</span>
+                <% } %>
             </div>
 
             <div class="bottom_half">

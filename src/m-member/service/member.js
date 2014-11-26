@@ -134,10 +134,17 @@ function queryMemberData(enterprise_id, member_id, callback) {
     var name = "";
 
     async.series([_queryBaseinfo, _queryCards, _queryServices, _queryDeposits, _queryCoupons], function (err) {
+
         if (err) {
             callback(err);
             return;
         }
+
+        var now = new Date().getTime();
+
+        _.each(cards.concat(coupons), function(item){
+            item.expired = (item.expired_time < now);
+        });
 
         var result = {
             cards: cards,

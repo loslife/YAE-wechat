@@ -137,6 +137,15 @@ li > .card_shape {
   float: right;
   margin-right: 5px;
 }
+.is_expired > .top_half {
+  background-color: #bdbcbc;
+}
+.is_expired > .bottom_half {
+  background-color: #a2a1a1;
+}
+.is_expired > .bottom_half_expand {
+  background-color: #a2a1a1;
+}
 .card_recharge > .top_half {
   background-color: #d7c4a4;
 }
@@ -208,4 +217,16 @@ li > .card_shape {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: right;
+}
+.expired_tag {
+  display: inline-block;
+  width: 36px;
+  height: 16px;
+  line-height: 16px;
+  padding: 1px;
+  background-color: #e65b70;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
 }
