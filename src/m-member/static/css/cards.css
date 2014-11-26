@@ -106,3 +106,14 @@ li > .card_shape {
   bottom: 5px;
   font-size: 12px;
 }
+.service_name {
+  position: absolute;
+  right: 5px;
+  bottom: 24px;
+  font-size: 12px;
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}

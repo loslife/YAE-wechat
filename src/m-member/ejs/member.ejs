@@ -51,7 +51,7 @@
                 <span class="card_name"><%= card.name %></span>
                 <div class="card_no">
                     <span><%= card.cardNo %></span>
-                    <% if(card.type === "recordTimeCard"){ %>
+                    <% if(card.type === "recordTimeCard" && card.services.length > 1){ %>
                     <img class="btn_expand" src="/resource/card_arrow_down.png">
                     <% } %>
                 </div>
@@ -81,6 +81,10 @@
                 </div>
 
                 <span class="card_expired">有效期至 <%= card.expired_time %></span>
+
+                <% if(card.type === "recordTimeCard" && card.services.length === 1){ %>
+                <span class="service_name">项目：<%= card.services[0].name %></span>
+                <% } %>
 
             </div>
 
