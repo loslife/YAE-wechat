@@ -228,7 +228,7 @@ function doneRoute(req, res, next){
                                 return;
                             }
 
-                            api.getFanInfo(access_token, result.openid, function(err, info){
+                            api.getFanInfo(access_token, open_id, function(err, info){
 
                                 if(err){
                                     callback(err);
