@@ -349,8 +349,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
     function _queryDeposits(callback) {
 
-        var sql = "select entityName, numberofuse from planx_graph.tb_memberaccessory" +
-            " where memberId = :member_id and type = 'depositItem' and enterprise_id = :enterprise_id";
+        var sql = "select entityName, numberofuse from planx_graph.tb_memberaccessoryentity" +
+            " where memberId = :member_id and enterprise_id = :enterprise_id";
 
         dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
