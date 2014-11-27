@@ -594,9 +594,9 @@ function queryMemberBill(enterpriseId, memberId, callback) {
             if(!bill.type){
                 type = "consume";
             }else if(bill.type === 1){
-                type = "new";
-            }else if(bill.type === 2){
                 type = "recharge";
+            }else if(bill.type === 2){
+                type = "new";
             }else if(bill.type === 7 || bill.type === 9){
                 type = "service";
             }else if(bill.type === 8 || bill.type === 10){
