@@ -296,7 +296,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
 
             var sql = "select value as times, def_str3 as serviceName, def_int2 as validDays, create_date" +
                 " from planx_graph.tb_memberCardAttrMap" +
-                " where groupName = 'presentService' and def_str2 = :member_id and enterprise_id = :enterprise_id and (status is null or status != 0);";
+                " where groupName = 'presentService' and def_str2 = :member_id and enterprise_id = :enterprise_id and (status is null or status != 0) and value != 0;";
 
             dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
