@@ -34,7 +34,7 @@ $(function () {
 
                 if (response.code !== 0) {
 
-                    alert("登陆失败，请检查手机号是否正确");
+                    alert("没有找到你的资料，询问店主，在美业管家中是否有你的会员信息。");
                     $(self).prop("disabled", false);
                 } else {
 
