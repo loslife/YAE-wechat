@@ -462,11 +462,15 @@ function queryMemberBill(enterpriseId, memberId, callback) {
 
     function _queryRechargeRecords(callback) {
 
-        dbHelper.queryData("tb_rechargeMemberBill", {member_id: memberId, enterprise_id: enterpriseId}, function (error, result) {
+        var sql = "select a.*, b.memberCardCategoryName" +
+            " from planx_graph.tb_rechargememberbill a, planx_graph.tb_membercard b" +
+            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_name = b.cardNo;";
 
-            if (error) {
-                logger.error("查询充值、开卡记录失败，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + error);
-                callback(error);
+        dbHelper.execSql(sql, {enterprise_id: enterpriseId, member_id: memberId}, function(err, result){
+
+            if (err) {
+                logger.error("查询充值、开卡记录失败，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + err);
+                callback(err);
                 return;
             }
 
@@ -573,7 +577,7 @@ function queryMemberBill(enterpriseId, memberId, callback) {
             }else if(bill.type === 7 || bill.type === 9 || bill.type === 8 || bill.type === 10 || bill.type == 5){
                 items.push(bill.comment);// 赠送服务，优惠活动赠送服务，现金券，优惠活动现金券，注销
             }else{
-                items.push(bill.memberCard_name);// 开新卡，充值卡
+                items.push(bill.memberCardCategoryName);// 开新卡，充值卡
             }
 
             // 过滤相同员工
