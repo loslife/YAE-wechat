@@ -132,6 +132,9 @@ li > .card_shape {
 .bottom_half_expand > div {
   padding-top: 7px;
 }
+.bottom_half_expand > .height_placeholder {
+  height: 19px;
+}
 .bottom_half_expand .item_count {
   float: right;
   margin-right: 5px;
