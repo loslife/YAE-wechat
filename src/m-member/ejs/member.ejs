@@ -89,7 +89,15 @@
 
                 </div>
 
-                <span class="card_expired">有效期至 <%= card.expired_time %></span>
+                <span class="card_expired">
+
+                    <% if(card.expired_time !== "不限期"){ %>
+                        有效期至
+                    <% } %>
+
+                    &nbsp;<%= card.expired_time %>
+
+                </span>
 
                 <% if(card.type === "recordTimeCard" && card.services.length === 1){ %>
                 <span class="service_name">项目：<%= card.services[0].name %></span>
@@ -115,7 +123,15 @@
                    </ul>
 
                    <div class="height_placeholder"></div>
-                   <div class="card_expired">有效期至 <%= card.expired_time %></div>
+                   <div class="card_expired">
+
+                       <% if(card.expired_time !== "不限期"){ %>
+                       有效期至
+                       <% } %>
+
+                       &nbsp;<%= card.expired_time %>
+
+                   </div>
 
                </div>
 

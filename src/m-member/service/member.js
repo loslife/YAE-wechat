@@ -42,8 +42,13 @@ function jumpToWMember(req, res, next) {
                 _.each(result.cards, function (card) {
 
                     card.currentConsumeDate = new Date(card.modify_date).Format("MM-dd");
+
                     if (card.expired_time) {
                         card.expired_time = new Date(card.expired_time).Format("yy-MM-dd");
+                    }
+
+                    if (card.periodOfValidity === 20000) {
+                        card.expired_time = "不限期";
                     }
                 });
 
