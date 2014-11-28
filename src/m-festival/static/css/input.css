@@ -14,18 +14,24 @@ body {
   border-radius: 6px;
 }
 #festival-introduce > .img {
+  position: relative;
   background-size: cover !important;
   width: 100%;
   padding-bottom: 50%;
   border-radius: 6px 6px 0 0;
 }
-#festival-introduce > .title {
-  font-size: 1.2rem;
-  background-color: #f75169;
-  color: white;
+.img > .title {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 100%;
   padding: 0.9rem;
+  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
 }
-#festival-introduce > .title > img {
+.title > img {
   position: relative;
   top: 1px;
   width: 1.2rem;
