@@ -80,6 +80,7 @@ li > .card_shape {
 .card_coupon > .top_half {
   background: url("/resource/member_coupon.png") repeat-x;
   border-radius: 0;
+  border: none;
 }
 .card_coupon > .bottom_half {
   background-color: #e65b70;
