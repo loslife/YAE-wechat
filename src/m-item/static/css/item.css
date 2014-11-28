@@ -29,7 +29,6 @@ body {
   width: 50%;
   border: 5px solid #e9e9ea;
   box-sizing: border-box;
-  margin-bottom: -5px;
   background: white;
 }
 .item-list li a {
@@ -38,12 +37,6 @@ body {
 }
 .item-list li a:active {
   border-color: #f0f0f1;
-}
-.item-list li:nth-child(odd) {
-  border-right-width: 2.5px;
-}
-.item-list li:nth-child(even) {
-  border-left-width: 2.5px;
 }
 .item-list .item-img {
   width: 100%;
