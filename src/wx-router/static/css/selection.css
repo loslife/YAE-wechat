@@ -56,8 +56,11 @@ body {
   bottom: 10px;
 }
 .inner img {
+  position: relative;
+  top: 1px;
   width: 12px;
 }
 .inner span {
   font-size: 12px;
+  color: #928d8d;
 }

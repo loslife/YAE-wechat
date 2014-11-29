@@ -111,6 +111,7 @@ function selectShop(req, res, next){
             var name = "";
             var phone = "";
             var addr = "";
+            var logUrl = "";
 
             for(var j = 0; j < results.length; j++){
 
@@ -118,11 +119,12 @@ function selectShop(req, res, next){
                     name = results[j].name || "未命名店铺";
                     phone = results[j].phone || "";
                     addr = results[j].address || "";
+                    logUrl = results[j].logUrl || "/svc/public/wechat/enterprise_default.png";
                     break;
                 }
             }
 
-            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr});
+            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr, logUrl: logUrl});
         }
 
         res.render("selection", {layout: false, params: params});
