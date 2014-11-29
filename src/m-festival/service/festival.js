@@ -4,6 +4,7 @@ var dao = require("./baseService");
 var request = require("request");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 var tokenHelper = require("../../wx-utils/service/access_token_helper");
+var appIdHelper = require("../../wx-utils/service/app_id_helper");
 var async = require("async");
 
 exports.list = list;
@@ -61,13 +62,21 @@ function route(req, res, next){
                     return;
                 }
 
-                if(!memberId){
-                    res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired});
-                }else{
-                    dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
-                        res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, duplicated: received});
-                    });
-                }
+                appIdHelper.getAppIdByEnterpriseId(enterpriseId, function(err, app_id, app_secret){
+
+                    if(err){
+                        next(err);
+                        return;
+                    }
+
+                    if(!memberId){
+                        res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, app_id: app_id});
+                    }else{
+                        dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
+                            res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, duplicated: received, app_id: app_id});
+                        });
+                    }
+                });
             });
         });
 
@@ -181,10 +190,7 @@ function doneRoute(req, res, next){
     });
 
     function _resolveApp(callback){
-
-        var app_id = "wxb5243e6a07f2e09a";
-        var app_secret = "06808347d62dd6a1fc33243556c50a5d";
-        callback(null, app_id, app_secret);
+        appIdHelper.getAppIdByEnterpriseId(enterpriseId, callback);
     }
 
     function _resolveOpenId(app_id, app_secret, callback){
@@ -285,5 +291,14 @@ function done(req, res, next){
         isMember: isMember
     };
 
-    res.render("done", model);
+    dbHelper.queryData("weixin_binding", {enterprise_id: enterpriseId}, function(err, results){
+
+        if(err){
+            next(err);
+            return;
+        }
+
+        model.share = (results.length === 0);
+        res.render("done", model);
+    });
 }

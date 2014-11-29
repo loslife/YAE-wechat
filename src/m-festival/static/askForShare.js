@@ -48,6 +48,7 @@ function init(){
             var storeName = $(".store-name").text();
             var festivalTitle = $("#f_title").text();
             var festivalDesc = $("#f_desc").text();
+            var app_id = $("#app_id").text();
 
             var wxData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
@@ -67,7 +68,7 @@ function init(){
 
                         var status = response.result.status;
                         if(status === 1){
-                            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb5243e6a07f2e09a&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + enterpriseId +"%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
+                            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + enterpriseId +"%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
                         }
                     });
 
