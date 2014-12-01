@@ -64,6 +64,7 @@ body{
 #m-selection > .shop-item > .description > .inner {
   position: absolute;
   bottom: 10px;
+  width: 100%;
 }
 
 .inner img {
@@ -73,6 +74,11 @@ body{
 }
 
 .inner span {
+  display: inline-block;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 12px;
   color: #928d8d;
 }
