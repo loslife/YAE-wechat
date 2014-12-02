@@ -332,8 +332,12 @@ function buildShelvesList(shelvesList, itemList) {
         if (!_.isEmpty(item)) {
             shelves.name = item.name;
             shelves.price = item.prices_salesPrice;
-            //todo replace url
-            shelves.imgPath = http_server + "public/mobile/backup/" + (item.baseInfo_image || "service_default.png");
+
+            if (item.baseInfo_image) {
+                shelves.imgPath =  http_server + "public/mobile/backup/" + item.baseInfo_image;
+            } else {
+                shelves.imgPath = http_server + "public/wechat/service_default.png";
+            }
         }
     });
     return shelvesList;

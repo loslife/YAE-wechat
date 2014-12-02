@@ -236,9 +236,13 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 var obj_file = document.getElementById("editSelectedFile");
                 var filesize = 0;
 
+                if(!obj_file.files[0]){
+                    return true;
+                }
+
                 if (browserCfg.firefox || browserCfg.chrome ){
                     filesize = obj_file.files[0].size;
-                    //alert(filesize);
+
                 }else if(browserCfg.ie){
                     var obj_img = document.getElementById("editTarget");
                     obj_img.dynsrc = obj_file.value;
