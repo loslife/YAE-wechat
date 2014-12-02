@@ -20,7 +20,8 @@
                 "sync",
                 "wx-router",
                 "light-entrance",
-                "wx-utils"
+                "wx-utils",
+                "setting"
             ]
         }
     ],

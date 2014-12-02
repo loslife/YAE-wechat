@@ -1,0 +1,110 @@
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js('/setting/static/kaitong.js')
+        .css("/setting/static/css/kaitong.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/setting/kaitong.js')
+        .css("/setting/css/kaitong.css")
+        .done(config) %>
+
+<% } %>
+
+<div id="admin-kaitong" ng-controller="kaitongController">
+
+    <div id="admin-kaitong-1" ng-if="ktState === 0">
+
+        <div>检查以下条件，满足即可开通微店：</div>
+
+        <ol>
+
+            <li>
+                <div class="intro_header">
+                    <img src="/resource/check_success.png" ng-if="checklist.baseinfo">
+                    <img src="/resource/check_fail.png" ng-if="!checklist.baseinfo">
+                    <span class="intro_tips" ng-class="{color_blue: checklist.baseinfo, color_red: !checklist.baseinfo}">店铺信息设置</span>
+                    <span>请在美业管家</span>
+                    <span class="color_blue">“管理台” -> “我的账号” -> “店铺资料”</span>
+                    <span>中设置，设置后做一次数据备份</span>
+                </div>
+                <div class="intro_pic">
+                    <img src="/resource/intro_1.png">
+                    <img src="/resource/intro_conn.png">
+                    <img src="/resource/intro_2.png">
+                    <img src="/resource/intro_conn.png">
+                    <img src="/resource/intro_3.png">
+                </div>
+            </li>
+
+            <li>
+                <div class="intro_header">
+                    <img src="/resource/check_success.png" ng-if="checklist.shelf">
+                    <img src="/resource/check_fail.png" ng-if="!checklist.shelf">
+                    <span class="intro_tips" ng-class="{color_blue: checklist.shelf, color_red: !checklist.shelf}">上架服务设置</span>
+                    <span>请至少选择一项店内服务上架至微店铺</span>
+                </div>
+                <div class="intro_pic">
+                    <img src="/resource/intro_4.png">
+                </div>
+            </li>
+        </ol>
+
+        <button ng-click="kaitong()" ng-disabled="!checklist.baseinfo || !checklist.shelf">开通微店</button>
+
+    </div>
+
+    <div id="admin-kaitong-2" ng-if="ktState === 1">
+
+        <div id="top_half">
+
+            <div id="left_half">
+
+                <div id="title">您的微店已开通</div>
+
+                <div class="color_blue" id="intro_use">您可以在乐斯美业管家中新增一个会员，该会员关注乐斯美蜜即可查看微店。</div>
+
+                <div>
+                    <img src="/resource/intro_5.png">
+                    <img src="/resource/intro_conn.png">
+                    <img src="/resource/intro_6.png">
+                </div>
+
+            </div>
+
+            <div id="right_half">
+                <img src="/resource/qr_code_15cm.jpg">
+                <a href="/resource/qr_code_15cm.jpg">下载二维码</a>
+                <span>注：向店内会员提供二维码，微信扫描二维码即可关注微店。</span>
+            </div>
+
+        </div>
+
+        <div id="bottom_half">
+
+            <div id="iphone_shell">
+
+                <% if(env === "dev"){ %>
+                <iframe src="http://127.0.0.1/svc/wsite/<%= enterpriseId %>/shop" width="320px" height="688px" frameborder="0" scrolling="yes"></iframe>
+                <% }else{ %>
+                <iframe src="http://wx.yilos.com/svc/wsite/<%= enterpriseId %>/shop" width="320px" height="688px" frameborder="0" scrolling="yes"></iframe>
+                <% } %>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    var kaitong_model = {
+        state: <%- state %>,
+        checklist: '<%- toJson(checklist)%>'
+    };
+
+</script>
