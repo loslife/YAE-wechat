@@ -287,7 +287,8 @@ function done(req, res, next){
         type: type,
         subscribe: subscribe,
         isMember: isMember,
-        share: appId === "wxb5243e6a07f2e09a"
+        share: appId === "wxb5243e6a07f2e09a",
+        app_id: appId
     };
 
     res.render("done", model);

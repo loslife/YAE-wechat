@@ -68,12 +68,12 @@ function init(){
 
                 if(bindings.length === 0){
 
-                    dist = "../memberNotFound";
+                    dist = "/svc/wsite/memberNotFound";
                 }else if(bindings.length === 1){
 
                     var enterprise_id = bindings[0].enterprise_id;
                     var member_id = bindings[0].member_id;
-                    dist = "./" + enterprise_id + "/shop?m_id=" + member_id;
+                    dist = "/svc/wsite/" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id;
                 }else{
 
                     var enterprises = [];
@@ -85,7 +85,7 @@ function init(){
                     }
 
                     var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
-                    dist = "../selection?" + params;
+                    dist = "/svc/wsite/selection?" + params;
                 }
 
                 $("#binding_success_tip").show();

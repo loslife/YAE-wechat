@@ -45,7 +45,7 @@ function route(req, res, next){
 
             // 根据此open_id无法判断所属店铺，要求用户输入手机号
             if(result.length === 0){
-                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: condition.wx_open_id, enterprise_id: ""});
+                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: condition.wx_open_id, enterprise_id: "", app_id: app_id});
                 return;
             }
 
