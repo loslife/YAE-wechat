@@ -49,7 +49,7 @@ function init(){
         var festival_id = $("#festival_id").text();
         var app_id = $("#app_id").text();
 
-        var url = "/svc/wsite/" + enterprise_id + "/getPresent?fid=" + festival_id;
+        var url = "/svc/wsite/" + app_id + "/" + enterprise_id + "/festival/getPresent?fid=" + festival_id;
 
         $.post(url, {phone: phone}, function (response) {
 
@@ -63,9 +63,9 @@ function init(){
             var status = response.result.status;
 
             if(status === 1){
-                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + enterprise_id +"%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
+                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F" + enterprise_id +"%2Ffestival%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
             }else{
-                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + enterprise_id +"%2FdoneRoute&response_type=code&scope=snsapi_base&state=repeat#wechat_redirect";
+                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F" + enterprise_id +"%2Ffestival%2FdoneRoute&response_type=code&scope=snsapi_base&state=repeat#wechat_redirect";
             }
         });
 
@@ -75,7 +75,7 @@ function init(){
     });
 
     $("#back").on("click", function ($even) {
-        location.href = "festival";
+        location.href = "../festival";
         $even.stopPropagation();
     });
 
@@ -91,10 +91,11 @@ function init(){
             var storeName = $(".store-name").text();
             var festivalTitle = $("#f_title").text();
             var festivalDesc = $("#f_desc").text();
+            var app_id = $("#app_id").text();
 
             var wxData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
                 "desc": festivalDesc,
                 "title": storeName + "·" + festivalTitle,
                 "appId": "wxf932fcca3e6bf697"
@@ -103,7 +104,7 @@ function init(){
             var wxCallbacks = {
 
                 confirm: function(resp) {
-                    var shareCountURL = "/svc/wsite/" + enterpriseId + "/countShare?fid=" + festivalId;
+                    var shareCountURL = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/countShare?fid=" + festivalId;
                     $.post(shareCountURL, {}, function(response){});
                 }
             };

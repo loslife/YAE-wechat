@@ -11,6 +11,7 @@ exports.memberBill = memberBill;
 function jumpToWMember(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
+    var app_id = req.params["appId"];
     var member_id = req.session[enterprise_id].member_id;
 
     var memberInfo = {};
@@ -20,7 +21,7 @@ function jumpToWMember(req, res, next) {
             next("会员数据查询失败");
             return;
         }
-        res.render("member", {enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo});
+        res.render("member", {app_id: app_id, enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo});
     });
 
     function _queryMemberData(callback) {
@@ -93,13 +94,14 @@ function jumpToWMember(req, res, next) {
 function checkSession(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
+    var app_id = req.params["appId"];
 
     if (req.session && req.session[enterprise_id] && req.session[enterprise_id].member_id) {
         next();
         return;
     }
 
-    res.redirect("/svc/wsite/" + enterprise_id + "/login");
+    res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/login");
 }
 
 function queryMemberCardInfo(req, res, next) {

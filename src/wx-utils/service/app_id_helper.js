@@ -1,11 +1,16 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
-exports.getAppIdByEnterpriseId = getAppIdByEnterpriseId;
+exports.getSecretByAppId = getSecretByAppId;
 
 // callback(err, app_id, app_secret)
-function getAppIdByEnterpriseId(enterprise_id, callback){
+function getSecretByAppId(app_id, callback){
 
-    dbHelper.queryData("weixin_binding", {enterprise_id: enterprise_id}, function(err, results){
+    if(app_id === "wxb5243e6a07f2e09a"){
+        callback(null, "wxb5243e6a07f2e09a", "06808347d62dd6a1fc33243556c50a5d");
+        return;
+    }
+
+    dbHelper.queryData("weixin_binding", {app_id: app_id}, function(err, results){
 
         if(err){
             callback(err);
@@ -13,9 +18,9 @@ function getAppIdByEnterpriseId(enterprise_id, callback){
         }
 
         if(results.length === 0){
-            callback(null, "wxb5243e6a07f2e09a", "06808347d62dd6a1fc33243556c50a5d");
+            callback({message: "app_id not found"});
         }else{
-            callback(null, results[0].app_id, results[0].app_secret);
+            callback(null, app_id, results[0].app_secret);
         }
     });
 }

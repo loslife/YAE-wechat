@@ -27,8 +27,9 @@ $(function () {
             }
 
             var enterprise_id = $("#enterprise_id").text();
+            var app_id = $("#app_id").text();
 
-            var url = "/svc/wsite/" + enterprise_id + "/login";
+            var url = "/svc/wsite/" + app_id + "/" + enterprise_id + "/login";
 
             $.post(url, {phone: phone}, function (response) {
 

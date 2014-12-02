@@ -50,7 +50,8 @@ function init(){
             }
 
             var open_id = $("#open_id").text();
-            var bindingURL = g_env.binding_url + "bindingAll";
+            var app_id = $("#app_id").text();
+            var bindingURL = g_env.binding_url + app_id + "/bindingAll";
             $.post(bindingURL, {open_id: open_id, phone: phone}, function(response){
 
                 var code = response.code;
@@ -67,7 +68,7 @@ function init(){
 
                 if(bindings.length === 0){
 
-                    dist = "memberNotFound";
+                    dist = "../memberNotFound";
                 }else if(bindings.length === 1){
 
                     var enterprise_id = bindings[0].enterprise_id;
@@ -84,7 +85,7 @@ function init(){
                     }
 
                     var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
-                    dist = "selection?" + params;
+                    dist = "../selection?" + params;
                 }
 
                 $("#binding_success_tip").show();

@@ -81,7 +81,7 @@
 
         <div id="pre_title" class="mb-1 lh-2">
             <div class="fr item-more">
-                <a href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
+                <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/festival">更多</a>
             </div>
             <div style="color: #434040; font-weight: bold">优惠活动</div>
         </div>
@@ -90,7 +90,7 @@
 
             <% festivals.forEach(function (item) { %>
 
-            <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/route?fid=<%= item.id %>'">
+            <li onclick="location.href='/svc/wsite/<%= app_id %>/<%= enterprise_id %>/festival/route?fid=<%= item.id %>'">
 
                 <div class="pre-img" style="background-image: url('<%= item.pic_url %>');">
                 </div>
@@ -115,7 +115,7 @@
 
         <div id="item_title" class="mb-1 lh-2">
             <div class="fr item-more">
-                <a class="" href="/svc/wsite/<%= enterprise_id %>/item">更多</a>
+                <a class="" href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/item">更多</a>
             </div>
             <div style="color: #434040; font-weight: bold">特色项目</div>
         </div>
@@ -124,7 +124,7 @@
 
             <% for(var i = 0; i < hotList.length; i++) { %>
             <li>
-                <a href="/svc/wsite/<%= enterprise_id %>/itemDetail/<%= hotList[i].itemId %>">
+                <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/itemDetail/<%= hotList[i].itemId %>">
 
                     <div class="item-img" style="background: url('<%= hotList[i].imgPath %>') no-repeat">
                     </div>
@@ -143,6 +143,7 @@
 
     <div class="none">
         <span id="enterprise_id"><%= enterprise_id %></span>
+        <span id="app_id"><%= app_id %></span>
     </div>
 
 </div>

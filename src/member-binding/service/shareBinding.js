@@ -54,7 +54,7 @@ function shareBind(req, res, next){
 
                 var phone = result[0].phone;
 
-                var url = baseurl + "/wsite/bindingAll";
+                var url = baseurl + "/wsite/" + app_id + "/bindingAll";
 
                 var options = {
                     method: "POST",
@@ -79,7 +79,7 @@ function shareBind(req, res, next){
                     var bindings = body.result;
 
                     if(bindings.length === 0){
-                        res.redirect("../memberNotFound");
+                        res.redirect("../../memberNotFound");
                         return;
                     }
 
@@ -99,12 +99,12 @@ function shareBind(req, res, next){
                     });
 
                     var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
-                    res.redirect("../selection?" + params);
+                    res.redirect("../../selection?" + params);
                 });
             }
 
             function redirectToBindPage(){
-                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: open_id, enterprise_id: ""});
+                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: open_id, enterprise_id: "", app_id: app_id});
             }
         });
     });

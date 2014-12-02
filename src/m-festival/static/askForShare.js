@@ -21,7 +21,7 @@ if(WeixinApi.openInWeixin()){
 function init(){
 
     $("#back").on("click", function ($even) {
-        location.href = "festival";
+        location.href = "../festival";
         $even.stopPropagation();
     });
 
@@ -52,7 +52,7 @@ function init(){
 
             var wxData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
                 "desc": festivalDesc,
                 "title": storeName + "·" + festivalTitle,
                 "appId": "wxf932fcca3e6bf697"
@@ -62,17 +62,17 @@ function init(){
 
                 confirm: function(resp) {
 
-                    var url = "/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId;
+                    var url = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/getPresent?fid=" + festivalId;
 
                     $.post(url, {}, function (response) {
 
                         var status = response.result.status;
                         if(status === 1){
-                            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + enterpriseId +"%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
+                            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F"+ enterpriseId +"%2Ffestival%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
                         }
                     });
 
-                    var shareCountURL = "/svc/wsite/" + enterpriseId + "/countShare?fid=" + festivalId;
+                    var shareCountURL = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/countShare?fid=" + festivalId;
                     $.post(shareCountURL, {}, function(response){});
                 }
             };

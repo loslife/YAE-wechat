@@ -2,12 +2,12 @@ var wx = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var async = require("async");
 
-var app_id = "wxb5243e6a07f2e09a";
-var app_secret = "06808347d62dd6a1fc33243556c50a5d";
+var share_app_id = "wxb5243e6a07f2e09a";
+var share_app_secret = "06808347d62dd6a1fc33243556c50a5d";
 
 exports.initAccessToken = initAccessToken;
 exports.refreshAccessToken = refreshAccessToken;
-exports.getShareAccessToken = getShareAccessToken;
+exports.getTokenByAppId = getTokenByAppId;
 
 function initAccessToken(app, clusterConfig) {
 
@@ -21,7 +21,7 @@ function initAccessToken(app, clusterConfig) {
 
     function requestAccessToken(callback){
 
-        wx.getAccessToken(app_id, app_secret, function(err, access_token){
+        wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token){
 
             if(err){
                 callback(err);
@@ -50,71 +50,54 @@ function initAccessToken(app, clusterConfig) {
     }
 }
 
-// 刷新商户的access_token
-// 如果enterprise_id未绑定，则更新共享服务号的access_token；否则更新独占服务号的access_token
+// 刷新共享或独占的access_token
 // callback(err, access_token)
-function refreshAccessToken(enterprise_id, callback){
+function refreshAccessToken(app_id, callback){
 
-    async.waterfall([_resolveType, _save], function(err, access_token){
+    if(app_id === ""){
+        refreshShare();
+    }else{
+        refreshExclusive();
+    }
 
-        if(err){
-            console.log("refresh access token fail");
-            console.log(err);
-            return;
-        }
+    function refreshShare(){
 
-        callback(null, access_token);
-    });
-
-    function _resolveType(callback){
-
-        dbHelper.queryData("weixin_binding", {enterprise_id: enterprise_id}, function(err,results){
+        wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token){
 
             if(err){
                 callback(err);
                 return;
             }
 
-            callback(null, results);
-        });
-    }
-
-    function _save(results, callback){
-
-        if(results.length === 0){
-            refreshShare();
-        }else{
-            refreshExclusive();
-        }
-
-        function refreshShare(){
-
-            wx.getAccessToken(app_id, app_secret, function(err, access_token){
+            dbHelper.update({}, "weixin_share_access_token", {access_token: access_token}, function(err, result) {
 
                 if(err){
                     callback(err);
                     return;
                 }
 
-                dbHelper.update({}, "weixin_share_access_token", {access_token: access_token}, function(err, result) {
-
-                    if(err){
-                        callback(err);
-                        return;
-                    }
-
-                    callback(null, access_token);
-                });
+                callback(null, access_token);
             });
-        }
+        });
+    }
 
-        function refreshExclusive(){
+    function refreshExclusive(){
+
+        dbHelper.queryData("weixin_binding", {app_id: app_id}, function(err,results){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            if(results.length === 0){
+                callback({message: "app_id not found"});
+                return;
+            }
 
             var model = results[0];
-            var self_app_id = model.app_id;
-            var self_aap_secret = model.app_secret;
 
-            wx.getAccessToken(self_app_id, self_aap_secret, function(err, access_token){
+            wx.getAccessToken(app_id, model.app_secret, function(err, access_token){
 
                 if(err){
                     callback(err);
@@ -133,25 +116,45 @@ function refreshAccessToken(enterprise_id, callback){
                     callback(null, access_token);
                 });
             });
-        }
+        });
     }
 }
 
 // callback(err, access_token)
-function getShareAccessToken(callback){
+function getTokenByAppId(app_id, callback){
 
-    dbHelper.queryData("weixin_share_access_token", {}, function(err, results){
+    if(app_id === ""){
 
-        if(err){
-            callback(err);
-            return;
-        }
+        dbHelper.queryData("weixin_share_access_token", {}, function(err, results){
 
-        if(results.length === 0){
-            callback({message: "access_token not found"});
-            return;
-        }
+            if(err){
+                callback(err);
+                return;
+            }
 
-        callback(null, results[0].access_token);
-    });
+            if(results.length === 0){
+                callback({message: "access_token not found"});
+                return;
+            }
+
+            callback(null, results[0].access_token);
+        });
+
+    }else{
+
+        dbHelper.queryData("weixin_binding", {app_id: app_id}, function(err,results){
+
+            if(err){
+                callback(err);
+                return;
+            }
+
+            if(results.length === 0){
+                callback({message: "app_id not found"});
+                return;
+            }
+
+            callback(null, results[0].access_token);
+        });
+    }
 }

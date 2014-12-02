@@ -60,10 +60,11 @@ function init(){
         function attachShareCallback(){
 
             var enterpriseId = $("#enterprise_id").text();
+            var appId = $("#app_id").text();
 
             var wxData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/shop",
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + appId + "/" + enterpriseId + "/shop",
                 "desc": "发现一家很棒的美甲店噢，推荐给你",
                 "title": "这家美甲店超棒",
                 "appId": "wxf932fcca3e6bf697"

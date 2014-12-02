@@ -22,6 +22,6 @@ function init(){
 
     $(".festival-item").click(function(){
         var fid = $(this).children("span").text();
-        location.href = "route?fid=" + fid;
+        location.href = "./festival/route?fid=" + fid;
     });
 }

@@ -10,7 +10,7 @@
 module.exports = function(req, res, next){
 
     var paths = req.path.split("/");
-    var enterprise_id = paths[1];
+    var enterprise_id = paths[2];
 
     var member_id = req.query["m_id"];
 

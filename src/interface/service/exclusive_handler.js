@@ -20,8 +20,9 @@ function handleMessage(req, res, next){
 
     var enterprise_id = req.query["e"];
     var token = "yilos_wechat";// default token
+    var app_id = "";
 
-    async.waterfall([_queryToken, _validate, _doHandle], function(err){
+    async.series([_queryToken, _validate, _doHandle], function(err){
 
         if(err){
             console.log(err);
@@ -46,6 +47,11 @@ function handleMessage(req, res, next){
             if(result[0].token){
                 token = result[0].token;
             }
+
+            if(result[0].app_id){
+                app_id = result[0].app_id;
+            }
+
             callback(null);
         });
     }
@@ -79,7 +85,7 @@ function handleMessage(req, res, next){
 
         function handleTextMessage(){
 
-            var url = server_address + "svc/wsite/" + enterprise_id + "/shop";
+            var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/shop";
 
             var item = {
                 title: "请访问我们的微网站",
@@ -159,7 +165,7 @@ function handleMessage(req, res, next){
 
                 function handleWSITE(){
 
-                    var url = server_address + "svc/wsite/" + enterprise_id + "/shop";
+                    var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/shop";
 
                     memberService.hasMemberBinding(fan_open_id, enterprise_id, function(err, flag, member_id){
 
@@ -200,7 +206,7 @@ function handleMessage(req, res, next){
                             return;
                         }
 
-                        var url = server_address + "svc/wsite/" + enterprise_id + "/binding?open_id=" + fan_open_id;
+                        var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/binding?open_id=" + fan_open_id;
 
                         var item = {
                             title: "点击绑定",
@@ -217,7 +223,7 @@ function handleMessage(req, res, next){
 
                 function handleMemberUnbind(){
 
-                    var unbindServiceUrl = server_address + "svc/wsite/" + enterprise_id + "/unbind";
+                    var unbindServiceUrl = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/unbind";
 
                     var options = {
                         method: "POST",
@@ -252,13 +258,13 @@ function handleMessage(req, res, next){
                         enterprise_id: enterprise_id
                     };
 
-                    memberService.queryCardsByCondition(condition, function(err, messages){
+                    memberService.queryCardsByCondition(app_id, condition, function(err, messages){
 
                         if(err){
 
                             if(err.message && err.message === "no_bindings"){
 
-                                var url = server_address + "svc/wsite/" + enterprise_id + "/binding?open_id=" + fan_open_id;
+                                var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/binding?open_id=" + fan_open_id;
 
                                 var item = {
                                     title: "请先绑定会员",

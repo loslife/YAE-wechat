@@ -36,7 +36,7 @@ function hasMemberBinding(fan_open_id, enterprise_id, callback){
 }
 
 // callback(err, messages)
-function queryCardsByCondition(condition, callback){
+function queryCardsByCondition(app_id, condition, callback){
 
     dbHelper.queryData("weixin_member_binding", condition, function(err, result){
 
@@ -109,7 +109,7 @@ function queryCardsByCondition(condition, callback){
 
                     var cards = body.result.cards;
 
-                    var url = server_address + "svc/wsite/" + enterprise_id + "/member?m_id=" + member_id;
+                    var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/member?m_id=" + member_id;
 
                     if(cards.length === 0){
 

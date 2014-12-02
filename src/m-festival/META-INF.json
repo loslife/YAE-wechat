@@ -2,7 +2,7 @@
     "services": [
         {
             "name": "festivalList",
-            "path": "/wsite/:enterpriseId/festival",
+            "path": "/wsite/:appId/:enterpriseId/festival",
             "method": "get",
             "auth": false,
             "impl": "festival.list",
@@ -10,7 +10,7 @@
         },
         {
             "name": "festivalRouter",
-            "path": "/wsite/:enterpriseId/route",
+            "path": "/wsite/:appId/:enterpriseId/festival/route",
             "method": "get",
             "auth": false,
             "impl": "festival.route",
@@ -18,7 +18,7 @@
         },
         {
             "name": "getPresent",
-            "path": "/wsite/:enterpriseId/getPresent",
+            "path": "/wsite/:appId/:enterpriseId/festival/getPresent",
             "method": "post",
             "auth": false,
             "impl": "festival.getPresent",
@@ -26,7 +26,7 @@
         },
         {
             "name": "festivalDoneRoute",
-            "path": "/wsite/:enterpriseId/doneRoute",
+            "path": "/wsite/:appId/:enterpriseId/festival/doneRoute",
             "method": "get",
             "auth": false,
             "impl": "festival.doneRoute",
@@ -34,7 +34,7 @@
         },
         {
             "name": "festivalDone",
-            "path": "/wsite/:enterpriseId/done",
+            "path": "/wsite/:appId/:enterpriseId/festival/done",
             "method": "get",
             "auth": false,
             "impl": "festival.done",
@@ -42,7 +42,7 @@
         },
         {
             "name": "countShareTimes",
-            "path": "/wsite/:enterpriseId/countShare",
+            "path": "/wsite/:appId/:enterpriseId/festival/countShare",
             "method": "post",
             "auth": false,
             "impl": "festival.countShareTimes",

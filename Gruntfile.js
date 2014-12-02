@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: false,
                         cwd: sourceDir,
-                        src: ["**/static/**/*.js"],
+                        src: ["**/static/**/*.js", "!setting/**/*"],
                         filter: "isFile",
                         dest: frontDir,
                         ext: ".min.js",
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: false,
                         cwd: sourceDir,
-                        src: ["**/static/css/**/*.css"],
+                        src: ["**/static/css/**/*.css", "!setting/**/*"],
                         dest: frontDir,
                         ext: ".min.css",
                         rename: clipStaticPath
@@ -78,6 +78,14 @@ module.exports = function (grunt) {
                         src: ['resource/**/*.jpg', 'resource/**/*.png'],
                         filter: 'isFile',
                         dest: frontDir
+                    },
+                    {
+                        expand: true,
+                        flatten: false,
+                        cwd: sourceDir,
+                        src: ["setting/static/**/*"],
+                        dest: frontDir,
+                        rename: clipStaticPath
                     }
                 ]
             },

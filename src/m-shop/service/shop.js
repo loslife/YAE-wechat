@@ -11,6 +11,7 @@ exports.jumpToWShop = jumpToWShop;
 function jumpToWShop(req, res, next) {
 
     var enterpriseId = req.params.enterpriseId;
+    var appId = req.params.appId;
 
     dbHelper.queryData("weixin_setting", {enterprise_id: enterpriseId}, function(err, result){
 
@@ -49,7 +50,7 @@ function jumpToWShop(req, res, next) {
             info.comment = info.addr || "老板还没有写店铺介绍噢";
             info.logUrl = info.logUrl || "/svc/public/wechat/enterprise_default.png";
 
-            res.render("shop", {enterprise_id: enterpriseId, layout: "layout", menu: "store", festivals: festivals, hotList: hotShelvesList, store: info});
+            res.render("shop", {app_id: appId, enterprise_id: enterpriseId, layout: "layout", menu: "store", festivals: festivals, hotList: hotShelvesList, store: info});
         });
 
         function _queryHotItem(callback) {

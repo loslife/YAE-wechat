@@ -53,7 +53,7 @@ function route(req, res, next){
             if(result.length === 1){
                 var enterprise_id = result[0].enterprise_id;
                 var member_id = result[0].member_id;
-                res.redirect("../" + enterprise_id + "/shop?m_id=" + member_id);
+                res.redirect("../" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id);
                 return;
             }
 
@@ -127,7 +127,7 @@ function selectShop(req, res, next){
             params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr, logUrl: logUrl});
         }
 
-        res.render("selection", {layout: false, params: params});
+        res.render("selection", {layout: false, params: params, app_id: app_id});
     });
 }
 
