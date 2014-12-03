@@ -20,6 +20,8 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
+    $("#btn_share").prop("disabled", false);
+
     $("#back").on("click", function ($even) {
         location.href = "../festival";
         $even.stopPropagation();
@@ -28,7 +30,7 @@ function init(){
     // 如果是在微信中打开
     WeixinApi.ready(function(Api) {
 
-        $("#btn_share").tap(function(){
+        $("#btn_share").click(function(){
 
             var windowHeight = $(window).height();
             var contentHeight = $("#content").height();
