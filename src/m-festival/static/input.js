@@ -93,10 +93,18 @@ function init(){
             var festivalDesc = $("#f_desc").text();
             var app_id = $("#app_id").text();
 
-            var wxData = {
+            var friendData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
                 "desc": festivalDesc,
+                "title": storeName + "·" + festivalTitle,
+                "appId": "wxf932fcca3e6bf697"
+            };
+
+            var timelineData = {
+                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                "desc": storeName + " | " + festivalTitle + "：" + festivalDesc,
                 "title": storeName + "·" + festivalTitle,
                 "appId": "wxf932fcca3e6bf697"
             };
@@ -109,8 +117,8 @@ function init(){
                 }
             };
 
-            Api.shareToTimeline(wxData, wxCallbacks);
-            Api.shareToFriend(wxData);
+            Api.shareToTimeline(timelineData, wxCallbacks);
+            Api.shareToFriend(friendData, {});
         }
     });
 }
