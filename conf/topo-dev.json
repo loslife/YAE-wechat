@@ -22,7 +22,6 @@
                 "sync",
                 "wx-router",
                 "light-entrance",
-                "wx-utils",
                 "setting"
             ]
         }

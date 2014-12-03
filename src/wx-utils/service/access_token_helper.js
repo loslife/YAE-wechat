@@ -1,25 +1,38 @@
 var wx = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var async = require("async");
+var uuid = require('node-uuid');
 
 var share_app_id = "wxb5243e6a07f2e09a";
 var share_app_secret = "06808347d62dd6a1fc33243556c50a5d";
+var TABLE_NAME = "weixin_access_token";
 
-exports.initAccessToken = initAccessToken;
-exports.refreshAccessToken = refreshAccessToken;
 exports.getTokenByAppId = getTokenByAppId;
+exports.refreshAccessToken = refreshAccessToken;
 
-function initAccessToken(app, clusterConfig) {
+// callback(err, access_token)
+function getTokenByAppId(app_id, callback){
 
-    async.waterfall([requestAccessToken, insertOrUpdate], function(err){
+    dbHelper.queryData(TABLE_NAME, {app_id: app_id}, function(err, results){
 
         if(err){
-            console.log("init access token fail");
-            console.log(err);
+            callback(err);
+            return;
+        }
+
+        if(results.length !== 0){
+            callback(null, results[0].access_token);
+            return;
+        }
+
+        if(app_id === share_app_id){
+            generateShare();
+        }else{
+            generateExclusive();
         }
     });
 
-    function requestAccessToken(callback){
+    function generateShare(){
 
         wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token){
 
@@ -28,48 +41,7 @@ function initAccessToken(app, clusterConfig) {
                 return;
             }
 
-            callback(null, access_token);
-        });
-    }
-
-    function insertOrUpdate(access_token, callback){
-
-        dbHelper.queryData("weixin_share_access_token", {}, function(err, results){
-
-            if(err){
-                callback(err);
-                return;
-            }
-
-            if(results.length === 0){
-                dbHelper.addData("weixin_share_access_token", {access_token: access_token}, callback);
-            }else{
-                dbHelper.update({}, "weixin_share_access_token", {access_token: access_token}, callback);
-            }
-        });
-    }
-}
-
-// 刷新共享或独占的access_token
-// callback(err, access_token)
-function refreshAccessToken(app_id, callback){
-
-    if(app_id === "wxb5243e6a07f2e09a"){
-        refreshShare();
-    }else{
-        refreshExclusive();
-    }
-
-    function refreshShare(){
-
-        wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token){
-
-            if(err){
-                callback(err);
-                return;
-            }
-
-            dbHelper.update({}, "weixin_share_access_token", {access_token: access_token}, function(err, result) {
+            dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: share_app_id, id: uuid.v1()}, function(err){
 
                 if(err){
                     callback(err);
@@ -81,9 +53,9 @@ function refreshAccessToken(app_id, callback){
         });
     }
 
-    function refreshExclusive(){
+    function generateExclusive(){
 
-        dbHelper.queryData("weixin_binding", {app_id: app_id}, function(err,results){
+        dbHelper.queryData("weixin_binding", {app_id: app_id}, function(err, results){
 
             if(err){
                 callback(err);
@@ -95,18 +67,14 @@ function refreshAccessToken(app_id, callback){
                 return;
             }
 
-            var model = results[0];
-
-            wx.getAccessToken(app_id, model.app_secret, function(err, access_token){
+            wx.getAccessToken(app_id, results[0].app_secret, function(err, access_token){
 
                 if(err){
                     callback(err);
                     return;
                 }
 
-                model.access_token = access_token;
-
-                dbHelper.updateByID("weixin_binding", model, function(err){
+                dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: app_id, id: uuid.v1()}, function(err){
 
                     if(err){
                         callback(err);
@@ -121,28 +89,38 @@ function refreshAccessToken(app_id, callback){
 }
 
 // callback(err, access_token)
-function getTokenByAppId(app_id, callback){
+function refreshAccessToken(app_id, callback){
 
-    if(app_id === "wxb5243e6a07f2e09a"){
+    if(app_id === share_app_id){
+        refreshShare();
+    }else{
+        refreshExclusive();
+    }
 
-        dbHelper.queryData("weixin_share_access_token", {}, function(err, results){
+    function refreshShare(){
+
+        wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token){
 
             if(err){
                 callback(err);
                 return;
             }
 
-            if(results.length === 0){
-                callback({message: "access_token not found"});
-                return;
-            }
+            dbHelper.update({app_id: share_app_id}, TABLE_NAME, {access_token: access_token}, function(err) {
 
-            callback(null, results[0].access_token);
+                if(err){
+                    callback(err);
+                    return;
+                }
+
+                callback(null, access_token);
+            });
         });
+    }
 
-    }else{
+    function refreshExclusive(){
 
-        dbHelper.queryData("weixin_binding", {app_id: app_id}, function(err,results){
+        dbHelper.queryData("weixin_binding", {app_id: app_id}, function(err, results){
 
             if(err){
                 callback(err);
@@ -154,7 +132,23 @@ function getTokenByAppId(app_id, callback){
                 return;
             }
 
-            callback(null, results[0].access_token);
+            wx.getAccessToken(app_id, results[0].app_secret, function(err, access_token){
+
+                if(err){
+                    callback(err);
+                    return;
+                }
+
+                dbHelper.update({app_id: app_id}, TABLE_NAME, {access_token: access_token}, function(err){
+
+                    if(err){
+                        callback(err);
+                        return;
+                    }
+
+                    callback(null, access_token);
+                });
+            });
         });
     }
 }
