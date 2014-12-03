@@ -147,7 +147,7 @@ function handleMessage(req, res, next){
 
                             function _initAccessToken(callback){
 
-                                tokenHelper.getTokenByAppId("", function(err, access_token){
+                                tokenHelper.getTokenByAppId(app_id, function(err, access_token){
 
                                     if(err){
                                         callback(err);
@@ -179,7 +179,7 @@ function handleMessage(req, res, next){
                                             case 40001:
 
                                             case 42001:
-                                                tokenHelper.refreshAccessToken("", function(err, access_token){
+                                                tokenHelper.refreshAccessToken(app_id, function(err, access_token){
 
                                                     if(err){
                                                         next(err);

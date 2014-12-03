@@ -54,7 +54,7 @@ function initAccessToken(app, clusterConfig) {
 // callback(err, access_token)
 function refreshAccessToken(app_id, callback){
 
-    if(app_id === ""){
+    if(app_id === "wxb5243e6a07f2e09a"){
         refreshShare();
     }else{
         refreshExclusive();
@@ -123,7 +123,7 @@ function refreshAccessToken(app_id, callback){
 // callback(err, access_token)
 function getTokenByAppId(app_id, callback){
 
-    if(app_id === ""){
+    if(app_id === "wxb5243e6a07f2e09a"){
 
         dbHelper.queryData("weixin_share_access_token", {}, function(err, results){
 
