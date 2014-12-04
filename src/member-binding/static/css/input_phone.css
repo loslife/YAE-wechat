@@ -1,3 +1,6 @@
+body {
+  background-color: #e9e9ea;
+}
 #m-binding {
   min-height: 100%;
   padding: 10px;
@@ -7,6 +10,14 @@
 .form-area {
   background: white;
   width: 100%;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
+}
+.form-area > div {
+  background-color: #f8f8f9;
+  border-radius: 6px 6px 0 0;
+  height: 45px;
+  line-height: 45px;
 }
 input {
   width: 100%;
@@ -61,7 +72,7 @@ button {
   border-radius: 4px;
 }
 button:disabled {
-  background-color: gray !important;
+  background-color: #c6c6c6 !important;
 }
 .btn_code button {
   background: #7accbe;
@@ -79,7 +90,7 @@ button:disabled {
 .message {
   font-size: 12px;
   color: gray;
-  padding-left: 1rem;
+  padding: 0 0 1rem 1rem;
 }
 #binding_success_tip {
   display: none;

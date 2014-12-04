@@ -20,15 +20,17 @@ if(WeixinApi.openInWeixin()){
 
 function init(){
 
+    $("#btn_share").prop("disabled", false);
+
     $("#back").on("click", function ($even) {
-        location.href = "festival";
+        location.href = "../festival";
         $even.stopPropagation();
     });
 
     // 如果是在微信中打开
     WeixinApi.ready(function(Api) {
 
-        $("#btn_share").tap(function(){
+        $("#btn_share").click(function(){
 
             var windowHeight = $(window).height();
             var contentHeight = $("#content").height();
@@ -45,35 +47,48 @@ function init(){
 
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
-            var slogan = $("#slogan").text();
+            var storeName = $(".store-name").text();
+            var festivalTitle = $("#f_title").text();
+            var festivalDesc = $("#f_desc").text();
+            var app_id = $("#app_id").text();
 
-            var wxData = {
+            var friendData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "desc" : slogan,
-                "title": ""
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                "desc": festivalDesc,
+                "title": storeName + "·" + festivalTitle,
+                "appId": "wxf932fcca3e6bf697"
+            };
+
+            var timelineData = {
+                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                "desc": storeName + " | " + festivalTitle + "：" + festivalDesc,
+                "title": storeName + "·" + festivalTitle,
+                "appId": "wxf932fcca3e6bf697"
             };
 
             var wxCallbacks = {
 
                 confirm: function(resp) {
 
-                    var url = "/svc/wsite/" + enterpriseId + "/getPresent?fid=" + festivalId;
+                    var url = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/getPresent?fid=" + festivalId;
 
                     $.post(url, {}, function (response) {
 
                         var status = response.result.status;
                         if(status === 1){
-                            location.href = "done";
+                            location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F"+ enterpriseId +"%2Ffestival%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
                         }
                     });
 
-                    var shareCountURL = "/svc/wsite/" + enterpriseId + "/countShare?fid=" + festivalId;
+                    var shareCountURL = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/countShare?fid=" + festivalId;
                     $.post(shareCountURL, {}, function(response){});
                 }
             };
 
-            Api.shareToTimeline(wxData, wxCallbacks);
+            Api.shareToTimeline(timelineData, wxCallbacks);
+            Api.shareToFriend(friendData, {});
         }
     });
 }

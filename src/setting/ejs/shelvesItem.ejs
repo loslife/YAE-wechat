@@ -1,0 +1,81 @@
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js('/setting/static/shelvesItem.js')
+        .css("/setting/static/css/productItem.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/setting/shelvesItem.js')
+        .css("/setting/css/productItem.css")
+        .done(config) %>
+
+<% } %>
+
+<div id="shelvesItem-area" ng-controller="shelvesItemController">
+    <div class="item-list-head">
+        <div class="btn-style1" ng-click="addHotItem()"
+             onselectstart="return false;">
+            首页推荐
+        </div>
+
+        <div class="btn-style1 ml-2" ng-click="delHotItem()"
+             onselectstart="return false;">
+            取消推荐
+        </div>
+
+        <div class="btn-style1 ml-2" ng-click="delShelvesItem()"
+             onselectstart="return false;">
+            下架
+        </div>
+
+    </div>
+
+    <ul class="shelves-list container-fluid">
+        <li class="row" ng-repeat="item in shelvesList" ng-click="selectItem(item)">
+
+            <div class="col-md-2 col-xs-4 "
+                 ng-class="{hot_status:item.hot == 1}">
+                 <!--shelves-status -->
+
+                <span width="20px"></span>
+
+                <input type="checkbox" ng-model="item.selected" class="ml-2" ng-click="selectItem(item)"/>
+
+                <img ng-src="{{item.imgPath}}" alt=""/>
+            </div>
+
+            <div class="col-md-2 col-xs-4">
+                <span>{{item.name}}</span><span></span>
+            </div>
+
+
+
+            <div class="col-md-1 col-xs-4">
+                <span>{{item.price | number:1}}</span><span></span>
+            </div>
+
+            <div class="col-md-7 col-xs-12 text-center" ng-show="!item.comment && !item.isEditing">
+                <span class="btn-style2"
+                      ng-click="commentEditInit(item);$event.stopPropagation();">添加描述</span><span></span>
+            </div>
+
+            <div class="col-md-7 col-xs-12 comment" ng-show="item.isEditing" ng-click="$event.stopPropagation();">
+                <textarea cols="30" ng-model="item.commentEdit" ng-click="commentEditSave()" maxlength="120" placeholder="字数限制120以内"></textarea><span
+                        class="btn-style2"
+                        ng-click="commentEditCommit(item);$event.stopPropagation();">确定</span><span></span>
+            </div>
+
+            <div class="col-md-7 col-xs-12 comment" ng-show="item.comment && !item.isEditing">
+                <span>{{item.comment}}</span><span class="btn-style2"
+                                                   ng-click="commentEditInit(item);$event.stopPropagation();">修改</span><span></span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var pageData = '<%- JSON.stringify({shelvesList: shelvesList}) %>';
+</script>

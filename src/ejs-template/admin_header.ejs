@@ -1,0 +1,38 @@
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<%- Loader()
+        .js(staticUrl('/3rd-lib/jquery-1.8.3.js'))
+        .js(staticUrl('/3rd-lib/angular/angular.js'))
+        .js(staticUrl('/3rd-lib/underscore.js'))
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/bootstrap.min.js'))
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/plugins/metisMenu/jquery.metisMenu.js'))
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/plugins/morris/raphael-2.1.0.min.js'))
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/plugins/morris/morris.js'))
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/plugins/dataTables/jquery.dataTables.js'))
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/plugins/dataTables/dataTables.bootstrap.js'))
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrapvalidator/bootstrapValidator.js'))//不要引min.js，因为在bootstrapValidator增加了一个same的validator
+        .js(staticUrl('/3rd-lib/bootstrap-3.1.1/js/admin.js'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/css/bootstrap.min.css'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/css/bootstrap-theme.min.css'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/font-awesome/css/font-awesome.css'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/css/plugins/morris/morris-0.4.3.min.css'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/css/plugins/timeline/timeline.css'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/css/plugins/dataTables/dataTables.bootstrap.css'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/css/plugins/bootstrapvalidator/bootstrapValidator.css'))
+        .css(staticUrl('/3rd-lib/less-lib/widget.css'))
+        .css(staticUrl('/3rd-lib/bootstrap-3.1.1/css/admin.css'))
+        .done(config)
+%>
+<link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png"/>
+
+<script>
+    var YLSMainModule = angular.module('mainModule',[]);
+</script>
+
+<!--[if lt IE 9]>
+<!--<script src="/3rd-lib/html5shiv.js"></script>-->
+
+<script src="<%= staticUrl('/3rd-lib/respond.min.js') %>"></script>
+<link href="<%= staticUrl('/3rd-lib/bootstrap-ie8.css') %>" rel="stylesheet">
+
+<![endif]-->

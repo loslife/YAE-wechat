@@ -20,28 +20,28 @@
 
 <ul id="menu" class="menu <% if (menu == 'none') { %>none<% } %>">
     <li class="<% if (menu == 'store') { %>selected<% } %>">
-        <a class="block" href="/svc/wsite/<%= enterprise_id %>/shop">
+        <a class="block" href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/shop">
             <i class="icon icon-store"></i>
 
             <div>店铺信息</div>
         </a>
     </li>
     <li class="<% if (menu == 'item') { %>selected<% } %>">
-        <a class="block" href="/svc/wsite/<%= enterprise_id %>/item">
+        <a class="block" href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/item">
             <i class="icon icon-item"></i>
 
             <div>服务分类</div>
         </a>
     </li>
     <li class="<% if (menu == 'member') { %>selected<% } %>">
-        <a class="block" href="/svc/wsite/<%= enterprise_id %>/member">
+        <a class="block" href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/member">
             <i class="icon icon-member"></i>
 
             <div>会员专区</div>
         </a>
     </li>
     <li class="<% if (menu == 'festival') { %>selected<% } %>">
-        <a class="block" href="/svc/wsite/<%= enterprise_id %>/festival">
+        <a class="block" href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/festival">
             <i class="icon icon-activity"></i>
             <div>优惠活动</div>
         </a>

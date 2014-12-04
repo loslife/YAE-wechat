@@ -37,7 +37,8 @@
         "xlsjs":"0.7.0",
         "oss-client":"0.4.0",
         "moment":"2.0.0",
-        "wechat-toolkit": "0.2.3"
+        "wechat-toolkit": "0.2.6",
+        "gm": "1.6.0"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

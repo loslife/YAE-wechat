@@ -64,7 +64,7 @@
 
 <% } %>
 
-<% }else{ %>
+<% }else if(type === "entrance"){ %>
 
 <% if(env === "dev"){ %>
 
@@ -80,6 +80,22 @@
 
 <% } %>
 
+<% }else{ %>
+
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js('/m-login/static/login.js')
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/m-login/login.min.js')
+        .done(config) %>
+
+<% } %>
+
 <% } %>
 
 <body>
@@ -88,12 +104,17 @@
 
     <div class="form-area">
 
-        <div class="h-4 lh-4 text-center border-bottom">
-            <% if(type === "entrance"){ %>
-            登录
-            <% }else{ %>
-            绑定
-            <% } %>
+        <div class="text-center border-bottom">
+
+            <img src="/resource/member_icon.png" style="height: 14px; position: relative; top: 2px;">
+            <span style="color: #8d8d8d;">
+                <% if(type === "entrance" || type === "login"){ %>
+                登录
+                <% }else{ %>
+                绑定
+                <% } %>
+            </span>
+
         </div>
 
         <form class="width-full">
@@ -101,6 +122,7 @@
             <div class="none">
                 <span id="open_id"><%= open_id %></span>
                 <span id="enterprise_id"><%= enterprise_id %></span>
+                <span id="app_id"><%= app_id %></span>
             </div>
 
             <div class="input_phone">
@@ -117,7 +139,7 @@
 
             <div class="btn_binding">
                 <button type="button" id="btn_binding">
-                    <% if(type === "entrance"){ %>
+                    <% if(type === "entrance" || type === "login"){ %>
                     登录
                     <% }else{ %>
                     绑定
@@ -132,7 +154,7 @@
             <% } %>
 
             <div class="message" id="binding_success_tip">
-                <% if(type === "entrance"){ %>
+                <% if(type === "entrance" || type === "login"){ %>
                 登录成功，即将为您跳转...
                 <% }else{ %>
                 绑定成功，即将为您跳转...

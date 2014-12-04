@@ -1,10 +1,10 @@
 body{
   margin: 0;
   padding: 0;
+  background-color: #e9e9ea;
 }
 
 #m-selection {
-  background-color: #e9e9ea;
   min-height: 500px;
 }
 
@@ -19,42 +19,66 @@ body{
 
 #m-selection > .shop-item {
   display: block;
-  margin: .5rem 0;
-  background-color: white;
   text-decoration: none;
   color: inherit;
-  font-size: 0;
   position: relative;
+  overflow: hidden;
+}
+
+.odd {
+  background-color: #f8f8f9;
+}
+
+.even {
+  background-color: white;
 }
 
 #m-selection > .shop-item > .logo {
-  display: inline-block;
-  width: 35%;
+  float: left;
   box-sizing: border-box;
+  width: 80px;
+  height: 80px;
   padding: 10px;
 }
 
 #m-selection > .shop-item > .logo > img {
   width: 100%;
+  border: 1px solid white;
+  box-shadow: 5px 5px 14px -8px #000000;
 }
 
 #m-selection > .shop-item > .description {
-  display: inline-block;
-  width: 65%;
   box-sizing: border-box;
-  padding: 10px;
-  vertical-align: top;
+  padding: 10px 0;
+  margin-left: 80px;
 }
 
 #m-selection > .shop-item > .description > .name {
   box-sizing: border-box;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9e9ea;
-  font-size: 20px;
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 #m-selection > .shop-item > .description > .inner {
   position: absolute;
   bottom: 10px;
-  font-size: 1rem;
+  width: 100%;
+}
+
+.inner img {
+  position: relative;
+  top: 1px;
+  width: 12px;
+}
+
+.inner span {
+  display: inline-block;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: #928d8d;
 }

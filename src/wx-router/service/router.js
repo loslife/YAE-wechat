@@ -45,7 +45,7 @@ function route(req, res, next){
 
             // 根据此open_id无法判断所属店铺，要求用户输入手机号
             if(result.length === 0){
-                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: condition.wx_open_id, enterprise_id: ""});
+                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: condition.wx_open_id, enterprise_id: "", app_id: app_id});
                 return;
             }
 
@@ -53,7 +53,7 @@ function route(req, res, next){
             if(result.length === 1){
                 var enterprise_id = result[0].enterprise_id;
                 var member_id = result[0].member_id;
-                res.redirect("../" + enterprise_id + "/shop?m_id=" + member_id);
+                res.redirect("../" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id);
                 return;
             }
 
@@ -111,6 +111,7 @@ function selectShop(req, res, next){
             var name = "";
             var phone = "";
             var addr = "";
+            var logUrl = "";
 
             for(var j = 0; j < results.length; j++){
 
@@ -118,14 +119,15 @@ function selectShop(req, res, next){
                     name = results[j].name || "未命名店铺";
                     phone = results[j].phone || "";
                     addr = results[j].address || "";
+                    logUrl = results[j].logUrl || "/svc/public/wechat/enterprise_default.png";
                     break;
                 }
             }
 
-            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr});
+            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr, logUrl: logUrl});
         }
 
-        res.render("selection", {layout: false, params: params});
+        res.render("selection", {layout: false, params: params, app_id: app_id});
     });
 }
 

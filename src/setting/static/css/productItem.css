@@ -1,0 +1,227 @@
+#allItem-area {
+    border: 1px solid #e7e7e7;
+}
+
+.item-list-head {
+    padding: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.item-list-head .btn-style1 {
+    float: left;
+    height: 24px;
+    width: 60px;
+    line-height: 24px;
+    text-align: center;
+    background: #cbdced;
+    cursor: pointer;
+}
+
+.btn-style1:active {
+    background: #abbccd;
+}
+
+.item-list-head > form > input {
+    border: 1px solid #e7e7e7;
+    padding-left: 5px;
+}
+
+.item-list-head > form > input + span {
+    padding: 0 10px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.cate-list {
+    padding: 0 10px;
+    border-bottom: 1px solid #e7e7e7;
+    line-height: 36px;
+}
+
+.cate-list > li {
+    position: relative;
+    display: inline-block;
+    padding: 0 10px;
+    min-width: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cate-list > li:before {
+    content: "|";
+    position: absolute;
+    right: 0;
+    color: #363636;
+}
+
+.cate-list > li:last-child:before {
+    content: "";
+}
+
+.cate-list > li.selected {
+    color: #428bca;
+}
+
+.item-list {
+    padding: 0 10px;
+    overflow: auto;
+}
+
+.item-list > li {
+    display: inline-block;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    font-size: 0;
+}
+
+.item-list > li:first-child {
+    border-top: none;
+}
+
+.item-list > li > * {
+    display: inline-block;
+    vertical-align: middle;
+    height: 60px;
+    width: auto;
+    test-align:center;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.item-list > li > .item-name {
+    height: auto !important;
+}
+
+.item-list > li > .item-selected {
+    background: #ffffff;
+    content: "已上架";
+    color: red;
+    height: auto;
+    border: none;
+    text-align: center;
+    width:20px;
+}
+
+.item-list > li > div > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.item-list > li > div > *:last-child {
+    height: 100%;
+}
+
+.shelves-status:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #030303
+}
+
+.shelves-status.selected:before {
+    background: #9e9fa0;
+}
+
+.shelves-status.disable:before {
+    background: #ffffff;
+    content: "已上架";
+    top: 6px;
+    line-height: 16px;
+    text-align: center;
+    color: red;
+    height: auto;
+    border: none;
+}
+
+.btn-style2 {
+    line-height: 24px;
+    color: #428bca;
+    cursor: pointer;
+}
+
+.shelves-list {
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.shelves-list > li {
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px 0;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.shelves-list > li:last-child {
+    border-bottom: none;
+}
+
+.shelves-list .shelves-status:before {
+    left: 20px;
+}
+
+.shelves-list .hot_status:after {
+    content: "已推荐";
+    position: absolute;
+    width: 20px;
+    left: 0;
+    top: 6px;
+    line-height: 16px;
+    text-align: center;
+    color: red;
+}
+
+.shelves-list > li > div {
+    height: 60px;
+    padding: 0;
+}
+
+.shelves-list > li > div > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.shelves-list > li > div > *:last-child {
+    height: 100%;
+}
+
+.shelves-list .comment {
+    padding-right: 44px;
+}
+
+.shelves-list .comment > span:nth-child(2) {
+    position: absolute;
+    right: 0;
+    width: 44px;
+    text-align: right;
+    padding-right: 10px;
+    line-height: 60px;
+}
+
+.comment > textarea {
+    height: 60px;
+    width: 100%;
+    line-height: 16px;
+    padding: 6px;
+}
+
+.page-wrap {
+    text-align: center;
+    border-top: 1px solid #e7e7e7;
+    margin: 0 10px;
+}
+
+.item-page > span {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+}
+

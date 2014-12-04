@@ -1,0 +1,72 @@
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js('/setting/static/Jcrop.js')
+        .js('/setting/static/wechatSetting.js')
+        .css("/setting/static/css/Jcrop.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/setting/Jcrop.js')
+        .js('/setting/wechatSetting.js')
+        .css("/setting/css/Jcrop.css")
+        .done(config) %>
+
+<% } %>
+
+<div class="ofh">
+    <div class="mt-1 mb-1 pb-2" style="border-bottom: 1px solid lightgray;">
+
+        <li class="fs-16 mb-1">首页图片</li>
+
+        <img id="target" class="mr-1"
+             width="50%" src="<%= wechatSetting.picUrl %>"/>
+
+        <input id="fileSelect" type="file" accept="image/*" style="display: none;"/>
+
+        <br/>
+
+        <div id="fileSelectWrap" class="btn btn-default mr-1 mt-1">
+            选择图片
+        </div>
+
+        <div id="fileUpload" class="btn btn-default mt-1">上传图片</div>
+    </div>
+
+    <ul class="mt-1 pb-1">
+        <li class="fs-16 mb-1">
+            <span>店铺信息</span>
+            <div>
+                <img src="/resource/tips_icon.png" style="height: 12px">
+                <span style="color: #428bca; font-size: 12px">此处信息来自美业管家，请在美业管家“管理台” -> “我的账号”中设置。</span>
+            </div>
+        </li>
+        <li class="row lh-2">
+            <span class="col-md-2 col-xs-4">电话：</span>
+            <span class="col-md-10 col-xs-8"><%= store.phone %></span>
+        </li>
+        <li class="row lh-2">
+            <span class="col-md-2 col-xs-4">店铺地址：</span>
+            <span class="col-md-10 col-xs-8"><%= store.addr %></span>
+        </li>
+        <li class="row lh-2">
+            <span class="col-md-2 col-xs-4">营业时间：</span>
+            <span class="col-md-10 col-xs-8"><%= store.workHour %></span>
+        </li>
+        <li class="row lh-2">
+            <span class="col-md-2 col-xs-4">经营项目：</span>
+            <span class="col-md-10 col-xs-8"><%= store.operateStr %></span>
+        </li>
+        <li class="row lh-2">
+            <span class="col-md-2 col-xs-4">简介：</span>
+            <span class="col-md-10 col-xs-8"><%= store.comment %></span>
+        </li>
+    </ul>
+</div>
+
+<script>
+    var storeId = '<%= wechatSetting.id%>';
+</script>
+

@@ -1,0 +1,378 @@
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js("/setting/static/Jcrop.js")
+        .js('/setting/static/festivals.js')
+        .js('/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')
+        .js('/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js')
+        .css('/3rd-lib/bootstrap-3.1.1/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')
+        .css('/setting/static/css/Jcrop.css')
+        .css('/setting/static/css/festivals.css')
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/setting/Jcrop.js")
+        .js('/setting/festivals.js')
+        .js('/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')
+        .js('/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js')
+        .css('/3rd-lib/bootstrap-3.1.1/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')
+        .css('/setting/css/Jcrop.css')
+        .css('/setting/css/festivals.css')
+        .done(config) %>
+
+<% } %>
+
+<div id="festivals-area" ng-controller="festivalsController">
+<div class="row clearfix mb-1"></div>
+<div class="row clearfix mb-1">
+    <div class="col-lg-12">
+        <button type="button" class="btn btn-primary pull-right" ng-click="changeAction('new')"
+                ng-show="action=='info' || action == 'remove'">添加优惠活动
+        </button>
+    </div>
+</div>
+
+<div class="row clearfix" ng-show="action=='info' || action == 'remove'">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">优惠活动列表</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover"
+                           id="festivals-dataTables">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>是否上线</th>
+                            <th>推荐状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in festivals">
+                            <td class="valign-m" style="width: 100px;">{{item.title}}</td>
+                            <td class="valign-m" style="">{{item.begin_date}}</td>
+                            <td class="valign-m" style="">{{item.end_date}}</td>
+                            <td class="valign-m">{{(!item.state || item.state == 0)?"下线":"上线"}}</td>
+                            <td class="valign-m">{{(!item.promote || item.promote == 0)?"不推荐":"推荐"}}</td>
+                            <td class="valign-m" style="width: 160px;">
+                                <span ng-if="!item.state || item.state == 0"><a
+                                            ng-click="updateState(item,1)">活动上线</a>&nbsp;</span>
+                                <span ng-if="item.state == 1"><a
+                                            ng-click="updateState(item,0)">活动下线</a>&nbsp;</span>
+                                <span ng-if="!item.promote || item.promote == 0"><a
+                                            ng-click="updatePromoteState(item,1)">首页推荐</a>&nbsp;</span>
+                                <span ng-if="item.promote == 1"><a ng-click="updatePromoteState(item,0)">取消推荐</a>&nbsp;</span>
+                                <span><a ng-click="recordData(item,'edit')">修改</a></span>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix mt-1" ng-show="action=='new'">
+    <div class="col-lg-12">
+        <form class="form-horizontal" id="newFestivalsForm" role="form" method="post">
+            <div class="panel panel-default">
+                <div class="panel-heading">添加优惠活动</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动标题</label>
+
+                        <div class="col-sm-10">
+                            <input class="form-control" placeholder="活动标题" ng-model="newFestivals.title" name="title"
+                                   type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动详情</label>
+
+                        <div class="col-sm-10">
+                            <textarea cols="2" class="form-control" placeholder="活动详情"
+                                      ng-model="newFestivals.description" name="description" type="text"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">开始日期</label>
+
+                        <div class="col-sm-10">
+                            <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd"
+                                 data-link-field="newBeginDate" data-link-format="yyyy-mm-dd">
+                                <input class="form-control" type="text" value="" readonly>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="newBeginDate" name="beginDate"
+                                   value="{{newFestivals.beginDate}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">结束日期</label>
+
+                        <div class="col-sm-10">
+                            <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd"
+                                 data-link-field="newEndDate" data-link-format="yyyy-mm-dd">
+                                <input class="form-control" type="text" value="" readonly>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="newEndDate" name="endDate" value="{{newFestivals.endDate}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">领取人数上限</label>
+
+                        <div class="col-sm-10">
+                            <input class="form-control" placeholder="优惠活动领取上次次数" ng-model="newFestivals.limitNumber"
+                                   name="limitNumber"
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">优惠项目</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="newFestivals.present" name="present"
+                                    ng-options="item.name group by item.typeName for item in items">
+                                <option value="">选择赠送礼物</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">状态</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="newFestivals.state" name="state"
+                                    ng-options="item.name for item in states">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">推荐状态</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="newFestivals.promote" name="promote"
+                                    ng-options="item.name for item in promotes">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图片</label>
+
+                        <div class="col-sm-10">
+                            <img id="newTarget" class="form-control festivals_pic"/>
+                            <input id="newSelectedFile" type="file" accept="image/*" style="display: none;">
+
+                            <div class="pull-right mt-1">
+                                <div class="festivals_pic_desc">
+                                    请选择图片，建议宽高比2:1
+                                </div>
+                                <div id="newBtnSelectFile" class="btn btn-default">选择图片</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group  text-right"
+                         ng-if="msg.newFestivals.success || msg.newFestivals.error"
+                         ng-class="{'has-success':msg.newFestivals.success,'has-error':msg.newFestivals.error}">
+                        <label class="col-sm-12 control-label fs-14">
+                            {{msg.newFestivals.success||msg.newFestivals.error}}</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary pull-right ml-1">确定</button>
+                            <button type="button" class="btn btn-default pull-right" ng-click="changeAction('info')">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row clearfix mt-1" ng-show="action=='edit'">
+    <div class="col-lg-12">
+        <form class="form-horizontal" id="editFestivalsForm" role="form" method="post">
+            <div class="panel panel-default">
+                <div class="panel-heading">编辑优惠活动</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动标题</label>
+
+                        <div class="col-sm-10">
+                            <input class="form-control" placeholder="活动标题" ng-model="recordFestivals.title" name="title"
+                                   type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动详情</label>
+
+                        <div class="col-sm-10">
+                            <textarea cols="2" class="form-control" placeholder="活动详情" ng-model="recordFestivals.description"
+                                      name="description"
+                                      type="text"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">开始日期</label>
+
+                        <div class="col-sm-10">
+                            <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd"
+                                 data-link-field="editBeginDate" data-link-format="yyyy-mm-dd">
+                                <input class="form-control" type="text" value="{{recordFestivals.begin_date}}"
+                                       readonly>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="editBeginDate" name="beginDate"
+                                   value="{{recordFestivals.begin_date}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">结束日期</label>
+
+                        <div class="col-sm-10">
+                            <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd"
+                                 data-link-field="editEndDate" data-link-format="yyyy-mm-dd">
+                                <input class="form-control" type="text" value="{{recordFestivals.end_date}}" readonly>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                            <input type="hidden" id="editEndDate" name="endDate" value="{{recordFestivals.end_date}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">领取人数上限</label>
+
+                        <div class="col-sm-10">
+                            <input class="form-control" placeholder="优惠活动领取上次次数" ng-model="recordFestivals.limit_number"
+                                   name="limitNumber"
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">优惠项目</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="recordFestivals.present" name="present"
+                                    ng-options="item.name group by item.typeName for item in items">
+                                <option value="">选择赠送礼物</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">状态</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="recordFestivals.state" name="state"
+                                    ng-options="item.name for item in states">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">推荐状态</label>
+
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="recordFestivals.promote" name="promote"
+                                    ng-options="item.name for item in promotes">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图片</label>
+
+                        <div class="col-sm-10">
+                            <img id="editTarget" class="form-control festivals_pic"
+                                 ng-src="{{(recordFestivals.pic_url && '' != recordFestivals.pic_url)?'/svc/public/wechat/'+enterpriseId+'/'+recordFestivals.pic_url:''}}"
+                                 ng-style="(recordFestivals.pic_url && '' != recordFestivals.pic_url)?{width:'auto',height:'auto'}:{}"/>
+                            <input id="editSelectedFile" type="file" accept="image/*" style="display: none;">
+
+                            <div class="pull-right mt-1">
+                                <div class="festivals_pic_desc">
+                                    请选择图片，建议宽高比2:1
+                                </div>
+                                <div id="editBtnSelectFile" class="btn btn-default">选择图片</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-right"
+                         ng-if="msg.editFestivals.success || msg.editFestivals.error"
+                         ng-class="{'has-success':msg.editFestivals.success,'has-error':msg.editFestivals.error}">
+                        <label class="col-sm-12 control-label fs-14">
+                            {{msg.editFestivals.success||msg.editFestivals.error}}</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary pull-right ml-1">确定</button>
+                            <button type="button" class="btn btn-default pull-right" ng-click="changeAction('info')">
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+
+<script>
+    $(function () {
+        var dataTableAttr = {
+            "iDisplayLength": 10,
+            "oLanguage": {
+                "sProcessing": "正在加载中......",
+                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                "sZeroRecords": "对不起，查询不到相关数据！",
+                "sEmptyTable": "表中无数据存在！",
+                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+                "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+                "sSearch": "搜索",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                }
+            }
+        }
+        //$('#festivals-dataTables').dataTable(dataTableAttr);
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    });
+    var items = '<%- toJson(items)%>';
+    var festivals = '<%- toJson(festivals)%>';
+    var enterpriseId = '<%- enterpriseId%>'
+</script>

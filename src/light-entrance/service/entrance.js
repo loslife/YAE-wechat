@@ -5,7 +5,7 @@ exports.findEnterpriseByPhone = findEnterpriseByPhone;
 
 function lightEntrance(req, res, next){
 
-    res.render("inputPhone", {layout: false, type: "entrance", open_id: "", enterprise_id: ""});
+    res.render("inputPhone", {layout: false, type: "entrance", open_id: "", enterprise_id: "", app_id: "wxb5243e6a07f2e09a"});
 }
 
 function findEnterpriseByPhone(req, res, next){

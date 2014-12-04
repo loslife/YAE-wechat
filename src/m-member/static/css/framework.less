@@ -1,0 +1,105 @@
+@import "../../../resource/css/constant.less";
+
+body {
+  background-color: #e9e9ea;
+}
+
+#m-member {
+  height: inherit;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+#m-member > #header {
+  position: relative;
+}
+
+#header > img {
+  display: block;
+  width: 100%;
+}
+
+#header > div {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  height: 39px;
+  line-height: 39px;
+}
+
+#m-member .item {
+  margin: 0 10px 10px 10px;
+  background-color: white;
+  color: #ffffff;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
+}
+
+.item > .title {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  padding-left: @baseSpace;
+  border-bottom: 1px solid @backgroundColor;
+  font-size: 1.6*@baseSpace;
+  color: #000000;
+}
+
+.item > .title > img{
+  display: inline-block;
+  vertical-align: middle;
+  height: 24px;
+}
+
+.item > .title > span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.item .list {
+  padding: 0 @baseSpace;
+}
+
+.item .list li {
+  overflow: hidden;
+  padding: @baseSpace 0;
+  border-bottom: 1px solid @backgroundColor;
+}
+
+.item .list li:last-child {
+  border: none;
+}
+
+.deposit .used_count {
+  color: #f37686;
+}
+
+.bill_item {
+  color: #000000;
+}
+
+.bill_time > img{
+  position: relative;
+  top: 1px;
+  height: 14px;
+}
+
+.bill_time > span{
+  font-weight: bold;
+  padding-left: .5rem;
+}
+
+.bill_item > div {
+  height: 26px;
+  line-height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bill_value {
+  color: #434040;
+}

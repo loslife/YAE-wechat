@@ -29,8 +29,9 @@ $(function(){
 
             var enterprise_id = $("#enterprise_id").text();
             var open_id = $("#open_id").text();
+            var app_id = $("#app_id").text();
 
-            var bindingURL = g_env.binding_url + enterprise_id + "/doBinding";
+            var bindingURL = g_env.binding_url + app_id + "/" + enterprise_id + "/doBinding";
             $.post(bindingURL, { open_id: open_id, phone: phone }, function(response){
 
                 var code = response.code;
@@ -48,7 +49,7 @@ $(function(){
 
                 $("#binding_success_tip").show();
                 setTimeout(function(){
-                    location.href = g_env.binding_url + enterprise_id + "/member?m_id=" + response.member_id;
+                    location.href = g_env.binding_url + app_id + "/" + enterprise_id + "/member?m_id=" + response.member_id;
                 },2000);
             });
         });

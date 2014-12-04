@@ -24,24 +24,29 @@ body {
 .festival-item {
   background-color: white;
   margin-bottom: 10px;
+  padding: 0 10px;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
 }
 .festival-item:active {
-  background: #e9e9ea;
+  background: #f0f0f1;
 }
 .festival-item:last-child {
   margin-bottom: 0;
 }
 .item-header > .title {
-  padding: 1.2rem 0 1.2rem 1rem;
+  padding: 1.2rem 0 1.2rem 0;
   font-size: 1.2rem;
 }
-.festival-item > img {
+.festival-item > div.img {
   box-sizing: border-box;
   width: 100%;
-  padding: 0 10px;
+  height: 0;
+  padding: 0 10px 50% 10px;
+  background-size: cover !important;
 }
 .festival-item > div.item-desc {
-  padding: 1rem;
+  padding: 1rem 0;
   color: gray;
 }
 .btn {

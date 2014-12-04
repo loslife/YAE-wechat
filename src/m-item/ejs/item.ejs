@@ -1,10 +1,14 @@
 <% if(env === "dev"){ %>
 
-<%- Loader().js("/m-item/static/item.js").css("/m-item/static/css/item.css").done(config) %>
+<%- Loader()
+        .css("/m-item/static/css/item.css")
+        .done(config) %>
 
 <% }else{ %>
 
-<%- Loader().js('/m-item/item.min.js').css("/m-item/css/item.min.css").done(config) %>
+<%- Loader()
+        .css("/m-item/css/item.min.css")
+        .done(config) %>
 
 <% } %>
 
@@ -13,7 +17,7 @@
     <% if(shelveList.length === 0){ %>
 
     <div id="empty-list-image">
-        <img src="../../../resource/no_products.png">
+        <img src="/resource/no_products.png">
     </div>
 
     <div id="empty-list-msg">店家还没上线任何产品</div>
@@ -23,7 +27,7 @@
     <ul class="item-list">
         <% for(var i = 0; i < shelveList.length; i++) { %>
         <li>
-            <a href="/svc/wsite/<%= enterprise_id %>/itemDetail/<%= shelveList[i].itemId %>">
+            <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/itemDetail/<%= shelveList[i].itemId %>">
                 <div class="item-img" style="background: url('<%= shelveList[i].imgPath %>') no-repeat">
                 </div>
 

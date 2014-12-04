@@ -6,13 +6,13 @@ var request = require("request");
 exports.item = item;
 exports.itemDetail = itemDetail;
 
-//http://121.40.75.73/svc
-var yaeUrl = global["_g_clusterConfig"].baseurl;//"http://121.40.75.73";
+var yaeUrl = global["_g_clusterConfig"].baseurl;
 
 function item(req, res, next) {
-    var enterpriseId = req.params.enterpriseId;
 
-    //todo replace url
+    var enterpriseId = req.params.enterpriseId;
+    var appId = req.params.appId;
+
     var queryShelvesUrl = yaeUrl + "/weixin/queryAllShelvesItem/" + enterpriseId;
 
     var options = {
@@ -37,15 +37,16 @@ function item(req, res, next) {
             return item.name;
         });
 
-        res.render("item", {enterprise_id: enterpriseId, layout: "layout", menu: "item", shelveList: hotShelvesList});
+        res.render("item", {app_id: appId, enterprise_id: enterpriseId, layout: "layout", menu: "item", shelveList: hotShelvesList});
     });
 }
 
 function itemDetail(req, res, next) {
+
     var enterpriseId = req.params.enterpriseId;
+    var appId = req.params.appId;
     var itemId = req.params.itemId;
 
-    //todo replace url
     var queryUrl = yaeUrl + "/weixin/queryShelvesByItemId/" + itemId;
 
     var options = {
@@ -55,6 +56,7 @@ function itemDetail(req, res, next) {
     };
 
     request(options, function (err, response, body) {
+
         if (err) {
             logger.error({err: err, detail: "调用失败" + queryUrl});
             next(err);
@@ -74,6 +76,6 @@ function itemDetail(req, res, next) {
 
         var item = body.result[0];
 
-        res.render("itemDetail", {enterprise_id: enterpriseId, layout: "layout", menu: "none", item: item});
+        res.render("itemDetail", {enterprise_id: enterpriseId, layout: "layout", menu: "none", item: item, app_id: appId});
     });
 }

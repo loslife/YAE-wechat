@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+    <script src="/svc/portal/setting"></script>
+</head>
+
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .css("/m-shop/static/css/shop_unavailable.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .css("/m-shop/css/shop_unavailable.min.css")
+        .done(config) %>
+
+<% } %>
+
+<body>
+
+<div id="m-shop-unavailable">
+
+    <div id="img">
+        <img src="/resource/shop_unavailable.png">
+    </div>
+
+    <div id="message">店家尚未开通乐斯美蜜</div>
+
+</div>
+
+</body>
+
+</html>

@@ -19,18 +19,16 @@
     <div id="festival-introduce">
 
         <% if(festival.pic_url){ %>
-            <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>">
+        <div class="img" style="background: url('/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>') no-repeat">
         <% }else{ %>
-            <img src="../../../resource/haibao.jpg">
+        <div class="img" style="background: url('/svc/public/wechat/festivals_default.png') no-repeat">
         <% } %>
 
-        <% if(festival.slogan){ %>
-            <div id="header_slogan"><%= festival.slogan %></div>
-        <% }%>
+            <div class="title">
+                <img src="/resource/star.png">
+                <span id="f_title"><%= festival.title %></span>
+            </div>
 
-        <div class="title">
-            <img src="../../../resource/star.png">
-            <span><%= festival.title %></span>
         </div>
 
         <div class="field">
@@ -40,7 +38,7 @@
 
         <div class="field">
             <div class="fl color-gray">活动详情：</div>
-            <div style="padding-left: 5rem"><%= festival.description %></div>
+            <div id="f_desc" style="padding-left: 5rem"><%= festival.description %></div>
         </div>
 
         <% if(duplicated){ %>
@@ -52,7 +50,7 @@
         <% }else if(!expired){ %>
 
             <div class="btn">
-                <button id="btn_share">领取</button>
+                <button id="btn_share" disabled>领取</button>
             </div>
 
         <% } %>
@@ -62,8 +60,8 @@
     <% if(!duplicated && expired){ %>
 
     <div id="input-area">
-        <img src="../../../resource/no_more_present.png">
-        <div id="finish-msg">您来晚了一步，已经被领完啦！</div>
+        <img src="/resource/no_more_present.png">
+        <div id="finish-msg">来晚了一步，已经被领完啦！</div>
     </div>
 
     <% } %>
@@ -71,7 +69,8 @@
     <div id="hidden_area" style="display: none">
         <div id="enterprise_id"><%= enterprise_id %></div>
         <div id="festival_id"><%= festival.id %></div>
-        <div id="slogan"><%= festival.slogan %></div>
+        <div class="store-name"><%= store.name %></div>
+        <div id="app_id"><%= app_id %></div>
     </div>
 
 </div>
@@ -79,5 +78,6 @@
 <a id="back" class="back clear-fix">看看其它</a>
 
 <div id="share_tips" style="display: none">
-    <img src="../../../resource/share_guide.png">
+    <img id="tips_arrow" src="/resource/share_guide_arrow.png">
+    <img id="tips_text" src="/resource/share_guide_text.png">
 </div>

@@ -1,130 +1,297 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/m-member/static/member.js')
         .css("/m-member/static/css/member.css")
+        .js("/m-member/static/member.js")
         .done(config) %>
 
 <% }else{ %>
 
 <%- Loader()
-        .js('/m-member/member.min.js')
         .css("/m-member/css/member.min.css")
+        .js("/m-member/member.min.js")
         .done(config) %>
 
 <% } %>
 
 <div id="m-member">
-    <% if(memberInfo.cards.length !== 0){ %>
-    <div class="item card">
-        <div class="title">我的会员卡</div>
 
-        <ul class="list">
-            <% memberInfo.cards.forEach(function(card){ %>
-            <li>
-                <span><%= card.name %></span>
-                <!--<span class="color-gray">(card.cardNo)</span>-->
-                <span class="fr">
-                    <% if(card.type === "recharge"){ %>
+<div id="header">
 
-                    截止<%= card.currentConsumeDate %>，余额：￥<%= Number(card.currentMoney).toFixed(1) %>
+    <img src="/resource/member_card_background.png">
 
-                    <% } else if(card.type === "recordTimeCard") { %>
+    <div><%= memberInfo.name %></div>
 
-                    截止<%= card.currentConsumeDate %>，余次：<%= Number(card.remainingTimes).toFixed(0) %>次
+</div>
 
-                    <% } else if(card.type === "quarter") { %>
+<% if(memberInfo.cards.length !== 0 || memberInfo.coupons.length !== 0) { %>
 
-                    <span class="color-gray">有效期至：<%= card.expired_time %></span>
+<ul id="cards_area">
 
-                    <% } %>
-                </span>
-            </li>
-            <% }); %>
-        </ul>
-    </div>
-    <% } %>
+    <% memberInfo.cards.forEach(function(card){ %>
 
-    <% if(memberInfo.deposits.length !== 0) { %>
-    <div class="item deposit">
-        <div class="title">我的寄存品</div>
-        <ul class="list">
-            <% memberInfo.deposits.forEach(function(deposit){ %>
-            <li>
-                <span><%= deposit.entityName %></span>
-                <span class="fr">累计使用：<%= Number(deposit.numberofuse).toFixed(0) %>次</span>
-            </li>
-            <% }); %>
-        </ul>
-    </div>
-    <% } %>
+    <li>
 
-    <% if(memberInfo.coupons.length !== 0) { %>
-    <div class="item coupon">
-        <div class="title">我的现金券</div>
+        <% if(card.expired === true){ %>
 
-        <ul class="list">
-            <% memberInfo.coupons.forEach(function(coupon){ %>
-            <li>
-                <span><%= coupon.name %></span>
-                <% if(coupon.expired_time){ %>
-                    <span class="fr color-gray">有效期至：<%= coupon.expired_time %></span>
+        <div class="card_shape is_expired">
+
+        <% }else if(card.type === "recharge"){ %>
+
+        <div class="card_shape card_recharge">
+
+        <% }else if(card.type === "recordTimeCard") { %>
+
+        <div class="card_shape card_record">
+
+        <% } else{ %>
+
+        <div class="card_shape card_time">
+
+        <% } %>
+
+            <div class="top_half">
+
+                <span class="card_name"><%= card.name %></span>
+
+                <% if(card.expired === true){ %>
+                <span class="expired_tag">过期</span>
                 <% } %>
-            </li>
-            <% }); %>
-        </ul>
-    </div>
-    <% } %>
 
-    <% if(memberInfo.services.length !== 0) { %>
-    <div class="item present">
-        <div class="title">我的赠送服务</div>
-
-        <ul class="list">
-            <% memberInfo.services.forEach(function(service){ %>
-            <li>
-                <span><%= service.serviceName %></span>
-                <span class="fr color-gray">有效期至：<%= service.expired_time %></span>
-            </li>
-            <% }); %>
-        </ul>
-    </div>
-    <% } %>
-
-    <% if(memberInfo.bill.length !== 0) { %>
-    <div class="item present">
-        <div class="title">我的消费</div>
-        <% memberInfo.bill.forEach(function(item){ %>
-        <div class="panel">
-            <div class="panel-head vm">
-                <img src="/resource/time.png" style="height: 20px;"/>
-                <span style="margin-left: 10px;"><%= dateFormat(item.date, "YYYY年MM月") %></span>
-                <span style="height: inherit;line-height: inherit;float: right;margin-right: 10px;">
-                <img src="/resource/expand.png" style="height: 15px;"/>
-                </span>
-            </div>
-            <div class="panel-body">
-                <div class="bill-items">
-                    <% item.records.forEach(function(record){ %>
-                    <div class="bill-item">
-                        <div><label><%= record.createDay %>日</label></div>
-                        <div>
-                            <div class="fl">项目名称：</div>
-                            <div style="padding-left: 5rem"><%= record.items %></div>
-                        </div>
-                        <div>
-                            <div class="fl">服务员工：</div>
-                            <div style="padding-left: 5rem"><%= record.employees %></div>
-                        </div>
-                        <div>
-                            <label>消费金额：</label><span>￥<%= (record.amount || 0 == record.amount) ? record.amount.toFixed(1) : 0.0 %></span>
-                        </div>
-                    </div>
-                    <% }); %>
+                <div class="card_no">
+                    <span><%= card.cardNo %></span>
+                    <% if(card.type === "recordTimeCard" && card.services.length > 1){ %>
+                    <img class="btn_expand" src="/resource/card_arrow_down.png">
+                    <% } %>
                 </div>
             </div>
+
+            <div class="bottom_half">
+
+                <div class="card_info">
+
+                    <% if(card.type === "recharge"){ %>
+
+                        <span class="card_info_title">余额：</span>
+                        <span class="card_info_value"><%= Number(card.currentMoney).toFixed(1) %></span>
+
+                    <% } else if(card.type === "recordTimeCard"){ %>
+
+                        <span class="card_info_title">剩余：</span>
+                        <span class="card_info_value"><%= Number(card.remainingTimes).toFixed(0) %>次</span>
+
+                    <% } else if(card.type === "quarter"){ %>
+
+                        <span class="card_info_title">已使用：</span>
+                        <span class="card_info_value"><%= Number(card.total_used).toFixed(0) %>次</span>
+
+                    <% } %>
+
+                </div>
+
+                <span class="card_expired">
+
+                    <% if(card.expired_time !== "不限期"){ %>
+                        有效期至
+                    <% } %>
+
+                    &nbsp;<%= card.expired_time %>
+
+                </span>
+
+                <% if(card.type === "recordTimeCard" && card.services.length === 1){ %>
+                <span class="service_name">项目：<%= card.services[0].name %></span>
+                <% } %>
+
+            </div>
+
+            <% if(card.type === "recordTimeCard"){ %>
+
+               <div class="bottom_half_expand">
+
+                   <ul>
+
+                       <% card.services.forEach(function(service){ %>
+
+                       <li>
+                           <span class="item_name"><%= service.name %></span>
+                           <span class="item_count"><%= service.count %>次</span>
+                       </li>
+
+                       <% }); %>
+
+                   </ul>
+
+                   <div class="height_placeholder"></div>
+                   <div class="card_expired">
+
+                       <% if(card.expired_time !== "不限期"){ %>
+                       有效期至
+                       <% } %>
+
+                       &nbsp;<%= card.expired_time %>
+
+                   </div>
+
+               </div>
+
+            <% } %>
+
         </div>
-        <% }); %>
+
+    </li>
+
+    <% }); %>
+
+    <% memberInfo.coupons.forEach(function(coupon){ %>
+
+    <li>
+        <% if(coupon.expired === true){ %>
+        <div class="card_shape is_expired">
+        <% }else{ %>
+        <div class="card_shape card_coupon">
+        <% } %>
+
+            <div class="top_half">
+                <span class="card_name"><%= coupon.name %></span>
+
+                <% if(coupon.expired === true){ %>
+                <span class="expired_tag">过期</span>
+                <% } %>
+            </div>
+
+            <div class="bottom_half">
+
+                <div class="card_info">
+                    <span class="card_info_title">金额：</span>
+                    <span class="card_info_value"><%= coupon.money %></span>
+                </div>
+
+                <% if(coupon.expired_time){ %>
+                    <span class="card_expired">有效期至 <%= coupon.expired_time %></span>
+                <% } %>
+            </div>
+
+        </div>
+
+    </li>
+
+    <% }); %>
+
+</ul>
+
+<% } %>
+
+<% if(memberInfo.services.length !== 0) { %>
+
+<div class="item present">
+
+    <div class="title">
+        <img src="/resource/member_service.png">
+        <span>赠送服务</span>
     </div>
-    <% } %>
+
+    <ul class="list">
+        <% memberInfo.services.forEach(function(service){ %>
+        <li>
+            <span style="color: #434040;"><%= service.serviceName %></span>
+            <% if(service.expired_time){ %>
+            <span class="color-gray fr">有效期至：<%= service.expired_time %></span>
+            <% } %>
+        </li>
+        <% }); %>
+    </ul>
+</div>
+
+<% } %>
+
+<% if(memberInfo.deposits.length !== 0) { %>
+
+<div class="item deposit">
+
+    <div class="title">
+        <img src="/resource/member_deposit.png">
+        <span>寄存品</span>
+    </div>
+
+    <ul class="list">
+        <% memberInfo.deposits.forEach(function(deposit){ %>
+        <li>
+            <span style="color: #434040;"><%= deposit.entityName %></span>
+            <span class="fr used_count">累计使用：<%= Number(deposit.numberofuse).toFixed(0) %>次</span>
+        </li>
+        <% }); %>
+    </ul>
+</div>
+
+<% } %>
+
+<% if(memberInfo.bill.length !== 0) { %>
+
+<div class="item bill">
+
+    <div class="title">
+        <img src="/resource/member_bill.png">
+        <span>最近消费</span>
+    </div>
+
+    <ul class="list">
+
+        <% memberInfo.bill.forEach(function(item){ %>
+
+        <li>
+            <div class="bill_item">
+
+                <div class="bill_time">
+                    <img src="/resource/clock.png">
+                    <span><%= dateFormat(item.date, "YYYY年MM月DD日") %></span>
+                </div>
+
+                <div class="bill_field">
+
+                    <span class="bill_key color-gray">
+                        <% if(item.type === "new"){ %>
+                        开新卡：
+                        <% }else if(item.type === "recharge"){ %>
+                        充值卡：
+                        <% }else if(item.type === "service"){  %>
+                        赠送服务：
+                        <% }else if(item.type === "coupon"){ %>
+                        现金券：
+                        <% }else if(item.type === "cancel"){ %>
+                        注销明细：
+                        <% }else{ %>
+                        项目名称：
+                        <% } %>
+                    </span>
+
+                    <span class="bill_value"><%= item.items %></span>
+                </div>
+
+                <div class="bill_field">
+                    <span class="bill_key color-gray">服务员工：</span>
+                    <span class="bill_value"><%= item.employees %></span>
+                </div>
+
+                <div class="bill_field">
+                    <span class="bill_key color-gray">
+                        <% if(item.type === "new"){ %>
+                        开卡金额：
+                        <% }else if(item.type === "recharge"){ %>
+                        充值金额：
+                        <% }else{  %>
+                        消费金额：
+                        <% } %>
+                    </span>
+                    <span class="bill_value">￥<%= (item.amount || 0 == item.amount) ? item.amount.toFixed(1) : 0.0 %></span>
+                </div>
+            </div>
+        </li>
+
+        <% }); %>
+
+    </ul>
+
+</div>
+<% } %>
 </div>

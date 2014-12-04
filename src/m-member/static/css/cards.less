@@ -1,0 +1,183 @@
+#m-member > #cards_area {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#cards_area > li {
+  box-sizing: border-box;
+  height: 96px;
+  border-bottom: 1px solid white;
+  box-shadow: 0 -1px 7px -4px #000000 inset;
+  background-color: #e9e9ea;
+  color: white;
+}
+
+li > .card_shape {
+  position: relative;
+  top: 6px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+#cards_area > li:first-child {
+  height: 50px;
+}
+
+#cards_area > li:first-child > .card_shape {
+  top: -40px;
+}
+
+.card_shape > div {
+  padding-left: 5px;
+}
+
+.card_shape > .top_half {
+  position: relative;
+  height: 39px;
+  line-height: 39px;
+  border-radius: 6px 6px 0 0;
+}
+
+.card_shape > .bottom_half {
+  position: relative;
+  height: 50px;
+}
+
+.card_shape > .bottom_half_expand {
+  display: none;
+  min-height: 50px;
+  background-color: #6da8ba;
+}
+
+.bottom_half_expand li {
+  padding-top: 7px;
+}
+
+.bottom_half_expand > div {
+  padding-top: 7px;
+}
+
+.bottom_half_expand > .height_placeholder {
+  height: 19px;
+}
+
+.bottom_half_expand .item_count {
+  float: right;
+  margin-right: 5px;
+}
+
+.is_expired > .top_half {
+  background-color: #bdbcbc;
+}
+
+.is_expired > .bottom_half {
+  background-color: #a2a1a1;
+}
+
+.is_expired > .bottom_half_expand {
+  background-color: #a2a1a1;
+}
+
+.card_recharge > .top_half {
+  background-color: #d7c4a4;
+}
+
+.card_recharge > .bottom_half {
+  background-color: #c1a57d;
+}
+
+.card_record > .top_half {
+  background-color: #94c6d1;
+}
+
+.card_record > .bottom_half {
+  background-color: #6da8ba;
+}
+
+.card_time > .top_half {
+  background-color: #cbabdc;
+}
+
+.card_time > .bottom_half {
+  background-color: #af85c7;
+}
+
+.card_coupon > .top_half {
+  background: url("/resource/member_coupon.png") repeat-x;
+  border-radius: 0;
+  border: none;
+}
+
+.card_coupon > .bottom_half {
+  background-color: #e65b70;
+}
+
+.card_name {
+  font-size: 18px;
+}
+
+.card_coupon .card_name {
+  position: relative;
+  top: 5px;
+}
+
+.card_no {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+
+.card_no > span {
+  font-size: 12px;
+}
+
+.card_no > img {
+  position: relative;
+  top: 1px;
+  width: 12px;
+}
+
+.card_info {
+  position: absolute;
+  bottom: 5px;
+}
+
+.card_info > .card_info_title {
+  font-size: 12px;
+}
+
+.card_info > .card_info_value {
+  font-size: 30px;
+}
+
+.card_expired {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 12px;
+}
+
+.service_name {
+  position: absolute;
+  right: 5px;
+  bottom: 24px;
+  font-size: 12px;
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.expired_tag {
+  display: inline-block;
+  width: 36px;
+  height: 16px;
+  line-height: 16px;
+  padding: 1px;
+  background-color: #e65b70;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}

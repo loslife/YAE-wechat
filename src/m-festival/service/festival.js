@@ -1,19 +1,25 @@
+var api = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var dao = require("./baseService");
 var request = require("request");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
+var tokenHelper = require("../../wx-utils/service/access_token_helper");
+var appIdHelper = require("../../wx-utils/service/app_id_helper");
+var async = require("async");
 
 exports.list = list;
 exports.route = route;
 exports.getPresent = getPresent;
-exports.done = done;
+exports.doneRoute = doneRoute;
 exports.countShareTimes = countShareTimes;
+exports.done = done;
 
 var http_server = global["_g_clusterConfig"].baseurl + "/";//"http://10.171.203.219/svc/";
 
 function list(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
+    var appId = req.params["appId"];
 
     dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId, state: 1}, function(err, result){
 
@@ -23,7 +29,7 @@ function list(req, res, next){
             return;
         }
 
-        res.render("festivals", {enterprise_id: enterpriseId, menu: "festival", festivals: result});
+        res.render("festivals", {app_id: appId, enterprise_id: enterpriseId, menu: "festival", festivals: result});
     });
 }
 
@@ -33,7 +39,12 @@ function route(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var festivalId = req.query["fid"];
-    var memberId = req.session.member_id;
+    var appId = req.params["appId"];
+    var memberId = null;
+
+    if(req.session[enterpriseId]){
+        memberId = req.session[enterpriseId].member_id;
+    }
 
     dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
@@ -46,22 +57,20 @@ function route(req, res, next){
 
         dao.reachLimit(enterpriseId, festivalId, function(err, expired){
 
-            if(!memberId){
+            _queryStoreInfo(function(err, store){
 
-                _queryStoreInfo(function(err, store){
+                if(err){
+                    next(err);
+                    return;
+                }
 
-                    if(err){
-                        next(err);
-                        return;
-                    }
-                    res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired});
-                });
-
-                return;
-            }
-
-            dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
-                res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", festival: festival, expired: expired, duplicated: received});
+                if(!memberId){
+                    res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, app_id: appId});
+                }else{
+                    dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
+                        res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, duplicated: received, app_id: appId});
+                    });
+                }
             });
         });
 
@@ -107,8 +116,12 @@ function getPresent(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var festivalId = req.query["fid"];
-    var memberId = req.session.member_id;
     var phone = req.body.phone;
+    var memberId = null;
+
+    if(req.session[enterpriseId]){
+        memberId = req.session[enterpriseId].member_id;
+    }
 
     dao.queryFestivalById(enterpriseId, festivalId, function(err, festival){
 
@@ -138,16 +151,102 @@ function getPresent(req, res, next){
     });
 }
 
-function done(req, res, next){
+// 从微信OAuth跳转到此链接
+function doneRoute(req, res, next){
+
+    var type = req.query["state"];
+    var code = req.query["code"];
 
     var enterpriseId = req.params["enterpriseId"];
+    var appId = req.params["appId"];
+    var member_id;
 
-    var model = {
-        enterprise_id: enterpriseId,
-        menu: "none"
-    };
+    if(req.session && req.session[enterpriseId]){
+        member_id = req.session[enterpriseId].member_id;
+    }
 
-    res.render("done", model);
+    // 非微信OAuth跳转
+    if(!code){
+        res.send("请通过微信打开此页面");
+        return;
+    }
+
+    async.waterfall([_resolveApp, _resolveOpenId, _queryFanInfo], function(err, subscribe){
+
+        var isMember = member_id ? "yes" : "no";
+
+        // 如果查询用户身份过程中出错，则视为未关注用户
+        if(err){
+            console.log(err);
+            res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/festival/done?type=" + type + "&subscribe=0&isMember=" + isMember);
+        }else{
+            res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/festival/done?type=" + type + "&subscribe=" + subscribe + "&isMember=" + isMember);
+        }
+    });
+
+    function _resolveApp(callback){
+        appIdHelper.getSecretByAppId(appId, callback);
+    }
+
+    function _resolveOpenId(app_id, app_secret, callback){
+
+        api.exchangeAccessToken(app_id, app_secret, code, function(err, result){
+
+            if(err){
+                callback({errorCode: 501, errorMessage: "获取open_id失败"});
+                return;
+            }
+
+            callback(null, result.openid);
+        });
+    }
+
+    function _queryFanInfo(open_id, callback){
+
+        tokenHelper.getTokenByAppId(appId, function(err, access_token){
+
+            if(err){
+                callback({errorCode: 502, errorMessage: "获取access_token失败"});
+                return;
+            }
+
+            api.getFanInfo(access_token, open_id, function(err, info){
+
+                if(!err){
+                    callback(null, info.subscribe);
+                    return;
+                }
+
+                switch(err.errcode){
+
+                    case 40001:
+                    case 42001:
+
+                        tokenHelper.refreshAccessToken(appId, function(err, access_token){
+
+                            if(err){
+                                callback({errorCode: 502, errorMessage: "刷新access_token失败"});
+                                return;
+                            }
+
+                            api.getFanInfo(access_token, open_id, function(err, info){
+
+                                if(err){
+                                    callback(err);
+                                    return;
+                                }
+
+                                callback(null, info.subscribe);
+                            });
+                        });
+                        break;
+
+                    default:
+                        callback({code: err.errcode, message: err.errmsg});
+                }
+            });
+        });
+    }
 }
 
 function countShareTimes(req, res, next){
@@ -169,4 +268,26 @@ function countShareTimes(req, res, next){
             doResponse(req, res, {message: "ok"});
         });
     });
+}
+
+function done(req, res, next){
+
+    var enterpriseId = req.params["enterpriseId"];
+    var appId = req.params["appId"];
+
+    var type = req.query["type"];
+    var subscribe = req.query["subscribe"];
+    var isMember = req.query["isMember"];
+
+    var model = {
+        enterprise_id: enterpriseId,
+        menu: "none",
+        type: type,
+        subscribe: subscribe,
+        isMember: isMember,
+        share: appId === "wxb5243e6a07f2e09a",
+        app_id: appId
+    };
+
+    res.render("done", model);
 }

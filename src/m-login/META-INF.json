@@ -2,7 +2,7 @@
     "services": [
         {
             "name": "login",
-            "path": "/wsite/:enterpriseId/login",
+            "path": "/wsite/:appId/:enterpriseId/login",
             "method": "get",
             "auth": false,
             "impl": "loginService.login",
@@ -10,7 +10,7 @@
         },
         {
             "name": "doLogin",
-            "path": "/wsite/:enterpriseId/login",
+            "path": "/wsite/:appId/:enterpriseId/login",
             "method": "post",
             "auth": false,
             "impl": "loginService.doLogin",

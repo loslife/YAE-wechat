@@ -2,7 +2,7 @@
     "services": [
         {
             "name": "festivalList",
-            "path": "/wsite/:enterpriseId/festival",
+            "path": "/wsite/:appId/:enterpriseId/festival",
             "method": "get",
             "auth": false,
             "impl": "festival.list",
@@ -10,7 +10,7 @@
         },
         {
             "name": "festivalRouter",
-            "path": "/wsite/:enterpriseId/route",
+            "path": "/wsite/:appId/:enterpriseId/festival/route",
             "method": "get",
             "auth": false,
             "impl": "festival.route",
@@ -18,23 +18,31 @@
         },
         {
             "name": "getPresent",
-            "path": "/wsite/:enterpriseId/getPresent",
+            "path": "/wsite/:appId/:enterpriseId/festival/getPresent",
             "method": "post",
             "auth": false,
             "impl": "festival.getPresent",
             "comment": "领取礼物"
         },
         {
+            "name": "festivalDoneRoute",
+            "path": "/wsite/:appId/:enterpriseId/festival/doneRoute",
+            "method": "get",
+            "auth": false,
+            "impl": "festival.doneRoute",
+            "comment": "领取优惠活动流程结束，从微信OAuth跳转"
+        },
+        {
             "name": "festivalDone",
-            "path": "/wsite/:enterpriseId/done",
+            "path": "/wsite/:appId/:enterpriseId/festival/done",
             "method": "get",
             "auth": false,
             "impl": "festival.done",
-            "comment": "领取优惠活动流程结束"
+            "comment": "领取优惠活动结果页面"
         },
         {
             "name": "countShareTimes",
-            "path": "/wsite/:enterpriseId/countShare",
+            "path": "/wsite/:appId/:enterpriseId/festival/countShare",
             "method": "post",
             "auth": false,
             "impl": "festival.countShareTimes",

@@ -21,7 +21,8 @@
                 "resource",
                 "sync",
                 "wx-router",
-                "light-entrance"
+                "light-entrance",
+                "setting"
             ]
         }
     ],

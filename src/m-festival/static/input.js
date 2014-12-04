@@ -22,6 +22,13 @@ function init(){
 
     $("#btn_get").prop("disabled", false);
 
+    // 手机上弹出键盘时，底部按钮遮挡的问题
+    $("#input_phone").focus(function(){
+        $("#back").removeClass("fixed-bottom0");
+    }).blur(function(){
+            $("#back").addClass("fixed-bottom0");
+        });
+
     $("#present_form").submit(function($event){
 
         $event.preventDefault();
@@ -40,8 +47,9 @@ function init(){
 
         var enterprise_id = $("#enterprise_id").text();
         var festival_id = $("#festival_id").text();
+        var app_id = $("#app_id").text();
 
-        var url = "/svc/wsite/" + enterprise_id + "/getPresent?fid=" + festival_id;
+        var url = "/svc/wsite/" + app_id + "/" + enterprise_id + "/festival/getPresent?fid=" + festival_id;
 
         $.post(url, {phone: phone}, function (response) {
 
@@ -55,29 +63,20 @@ function init(){
             var status = response.result.status;
 
             if(status === 1){
-                location.href = "done";
+                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F" + enterprise_id +"%2Ffestival%2FdoneRoute&response_type=code&scope=snsapi_base&state=success#wechat_redirect";
             }else{
-
-                var windowHeight = $(window).height();
-                var contentHeight = $("#content").height();
-                var max = Math.max(windowHeight, contentHeight);
-                
-                $("#repeat-deny").height(max).show();
+                location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F" + enterprise_id +"%2Ffestival%2FdoneRoute&response_type=code&scope=snsapi_base&state=repeat#wechat_redirect";
             }
         });
 
         function _checkPhone(){
-            return (/^13\d{9}$/g.test(phone)||(/^15\d{9}$/g.test(phone))||(/^18\d{9}$/g.test(phone)));
+            return (/^13\d{9}$/g.test(phone) || (/^15\d{9}$/g.test(phone)) || (/^18\d{9}$/g.test(phone)) || (/^17\d{9}$/g.test(phone)));
         }
     });
 
     $("#back").on("click", function ($even) {
-        location.href = "festival";
+        location.href = "../festival";
         $even.stopPropagation();
-    });
-
-    $("#repeat-deny").tap(function(){
-        $(this).hide();
     });
 
     // 如果是在微信中打开
@@ -89,24 +88,37 @@ function init(){
 
             var enterpriseId = $("#enterprise_id").text();
             var festivalId = $("#festival_id").text();
-            var slogan = $("#slogan").text();
+            var storeName = $(".store-name").text();
+            var festivalTitle = $("#f_title").text();
+            var festivalDesc = $("#f_desc").text();
+            var app_id = $("#app_id").text();
 
-            var wxData = {
+            var friendData = {
                 "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                "link": global["_g_server"].wxserviceurl + "/wsite/" + enterpriseId + "/route?fid=" + festivalId,
-                "desc": slogan,
-                "title": ""
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                "desc": festivalDesc,
+                "title": storeName + "·" + festivalTitle,
+                "appId": "wxf932fcca3e6bf697"
+            };
+
+            var timelineData = {
+                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                "desc": storeName + " | " + festivalTitle + "：" + festivalDesc,
+                "title": storeName + "·" + festivalTitle,
+                "appId": "wxf932fcca3e6bf697"
             };
 
             var wxCallbacks = {
 
                 confirm: function(resp) {
-                    var shareCountURL = "/svc/wsite/" + enterpriseId + "/countShare?fid=" + festivalId;
+                    var shareCountURL = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/countShare?fid=" + festivalId;
                     $.post(shareCountURL, {}, function(response){});
                 }
             };
 
-            Api.shareToTimeline(wxData, wxCallbacks);
+            Api.shareToTimeline(timelineData, wxCallbacks);
+            Api.shareToFriend(friendData, {});
         }
     });
 }

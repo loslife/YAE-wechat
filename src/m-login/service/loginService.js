@@ -6,8 +6,9 @@ exports.doLogin = doLogin;
 function login(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
+    var app_id = req.params["appId"];
 
-    res.render("login", {enterprise_id: enterprise_id, menu: "member"});
+    res.render("inputPhone", {menu: "member", type: "login", open_id: "", enterprise_id: enterprise_id, app_id: app_id});
 }
 
 function doLogin(req, res, next) {
@@ -27,7 +28,11 @@ function doLogin(req, res, next) {
             return;
         }
 
-        req.session.member_id = result[0].id;
+        if(!req.session[enterprise_id]){
+            req.session[enterprise_id] = {};
+        }
+        req.session[enterprise_id].member_id = result[0].id;
+
         res.send({code: 0, message: "ok"});
     });
 }

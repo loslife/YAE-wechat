@@ -54,7 +54,7 @@ function shareBind(req, res, next){
 
                 var phone = result[0].phone;
 
-                var url = baseurl + "/wsite/bindingAll";
+                var url = baseurl + "/wsite/" + app_id + "/bindingAll";
 
                 var options = {
                     method: "POST",
@@ -79,14 +79,14 @@ function shareBind(req, res, next){
                     var bindings = body.result;
 
                     if(bindings.length === 0){
-                        res.redirect("../memberNotFound");
+                        res.redirect("/svc/wsite/memberNotFound");
                         return;
                     }
 
                     if(bindings.length === 1){
                         var enterprise_id = bindings[0].enterprise_id;
                         var member_id = bindings[0].member_id;
-                        res.redirect("../" + enterprise_id + "/shop?m_id=" + member_id);
+                        res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id);
                         return;
                     }
 
@@ -99,12 +99,12 @@ function shareBind(req, res, next){
                     });
 
                     var params = "eid=" + enterprises.join(PARAM_SPLITTER) + "&mid=" + members.join(PARAM_SPLITTER);
-                    res.redirect("../selection?" + params);
+                    res.redirect("/svc/wsite/selection?" + params);
                 });
             }
 
             function redirectToBindPage(){
-                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: open_id, enterprise_id: ""});
+                res.render("inputPhone", {layout: false, type: "multi_binding", open_id: open_id, enterprise_id: "", app_id: app_id});
             }
         });
     });
@@ -115,6 +115,7 @@ function bindAllEnterpriseByPhone(req, res, next){
 
     var open_id = req.body.open_id;
     var member_phone = req.body.phone;
+    var app_id = req.params["appId"];
 
     async.waterfall([_removeOldBinding, _queryAllEnterprise, _doBinding], function(err, members){
 
@@ -172,7 +173,8 @@ function bindAllEnterpriseByPhone(req, res, next){
                 enterprise_id: item.enterprise_id,
                 member_id: item.id,
                 wx_open_id: open_id,
-                phone: member_phone
+                phone: member_phone,
+                app_id: app_id
             };
 
             dbHelper.addData("weixin_member_binding", model, next);

@@ -19,7 +19,8 @@
                 "member-binding",
                 "sync",
                 "wx-router",
-                "light-entrance"
+                "light-entrance",
+                "setting"
             ]
         }
     ],

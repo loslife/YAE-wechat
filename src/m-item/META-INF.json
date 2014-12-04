@@ -2,7 +2,7 @@
     "services": [
         {
             "name": "item",
-            "path": "/wsite/:enterpriseId/item",
+            "path": "/wsite/:appId/:enterpriseId/item",
             "method": "get",
             "auth": false,
             "impl": "item.item",
@@ -10,7 +10,7 @@
         },
         {
             "name": "itemDetail",
-            "path": "/wsite/:enterpriseId/itemDetail/:itemId",
+            "path": "/wsite/:appId/:enterpriseId/itemDetail/:itemId",
             "method": "get",
             "auth": false,
             "impl": "item.itemDetail",

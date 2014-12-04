@@ -28,7 +28,7 @@ body{
 
 .item-list {
   overflow: hidden;
-  padding-bottom: @baseSpace / 2;
+  padding-bottom: 36px;
   border-bottom: @baseSpace / 2 solid @backgroundColor;
 }
 
@@ -36,10 +36,7 @@ body{
   float: left;
   width: 50%;
   border: @baseSpace / 2 solid @backgroundColor;
-  //  border-right-width: @baseSpace / 2;
-  //  border-left-width: @baseSpace / 2;
   box-sizing: border-box;
-  margin-bottom: -@baseSpace / 2;
   background: white;
 }
 
@@ -52,13 +49,6 @@ body{
   border-color: #f0f0f1;
 }
 
-.item-list li:nth-child(odd) {
-  border-right-width: @baseSpace / 4;
-}
-
-.item-list li:nth-child(even) {
-  border-left-width: @baseSpace / 4;
-}
 .item-list .item-img {
   width: 100%;
   padding-bottom: 100%;
@@ -74,47 +64,13 @@ body{
   text-overflow: ellipsis;
 }
 
-#item-detail {
-  overflow: auto;
-  background: @backgroundColor;
-}
-
-#item-detail .img {
-  width: 100%;
-  padding-bottom: 100%;
-  background-size: cover !important;
-  background-color: white !important;
-}
-
-#item-detail .name-price {
-  background: white;
-  font-size: 20px;
-  padding: @baseSpace;
-  border-bottom: 1px solid @backgroundColor;
-}
-
-#item-detail .comment {
-  padding: @baseSpace;
-  overflow: hidden;
-  background: white;
-  border-bottom: 10px solid @backgroundColor;
-}
-
-.back {
-  border-top: 1px solid @backgroundColor;
-  text-align: center;
-  //  margin: 0 @baseSpace;
-  height: 48px;
-  line-height: 48px;
-  color: #f75169;
-}
-
-.back:active {
-  background-color: #f0f0f1;
-}
-
 #m-item .more-item {
-  background: white;
+  position: fixed;
+  bottom: 49px;
+  box-sizing: border-box;
   padding: 10px 0;
+  border: 1px solid #dadbdc;
+  width: 100%;
   text-align: center;
+  background: white;
 }

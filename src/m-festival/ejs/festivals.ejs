@@ -19,7 +19,7 @@
     <% if(festivals.length === 0){ %>
 
     <div id="empty-list-image">
-        <img src="../../../resource/no_festivals.png">
+        <img src="/resource/no_festivals.png">
     </div>
 
     <div id="empty-list-msg">店家最近暂时没安排优惠活动</div>
@@ -37,9 +37,15 @@
             </div>
 
             <% if(festivals[i].pic_url){ %>
-                <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festivals[i].pic_url %>">
+
+                <div class="img" style="background: url('/svc/public/wechat/<%= enterprise_id %>/<%= festivals[i].pic_url %>') no-repeat;">
+                </div>
+
             <% }else{ %>
-                <img src="../../../resource/logo.jpg">
+
+                <div class="img" style="background: url('/svc/public/wechat/festivals_default.png') no-repeat;">
+                </div>
+
             <% } %>
 
             <div class="item-desc"><%= festivals[i].description %></div>
