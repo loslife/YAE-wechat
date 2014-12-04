@@ -67,7 +67,7 @@ function init(){
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + appId + "/" + enterpriseId + "/shop",
                 "desc": "发现一家很棒的美甲店噢，推荐给你",
                 "title": "这家美甲店超棒",
-                "appId": "wxf932fcca3e6bf697"
+                "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id
             };
 
             Api.shareToTimeline(wxData);
