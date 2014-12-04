@@ -137,28 +137,41 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
 
         function _sendSMS(callback){
 
-            var message = "您已领取优惠券，激活码：" + code + "。到店凭激活码消费。";
+            dbHelper.queryData("tb_enterprise", {id: model.enterprise_id}, function(err, result){
 
-            var smsContent = {
-                message: message,
-                mobileNumbers: phone,
-                scheduleTime: '',
-                extendAccessNum: '',
-                f: '1'
-            };
-
-            datas.postResource("sms/sendSMS", "", smsContent).then(function(result){
-
-                var flag = result.result;
-
-                if(0 === flag){
-                    callback(null);
+                if(err){
+                    console.log(err);
+                    callback(err);
                     return;
                 }
-                callback({errorCode: "88888601"});
 
-            }, function(){
-                callback({errorCode: "88888601"});
+                var address = result[0].addr_state_city_area || "未填写";
+                var phone = result[0].contact_phoneMobile || "未填写";
+                var storeName = result[0].name || "未填写";
+
+                var message = "您已领取" + model.present_name + "，激活码：" + code + "。到店凭激活码消费。店铺地址：" + address + "，电话：" + phone + "，" + storeName ;
+
+                var smsContent = {
+                    message: message,
+                    mobileNumbers: phone,
+                    scheduleTime: '',
+                    extendAccessNum: '',
+                    f: '1'
+                };
+
+                datas.postResource("sms/sendSMS", "", smsContent).then(function(result){
+
+                    var flag = result.result;
+
+                    if(0 === flag){
+                        callback(null);
+                        return;
+                    }
+                    callback({errorCode: "88888601"});
+
+                }, function(){
+                    callback({errorCode: "88888601"});
+                });
             });
         }
     }
