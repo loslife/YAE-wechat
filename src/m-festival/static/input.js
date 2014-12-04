@@ -94,19 +94,17 @@ function init(){
             var app_id = $("#app_id").text();
 
             var friendData = {
-                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
-                "desc": festivalDesc,
                 "title": storeName + "·" + festivalTitle,
-                "appId": "wxf932fcca3e6bf697"
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id,
+                "desc": festivalDesc
             };
 
             var timelineData = {
-                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
-                "desc": storeName + " | " + festivalTitle + "：" + festivalDesc,
                 "title": storeName + "·" + festivalTitle,
-                "appId": "wxf932fcca3e6bf697"
+                "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id,
+                "desc": storeName + " | " + festivalTitle + "：" + festivalDesc
             };
 
             var wxCallbacks = {
