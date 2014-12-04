@@ -94,17 +94,19 @@ function init(){
             var app_id = $("#app_id").text();
 
             var friendData = {
-                "title": storeName + "·" + festivalTitle,
+                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
-                "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id,
-                "desc": festivalDesc
+                "desc": festivalDesc,
+                "title": storeName + "·" + festivalTitle,
+                "appId": "wxf932fcca3e6bf697"
             };
 
             var timelineData = {
-                "title": storeName + "·" + festivalTitle,
+                "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
-                "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id,
-                "desc": storeName + " | " + festivalTitle + "：" + festivalDesc
+                "desc": storeName + " | " + festivalTitle + "：" + festivalDesc,
+                "title": storeName + "·" + festivalTitle,
+                "appId": "wxf932fcca3e6bf697"
             };
 
             var wxCallbacks = {

@@ -18,13 +18,11 @@
 
     <div id="festival-introduce">
 
-        <div class="haibao">
-
-            <% if(festival.pic_url){ %>
-            <img src="/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>">
-            <% }else{ %>
-            <img src="/svc/public/wechat/festivals_default.png">
-            <% } %>
+        <% if(festival.pic_url){ %>
+        <div class="img" style="background: url('/svc/public/wechat/<%= enterprise_id %>/<%= festival.pic_url %>') no-repeat">
+        <% }else{ %>
+        <div class="img" style="background: url('/svc/public/wechat/festivals_default.png') no-repeat">
+        <% } %>
 
             <div class="title">
                 <img src="/resource/star.png">
@@ -108,4 +106,4 @@
 
 </div>
 
-<a id="back" class="clear-fix fixed-bottom0">看看其它</a>
+<a id="back" class="back clear-fix fixed-bottom0">看看其它</a>
