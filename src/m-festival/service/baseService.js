@@ -145,11 +145,12 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
                     return;
                 }
 
+                var starter = model.present_type === "coupon" ? "您已领取现金券：" : "您已领取赠送服务：";
                 var address = result[0].addr_state_city_area || "未填写";
-                var phone = result[0].contact_phoneMobile || "未填写";
+                var storePhone = result[0].contact_phoneMobile || "未填写";
                 var storeName = result[0].name || "未填写";
 
-                var message = "您已领取" + model.present_name + "，激活码：" + code + "。到店凭激活码消费。店铺地址：" + address + "，电话：" + phone + "，" + storeName ;
+                var message = starter + model.present_name + "，激活码：" + code + "。到店凭激活码消费。店铺地址：" + address + "，电话：" + storePhone + "，" + storeName;
 
                 var smsContent = {
                     message: message,
