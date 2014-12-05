@@ -1,22 +1,87 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var uuid = require('node-uuid');
+var api = require("wechat-toolkit");
 
 exports.bind = bind;
+exports.alreadyBinding = alreadyBinding;
 exports.bindMember = bindMember;
 exports.unbindMember = unbindMember;
 
 function bind(req, res, next){
 
-    var app_id = req.params["appId"];
-    var enterprise_id = req.params["enterpriseId"];
-    var open_id = req.query["open_id"];
+    var code = req.query["code"];
 
-    if(!open_id){
-        next({errorMessage:"访问参数错误"});
+    var enterpriseId = req.params["enterpriseId"];
+    var appId = req.params["appId"];
+
+    // 非微信OAuth跳转
+    if(!code){
+        res.send("请通过微信打开此页面");
         return;
     }
 
-    res.render("inputPhone", {layout: false, type: "single_binding", open_id: open_id, enterprise_id: enterprise_id, app_id: app_id});
+    dbHelper.queryData("weixin_binding", {app_id: appId}, function(err, result){
+
+        if(err){
+            console.log(err);
+            next({errorCode: 500, errorMessage: "数据库异常，请联系管理员"});
+            return;
+        }
+
+        if(result.length === 0){
+            next({errorCode: 500, errorMessage: "数据库异常，请联系管理员"});
+            return;
+        }
+
+        var appSecret = result[0].app_secret;
+
+        api.exchangeAccessToken(appId, appSecret, code, function(err, result){
+
+            if(err){
+                console.log(err);
+                next({errorCode: 501, errorMessage: "专用号绑定会员，获取open_id失败"});
+                return;
+            }
+
+            var condition = {};
+            condition.wx_open_id = result.openid;
+
+            dbHelper.queryData("weixin_member_binding", condition, function(err, results){
+
+                if(err){
+                    console.log(err);
+                    next({errorCode: 500, errorMessage: "数据库异常，请联系管理员"});
+                    return;
+                }
+
+                if(results.length === 0){
+                    res.render("inputPhone", {layout: false, type: "single_binding", open_id: result.openid, enterprise_id: enterpriseId, app_id: appId});
+                    return;
+                }
+
+                dbHelper.queryData("tb_member", {id: results[0].member_id}, function(err, members){
+
+                    if(err){
+                        console.log(err);
+                        next({errorCode: 500, errorMessage: "数据库异常，请联系管理员"});
+                        return;
+                    }
+
+                    if(members.length === 0){
+                        res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/alreadyBinding?member_name=店内会员");
+                    }else{
+                        res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/alreadyBinding?member_name=" + members[0].name);
+                    }
+                });
+            });
+        });
+    });
+}
+
+function alreadyBinding(req, res, next){
+
+    var memberName = req.query["member_name"];
+    res.render("alreadyBinding", {layout: false, member_name: memberName});
 }
 
 // 500: 数据库访问错误
@@ -41,6 +106,7 @@ function bindMember(req, res, next){
             return;
         }
 
+        // 只绑定一个会员，没有处理店内同一个手机号有多个会员的情况
         var member = result[0];
 
         var model = {

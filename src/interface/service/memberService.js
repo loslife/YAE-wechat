@@ -13,27 +13,7 @@ if(global["_g_topo"].env === "dev"){
 
 var baseurl = global["_g_clusterConfig"].baseurl;
 
-exports.hasMemberBinding = hasMemberBinding;
 exports.queryCardsByCondition = queryCardsByCondition;
-
-// callback(err, flag, member_id)
-function hasMemberBinding(fan_open_id, enterprise_id, callback){
-
-    dbHelper.queryData("weixin_member_binding", {enterprise_id: enterprise_id, wx_open_id: fan_open_id}, function(err, result){
-
-        if(err){
-            callback(err);
-            return;
-        }
-
-        if(result.length === 0){
-            callback(null, false);
-        }else{
-            var member_id = result[0].member_id;
-            callback(null, true, member_id);
-        }
-    });
-}
 
 // callback(err, messages)
 function queryCardsByCondition(app_id, condition, callback){
