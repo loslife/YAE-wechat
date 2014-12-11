@@ -187,7 +187,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
         var sql = "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date, " +
             "b.name, b.baseInfo_type as type " +
             "from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
-            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id";
+            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id and (a.status is null or a.status != 0)";
 
         dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
