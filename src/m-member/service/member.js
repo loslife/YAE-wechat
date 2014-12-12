@@ -471,7 +471,7 @@ function queryMemberBill(enterpriseId, memberId, callback) {
 
         var sql = "select a.*, b.memberCardCategoryName" +
             " from planx_graph.tb_rechargememberbill a, planx_graph.tb_membercard b" +
-            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_id = b.id;";
+            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0);";
 
         dbHelper.execSql(sql, {enterprise_id: enterpriseId, member_id: memberId}, function(err, result){
 
