@@ -495,10 +495,15 @@ function queryMemberBill(enterpriseId, memberId, callback) {
         });
 
         function _queryConsumptions(callback) {
-            dbHelper.queryData("tb_serviceBill", {member_id: memberId, enterprise_id: enterpriseId}, function (error, result) {
-                if (error) {
-                    logger.error("查询消费记录，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + error);
-                    callback(error);
+
+            var sql = "select * from planx_graph.tb_servicebill" +
+                " where member_id = :member_id and enterprise_id = :enterprise_id and (status is null or status != 0);";
+
+            dbHelper.execSql(sql, {enterprise_id: enterpriseId, member_id: memberId}, function (err, result) {
+
+                if (err) {
+                    logger.error("查询消费记录，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + err);
+                    callback(err);
                     return;
                 }
                 consumptionRecords = result;
