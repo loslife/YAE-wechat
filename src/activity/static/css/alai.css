@@ -129,7 +129,8 @@ li img {
     background-color: #dd4f4c;
 }
 
-#footer > img {
+#footer img {
+    width: 36%;
     position: relative;
     top: 7px;
 }
