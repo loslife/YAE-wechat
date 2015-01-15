@@ -11,7 +11,6 @@ if(global["_g_topo"].env == "dev"){
     server_address = global["_g_topo"].clientAccess.serviceurl;
 }
 
-var default_welcome = "感谢您的关注，我们会为您提供最好的服务";
 var error_message = "微店铺似乎出了点问题，请联系乐斯";
 
 exports.handle = handleMessage;
@@ -80,23 +79,10 @@ function handleMessage(req, res, next){
 
             default :
                 res.send("");
-                callback(null);
         }
 
         function handleTextMessage(){
-
-            var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/shop";
-
-            var item = {
-                title: "请访问我们的微网站",
-                desc: "查看店铺资料，产品和优惠信息",
-                picUrl: server_address + "resource/logo.jpg",
-                url: url
-            };
-
-            var contents = [item];
-            wx.replyNewsMessage(req, res, contents);
-            callback(null);
+            wx.replyTextMessage(req, res, "您好，您的留言我们已收到，稍后与您联系");
         }
 
         function handleEvent(){
@@ -111,28 +97,34 @@ function handleMessage(req, res, next){
                     handleClick();
                     break;
 
+                case "VIEW":
+                    handleView();
+                    break;
+
                 default:
                     res.send("");
-                    callback(null);
             }
 
             function handleSubscribe(){
 
-                dbHelper.queryData("weixin_setting", {enterprise_id: enterprise_id}, function(err, result){
+                dbHelper.queryData("weixin_binding", {enterprise_id: enterprise_id}, function(err, result){
 
                     if(err){
                         callback(err);
                         return;
                     }
 
-                    var welcome_words = default_welcome;
-
-                    if(result.length !== 0){
-                        welcome_words = result[0].welcomeWord;
+                    if(result.length === 0){
+                        callback({message: "未找到绑定记录"});
+                        return;
                     }
 
-                    wx.replyTextMessage(req, res, welcome_words);
-                    callback(null);
+                    var name = result[0].name;
+                    var app_id = result[0].app_id;
+                    var enterprise_id = result[0].enterprise_id;
+
+                    var sentence = "欢迎关注" + name +"，请先在绑定会员页面输入您在店内的手机号，<a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id +"&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F" + enterprise_id +"%2Fbinding&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect'>绑定会员</a>后可以享受更多增值服务。";
+                    wx.replyTextMessage(req, res, sentence);
                 });
             }
 
@@ -141,14 +133,6 @@ function handleMessage(req, res, next){
                 var fan_open_id = req.weixin.fan_open_id;
 
                 switch(req.weixin.event_key){
-
-                    case "WSITE":
-                        handleWSITE();
-                        break;
-
-                    case "MEMBER_BINDING":
-                        handleMemberBinding();
-                        break;
 
                     case "MEMBER_UNBIND":
                         handleMemberUnbind();
@@ -160,65 +144,6 @@ function handleMessage(req, res, next){
 
                     default :
                         wx.replyTextMessage(req, res, "无法识别的点击事件");
-                        callback(null);
-                }
-
-                function handleWSITE(){
-
-                    var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/shop";
-
-                    memberService.hasMemberBinding(fan_open_id, enterprise_id, function(err, flag, member_id){
-
-                        if(err){
-                            callback(err);
-                            return;
-                        }
-
-                        if(flag){
-                            url = url + "?m_id=" + member_id;
-                        }
-
-                        var item = {
-                            title: "请访问我们的微网站",
-                            desc: "查看店铺资料，产品和优惠信息",
-                            picUrl: server_address + "resource/logo.jpg",
-                            url: url
-                        };
-
-                        var contents = [item];
-                        wx.replyNewsMessage(req, res, contents);
-                        callback(null);
-                    });
-                }
-
-                function handleMemberBinding(){
-
-                    memberService.hasMemberBinding(fan_open_id, enterprise_id, function(err, flag, member_id){
-
-                        if(err){
-                            callback(err);
-                            return;
-                        }
-
-                        if(flag){
-                            wx.replyTextMessage(req, res, "您已经绑定会员，无需重复绑定");
-                            callback(null);
-                            return;
-                        }
-
-                        var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/binding?open_id=" + fan_open_id;
-
-                        var item = {
-                            title: "点击绑定",
-                            desc: "绑定后即可访问会员专区，查看会员卡余额，预约",
-                            picUrl: server_address + "resource/news2.png",
-                            url: url
-                        };
-
-                        var contents = [item];
-                        wx.replyNewsMessage(req, res, contents);
-                        callback(null);
-                    });
                 }
 
                 function handleMemberUnbind(){
@@ -242,12 +167,10 @@ function handleMessage(req, res, next){
                         var code = body.code;
                         if(code !== 0){
                             wx.replyTextMessage(req, res, "您尚未绑定会员，无法解除");
-                            callback(null);
                             return;
                         }
 
                         wx.replyTextMessage(req, res, "解除绑定成功");
-                        callback(null);
                     });
                 }
 
@@ -264,7 +187,7 @@ function handleMessage(req, res, next){
 
                             if(err.message && err.message === "no_bindings"){
 
-                                var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/binding?open_id=" + fan_open_id;
+                                var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + app_id + "&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fwsite%2F" + app_id + "%2F" + enterprise_id + "%2Fbinding&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect";
 
                                 var item = {
                                     title: "请先绑定会员",
@@ -289,6 +212,10 @@ function handleMessage(req, res, next){
                         });
                     });
                 }
+            }
+
+            function handleView(){
+                res.send("");
             }
         }
     }

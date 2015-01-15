@@ -28,7 +28,7 @@ function route(req, res, next){
 
         if(err){
             console.log(err);
-            next({errorCode: 501, errorMessage: "获取open_id失败"});
+            next({errorCode: 501, errorMessage: "共享号跳转首页，获取open_id失败"});
             return;
         }
 

@@ -20,7 +20,8 @@
                 "sync",
                 "wx-router",
                 "light-entrance",
-                "setting"
+                "setting",
+                "template-message"
             ]
         }
     ],

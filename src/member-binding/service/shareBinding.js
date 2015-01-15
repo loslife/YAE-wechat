@@ -30,7 +30,7 @@ function shareBind(req, res, next){
 
         if(err){
             console.log(err);
-            next({errorCode: 501, errorMessage: "获取open_id失败"});
+            next({errorCode: 501, errorMessage: "共享号绑定会员，获取open_id失败"});
             return;
         }
 

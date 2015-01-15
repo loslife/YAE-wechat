@@ -187,7 +187,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
         var sql = "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date, " +
             "b.name, b.baseInfo_type as type " +
             "from planx_graph.tb_membercard as a, planx_graph.tb_membercardcategory as b " +
-            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id";
+            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id and (a.status is null or a.status != 0)";
 
         dbHelper.execSql(sql, {enterprise_id: enterprise_id, member_id: member_id}, function (err, result) {
 
@@ -471,7 +471,7 @@ function queryMemberBill(enterpriseId, memberId, callback) {
 
         var sql = "select a.*, b.memberCardCategoryName" +
             " from planx_graph.tb_rechargememberbill a, planx_graph.tb_membercard b" +
-            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_id = b.id;";
+            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0);";
 
         dbHelper.execSql(sql, {enterprise_id: enterpriseId, member_id: memberId}, function(err, result){
 
@@ -495,10 +495,15 @@ function queryMemberBill(enterpriseId, memberId, callback) {
         });
 
         function _queryConsumptions(callback) {
-            dbHelper.queryData("tb_serviceBill", {member_id: memberId, enterprise_id: enterpriseId}, function (error, result) {
-                if (error) {
-                    logger.error("查询消费记录，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + error);
-                    callback(error);
+
+            var sql = "select * from planx_graph.tb_servicebill" +
+                " where member_id = :member_id and enterprise_id = :enterprise_id and (status is null or status != 0);";
+
+            dbHelper.execSql(sql, {enterprise_id: enterpriseId, member_id: memberId}, function (err, result) {
+
+                if (err) {
+                    logger.error("查询消费记录，memberId:" + memberId + "，enterpriseId：" + enterpriseId + "，error：" + err);
+                    callback(err);
                     return;
                 }
                 consumptionRecords = result;

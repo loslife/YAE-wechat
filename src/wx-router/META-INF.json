@@ -23,6 +23,14 @@
             "auth": false,
             "impl": "router.foundNoMember",
             "comment": "根据输入的手机号，无法找到店铺"
+        },
+        {
+            "name": "singleRouter",
+            "path": "/wsite/:appId/:enterpriseId/route",
+            "method": "get",
+            "auth": false,
+            "impl": "singleRouter.singleRoute",
+            "comment": "进入微站首页，根据open_id判断是否携带member_id"
         }
     ],
     "statics": [

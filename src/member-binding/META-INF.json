@@ -6,7 +6,15 @@
             "method": "get",
             "auth": false,
             "impl": "bindingService.bind",
-            "comment": "跳转到绑定界面"
+            "comment": "跳转到绑定界面，或者提示已经绑定"
+        },
+        {
+            "name": "alreadyBinding",
+            "path": "/wsite/:appId/:enterpriseId/alreadyBinding",
+            "method": "get",
+            "auth": false,
+            "impl": "bindingService.alreadyBinding",
+            "comment": "提示已绑定页面"
         },
         {
             "name": "doBinding",
@@ -14,7 +22,7 @@
             "method": "post",
             "auth": false,
             "impl": "bindingService.bindMember",
-            "comment": "绑定会员"
+            "comment": "处理绑定会员请求"
         },
         {
             "name": "unbind",
@@ -22,7 +30,7 @@
             "method": "post",
             "auth": false,
             "impl": "bindingService.unbindMember",
-            "comment": "解除绑定"
+            "comment": "处理解除绑定请求"
         },
         {
             "name": "shareBinding",

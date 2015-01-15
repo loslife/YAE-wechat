@@ -1,0 +1,37 @@
+{
+    "interface": {
+        "services": {
+
+        },
+        "sdk": {
+
+        },
+        "url": {
+
+        },
+        "fragment": {
+
+        }
+    },
+    "services": [
+        {
+            "name": "sendWXTemplateMessage",
+            "path": "/weixin/sendTemplateMessage",
+            "method": "post",
+            "auth": false,
+            "impl": "wxTemplateMessage.sendMessage",
+            "comment": "发送模板消息"
+        }
+    ],
+    "statics": [
+    ],
+    "errorHandler": [
+
+    ],
+    "dataModelSchema": {
+
+    },
+    "configuration": {
+
+    }
+}

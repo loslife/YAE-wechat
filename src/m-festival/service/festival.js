@@ -193,7 +193,7 @@ function doneRoute(req, res, next){
         api.exchangeAccessToken(app_id, app_secret, code, function(err, result){
 
             if(err){
-                callback({errorCode: 501, errorMessage: "获取open_id失败"});
+                callback({errorCode: 501, errorMessage: "领取后跳转，获取open_id失败"});
                 return;
             }
 

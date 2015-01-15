@@ -388,7 +388,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 return;
             }
 
-            target.css("width", "auto").css("height", "auto");
+            target.css("width", "50%").css("height", "auto");
             if (jcropApi) {
                 jcropApi.destroy();
             }

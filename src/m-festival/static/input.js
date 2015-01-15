@@ -98,7 +98,7 @@ function init(){
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
                 "desc": festivalDesc,
                 "title": storeName + "·" + festivalTitle,
-                "appId": "wxf932fcca3e6bf697"
+                "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id
             };
 
             var timelineData = {
@@ -106,7 +106,7 @@ function init(){
                 "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
                 "desc": storeName + " | " + festivalTitle + "：" + festivalDesc,
                 "title": storeName + "·" + festivalTitle,
-                "appId": "wxf932fcca3e6bf697"
+                "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id
             };
 
             var wxCallbacks = {

@@ -73,7 +73,7 @@
                     <% if(card.type === "recharge"){ %>
 
                         <span class="card_info_title">余额：</span>
-                        <span class="card_info_value"><%= Number(card.currentMoney).toFixed(1) %></span>
+                        <span class="card_info_value"><%= Number(card.currentMoney + 0.000001).toFixed(1) %></span>
 
                     <% } else if(card.type === "recordTimeCard"){ %>
 
