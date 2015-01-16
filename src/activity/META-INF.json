@@ -1,0 +1,41 @@
+{
+    "services": [
+        {
+            "name":"countPageView",
+            "path":"/activity/pageView",
+            "method":"post",
+            "auth":false,
+            "impl":"activityService.countPageView",
+            "comment":"统计进来不同方式进入活动页面的访问数"
+        },
+        {
+            "name":"countAppoint",
+            "path":"/activity/calls",
+            "method":"post",
+            "auth":false,
+            "impl":"activityService.countAppoint",
+            "comment":"统计进来每家店铺的访问数"
+        },
+        {
+            "name":"showDate",
+            "path":"/activity/show",
+            "method":"get",
+            "auth":false,
+            "impl":"activityService.show",
+            "comment":"获取访问信息"
+        }
+    ],
+    "statics": [
+        {
+            "name": "activity",
+            "path": "/activity",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}

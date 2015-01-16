@@ -114,6 +114,11 @@ li > .phone {
     top: 14px;
 }
 
+.phone > a {
+    display: block;
+    height: 40px;
+}
+
 .phone > a:active {
     background-color: white;
     border: none;
