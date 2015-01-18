@@ -19,6 +19,7 @@ body {
 .col-half {
     display: inline-block;
     width: 49%;
+    vertical-align: middle;
 }
 
 .circle {

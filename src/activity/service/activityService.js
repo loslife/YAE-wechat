@@ -57,18 +57,31 @@ function countAppoint(req, res, next){
 
 function show(req, res, next){
 
-    var sqlOne = "select * from planx_graph.wechat_storepageview_from;";
-    var sqlTwo = "select * from planx_graph.wechat_storepageview_appoint;";
+    var sqlPageView = "select * from planx_graph.wechat_storepageview_from;";
+    var sqlAppoint = "select * from planx_graph.wechat_storepageview_appoint;";
+    var model = {layout: false};
 
-    dbHelper.execSql(sqlOne, {}, function(err, result){
+    dbHelper.execSql(sqlPageView, {}, function(err, result){
 
-        var modelOne = {
-            id:id,
-            host_name:host_name,
-            path_from:path_from,
-            count:count,
-            modify_date:modify_date
-        };
-        res.render("show", modelOne);
-    })
+        if(err){
+            console.log(err);
+            next(err);
+            return;
+        }
+
+        model.pageView = result;
+
+        dbHelper.execSql(sqlAppoint, {}, function(err, result){
+
+            if(err){
+                console.log(err);
+                next(err);
+                return;
+            }
+
+            model.appoint = result;
+            res.render("show", model);
+        });
+
+    });
 }
