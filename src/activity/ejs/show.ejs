@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+    <style type="text/css">
+        body{
+            background-color: #edf3de;
+        }
+        table{
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        table, td, th{
+            border:1px solid #d6d2cc;
+            padding: 8px;
+        }
+
+        table{
+            width: 660px;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+        }
+
+        tr{
+            height: 20px;
+        }
+
+
+        div{
+            text-align: center;
+        }
+
+        .tr_bg{
+            background: #87a346;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        .h_textcolor{
+            color: #3c3328;
+        }
+
+        .h_next{
+            color: #675f56;
+        }
+
+        .td_color{
+            background-color: #fff8df;
+            color: #46423d;
+        }
+
+        .text_right{
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <% if(pageView.length > 0 || appoint.length > 0){ %>
+    <div>
+       <h2 class="h_textcolor">活动举办单位：<%= pageView[0].host_name %></h2>
+    </div>
+    <% if(pageView.length > 0){%>
+    <div>
+       <h4 class="h_next">访客访问方式汇总</h4>
+    </div>
+    <table>
+        <tr class="tr_bg">
+            <td>活动举办单位</td>
+            <td>访问方式</td>
+            <td>访问数</td>
+            <td>最后访问时间</td>
+        </tr>
+        <% for(var i = 0; i < pageView.length; i++){%>
+        <tr class="td_color">
+            <td><%= pageView[i].host_name%></td>
+            <% if( pageView[i].path_from == "sms"){pageView[i].path_from = "短信";}else %>
+            <% if( pageView[i].path_from == "qcode"){pageView[i].path_from = "扫码";}else %>
+            <% if( pageView[i].path_from == "natural"){pageView[i].path_from = "其他";} %>
+            <td><%= pageView[i].path_from%></td>
+            <td class="text_right"><%= pageView[i].count%></td>
+            <td class="text_right"><%= new Date(pageView[i].modify_date).Format("MM月dd日  hh:mm:ss")%></td>
+        </tr>
+        <% }%>
+    </table>
+    <% } if(appoint.length > 0){%>
+    <div>
+        <h4 class="h_next">美甲店的预约人数</h4>
+    </div>
+    <table>
+        <tr class="tr_bg">
+            <td>活动举办单位</td>
+            <td>美甲店</td>
+            <td>电话</td>
+            <td>预约人数</td>
+            <td>最后访问时间</td>
+        </tr>
+        <% for(var i = 0; i < appoint.length; i++){%>
+        <tr class="td_color">
+            <td><%= appoint[i].host_name%></td>
+            <td><%= appoint[i].shop_name%></td>
+            <td><%= "025-"+appoint[i].shop_phone%></td>
+            <td class="text_right"><%= appoint[i].count%></td>
+            <td class="text_right"><%= new Date(appoint[i].modify_date).Format("MM月dd日  hh:mm:ss")%></td>
+        </tr>
+        <% }%>
+    </table>
+    <% }}else{%>
+    <div>
+        暂时没有活动
+    </div>
+    <% } %>
+</body>
+
+</html>
