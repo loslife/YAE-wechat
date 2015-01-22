@@ -9,6 +9,14 @@
             "comment": "优惠活动列表"
         },
         {
+            "name": "signature",
+            "path": "/wsite/:appId/:enterpriseId/festival/sign",
+            "method": "post",
+            "auth": false,
+            "impl": "festival.signature",
+            "comment": "获取微信签名"
+        },
+        {
             "name": "festivalRouter",
             "path": "/wsite/:appId/:enterpriseId/festival/route",
             "method": "get",
