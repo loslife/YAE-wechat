@@ -23,7 +23,8 @@
                 "wx-router",
                 "light-entrance",
                 "setting",
-                "template-message"
+                "template-message",
+                "wx-utils"
             ]
         }
     ],

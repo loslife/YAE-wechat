@@ -3,7 +3,7 @@ $(function(){
     var enterpriseId = $("#enterprise_id").text();
     var appId = $("#app_id").text();
     var nowUrl = window.location.href;
-    var signUrl = "/svc/wsite/" + app_id + "/" + enterpriseId + "/shop/sign";
+    var signUrl = "/svc/wsite/" + app_id + "/" + enterpriseId + "/sign";
 
     init();
     var ua = window.navigator.userAgent.toLowerCase();
@@ -48,7 +48,7 @@ $(function(){
 
     function initWx(){
 
-        $.post(signUrl, {url: nowUrl}, function(response){
+        $.post(signUrl, {url: nowUrl, appId: appId}, function(response){
 
             var signature = response.sign;
 

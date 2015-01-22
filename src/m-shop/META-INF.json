@@ -7,14 +7,6 @@
             "auth": false,
             "impl": "shop.jumpToWShop",
             "comment": "跳转到微站-店铺页面"
-        },
-        {
-            "name": "signature",
-            "path": "/wsite/:appId/:enterpriseId/shop/sign",
-            "method": "post",
-            "auth": false,
-            "impl": "shop.signature",
-            "comment": "获取微信签名"
         }
     ],
     "statics": [
