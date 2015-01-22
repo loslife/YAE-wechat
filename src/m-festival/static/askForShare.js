@@ -26,7 +26,6 @@ $(function(){
     }
 
     function initWx(){
-
         $.post(signUrl, {url:nowUrl, appId: app_id}, function(response){
 
             var signature = response.sign;
@@ -34,7 +33,7 @@ $(function(){
             wx.config({
                 debug: false,
                 appId: app_id,
-                timestamp: 1421670363,
+                timestamp: 1421670369,
                 nonceStr: 'q2XFkAiqofKmi1Y2',
                 signature: signature,
                 jsApiList: [
@@ -42,7 +41,6 @@ $(function(){
                     'onMenuShareAppMessage'
                 ]
             });
-
             wx.ready(function() {
 
                 $("#btn_share").click(function(){

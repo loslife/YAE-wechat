@@ -55,7 +55,7 @@ $(function(){
             wx.config({
                 debug: false,
                 appId: appId,
-                timestamp: 1421670363,
+                timestamp: 1421670369,
                 nonceStr: 'q2XFkAiqofKmi1Y2',
                 signature: signature,
                 jsApiList: [
