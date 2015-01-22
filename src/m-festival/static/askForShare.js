@@ -1,18 +1,21 @@
 $(function(){
+
     var enterpriseId = $("#enterprise_id").text();
     var festivalId = $("#festival_id").text();
     var storeName = $(".store-name").text();
     var festivalTitle = $("#f_title").text();
     var festivalDesc = $("#f_desc").text();
     var app_id = $("#app_id").text();
-    var nowUrl=window.location.href;
-    var signUrl="/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/sign";
-    var signature=null;
+    var nowUrl = window.location.href;
+    var signUrl = "/svc/wsite/" + app_id + "/" + enterpriseId + "/sign";
+
     init();
+
     var ua = window.navigator.userAgent.toLowerCase();
     if(ua.match(/MicroMessenger/i) == 'micromessenger'){
         initWx();
     }
+
     function init(){
         $("#btn_share").prop("disabled", false);
 
@@ -24,8 +27,10 @@ $(function(){
 
     function initWx(){
 
-        $.post(signUrl, {url:nowUrl}, function(response){
-            signature=response.sign;
+        $.post(signUrl, {url:nowUrl, appId: app_id}, function(response){
+
+            var signature = response.sign;
+
             wx.config({
                 debug: false,
                 appId: app_id,
@@ -37,6 +42,7 @@ $(function(){
                     'onMenuShareAppMessage'
                 ]
             });
+
             wx.ready(function() {
 
                 $("#btn_share").click(function(){
@@ -107,5 +113,4 @@ $(function(){
             });
         });
     }
-
 });

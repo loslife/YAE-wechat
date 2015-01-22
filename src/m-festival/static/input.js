@@ -6,7 +6,7 @@ $(function(){
     var festivalDesc = $("#f_desc").text();
     var app_id = $("#app_id").text();
     var nowUrl=window.location.href;
-    var signUrl="/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/sign";
+    var signUrl="/svc/wsite/" + app_id + "/" + enterpriseId + "/sign";
     var signature=null;
     init();
     var ua = window.navigator.userAgent.toLowerCase();
@@ -74,7 +74,7 @@ $(function(){
         });
     }
     function initWx(){
-        $.post(signUrl, {url:nowUrl}, function(response){
+        $.post(signUrl, {url:nowUrl, appId: app_id}, function(response){
             signature=response.result.sign;
             wx.config({
                 debug: false,

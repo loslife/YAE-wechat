@@ -1,0 +1,21 @@
+{
+    "services": [
+        {
+            "name": "signature",
+            "path": "/wsite/:appId/:enterpriseId/sign",
+            "method": "post",
+            "auth": false,
+            "impl": "signatureHelper.signature",
+            "comment": "获取微信签名"
+        }
+    ],
+    "statics": [
+
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}
