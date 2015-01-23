@@ -1,6 +1,5 @@
 var tokenHelper = require("./access_token_helper");
 var jsSHA = require("jssha");
-var urllib = require("urllib");
 
 exports.signature = signature;
 
@@ -8,29 +7,31 @@ function signature(req, res, next){
 
     var appId = req.body.appId;
     var originUrl = req.body.url;
+    var timestamp = parseInt(new Date().getTime() / 1000);
+    tokenHelper.getTokenByAppId(appId, function(err, access_token, jsapi_ticket, old_timestamp){
+        if((timestamp-parseInt(old_timestamp))>=7100){
+            tokenHelper.refreshAccessToken(appId, function(err, access_token, jsapi_ticket){
 
-    tokenHelper.refreshAccessToken(appId, function(err, access_token){
+                var js_ticket = jsapi_ticket;
 
-        var url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + access_token + "&type=jsapi";
+                var ret = {
+                    jsapi_ticket: js_ticket,
+                    nonceStr: "q2XFkAiqofKmi1Y2",
+                    timestamp: 1421670369,
+                    url: originUrl
+                };
 
-        var options = {
-            method: "GET",
-            dataType: "json"
-        };
+                var string = raw(ret);
+                var shaObj = new jsSHA(string, 'TEXT');
+                var sign = shaObj.getHash('SHA-1', 'HEX');
 
-        urllib.request(url, options, function(err, body, resp){
+                res.send({sign:sign});
 
-            if(err){
-                next(err);
-                return;
-            }
 
-            if(body.errcode){
-                next(body);
-                return;
-            }
-
-            var js_ticket = body.ticket;
+            });
+        }
+        else{
+            var js_ticket = jsapi_ticket;
 
             var ret = {
                 jsapi_ticket: js_ticket,
@@ -44,22 +45,21 @@ function signature(req, res, next){
             var sign = shaObj.getHash('SHA-1', 'HEX');
 
             res.send({sign:sign});
+        }
+        function raw(args) {
+            var keys = Object.keys(args);
+            keys = keys.sort()
+            var newArgs = {};
+            keys.forEach(function (key) {
+                newArgs[key.toLowerCase()] = args[key];
+            });
 
-            function raw(args) {
-                var keys = Object.keys(args);
-                keys = keys.sort()
-                var newArgs = {};
-                keys.forEach(function (key) {
-                    newArgs[key.toLowerCase()] = args[key];
-                });
-
-                var string = '';
-                for (var k in newArgs) {
-                    string += '&' + k + '=' + newArgs[k];
-                }
-                string = string.substr(1);
-                return string;
+            var string = '';
+            for (var k in newArgs) {
+                string += '&' + k + '=' + newArgs[k];
             }
-        });
+            string = string.substr(1);
+            return string;
+        }
     });
 }

@@ -147,14 +147,14 @@ function handleMessage(req, res, next){
 
                             function _initAccessToken(callback){
 
-                                tokenHelper.getTokenByAppId(app_id, function(err, access_token){
+                                tokenHelper.getTokenByAppId(app_id, function(){
 
-                                    if(err){
-                                        callback(err);
+                                    if(arguments[0]){
+                                        callback(arguments[0]);
                                         return;
                                     }
 
-                                    global_access_token = access_token;
+                                    global_access_token = arguments[1];
                                     callback(null);
                                 });
                             }
@@ -179,14 +179,14 @@ function handleMessage(req, res, next){
                                             case 40001:
 
                                             case 42001:
-                                                tokenHelper.refreshAccessToken(app_id, function(err, access_token){
+                                                tokenHelper.refreshAccessToken(app_id, function(){
 
-                                                    if(err){
-                                                        next(err);
+                                                    if(arguments[0]){
+                                                        next(arguments[0]);
                                                         return;
                                                     }
 
-                                                    global_access_token = access_token;
+                                                    global_access_token = arguments[1];
                                                     wx.csReplyNews(global_access_token, fan_open_id, message, next);
                                                 });
                                                 break;
