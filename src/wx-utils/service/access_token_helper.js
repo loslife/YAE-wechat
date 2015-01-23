@@ -21,7 +21,7 @@ function getTokenByAppId(app_id, callback){
         }
 
         if(results.length !== 0){
-            callback(null, results[0].access_token, results[0].jsapi_ticket, results[0].timestamp);
+            callback(null, results[0].access_token);
             return;
         }
 
@@ -34,21 +34,21 @@ function getTokenByAppId(app_id, callback){
 
     function generateShare(){
 
-        wx.getAccessToken(share_app_id, share_app_secret, function(){
+        wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token){
 
-            if(arguments[0]){
-                callback(arguments[0]);
+            if(err){
+                callback(err);
                 return;
             }
 
-            dbHelper.addData(TABLE_NAME, {access_token: arguments[1], app_id: share_app_id, id: uuid.v1()}, function(err){
+            dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: share_app_id, id: uuid.v1()}, function(err){
 
                 if(err){
                     callback(err);
                     return;
                 }
 
-                callback(null, arguments[1]);
+                callback(null, access_token);
             });
         });
     }
@@ -67,21 +67,21 @@ function getTokenByAppId(app_id, callback){
                 return;
             }
 
-            wx.getAccessToken(app_id, results[0].app_secret, function(){
+            wx.getAccessToken(app_id, results[0].app_secret, function(err, access_token){
 
-                if(arguments[0]){
-                    callback(arguments[0]);
+                if(err){
+                    callback(err);
                     return;
                 }
 
-                dbHelper.addData(TABLE_NAME, {access_token: arguments[1], app_id: app_id, id: uuid.v1()}, function(err){
+                dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: app_id, id: uuid.v1()}, function(err){
 
                     if(err){
                         callback(err);
                         return;
                     }
 
-                    callback(null, arguments[1]);
+                    callback(null, access_token);
                 });
             });
         });
@@ -99,21 +99,21 @@ function refreshAccessToken(app_id, callback){
 
     function refreshShare(){
 
-            wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token, jsapi_ticket){
+        wx.getAccessToken(share_app_id, share_app_secret, function(err, access_token){
 
             if(err){
                 callback(err);
                 return;
             }
-            var timestamp = (new Date().getTime() / 1000).toString();
-            dbHelper.update({app_id: share_app_id}, TABLE_NAME, {access_token: access_token, jsapi_ticket: jsapi_ticket, timestamp: timestamp}, function(err) {
+
+            dbHelper.update({app_id: share_app_id}, TABLE_NAME, {access_token: access_token}, function(err) {
 
                 if(err){
                     callback(err);
                     return;
                 }
 
-                callback(null, access_token, jsapi_ticket);
+                callback(null, access_token);
             });
         });
     }
@@ -132,21 +132,21 @@ function refreshAccessToken(app_id, callback){
                 return;
             }
 
-            wx.getAccessToken(app_id, results[0].app_secret, function(err, access_token, jsapi_ticket){
+            wx.getAccessToken(app_id, results[0].app_secret, function(err, access_token){
 
                 if(err){
                     callback(err);
                     return;
                 }
-                var timestamp = (new Date().getTime() / 1000).toString();
-                dbHelper.update({app_id: app_id}, TABLE_NAME, {access_token: access_token, jsapi_ticket: jsapi_ticket, timestamp: timestamp}, function(err){
+
+                dbHelper.update({app_id: app_id}, TABLE_NAME, {access_token: access_token}, function(err){
 
                     if(err){
                         callback(err);
                         return;
                     }
 
-                    callback(null, access_token, jsapi_ticket);
+                    callback(null, access_token);
                 });
             });
         });

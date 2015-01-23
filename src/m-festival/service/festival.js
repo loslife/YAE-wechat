@@ -203,14 +203,14 @@ function doneRoute(req, res, next){
 
     function _queryFanInfo(open_id, callback){
 
-        tokenHelper.getTokenByAppId(appId, function(){
+        tokenHelper.getTokenByAppId(appId, function(err, access_token){
 
-            if(arguments[0]){
+            if(err){
                 callback({errorCode: 502, errorMessage: "获取access_token失败"});
                 return;
             }
 
-            api.getFanInfo(arguments[1], open_id, function(err, info){
+            api.getFanInfo(access_token, open_id, function(err, info){
 
                 if(!err){
                     callback(null, info.subscribe);
@@ -222,14 +222,14 @@ function doneRoute(req, res, next){
                     case 40001:
                     case 42001:
 
-                        tokenHelper.refreshAccessToken(appId, function(){
+                        tokenHelper.refreshAccessToken(appId, function(err, access_token){
 
-                            if(arguments[0]){
+                            if(err){
                                 callback({errorCode: 502, errorMessage: "刷新access_token失败"});
                                 return;
                             }
 
-                            api.getFanInfo(arguments[1], open_id, function(err, info){
+                            api.getFanInfo(access_token, open_id, function(err, info){
 
                                 if(err){
                                     callback(err);

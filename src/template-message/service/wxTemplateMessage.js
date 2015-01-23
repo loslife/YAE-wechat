@@ -80,14 +80,14 @@ function sendMessage(req, res, next){
 
         async.eachSeries(targets, function(target, next){
 
-            tokenHelper.getTokenByAppId(target.app_id, function(){
+            tokenHelper.getTokenByAppId(target.app_id, function(err, access_token){
 
-                if(arguments[0]){
-                    next(arguments[0]);
+                if(err){
+                    next(err);
                     return;
                 }
 
-                target.access_token = arguments[1];
+                target.access_token = access_token;
                 wx.sendTemplateMessage(target, function(err, code, message){
 
                     if(err){
@@ -105,14 +105,14 @@ function sendMessage(req, res, next){
 
                         case 42001:
 
-                            tokenHelper.refreshAccessToken(target.app_id, function(){
+                            tokenHelper.refreshAccessToken(target.app_id, function(err, new_access_token){
 
-                                if(arguments[0]){
-                                    next(arguments[0]);
+                                if(err){
+                                    next(err);
                                     return;
                                 }
 
-                                target.access_token = arguments[1];
+                                target.access_token = new_access_token;
                                 wx.sendTemplateMessage(target, next);
                             });
                             break;
