@@ -11,12 +11,10 @@ function signature(req, res, next){
     tokenHelper.getTokenByAppId(appId, function(err, access_token, js_ticket, old_timestamp){
         var now_timestamp = parseInt(new Date().getTime() / 1000);
         if((now_timestamp-parseInt(old_timestamp))>=7100){
-            tokenHelper.refreshAccessToken(appId, function(err, jsapi_ticket){
-
-                var js_ticket = jsapi_ticket;
+            tokenHelper.refreshAccessToken(appId, function(err, access_token, jsapi_ticket){
 
                 var ret = {
-                    jsapi_ticket: js_ticket,
+                    jsapi_ticket: jsapi_ticket,
                     nonceStr: "q2XFkAiqofKmi1Y2",
                     timestamp: 1421670369,
                     url: originUrl
@@ -31,7 +29,6 @@ function signature(req, res, next){
             });
         }
         else{
-            var js_ticket = js_ticket;
 
             var ret = {
                 jsapi_ticket: js_ticket,
