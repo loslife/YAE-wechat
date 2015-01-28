@@ -10,8 +10,22 @@ var TABLE_NAME = "weixin_access_token";
 exports.getTokenByAppId = getTokenByAppId;
 exports.refreshAccessToken = refreshAccessToken;
 
-// callback(err, access_token)
+function getTicket(access_token, callback){
+
+    wx.getJsApiTicket(access_token, function(err, ticket){
+
+        if(err){
+            callback(err);
+            return;
+        }
+
+        callback(null, ticket);
+    });
+}
+
 function getTokenByAppId(app_id, callback){
+
+    var now_timestamp = parseInt(new Date().getTime() / 1000).toString();
 
     dbHelper.queryData(TABLE_NAME, {app_id: app_id}, function(err, results){
 
@@ -21,7 +35,7 @@ function getTokenByAppId(app_id, callback){
         }
 
         if(results.length !== 0){
-            callback(null, results[0].access_token);
+            callback(null, results[0].access_token, results[0].jsapi_ticket, results[0].timestamp);
             return;
         }
 
@@ -41,14 +55,17 @@ function getTokenByAppId(app_id, callback){
                 return;
             }
 
-            dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: share_app_id, id: uuid.v1()}, function(err){
+            getTicket(access_token, function(err, ticket){
 
-                if(err){
-                    callback(err);
-                    return;
-                }
+                dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: share_app_id, id: uuid.v1(), jsapi_ticket: ticket, timestamp: now_timestamp}, function(err){
 
-                callback(null, access_token);
+                    if(err){
+                        callback(err);
+                        return;
+                    }
+
+                    callback(null, access_token, ticket, now_timestamp);
+                });
             });
         });
     }
@@ -74,14 +91,22 @@ function getTokenByAppId(app_id, callback){
                     return;
                 }
 
-                dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: app_id, id: uuid.v1()}, function(err){
+                getTicket(access_token, function(err, ticket){
 
                     if(err){
                         callback(err);
                         return;
                     }
 
-                    callback(null, access_token);
+                    dbHelper.addData(TABLE_NAME, {access_token: access_token, app_id: app_id, id: uuid.v1(), jsapi_ticket: ticket, timestamp: now_timestamp}, function(err){
+
+                        if(err){
+                            callback(err);
+                            return;
+                        }
+
+                        callback(null, access_token, ticket, now_timestamp);
+                    });
                 });
             });
         });
@@ -90,7 +115,7 @@ function getTokenByAppId(app_id, callback){
 
 // callback(err, access_token)
 function refreshAccessToken(app_id, callback){
-
+    var now_timestamp = parseInt(new Date().getTime() / 1000).toString();
     if(app_id === share_app_id){
         refreshShare();
     }else{
@@ -105,15 +130,16 @@ function refreshAccessToken(app_id, callback){
                 callback(err);
                 return;
             }
+            getTicket(access_token, function(err, ticket){
+                dbHelper.update({app_id: share_app_id}, TABLE_NAME, {access_token: access_token, jsapi_ticket: ticket, timestamp: now_timestamp}, function(err) {
 
-            dbHelper.update({app_id: share_app_id}, TABLE_NAME, {access_token: access_token}, function(err) {
+                    if(err){
+                        callback(err);
+                        return;
+                    }
 
-                if(err){
-                    callback(err);
-                    return;
-                }
-
-                callback(null, access_token);
+                    callback(null, access_token, ticket);
+                });
             });
         });
     }
@@ -138,16 +164,18 @@ function refreshAccessToken(app_id, callback){
                     callback(err);
                     return;
                 }
+                getTicket(access_token,function(err,ticket){
+                    dbHelper.update({app_id: app_id}, TABLE_NAME, {access_token: access_token, jsapi_ticket: ticket, timestamp: now_timestamp}, function(err){
 
-                dbHelper.update({app_id: app_id}, TABLE_NAME, {access_token: access_token}, function(err){
+                        if(err){
+                            callback(err);
+                            return;
+                        }
 
-                    if(err){
-                        callback(err);
-                        return;
-                    }
-
-                    callback(null, access_token);
+                        callback(null, access_token, ticket);
+                    });
                 });
+
             });
         });
     }

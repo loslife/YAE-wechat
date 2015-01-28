@@ -7,7 +7,6 @@ $(function(){
     var app_id = $("#app_id").text();
     var nowUrl=window.location.href;
     var signUrl="/svc/wsite/" + app_id + "/" + enterpriseId + "/sign";
-    var signature=null;
     init();
     var ua = window.navigator.userAgent.toLowerCase();
     if(ua.match(/MicroMessenger/i) == 'micromessenger'){
@@ -75,11 +74,11 @@ $(function(){
     }
     function initWx(){
         $.post(signUrl, {url:nowUrl, appId: app_id}, function(response){
-            signature=response.result.sign;
+            var signature=response.result.sign;
             wx.config({
                 debug: false,
                 appId: app_id,
-                timestamp: 1421670363,
+                timestamp: 1421670369,
                 nonceStr: 'q2XFkAiqofKmi1Y2',
                 signature: signature,
                 jsApiList: [
@@ -88,7 +87,6 @@ $(function(){
                 ]
             });
             wx.ready(function() {
-
                 var friendData = {
                     "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
                     "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
