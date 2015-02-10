@@ -47,7 +47,7 @@ $(function(){
                 $("#binding_success_tip").show();
 
                 setTimeout(function(){
-                    location.href = "./wxb5243e6a07f2e09a/" + result[0].eid + "/shop?m_id=" + result[0].mid;
+                    location.href = "./wxb5243e6a07f2e09a/" + result[0].eid + "/shop?m_id=" + result[0].mid + "&store_type=" + result[0].store_type;
                 },2000);
             });
         });

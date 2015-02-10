@@ -1,8 +1,8 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/m-festival/static/input.js')
-        .css("/m-festival/static/css/input.css")
+        .js('/m-festival/input.js')
+        .css("/m-festival/css/input.css")
         .done(config) %>
 
 <% }else{ %>
@@ -104,6 +104,7 @@
         <div id="enterprise_id"><%= enterprise_id %></div>
         <div id="festival_id"><%= festival.id %></div>
         <div id="app_id"><%= app_id %></div>
+        <div id="store_type"><%= store_type %></div>
     </div>
 
 </div>

@@ -20,6 +20,7 @@ function list(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var appId = req.params["appId"];
+    var store_type= req.session.single_chain;
 
     dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId, state: 1}, function(err, result){
 
@@ -29,7 +30,7 @@ function list(req, res, next){
             return;
         }
 
-        res.render("festivals", {app_id: appId, enterprise_id: enterpriseId, menu: "festival", festivals: result});
+        res.render("festivals", {app_id: appId, enterprise_id: enterpriseId, menu: "festival", festivals: result, store_type: store_type});
     });
 }
 
@@ -41,6 +42,10 @@ function route(req, res, next){
     var festivalId = req.query["fid"];
     var appId = req.params["appId"];
     var memberId = null;
+    var single_chain = req.query["store_type"];
+    if(single_chain){
+        req.session.single_chain = single_chain;
+    }
 
     if(req.session[enterpriseId]){
         memberId = req.session[enterpriseId].member_id;
@@ -65,10 +70,10 @@ function route(req, res, next){
                 }
 
                 if(!memberId){
-                    res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, app_id: appId});
+                    res.render("input", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, app_id: appId, store_type: single_chain});
                 }else{
                     dao.hasProvidePresent(enterpriseId, festivalId, memberId, null, function(err, received){
-                        res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, duplicated: received, app_id: appId});
+                        res.render("askForShare", {enterprise_id: enterpriseId, menu: "none", store: store, festival: festival, expired: expired, duplicated: received, app_id: appId, store_type: single_chain});
                     });
                 }
             });
@@ -89,7 +94,7 @@ function route(req, res, next){
 
         function _queryStoreInfo(callback) {
 
-            var queryUrl = http_server + "weixin/queryStoreInfo/" + enterpriseId;
+            var queryUrl = http_server + "weixin/queryStoreInfo/" + enterpriseId + "?store_type=" + single_chain;
 
             var options = {
                 method: "GET",
@@ -159,6 +164,7 @@ function doneRoute(req, res, next){
 
     var enterpriseId = req.params["enterpriseId"];
     var appId = req.params["appId"];
+    var single_chain = req.session.single_chain;
     var member_id;
 
     if(req.session && req.session[enterpriseId]){

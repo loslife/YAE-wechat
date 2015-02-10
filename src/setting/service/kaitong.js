@@ -1,12 +1,15 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
+var chainDbHelper = require(FRAMEWORKPATH + "/utils/ChainDbHelper");
 var async = require("async");
 
 exports.index = index;
 exports.check = check;
 
+var single_chain = null;
 function index(req, res, next){
 
     var enterpriseId = req.session.enterpriseId;
+    single_chain = req.session.single_chain;
 
     if(!enterpriseId){
         next({message: "请重新登陆"});
@@ -51,17 +54,23 @@ function index(req, res, next){
     }
 
     function _checkBaseinfo(callback){
+        if(single_chain == "chain"){
+            dohelper(chainDbHelper);
+        }else{
+            dohelper(dbHelper);
+        }
+        function dohelper(helper){
+            helper.queryData("tb_enterprise", {id: enterpriseId}, function(err, result){
 
-        dbHelper.queryData("tb_enterprise", {id: enterpriseId}, function(err, result){
+                if(err){
+                    callback(err);
+                    return;
+                }
 
-            if(err){
-                callback(err);
-                return;
-            }
-
-            checklist.baseinfo = result[0].addr_state_city_area ? true : false;
-            callback(null);
-        });
+                checklist.baseinfo = result[0].addr_state_city_area ? true : false;
+                callback(null);
+            });
+        }
     }
 
     function _checkShelf(callback){
@@ -85,6 +94,7 @@ function index(req, res, next){
 function check(req, res, next){
 
     var enterpriseId = req.session.enterpriseId;
+    single_chain = req.session.single_chain;
 
     async.series([_checkBaseinfo, _checkShelf, _do], function(err){
 
@@ -98,21 +108,27 @@ function check(req, res, next){
     });
 
     function _checkBaseinfo(callback){
+        if(single_chain == "chain"){
+            dohelper(chainDbHelper);
+        }else{
+            dohelper(dbHelper);
+        }
+        function dohelper(helper){
+            helper.queryData("tb_enterprise", {id: enterpriseId}, function(err, results){
 
-        dbHelper.queryData("tb_enterprise", {id: enterpriseId}, function(err, results){
+                if(err){
+                    callback(err);
+                    return;
+                }
 
-            if(err){
-                callback(err);
-                return;
-            }
+                if(!results[0].contact_phoneMobile){
+                    callback({errorCode: 1, errorMessage: "店铺基本信息未设置"});
+                    return;
+                }
 
-            if(!results[0].contact_phoneMobile){
-                callback({errorCode: 1, errorMessage: "店铺基本信息未设置"});
-                return;
-            }
-
-            callback(null);
-        });
+                callback(null);
+            });
+        }
     }
 
     function _checkShelf(callback){

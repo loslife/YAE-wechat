@@ -49,7 +49,7 @@ $(function(){
 
                 $("#binding_success_tip").show();
                 setTimeout(function(){
-                    location.href = g_env.binding_url + app_id + "/" + enterprise_id + "/member?m_id=" + response.member_id;
+                    location.href = g_env.binding_url + app_id + "/" + response.true_id + "/member?m_id=" + response.member_id;
                 },2000);
             });
         });

@@ -1,9 +1,9 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js("/m-shop/static/shop.js")
+        .js("/m-shop/shop.js")
         .js("http://api.map.baidu.com/api?type=quick&ak=077cf00d4471f3852b96fba32ff879fd&v=1.0")
-        .css("/m-shop/static/css/shop.css")
+        .css("/m-shop/css/shop.css")
         .done(config) %>
 
 <% }else{ %>
@@ -90,7 +90,7 @@
 
             <% festivals.forEach(function (item) { %>
 
-            <li onclick="location.href='/svc/wsite/<%= app_id %>/<%= enterprise_id %>/festival/route?fid=<%= item.id %>'">
+            <li onclick="location.href='/svc/wsite/<%= app_id %>/<%= enterprise_id %>/festival/route?fid=<%= item.id %>&store_type=<%= store_type %>'">
 
                 <div class="pre-img" style="background-image: url('<%= item.pic_url %>');">
                 </div>
@@ -144,6 +144,7 @@
     <div class="none">
         <span id="enterprise_id"><%= enterprise_id %></span>
         <span id="app_id"><%= app_id %></span>
+        <span id="store_type"><%= store_type %></span>
         <span id="onMenuShareTimeline"></span>
         <span id="onMenuShareAppMessage"></span>
     </div>

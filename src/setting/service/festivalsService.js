@@ -1,4 +1,5 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
+var chainDbHelper = require(FRAMEWORKPATH + "/utils/ChainDbHelper");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 var uuid = require("node-uuid");
 var fs = require("fs");
@@ -15,8 +16,11 @@ exports.removeFestivals = removeFestivals;
 exports.updateState = updateState;
 exports.updatePromoteState = updatePromoteState;
 
+var single_chain = null;
 function init(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
+    single_chain = req.session.single_chain;
+
     dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId}, function (error, result) {
         if (error) {
             logger.error(enterpriseId + ",查询优惠活动列表失败，error：" + error);
@@ -271,17 +275,34 @@ function queryPresentItemsAndCoupons(enterpriseId, callback) {
         });
 
         function _queryPresentService(callback) {
-            dbHelper.queryData("tb_serviceAttrMap", {groupName: "present", enterprise_id: enterpriseId}, function (error, result) {
-                serviceAttrMap = result;
-                callback(error);
-            });
+            if(single_chain == "chain"){
+                dohelper(chainDbHelper);
+            }else{
+                dohelper(dbHelper);
+            }
+
+            function dohelper(helper){
+                helper.queryData("tb_serviceattrmap", {groupName: "present", enterprise_id: enterpriseId}, function (error, result) {
+                    serviceAttrMap = result;
+                    callback(error);
+                });
+            }
         }
 
         function _queryServices(callback) {
-            dbHelper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
-                services = result;
-                callback(error);
-            });
+            if(single_chain == "chain"){
+                dohelper(chainDbHelper);
+            }else{
+                dohelper(dbHelper);
+            }
+
+            function dohelper(helper){
+                helper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
+                    services = result;
+                    callback(error);
+                });
+            }
+
         }
 
         function _buildPresentItems(callback) {
@@ -305,14 +326,22 @@ function queryPresentItemsAndCoupons(enterpriseId, callback) {
 
     function _queryCoupons(callback) {
         var sql = "select * from planx_graph.tb_memberCardCategory where baseInfo_type = :baseInfo_type and enterprise_id = :enterprise_id";
-        dbHelper.execSql(sql, {baseInfo_type: "coupon", enterprise_id: enterpriseId}, function (error, result) {
-            if (result && !_.isEmpty(result)) {
-                _.each(result, function (item) {
-                    items.push({id: item.id, name: item.name, type: "coupon", typeName: " 现金卷"});
-                });
-            }
-            callback(error);
-        });
+        if(single_chain == "chain"){
+            dohelper(chainDbHelper);
+        }else{
+            dohelper(dbHelper);
+        }
+
+        function dohelper(helper){
+            helper.execSql(sql, {baseInfo_type: "coupon", enterprise_id: enterpriseId}, function (error, result) {
+                if (result && !_.isEmpty(result)) {
+                    _.each(result, function (item) {
+                        items.push({id: item.id, name: item.name, type: "coupon", typeName: " 现金劵"});
+                    });
+                }
+                callback(error);
+            });
+        }
     }
 }
 

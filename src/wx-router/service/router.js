@@ -53,7 +53,8 @@ function route(req, res, next){
             if(result.length === 1){
                 var enterprise_id = result[0].enterprise_id;
                 var member_id = result[0].member_id;
-                res.redirect("../" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id);
+                var store_type = result[0].single_chain;
+                res.redirect("../" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id + "&store_type=" + store_type);
                 return;
             }
 
@@ -112,6 +113,7 @@ function selectShop(req, res, next){
             var phone = "";
             var addr = "";
             var logUrl = "";
+            var store_type = "";
 
             for(var j = 0; j < results.length; j++){
 
@@ -120,11 +122,12 @@ function selectShop(req, res, next){
                     phone = results[j].phone || "";
                     addr = results[j].address || "";
                     logUrl = results[j].logUrl || "/svc/public/wechat/enterprise_default.png";
+                    store_type = results[j].store_type;
                     break;
                 }
             }
 
-            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr, logUrl: logUrl});
+            params.push({enterprise_id: enterprises[i], member_id: members[i], enterprise_name: name, phone: phone, addr: addr, logUrl: logUrl, store_type: store_type});
         }
 
         res.render("selection", {layout: false, params: params, app_id: app_id});

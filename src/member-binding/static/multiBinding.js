@@ -51,16 +51,27 @@ $(function(){
                     dist = "/svc/wsite/memberNotFound";
                 }else if(bindings.length === 1){
 
-                    var enterprise_id = bindings[0].enterprise_id;
+                    if(bindings[0].master_id){
+                        var enterprise_id = bindings[0].master_id;
+                        var store_type = "chain";
+                    }else{
+                        var enterprise_id = bindings[0].enterprise_id;
+                        var store_type = "single";
+                    }
+
                     var member_id = bindings[0].member_id;
-                    dist = "/svc/wsite/" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id;
+                    dist = "/svc/wsite/" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id + "&store_type=" + store_type;
                 }else{
 
                     var enterprises = [];
                     var members = [];
 
                     for(var i = 0; i < bindings.length; i++){
-                        enterprises.push(bindings[i].enterprise_id);
+                        if(bindings[0].master_id){
+                            enterprises.push(bindings[i].master_id);
+                        }else{
+                            enterprises.push(bindings[i].enterprise_id);
+                        }
                         members.push(bindings[i].member_id);
                     }
 

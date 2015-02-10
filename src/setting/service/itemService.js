@@ -16,6 +16,7 @@ exports.updateShelves = updateShelves;
 
 function allItem(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
+    var single_chain = req.session.single_chain;
 
     var data = {
         layout: "storeadmin_layout",
@@ -23,7 +24,7 @@ function allItem(req, res, next) {
         storeName: req.session.storeName
     };
 
-    itemDao.queryAllItem(enterpriseId, function (error, cateList, cateId2ItemList) {
+    itemDao.queryAllItem(enterpriseId, single_chain, function (error, cateList, cateId2ItemList) {
         if (error) {
             logger.error(error);
             next(error);
@@ -35,6 +36,7 @@ function allItem(req, res, next) {
 
 function shelvesItem(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
+    var single_chain = req.session.single_chain;
 
     var data = {
         layout: "storeadmin_layout",
@@ -42,7 +44,7 @@ function shelvesItem(req, res, next) {
         storeName: req.session.storeName
     };
 
-    itemDao.queryShelvesItem(enterpriseId, function (error, result) {
+    itemDao.queryShelvesItem2(enterpriseId, single_chain, function (error, result) {
         if (error) {
             logger.error(error);
             next(error);
@@ -68,8 +70,9 @@ function addShelvesItem(req, res, next) {
 
 function queryAllShelvesItem(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
+    var single_chain = req.query["store_type"];
 
-    itemDao.queryShelvesItem(enterpriseId, function (error, result) {
+    itemDao.queryShelvesItem2(enterpriseId, single_chain, function (error, result) {
         if (error) {
             logger.error(error);
             next(error);
@@ -81,8 +84,8 @@ function queryAllShelvesItem(req, res, next) {
 
 function queryShelvesByItemId(req, res, next) {
     var itemId = req.params.itemId;
-
-    itemDao.queryShelvesByItemId(itemId, function (error, result) {
+    var single_chain = req.query["store_type"];
+    itemDao.queryShelvesByItemId(itemId, single_chain, function (error, result) {
         if (error) {
             logger.error(error);
             next(error);

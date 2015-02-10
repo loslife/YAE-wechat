@@ -20,9 +20,29 @@
                         <h3 class="panel-title">乐斯店铺后台管理</h3>
                     </div>
                     <div class="panel-body">
+
+                        <% if(env === "dev"){ %>
+
+                        <form role="form" action="http://127.0.0.1:5001/svc/formlogin" method="post">
+
+                        <% }else{ %>
+
                         <form role="form" action="/svc/formlogin" method="post">
+
+                        <% } %>
+
                             <fieldset>
+
+                                <% if(env === "dev"){ %>
+
+                                <input type="hidden" value="http://127.0.0.1:5002/svc/weixin/storeInfo" name="redirect"/>
+
+                                <% }else{ %>
+
                                 <input type="hidden" value="/svc/weixin/storeInfo" name="redirect"/>
+
+                                <% } %>
+
                                 <div class="form-group">
                                     <input class="form-control" placeholder="用户名" name="username" type="text" autofocus>
                                 </div>

@@ -39,6 +39,12 @@
             "connectionurl": "10.161.135.104:2222",
             "user": "",
             "password": ""
+        },
+        "chainmysql": {
+            "ip": "chaindev.mysql.rds.aliyuncs.com",
+            "port": 3306,
+            "user": "yilos_chain",
+            "password": "Los2013e"
         }
     },
     "clientAccess": {

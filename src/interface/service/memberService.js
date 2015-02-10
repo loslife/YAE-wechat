@@ -58,12 +58,13 @@ function queryCardsByCondition(app_id, condition, callback){
                     return;
                 }
 
-                var name = body.result;
+                var name = body.result.name;
+                var store_type = body.result.store_type;
                 if(_.isEmpty(name)){
                     name = "未命名店铺";
                 }
 
-                var cardServiceUrl = server_address + "svc/wsite/" + enterprise_id + "/membercards";
+                var cardServiceUrl = server_address + "svc/wsite/" + enterprise_id + "/membercards?store_type=" + store_type;
 
                 var options = {
                     method: "POST",
@@ -89,7 +90,7 @@ function queryCardsByCondition(app_id, condition, callback){
 
                     var cards = body.result.cards;
 
-                    var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/member?m_id=" + member_id;
+                    var url = server_address + "svc/wsite/" + app_id + "/" + enterprise_id + "/member?m_id=" + member_id + "&store_type=" + store_type;
 
                     if(cards.length === 0){
 

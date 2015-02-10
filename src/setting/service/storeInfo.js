@@ -1,4 +1,5 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
+var chainDbHelper = require(FRAMEWORKPATH + "/utils/ChainDbHelper");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 var uuid = require("node-uuid");
 var fs = require("fs");
@@ -10,9 +11,11 @@ exports.uploadWechatHomeImg = uploadWechatHomeImg;
 
 exports.queryStoreInfo = queryStoreInfo;
 
+var single_chain = null;
 //提供页面
 function storeInfo(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
+    single_chain = req.session.single_chain;
 
     var data = {
         layout: "storeadmin_layout",
@@ -34,6 +37,7 @@ function storeInfo(req, res, next) {
 //提供数据
 function queryStoreInfo(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
+    single_chain = req.query["store_type"];
 
     querySettingAndStore(enterpriseId, function (error, setting, store) {
         if (error) {
@@ -62,6 +66,7 @@ function updateWechatSetting(req, res, next) {
 function uploadWechatHomeImg(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
     var image = req.body.image;
+    single_chain = req.session.single_chain;
 
     var tempPath = global.appdir + "data/uploads/" + uuid.v1();
 
@@ -229,40 +234,55 @@ function querySettingAndStore(enterpriseId, callback) {
         async.parallel([_info, _operateItem], callback);
 
         function _info(callback) {
-            dbHelper.queryData("tb_enterprise", {id: enterpriseId}, function (error, result) {
-                if (error) {
-                    callback(error);
-                    return;
-                }
+            if(single_chain == "chain"){        //|| single_chain == undefined
+                dohelper(chainDbHelper);
+            }else{
+                dohelper(dbHelper);
+            }
 
-                if (!_.isEmpty(result[0])) {
-                    var temp = result[0];
-                    store.name = (temp.name || "");
-                    store.phone = (temp.contact_phoneMobile || "");
-                    store.addr = (temp.addr_state_city_area || "") + (temp.addr_detail || "");
-                    store.comment = (temp.comment || "");
-                    store.workHour = temp.hours_begin + "-" + temp.hours_end;
-
-                    if (temp.logo) {
-                        store.logUrl = "/svc/public/mobile/backup/" + temp.logo;
-                    } else {
-                        store.logUrl = "/svc/public/wechat/enterprise_default.png";
+            function dohelper(helper){
+                helper.queryData("tb_enterprise", {id: enterpriseId}, function (error, result) {
+                    if (error) {
+                        callback(error);
+                        return;
                     }
 
-                }
-                callback(null);
-            });
+                    if (!_.isEmpty(result[0])) {
+                        var temp = result[0];
+                        store.name = (temp.name || "");
+                        store.phone = (temp.contact_phoneMobile || "");
+                        store.addr = (temp.addr_state_city_area || "") + (temp.addr_detail || "");
+                        store.comment = (temp.comment || "");
+                        store.workHour = temp.hours_begin + "-" + temp.hours_end;
+
+                        if (temp.logo) {
+                            store.logUrl = "/svc/public/mobile/backup/" + temp.logo;
+                        } else {
+                            store.logUrl = "/svc/public/wechat/enterprise_default.png";
+                        }
+
+                    }
+                    callback(null);
+                });
+            }
         }
 
         function _operateItem(callback) {
-            dbHelper.queryData("tb_operateItem", {enterprise_id: enterpriseId}, function (error, result) {
-                if (error) {
-                    callback(error);
-                    return;
-                }
-                store.operateStr = _.pluck(result, "name").join("，");
-                callback(null);
-            });
+            if(single_chain == "chain"){    //|| single_chain == undefined
+                dohelper(chainDbHelper);
+            }else{
+                dohelper(dbHelper);
+            }
+            function dohelper(helper){
+                helper.queryData("tb_operateItem", {enterprise_id: enterpriseId}, function (error, result) {
+                    if (error) {
+                        callback(error);
+                        return;
+                    }
+                    store.operateStr = _.pluck(result, "name").join("，");
+                    callback(null);
+                });
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var dataProxyFC  = require(FRAMEWORKPATH + "/db/dataProxyFC");
 var mysqlProxy = dataProxyFC.getSqlProxy(dataProxyFC.C.DEFAULT_SQLDB);
+var chainDbHelper = require(FRAMEWORKPATH + "/utils/ChainDbHelper");
 
 exports.searchItem = searchItem;
 exports.queryAllItem = queryAllItem;
@@ -8,13 +9,14 @@ exports.queryAllItem = queryAllItem;
 exports.addShelvesItem = addShelvesItem;
 
 exports.queryShelvesItem = queryShelvesItem;
+exports.queryShelvesItem2 = queryShelvesItem2;
 exports.queryShelvesByItemId = queryShelvesByItemId;
 
 exports.searchShelvesByName = searchShelvesByName;
 
 var http_server = global["_g_topo"].clientAccess.serviceurl + "/";//"http://121.40.75.73/svc/";
 
-
+var single_chain = null;
 function searchItem(enterpriseId, key, callback) {
     var shelvesIdList = [];
     var searchResult = [];
@@ -49,11 +51,11 @@ function searchItem(enterpriseId, key, callback) {
     }
 }
 
-function queryAllItem(enterpriseId, callback) {
+function queryAllItem(enterpriseId, singleOrchain, callback) {
     var cateId2ItemList = {};
     var shelvesIdList = [];
     var cateList = [];
-
+    single_chain = singleOrchain;
     async.series([_queryShelves, _queryItem, _queryCate], function (error) {
         callback(error, cateList, cateId2ItemList);
     });
@@ -70,26 +72,40 @@ function queryAllItem(enterpriseId, callback) {
     }
 
     function _queryItem(callback) {
-        dbHelper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
-            if (error) {
-                callback(error);
-                return;
-            }
+        if(single_chain == "chain"){
+            dohelper(chainDbHelper);
+        }else{
+            dohelper(dbHelper);
+        }
+        function dohelper(helper){
+            helper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
 
-            cateId2ItemList = _.groupBy(markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList), "cateId");
-            callback(null);
-        });
+                cateId2ItemList = _.groupBy(markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList), "cateId");
+                callback(null);
+            });
+        }
     }
 
     function _queryCate(callback) {
-        dbHelper.queryData("tb_service_cate", {enterprise_id: enterpriseId}, function (error, result) {
-            if (error) {
-                callback(error);
-                return;
-            }
-            cateList = _filterNoUseKey(result);
-            callback(null);
-        });
+        if(single_chain == "chain"){
+            dohelper(chainDbHelper);
+        }else{
+            dohelper(dbHelper);
+        }
+        function dohelper(helper){
+            helper.queryData("tb_service_cate", {enterprise_id: enterpriseId}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+                cateList = _filterNoUseKey(result);
+                callback(null);
+            });
+        }
 
         function _filterNoUseKey(cateList) {
             var result = [];
@@ -202,20 +218,39 @@ function queryShelvesItem(enterpriseId, callback) {
     }
 
     function _queryItemData(callback) {
-        dbHelper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
-            if (error) {
-                callback(error);
-                return;
-            }
-            itemList = result;
-            callback(null);
-        });
+        if(single_chain == "chain"){      //|| single_chain == undefined
+            dohelper(chainDbHelper);
+        }else{
+            dohelper(dbHelper);
+        }
+        function dohelper(helper){
+            helper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+                itemList = result;
+                callback(null);
+            });
+        }
     }
 }
 
-function queryShelvesByItemId(itemId, callback) {
+function queryShelvesItem2(enterpriseId, singleOrchain, callback){
+    single_chain = singleOrchain;
+    queryShelvesItem(enterpriseId, function (error, result) {
+        if (error) {
+            callback(error);
+            return;
+        }
+        callback(null, result);
+    });
+}
+
+function queryShelvesByItemId(itemId, singleOrchain, callback) {
     var itemList = [];
     var shelvesList = [];
+    single_chain = singleOrchain;
 
     async.parallel([_queryShelves, _queryItemData], function (error) {
         if (error) {
@@ -237,14 +272,21 @@ function queryShelvesByItemId(itemId, callback) {
     }
 
     function _queryItemData(callback) {
-        dbHelper.queryData("tb_service", {id: itemId}, function (error, result) {
-            if (error) {
-                callback(error);
-                return;
-            }
-            itemList = result;
-            callback(null);
-        });
+        if(single_chain == "chain"){
+            dohelper(chainDbHelper);
+        }else{
+            dohelper(dbHelper);
+        }
+        function dohelper(helper){
+            helper.queryData("tb_service", {id: itemId}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+                itemList = result;
+                callback(null);
+            });
+        }
     }
 }
 
