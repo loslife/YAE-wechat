@@ -5,6 +5,8 @@ var _ = require("underscore");
 var async = require("async");
 
 var http_server = global["_g_clusterConfig"].baseurl;
+//var http_server = "http://127.0.0.1:5002/svc";
+
 
 exports.jumpToWShop = jumpToWShop;
 
@@ -12,6 +14,12 @@ function jumpToWShop(req, res, next) {
 
     var enterpriseId = req.params.enterpriseId;
     var appId = req.params.appId;
+    var single_chain = req.query["store_type"];
+    if(single_chain){
+        req.session.single_chain = single_chain;
+    }else{
+        single_chain = req.session.single_chain;
+    }
 
     dbHelper.queryData("weixin_setting", {enterprise_id: enterpriseId}, function(err, result){
 
@@ -50,12 +58,12 @@ function jumpToWShop(req, res, next) {
             info.comment = info.addr || "老板还没有写店铺介绍噢";
             info.logUrl = info.logUrl || "/svc/public/wechat/enterprise_default.png";
 
-            res.render("shop", {app_id: appId, enterprise_id: enterpriseId, layout: "layout", menu: "store", festivals: festivals, hotList: hotShelvesList, store: info});
+            res.render("shop", {app_id: appId, enterprise_id: enterpriseId, layout: "layout", menu: "store", festivals: festivals, hotList: hotShelvesList, store: info, store_type: single_chain});
         });
 
         function _queryHotItem(callback) {
 
-            var queryShelvesUrl = http_server + "/weixin/queryAllShelvesItem/" + enterpriseId;
+            var queryShelvesUrl = http_server + "/weixin/queryAllShelvesItem/" + enterpriseId + "?store_type=" + single_chain;
 
             var options = {
                 method: "GET",
@@ -113,7 +121,7 @@ function jumpToWShop(req, res, next) {
 
         function _queryStoreInfo(callback) {
 
-            var queryUrl = http_server + "/weixin/queryStoreInfo/" + enterpriseId;
+            var queryUrl = http_server + "/weixin/queryStoreInfo/" + enterpriseId + "?store_type=" + single_chain;
 
             var options = {
                 method: "GET",

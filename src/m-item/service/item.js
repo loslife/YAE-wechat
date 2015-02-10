@@ -7,13 +7,14 @@ exports.item = item;
 exports.itemDetail = itemDetail;
 
 var yaeUrl = global["_g_clusterConfig"].baseurl;
-
+var single_chain = null;
 function item(req, res, next) {
 
     var enterpriseId = req.params.enterpriseId;
     var appId = req.params.appId;
+    single_chain =  req.session.single_chain;
 
-    var queryShelvesUrl = yaeUrl + "/weixin/queryAllShelvesItem/" + enterpriseId;
+    var queryShelvesUrl = yaeUrl + "/weixin/queryAllShelvesItem/" + enterpriseId + "?store_type=" + single_chain;
 
     var options = {
         method: "GET",
@@ -46,8 +47,9 @@ function itemDetail(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
     var appId = req.params.appId;
     var itemId = req.params.itemId;
+    single_chain =  req.session.single_chain;
 
-    var queryUrl = yaeUrl + "/weixin/queryShelvesByItemId/" + itemId;
+    var queryUrl = yaeUrl + "/weixin/queryShelvesByItemId/" + itemId + "?store_type=" + single_chain;
 
     var options = {
         method: "GET",

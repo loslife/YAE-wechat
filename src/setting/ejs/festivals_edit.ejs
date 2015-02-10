@@ -1,13 +1,13 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js("/setting/static/Jcrop.js")
-        .js('/setting/static/festivals.js')
-        .js('/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')
-        .js('/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js')
-        .css('/3rd-lib/bootstrap-3.1.1/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')
-        .css('/setting/static/css/Jcrop.css')
-        .css('/setting/static/css/festivals.css')
+        .js("/setting/Jcrop.js")
+        .js('/setting/festivals.js')
+        .js('http://127.0.0.1:5001/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')
+        .js('http://127.0.0.1:5001/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js')
+        .css('http://127.0.0.1:5001/3rd-lib/bootstrap-3.1.1/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')
+        .css('/setting/css/Jcrop.css')
+        .css('/setting/css/festivals.css')
         .done(config) %>
 
 <% }else{ %>

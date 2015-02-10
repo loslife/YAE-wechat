@@ -1,8 +1,8 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/m-festival/static/askForShare.js')
-        .css("/m-festival/static/css/askForShare.css")
+        .js('/m-festival/askForShare.js')
+        .css("/m-festival/css/askForShare.css")
         .done(config) %>
 
 <% }else{ %>
@@ -72,6 +72,7 @@
         <div id="festival_id"><%= festival.id %></div>
         <div class="store-name"><%= store.name %></div>
         <div id="app_id"><%= app_id %></div>
+        <div id="store_type"><%= store_type %></div>
     </div>
 
 </div>

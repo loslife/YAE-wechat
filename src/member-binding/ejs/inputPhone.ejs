@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
     <script src="/svc/portal/setting"></script>
+    <!--<script src="http://127.0.0.1:5001/svc/portal/setting"></script>-->
 </head>
 
 <!-- 共用的资源 -->
@@ -17,7 +18,7 @@
         .js("/3rd-lib/zepto.min.js")
         .js("/resource/wechat_global.js")
         .css("/resource/css/base.css")
-        .css("/member-binding/static/css/input_phone.css")
+        .css("/member-binding/css/input_phone.css")
         .done(config) %>
 
 <% }else{ %>
@@ -36,7 +37,7 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/member-binding/static/binding.js')
+        .js('/member-binding/binding.js')
         .done(config) %>
 
 <% }else{ %>
@@ -84,7 +85,7 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .js('/m-login/static/login.js')
+        .js('/m-login/login.js')
         .done(config) %>
 
 <% }else{ %>

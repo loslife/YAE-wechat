@@ -1,8 +1,8 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .css("/m-member/static/css/member.css")
-        .js("/m-member/static/member.js")
+        .css("/m-member/css/member.css")
+        .js("/m-member/member.js")
         .done(config) %>
 
 <% }else{ %>
@@ -75,7 +75,7 @@
                         <span class="card_info_title">余额：</span>
                         <span class="card_info_value"><%= Number(card.currentMoney + 0.000001).toFixed(1) %></span>
 
-                    <% } else if(card.type === "recordTimeCard"){ %>
+                    <% } else if(card.type === "recordTimeCard" || card.type == "record"){ %>
 
                         <span class="card_info_title">剩余：</span>
                         <span class="card_info_value"><%= Number(card.remainingTimes).toFixed(0) %>次</span>

@@ -1,8 +1,10 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
+var chainDbHelper = require(FRAMEWORKPATH + "/utils/ChainDbHelper");
 var uuid = require('node-uuid');
 var api = require("wechat-toolkit");
 var request = require("request");
 var async = require("async");
+var _ = require("underscore");
 
 var baseurl = global["_g_clusterConfig"].baseurl;
 var app_id = "wxb5243e6a07f2e09a";
@@ -84,9 +86,15 @@ function shareBind(req, res, next){
                     }
 
                     if(bindings.length === 1){
-                        var enterprise_id = bindings[0].enterprise_id;
+                        if(bindings[0].master_id){
+                            var enterprise_id = bindings[0].master_id;
+                            var store_type = "chain";
+                        }else{
+                            var enterprise_id = bindings[0].enterprise_id;
+                            var store_type = "single";
+                        }
                         var member_id = bindings[0].member_id;
-                        res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id);
+                        res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id + "&store_type=" + store_type);
                         return;
                     }
 
@@ -95,6 +103,11 @@ function shareBind(req, res, next){
 
                     _.each(bindings, function(item){
                         enterprises.push(item.enterprise_id);
+                        if(item.master_id){
+                            enterprises.push(item.master_id);
+                        }else{
+                            enterprises.push(item.enterprise_id);
+                        }
                         members.push(item.member_id);
                     });
 
@@ -117,6 +130,7 @@ function bindAllEnterpriseByPhone(req, res, next){
     var member_phone = req.body.phone;
     var app_id = req.params["appId"];
 
+
     async.waterfall([_removeOldBinding, _queryAllEnterprise, _doBinding], function(err, members){
 
         if(err){
@@ -127,7 +141,11 @@ function bindAllEnterpriseByPhone(req, res, next){
 
         var results = [];
         _.each(members, function(item){
-            results.push({member_id: item.id, enterprise_id: item.enterprise_id});
+            if(item.master_id) {
+                results.push({member_id: item.id, enterprise_id: item.enterprise_id, master_id: item.master_id});
+            }else{
+                results.push({member_id: item.id, enterprise_id: item.enterprise_id});
+            }
         });
 
         doResponse(req, res, results);
@@ -147,9 +165,22 @@ function bindAllEnterpriseByPhone(req, res, next){
             if(err){
                 callback(err);
                 return;
+            }else{
+                var single_result = result;
+                var chain_result = null;
+                var sum_result = null;
+
+                chainDbHelper.queryData("tb_member", {phoneMobile: member_phone}, function(error, results){
+                    if(error){
+                        callback(error);
+                    }else{
+                        chain_result = results;
+                        sum_result = single_result.concat(chain_result);
+                    }
+                    callback(null, sum_result);
+                });
             }
 
-            callback(null, result);
         });
     }
 
@@ -167,15 +198,28 @@ function bindAllEnterpriseByPhone(req, res, next){
         });
 
         function bind(item, next){
+            if(item.master_id){
+                var model = {
+                    id: uuid.v1(),
+                    enterprise_id: item.master_id,
+                    member_id: item.id,
+                    wx_open_id: open_id,
+                    phone: member_phone,
+                    app_id: app_id,
+                    single_chain: "chain"
+                };
+            }else{
+                var model = {
+                    id: uuid.v1(),
+                    enterprise_id: item.enterprise_id,
+                    member_id: item.id,
+                    wx_open_id: open_id,
+                    phone: member_phone,
+                    app_id: app_id,
+                    single_chain: "single"
+                };
+            }
 
-            var model = {
-                id: uuid.v1(),
-                enterprise_id: item.enterprise_id,
-                member_id: item.id,
-                wx_open_id: open_id,
-                phone: member_phone,
-                app_id: app_id
-            };
 
             dbHelper.addData("weixin_member_binding", model, next);
         }

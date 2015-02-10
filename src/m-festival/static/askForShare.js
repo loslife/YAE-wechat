@@ -6,6 +6,7 @@ $(function(){
     var festivalTitle = $("#f_title").text();
     var festivalDesc = $("#f_desc").text();
     var app_id = $("#app_id").text();
+    var store_type = $("#store_type").text();
     var nowUrl = window.location.href;
     var signUrl = "/svc/wsite/" + app_id + "/" + enterpriseId + "/sign";
 
@@ -56,7 +57,7 @@ $(function(){
 
                 var friendData = {
                     "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                    "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                    "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId + "&store_type=" + store_type,
                     "desc": festivalDesc,
                     "title": storeName + "·" + festivalTitle,
                     "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id
@@ -64,7 +65,7 @@ $(function(){
 
                 var timelineData = {
                     "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                    "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId,
+                    "link": global["_g_server"].wxserviceurl + "/wsite/" + app_id + "/" + enterpriseId + "/festival/route?fid=" + festivalId + "&store_type=" + store_type,
                     "desc": storeName + " | " + festivalTitle + "：" + festivalDesc,
                     "title": storeName + "·" + festivalTitle,
                     "appId": app_id === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : app_id
@@ -86,7 +87,7 @@ $(function(){
                             }
                         });
 
-                        var shareCountURL = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/countShare?fid=" + festivalId;
+                        var shareCountURL = "/svc/wsite/" + app_id + "/" + enterpriseId + "/festival/countShare?fid=" + festivalId + "&store_type=" + store_type;
                         $.post(shareCountURL, {}, function(response){});
                     },
                     cancel: function () {

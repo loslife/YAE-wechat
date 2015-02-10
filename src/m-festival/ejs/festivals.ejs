@@ -1,8 +1,8 @@
 <% if(env === "dev"){ %>
 
 <%- Loader()
-        .css("/m-festival/static/css/festivals.css")
-        .js("/m-festival/static/festivals.js")
+        .css("/m-festival/css/festivals.css")
+        .js("/m-festival/festivals.js")
         .done(config) %>
 
 <% }else{ %>
@@ -55,7 +55,7 @@
         </li>
 
         <% } %>
-
+        <span  style="display: none" id="store_type"><%= store_type %></span>
     </ul>
 
     <% } %>

@@ -2,8 +2,9 @@ $(function(){
 
     var enterpriseId = $("#enterprise_id").text();
     var appId = $("#app_id").text();
+    var store_type = $("#store_type").text();
     var nowUrl = window.location.href;
-    var signUrl = "/svc/wsite/" + app_id + "/" + enterpriseId + "/sign";
+    var signUrl = "/svc/wsite/" + appId + "/" + enterpriseId + "/sign";
 
     init();
     var ua = window.navigator.userAgent.toLowerCase();
@@ -69,7 +70,7 @@ $(function(){
 
                 var wxData = {
                     "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
-                    "link": global["_g_server"].wxserviceurl + "/wsite/" + appId + "/" + enterpriseId + "/shop",
+                    "link": global["_g_server"].wxserviceurl + "/wsite/" + appId + "/" + enterpriseId + "/shop?store_type=" + store_type,
                     "desc": "发现一家很棒的美甲店噢，推荐给你",
                     "title": "这家美甲店超棒",
                     "appId": appId === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : appId
