@@ -58,8 +58,8 @@ function queryCardsByCondition(app_id, condition, callback){
                     return;
                 }
 
-                var name = body.result.name;
-                var store_type = body.result.store_type;
+                var name = body.name;
+                var store_type = body.store_type;
                 if(_.isEmpty(name)){
                     name = "未命名店铺";
                 }
