@@ -129,7 +129,7 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
     }
 }
 
-function addShelvesItem(enterpriseId, shelvesList, callback) {
+function addShelvesItem(enterpriseId, shelvesList, single_chain, callback) {
     var allOldShelvesItemIdS = [];
     var itemId2OldShelves = {};
 
@@ -183,21 +183,40 @@ function addShelvesItem(enterpriseId, shelvesList, callback) {
             });
 
             function _fillItemId(item, callback) {
-                dbHelper.getUniqueId(item.enterprise_id, function (error, id) {
-                    if (error) {
-                        callback(error);
-                        return;
-                    }
+                if(single_chain == "chain"){
+                    dbHelper.getUniqueId(enterpriseId, function (error, id) {
+                        if (error) {
+                            callback(error);
+                            return;
+                        }
 
-                    item.id = id;
-                    callback(null);
-                });
+                        item.id = id;
+                        item.enterprise_id = enterpriseId;
+                        callback(null);
+                    });
+                }else{
+                    dbHelper.getUniqueId(item.enterprise_id, function (error, id) {
+                        if (error) {
+                            callback(error);
+                            return;
+                        }
+
+                        item.id = id;
+                        callback(null);
+                    });
+                }
+
             }
         }
 
         function _doUpdate(callback) {
             async.each(oldShelves, function (item, callback) {
-                dbHelper.updateByID("weixin_shelvesItem", item, callback)
+                if(single_chain == "chain"){
+                    item.enterprise_id = enterpriseId;
+                    dbHelper.updateByID("weixin_shelvesItem", item, callback);
+                }else{
+                    dbHelper.updateByID("weixin_shelvesItem", item, callback);
+                }
             }, callback);
         }
     }

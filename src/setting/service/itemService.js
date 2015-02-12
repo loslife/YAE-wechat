@@ -57,8 +57,9 @@ function shelvesItem(req, res, next) {
 function addShelvesItem(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
     var shelvesItemList = req.body.shelvesItemList || [];
+    var single_chain = req.session.single_chain;
 
-    itemDao.addShelvesItem(enterpriseId, shelvesItemList, function (error) {
+    itemDao.addShelvesItem(enterpriseId, shelvesItemList, single_chain, function (error) {
         if (error) {
             logger.error(error);
             next(error);
