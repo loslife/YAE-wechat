@@ -55,8 +55,11 @@ function index(req, res, next){
 
     function _checkBaseinfo(callback){
         if(single_chain == "chain"){
-            dohelper(chainDbHelper);
+            checklist.baseinfo = true;
+            checklist.store_type = "chain";
+            callback(null);
         }else{
+            checklist.store_type = "single";
             dohelper(dbHelper);
         }
         function dohelper(helper){
@@ -109,12 +112,9 @@ function check(req, res, next){
 
     function _checkBaseinfo(callback){
         if(single_chain == "chain"){
-            dohelper(chainDbHelper);
+            callback(null);
         }else{
-            dohelper(dbHelper);
-        }
-        function dohelper(helper){
-            helper.queryData("tb_enterprise", {id: enterpriseId}, function(err, results){
+            dbHelper.queryData("tb_enterprise", {id: enterpriseId}, function(err, results){
 
                 if(err){
                     callback(err);

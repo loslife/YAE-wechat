@@ -324,8 +324,9 @@ function queryPresentItemsAndCoupons(enterpriseId, callback) {
 
     function _queryCoupons(callback) {
         var sql = "select * from planx_graph.tb_memberCardCategory where baseInfo_type = :baseInfo_type and enterprise_id = :enterprise_id";
+        var chain_sql = "select * from planx_graph.tb_memberCardCategory where baseInfo_type = :baseInfo_type and master_id = :master_id";
         if(single_chain == "chain"){
-            chainDbHelper.execSql(sql, {baseInfo_type: "coupon", master_id: enterpriseId}, function (error, result) {
+            chainDbHelper.execSql(chain_sql, {baseInfo_type: "coupon", master_id: enterpriseId}, function (error, result) {
                 if (result && !_.isEmpty(result)) {
                     _.each(result, function (item) {
                         items.push({id: item.id, name: item.name, type: "coupon", typeName: " 现金劵"});

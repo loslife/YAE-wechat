@@ -66,7 +66,6 @@ function updateWechatSetting(req, res, next) {
 function uploadWechatHomeImg(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
     var image = req.body.image;
-    single_chain = req.session.single_chain;
 
     var tempPath = global.appdir + "data/uploads/" + uuid.v1();
 
