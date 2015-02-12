@@ -276,13 +276,12 @@ function queryPresentItemsAndCoupons(enterpriseId, callback) {
 
         function _queryPresentService(callback) {
             if(single_chain == "chain"){
-                dohelper(chainDbHelper);
+                chainDbHelper.queryData("tb_serviceattrmap", {groupName: "present", master_id: enterpriseId}, function (error, result) {
+                    serviceAttrMap = result;
+                    callback(error);
+                });
             }else{
-                dohelper(dbHelper);
-            }
-
-            function dohelper(helper){
-                helper.queryData("tb_serviceattrmap", {groupName: "present", enterprise_id: enterpriseId}, function (error, result) {
+                dbHelper.queryData("tb_serviceattrmap", {groupName: "present", enterprise_id: enterpriseId}, function (error, result) {
                     serviceAttrMap = result;
                     callback(error);
                 });
@@ -291,13 +290,12 @@ function queryPresentItemsAndCoupons(enterpriseId, callback) {
 
         function _queryServices(callback) {
             if(single_chain == "chain"){
-                dohelper(chainDbHelper);
+                chainDbHelper.queryData("tb_service", {master_id: enterpriseId}, function (error, result) {
+                    services = result;
+                    callback(error);
+                });
             }else{
-                dohelper(dbHelper);
-            }
-
-            function dohelper(helper){
-                helper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
+                dbHelper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
                     services = result;
                     callback(error);
                 });
@@ -327,13 +325,16 @@ function queryPresentItemsAndCoupons(enterpriseId, callback) {
     function _queryCoupons(callback) {
         var sql = "select * from planx_graph.tb_memberCardCategory where baseInfo_type = :baseInfo_type and enterprise_id = :enterprise_id";
         if(single_chain == "chain"){
-            dohelper(chainDbHelper);
+            chainDbHelper.execSql(sql, {baseInfo_type: "coupon", master_id: enterpriseId}, function (error, result) {
+                if (result && !_.isEmpty(result)) {
+                    _.each(result, function (item) {
+                        items.push({id: item.id, name: item.name, type: "coupon", typeName: " 现金劵"});
+                    });
+                }
+                callback(error);
+            });
         }else{
-            dohelper(dbHelper);
-        }
-
-        function dohelper(helper){
-            helper.execSql(sql, {baseInfo_type: "coupon", enterprise_id: enterpriseId}, function (error, result) {
+            dbHelper.execSql(sql, {baseInfo_type: "coupon", enterprise_id: enterpriseId}, function (error, result) {
                 if (result && !_.isEmpty(result)) {
                     _.each(result, function (item) {
                         items.push({id: item.id, name: item.name, type: "coupon", typeName: " 现金劵"});
