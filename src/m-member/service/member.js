@@ -423,14 +423,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 present_type: "present",
                 state: 0
             };
-            if(singleOrchain == "chain"){
-                conditions = {
-                    enterprise_id: queryChainEnterpriseId,
-                    member_id: member_id,
-                    present_type: "present",
-                    state: 0
-                };
-            }
             dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
                 if (err) {

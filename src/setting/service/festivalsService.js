@@ -20,6 +20,10 @@ var single_chain = null;
 function init(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
     single_chain = req.session.single_chain;
+    if(single_chain == "chain"){
+        res.redirect("/svc/weixin/storeInfo");
+        return;
+    }
 
     dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId}, function (error, result) {
         if (error) {
