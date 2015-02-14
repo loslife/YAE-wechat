@@ -119,7 +119,7 @@ function queryCardsByCondition(app_id, condition, callback){
 
                             if(item.type === "recharge"){
                                 message.title = item.name + "余额" + item.currentMoney.toFixed(1) + "元";
-                            }else if(item.type === "recordTimeCard"){
+                            }else if(item.type === "recordTimeCard" || item.type === "record"){
                                 message.title = item.name + "剩余" + item.remainingTimes + "次";
                             }else{
                                 message.title = item.name + "截止到" + new Date(item.expired_time).Format("yy-MM-dd");

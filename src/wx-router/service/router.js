@@ -54,6 +54,9 @@ function route(req, res, next){
                 var enterprise_id = result[0].enterprise_id;
                 var member_id = result[0].member_id;
                 var store_type = result[0].single_chain;
+                if(!store_type){
+                    store_type = "single";
+                }
                 res.redirect("../" + app_id + "/" + enterprise_id + "/shop?m_id=" + member_id + "&store_type=" + store_type);
                 return;
             }

@@ -66,7 +66,6 @@ function updateWechatSetting(req, res, next) {
 function uploadWechatHomeImg(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
     var image = req.body.image;
-    single_chain = req.session.single_chain;
 
     var tempPath = global.appdir + "data/uploads/" + uuid.v1();
 
@@ -269,7 +268,8 @@ function querySettingAndStore(enterpriseId, callback) {
 
         function _operateItem(callback) {
             if(single_chain == "chain"){    //|| single_chain == undefined
-                dohelper(chainDbHelper);
+                store.operateStr = "美甲，化妆，修眉，盘发，脱发，打耳洞，嫁接眉毛，护肤品销售，化妆品销售";
+                callback(null);
             }else{
                 dohelper(dbHelper);
             }
