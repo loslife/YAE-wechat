@@ -17,11 +17,16 @@ function jumpToWMember(req, res, next) {
     var enterprise_id = req.params["enterpriseId"];
     var app_id = req.params["appId"];
     var member_id = req.session[enterprise_id].member_id;
+    if(req.query["m_id"]){
+        member_id = req.query["m_id"];
+        req.session[enterprise_id].member_id = member_id;
+    }
 
     var memberInfo = {};
     singleOrchain = req.session.single_chain;
-    if(!singleOrchain){
+    if(req.query["store_type"]){
         singleOrchain = req.query["store_type"];
+        req.session.single_chain = singleOrchain;
     }
 
     async.series([_queryMemberData, _queryMemberBill], function (error) {
@@ -423,14 +428,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 present_type: "present",
                 state: 0
             };
-            if(singleOrchain == "chain"){
-                conditions = {
-                    enterprise_id: queryChainEnterpriseId,
-                    member_id: member_id,
-                    present_type: "present",
-                    state: 0
-                };
-            }
             dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
                 if (err) {
@@ -526,14 +523,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 present_type: "coupon",
                 state: 0
             };
-            if(singleOrchain == "chain"){
-                conditions = {
-                    enterprise_id: queryChainEnterpriseId,
-                    member_id: member_id,
-                    present_type: "coupon",
-                    state: 0
-                };
-            }
             dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
                 if (err) {

@@ -102,7 +102,6 @@ function shareBind(req, res, next){
                     var members = [];
 
                     _.each(bindings, function(item){
-                        enterprises.push(item.enterprise_id);
                         if(item.master_id){
                             enterprises.push(item.master_id);
                         }else{

@@ -73,12 +73,17 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
 
     function _queryItem(callback) {
         if(single_chain == "chain"){
-            dohelper(chainDbHelper);
+            chainDbHelper.queryData("tb_service", {master_id: enterpriseId}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+
+                cateId2ItemList = _.groupBy(markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList), "cateId");
+                callback(null);
+            });
         }else{
-            dohelper(dbHelper);
-        }
-        function dohelper(helper){
-            helper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
+            dbHelper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
                 if (error) {
                     callback(error);
                     return;
@@ -92,12 +97,16 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
 
     function _queryCate(callback) {
         if(single_chain == "chain"){
-            dohelper(chainDbHelper);
+            chainDbHelper.queryData("tb_service_cate", {master_id: enterpriseId}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+                cateList = _filterNoUseKey(result);
+                callback(null);
+            });
         }else{
-            dohelper(dbHelper);
-        }
-        function dohelper(helper){
-            helper.queryData("tb_service_cate", {enterprise_id: enterpriseId}, function (error, result) {
+            dbHelper.queryData("tb_service_cate", {enterprise_id: enterpriseId}, function (error, result) {
                 if (error) {
                     callback(error);
                     return;
@@ -120,7 +129,7 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
     }
 }
 
-function addShelvesItem(enterpriseId, shelvesList, callback) {
+function addShelvesItem(enterpriseId, shelvesList, single_chain, callback) {
     var allOldShelvesItemIdS = [];
     var itemId2OldShelves = {};
 
@@ -174,21 +183,40 @@ function addShelvesItem(enterpriseId, shelvesList, callback) {
             });
 
             function _fillItemId(item, callback) {
-                dbHelper.getUniqueId(item.enterprise_id, function (error, id) {
-                    if (error) {
-                        callback(error);
-                        return;
-                    }
+                if(single_chain == "chain"){
+                    dbHelper.getUniqueId(enterpriseId, function (error, id) {
+                        if (error) {
+                            callback(error);
+                            return;
+                        }
 
-                    item.id = id;
-                    callback(null);
-                });
+                        item.id = id;
+                        item.enterprise_id = enterpriseId;
+                        callback(null);
+                    });
+                }else{
+                    dbHelper.getUniqueId(item.enterprise_id, function (error, id) {
+                        if (error) {
+                            callback(error);
+                            return;
+                        }
+
+                        item.id = id;
+                        callback(null);
+                    });
+                }
+
             }
         }
 
         function _doUpdate(callback) {
             async.each(oldShelves, function (item, callback) {
-                dbHelper.updateByID("weixin_shelvesItem", item, callback)
+                if(single_chain == "chain"){
+                    item.enterprise_id = enterpriseId;
+                    dbHelper.updateByID("weixin_shelvesItem", item, callback);
+                }else{
+                    dbHelper.updateByID("weixin_shelvesItem", item, callback);
+                }
             }, callback);
         }
     }
@@ -219,12 +247,16 @@ function queryShelvesItem(enterpriseId, callback) {
 
     function _queryItemData(callback) {
         if(single_chain == "chain"){      //|| single_chain == undefined
-            dohelper(chainDbHelper);
+            chainDbHelper.queryData("tb_service", {master_id: enterpriseId}, function (error, result) {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+                itemList = result;
+                callback(null);
+            });
         }else{
-            dohelper(dbHelper);
-        }
-        function dohelper(helper){
-            helper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
+            dbHelper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
                 if (error) {
                     callback(error);
                     return;
