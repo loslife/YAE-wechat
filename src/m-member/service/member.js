@@ -667,7 +667,7 @@ function queryMemberBill(enterpriseId, memberId, callback) {
                 dohelper(dbHelper);
             }
             function dohelper(helper){
-                helper.queryData("tb_billproject", {enterprise_id: enterpriseId}, function (error, result) {
+                helper.queryData("tb_billProject", {enterprise_id: enterpriseId}, function (error, result) {
                     if (error) {
                         logger.error("查询消费项目失败，enterpriseId：" + enterpriseId + "，error：" + error);
                         callback(error);
@@ -699,7 +699,7 @@ function queryMemberBill(enterpriseId, memberId, callback) {
             dohelper(dbHelper);
         }
         function dohelper(helper){
-            helper.queryData("tb_empbonus", {enterprise_id: enterpriseId}, function (error, result) {
+            helper.queryData("tb_empBonus", {enterprise_id: enterpriseId}, function (error, result) {
 
                 if (error) {
                     logger.error("查询充值、开卡提成记录失败，enterpriseId：" + enterpriseId + "，error：" + error);

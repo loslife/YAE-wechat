@@ -278,14 +278,15 @@ function queryPresentItemsAndCoupons(enterpriseId, callback) {
             callback(error);
         });
 
+
         function _queryPresentService(callback) {
             if(single_chain == "chain"){
-                chainDbHelper.queryData("tb_serviceattrmap", {groupName: "present", master_id: enterpriseId}, function (error, result) {
+                chainDbHelper.queryData("tb_serviceAttrMap", {groupName: "present", master_id: enterpriseId}, function (error, result) {
                     serviceAttrMap = result;
                     callback(error);
                 });
             }else{
-                dbHelper.queryData("tb_serviceattrmap", {groupName: "present", enterprise_id: enterpriseId}, function (error, result) {
+                dbHelper.queryData("tb_serviceAttrMap", {groupName: "present", enterprise_id: enterpriseId}, function (error, result) {
                     serviceAttrMap = result;
                     callback(error);
                 });
