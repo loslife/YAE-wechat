@@ -35,7 +35,8 @@ function init(req, res, next) {
             menu: "festivals",
             storeName: req.session.storeName,
             enterpriseId: enterpriseId,
-            festivals: result || []
+            festivals: result || [],
+            store_type: "single"
         };
 
         _.each(data.festivals, function (item) {
