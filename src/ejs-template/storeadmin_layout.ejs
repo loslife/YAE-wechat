@@ -9,6 +9,16 @@
 
     <%- include admin_header.ejs %>
 
+    <% if(store_type == "chain") { %>
+
+    <style>
+        .nav-second-level li:nth-child(4){
+            display: none;
+        }
+    </style>
+
+    <% } %>
+
 </head>
 
 <body>

@@ -21,7 +21,8 @@ function allItem(req, res, next) {
     var data = {
         layout: "storeadmin_layout",
         menu: "allItem",
-        storeName: req.session.storeName
+        storeName: req.session.storeName,
+        store_type: single_chain
     };
 
     itemDao.queryAllItem(enterpriseId, single_chain, function (error, cateList, cateId2ItemList) {
@@ -41,7 +42,8 @@ function shelvesItem(req, res, next) {
     var data = {
         layout: "storeadmin_layout",
         menu: "shelvesItem",
-        storeName: req.session.storeName
+        storeName: req.session.storeName,
+        store_type: single_chain
     };
 
     itemDao.queryShelvesItem2(enterpriseId, single_chain, function (error, result) {

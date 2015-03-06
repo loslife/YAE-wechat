@@ -35,7 +35,7 @@ function jumpToWMember(req, res, next) {
             next("会员数据查询失败");
             return;
         }
-        res.render("member", {app_id: app_id, enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo});
+        res.render("member", {app_id: app_id, enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo, store_type: singleOrchain});
     });
 
     function _queryMemberData(callback) {
@@ -109,13 +109,18 @@ function checkSession(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
     var app_id = req.params["appId"];
+    singleOrchain = req.session.single_chain;
+    if(req.query["store_type"]){
+        singleOrchain = req.query["store_type"];
+        req.session.single_chain = singleOrchain;
+    }
 
     if (req.session && req.session[enterprise_id] && req.session[enterprise_id].member_id) {
         next();
         return;
     }
 
-    res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/login");
+    res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/login?store_type=" + singleOrchain);
 }
 
 function queryMemberCardInfo(req, res, next) {
