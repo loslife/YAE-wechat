@@ -6,7 +6,15 @@
             "method": "get",
             "auth": false,
             "impl": "weixinService.enable_dev_mode",
-            "comment": "开启公众号开发者模式"
+            "comment": "开启美蜜公众号开发者模式"
+        },
+        {
+            "name": "enableDevMode",
+            "path": "/weixinmeiyeguanjia",
+            "method": "get",
+            "auth": false,
+            "impl": "weixinService.enable_dev_mode_mei",
+            "comment": "开启美管家公众号开发者模式"
         },
         {
             "name": "handleWXRequest",

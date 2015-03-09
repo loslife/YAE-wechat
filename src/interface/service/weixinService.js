@@ -5,6 +5,7 @@ var share = require("./share_handler");
 var token = "yilos_wechat";
 
 exports.enable_dev_mode = wx.enable_dev_mode(token);
+exports.enable_dev_mode_mei = wx.enable_dev_mode(token);
 exports.handleWXRequest = handleWXRequest;
 
 function handleWXRequest(req, res, next){
