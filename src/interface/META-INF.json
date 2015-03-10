@@ -23,6 +23,13 @@
             "auth": false,
             "impl": "weixinService.handleWXRequest",
             "comment": "响应微信服务器请求"
+        },{
+            "name": "handleWXMGJRequest",
+            "path": "/weixinmeiyeguanjia",
+            "method": "post",
+            "auth": false,
+            "impl": "weixinService.handleWXMGJRequest",
+            "comment": "响应微信服务器请求"
         }
     ],
     "statics": [
