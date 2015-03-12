@@ -5,7 +5,7 @@ var reply = require("../../meiguanjia/reply_message");
 var async = require("async");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var uuid = require('node-uuid');
-var request = require("request");
+var httpHelper = require(FRAMEWORKPATH + "/bus/httpHelper");
 
 
 var token = "yilos_wechat";
@@ -17,6 +17,7 @@ exports.handleWXRequest = handleWXRequest;
 exports.handleWXMGJRequest = handleWXMGJRequest;
 exports.signin = signin;
 exports.redirect = redirect;
+exports.queryOrder = queryOrder;
 
 function handleWXRequest(req, res, next){
 
@@ -51,28 +52,23 @@ function signin(req, res, next){
         }
 
         var open_id = result.openid;
-        res.render("signin", {layout: false, open_id: open_id});
+        res.render("signin", {layout: false, open_id: open_id, nouser: "first"});
     });
 }
 
 function redirect(req, res, next){
     var open_id = req.body.open_id;
     var account = req.body.phone;
-    var url = http_server + "/enterprise/account/" + phone;
-    var options = {
-        method: "GET",
-        uri: url,
-        json: true
-    };
+    var url =  "enterprise/account/" + account;
 
-    request(options, function(err, response, body){
+    httpHelper.getResource(url,function(err,body){
+
         if (err) {
-            console.log(err);
+            next(err);
             return;
         }
 
         if(body.id){
-
             var condition = {
                 open_id: open_id
             };
@@ -84,13 +80,21 @@ function redirect(req, res, next){
                 }
 
                 if(result[0]){
+
                     var model = {
                         open_id: open_id,
                         enterprise_id: body.id,
                         account: account
                     };
 
-                    dbHelper.update({open_id: open_id}, "weixin_store_recharge", model, next);
+                    dbHelper.update({open_id: open_id}, "weixin_store_recharge", model, function(err, results) {
+                        if (err) {
+                            next(err);
+                            return;
+                        }
+
+                        res.redirect("http://mp.weixin.qq.com/bizmall/mallshelf?id=&t=mall/list&biz=MzA3NDk0NjUxNg==&shelf_id=1&showwxpaytitle=1#wechat_redirect");
+                    });
 
                 }else{
                     var model = {
@@ -99,26 +103,23 @@ function redirect(req, res, next){
                         enterprise_id: body.id,
                         account: account
                     };
-                    dbHelper.addData("weixin_store_recharge", model, next);
+
+                    dbHelper.addData("weixin_store_recharge", model, function(err, result) {
+                        if (err) {
+                            next(err);
+                            return;
+                        }
+                        res.redirect("http://mp.weixin.qq.com/bizmall/mallshelf?id=&t=mall/list&biz=MzA3NDk0NjUxNg==&shelf_id=1&showwxpaytitle=1#wechat_redirect");
+                    });
                 }
             });
 
-            res.redirect("http://mp.weixin.qq.com/bizmall/mallshelf?id=&t=mall/list&biz=MzA3NDk0NjUxNg==&shelf_id=1&showwxpaytitle=1#wechat_redirect");
+        }else{
+
+            res.render("signin", {layout: false, open_id: open_id, nouser: "nouser"});
         }
 
     });
-
-    //async.series([checkAuth, _updateData], function(err){
-    //    if(err){
-    //        next(err);
-    //        return;
-    //    }
-    //});
-    //
-    //function checkAuth(callback){
-    //
-    //}
-
 
 }
 
@@ -126,17 +127,15 @@ function queryOrder(req, res, next){
     var order_id = req.query["order_id"];
     var options = {
         "order_id": order_id
-    }
+    };
 
     wx.getAccessToken("wxd37396c2dc23ba21", "9600186549bc52bdf0d2d7390b05fd2c", function(err, access_token){
-
         if(err){
             callback(err);
             return;
         }
 
         wx.getOrderDetail(access_token, options, function(err, order){
-
             if(err){
                 callback(err);
                 return;

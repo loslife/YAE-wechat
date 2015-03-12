@@ -46,7 +46,7 @@
             "comment": "跳转到微信小店"
         },{
             "name": "queryorder",
-            "path": "/meiyeguanjia/queryorder",
+            "path": "/wsite/meiyeguanjia/queryorder",
             "method": "get",
             "auth": false,
             "impl": "weixinService.queryOrder",

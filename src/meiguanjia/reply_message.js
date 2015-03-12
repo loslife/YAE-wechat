@@ -1,11 +1,11 @@
 var wx = require("wechat-toolkit");
-var request = require("request");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
 var http_server = global["_g_clusterConfig"].baseurl;
 var error_message = "乐美业管家似乎出了点问题，正在修复中";
 var token = "yilos_wechat";
 var app_id = "wxd37396c2dc23ba21";
+var httpHelper = require(FRAMEWORKPATH + "/bus/httpHelper");
 
 var server_address;
 
@@ -83,8 +83,8 @@ function handleMessage(req, res, next){
 
             function handleSubscribe(){
 
-                var sentence = "感谢关注乐斯美业，我们致力于建立移动互联网时代美业管理营销平台！            " +
-                                "●了解产品请进入“认识乐斯”    " +
+                var sentence = "感谢关注乐斯美业，我们致力于建立移动互联网时代美业管理营销平台!\n" +
+                                "●了解产品请进入“认识乐斯”\n" +
                                 "●App下载指南、新手上路、人工客服请进入“玩转乐斯”";
                 wx.replyTextMessage(req, res, sentence);
             }
@@ -225,11 +225,11 @@ function handleMessage(req, res, next){
                 }
 
                 function handleLsHumanService(){
-                    wx.replyTextMessage(req, res, "很高兴为您服务，您可以通过以下方式联系我们。   " +
+                    wx.replyTextMessage(req, res, "很高兴为您服务，您可以通过以下方式联系我们。\n" +
                     "客服电话" +
-                    "025-89630351   " +
-                    "025-89630350   " +
-                    "客服微信号 13951605707   " +
+                    "025-89630351  " +
+                    "025-89630350\n" +
+                    "客服微信号 13951605707\n" +
                     "客服QQ 1994714502");
                 }
             }
@@ -251,21 +251,15 @@ function handleMessage(req, res, next){
                         return;
                     }
 
-                    var url = http_server + "/billing/rechargeFromWeixin/" + result[0].enterprise_id + "?order_id=" + order_id;
-                    var options = {
-                        method: "GET",
-                        uri: url,
-                        json: true
-                    };
+                    var url = "billing/rechargeFromWeixin/" + result[0].enterprise_id + "?order_id=" + order_id;
 
-                    request(options, function(err, response, body) {
+                    httpHelper.putResource(url, {}, function(err,body){
                         if (err) {
                             console.log(err);
                             return;
                         }
 
                         res.send("")
-
                     });
 
                 });

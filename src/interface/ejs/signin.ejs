@@ -39,11 +39,7 @@
 
     <div class="form-area">
 
-
-
-        <form class="width-full" action="/meiyeguanjia/redirect" method="post">
-
-
+        <form class="width-full" action="/svc/meiyeguanjia/redirect" method="post">
 
             <div class="input_phone">
                 <input type="tel" name="phone" placeholder="充值号码">
@@ -54,12 +50,16 @@
             </div>
 
             <div class="btn_binding">
-                <input type="submit" id="btn_binding" value="确定">
+                <input  style="background: #f75169" type="submit" id="btn_binding" value="确定">
             </div>
-
 
         </form>
     </div>
+
+    <% if(nouser == "nouser"){ %>
+    <br />
+    <span style="color: #f75169;font-weight: bold" >充值账号不存在</span>
+    <% } %>
 
 </div>
 
