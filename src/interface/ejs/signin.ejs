@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+    <script src="/svc/portal/setting"></script>
+    <!--<script src="http://127.0.0.1:5001/svc/portal/setting"></script>-->
+</head>
+
+<!-- 共用的资源 -->
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js("/3rd-lib/zepto.min.js")
+        .css("/resource/css/base.css")
+        .css("/member-binding/css/input_phone.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/3rd-lib/wechat-global.min.js")
+        .css("/resource/css/wechat.min.css")
+        .css("/member-binding/css/input_phone.min.css")
+        .done(config) %>
+
+<% } %>
+
+<!-- 场景特有的资源 -->
+
+
+<body>
+
+<div id="m-binding">
+
+    <div class="form-area">
+
+
+
+        <form class="width-full" action="/meiyeguanjia/redirect" method="post">
+
+
+
+            <div class="input_phone">
+                <input type="tel" name="phone" placeholder="充值号码">
+            </div>
+
+            <div class="open_id" >
+                <input type="hidden" id="open_id" value="<%= open_id %>" name="open_id">
+            </div>
+
+            <div class="btn_binding">
+                <input type="submit" id="btn_binding" value="确定">
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+
+</html>
