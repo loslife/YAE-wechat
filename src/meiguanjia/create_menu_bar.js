@@ -1,7 +1,5 @@
 var api = require("wechat-toolkit");
 
-exports.create = create;
-
 var menu = {
 
     "button":[
@@ -9,17 +7,17 @@ var menu = {
             "name": "认识乐斯",
             "sub_button":[
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "乐斯用户",
                     "key": "LS_USER"
                 },
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "乐斯产品",
                     "key": "LS_PRODUCTION"
                 },
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "乐斯简介",
                     "key": "LS_INTRO"
                 }
@@ -29,47 +27,44 @@ var menu = {
             "name": "玩转乐斯",
             "sub_button":[
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "人工服务",
                     "key": "HUMAN_SERVICE"
                 },
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "新手上路",
                     "key": "USER_GUIDE"
                 },
                 {
-                    "type": "CLICK",
+                    "type": "click",
                     "name": "App下载",
                     "key": "APP_DOWNLOAD"
                 }
             ]
         },
         {
-            "type": "VIEW",
-            "name": "购买服务",
-            "url": "http://mp.weixin.qq.com/bizmall/mallshelf?id=&t=mall/list&biz=MzA3NDk0NjUxNg==&shelf_id=1&showwxpaytitle=1#wechat_redirect"
+            type: "view",
+            name: "购买服务",
+            url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd37396c2dc23ba21&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fmeiyeguanjia%2Fsignin&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect"
         }
     ]
 };
 
-function create(){
-    api.getAccessToken("wxd37396c2dc23ba21", "9600186549bc52bdf0d2d7390b05fd2c", function(err, access_token){
+api.getAccessToken("wxd37396c2dc23ba21", "9600186549bc52bdf0d2d7390b05fd2c", function(err, access_token){
+
+    if(err){
+        console.log(err);
+        return;
+    }
+    api.createMenu(access_token, menu, function(err, error_code, error_message){
 
         if(err){
             console.log(err);
             return;
         }
 
-        api.createMenu(access_token, menu, function(err, error_code, error_message){
-
-            if(err){
-                console.log(err);
-                return;
-            }
-
-            console.log(error_code);
-            console.log(error_message);
-        });
+        console.log(error_code);
+        console.log(error_message);
     });
-}
+});
