@@ -184,9 +184,9 @@ function doneRoute(req, res, next){
         // 如果查询用户身份过程中出错，则视为未关注用户
         if(err){
             console.log(err);
-            res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/festival/done?type=" + type + "&subscribe=0&isMember=" + isMember);
+            res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/festival/done?type=" + type + "&subscribe=0&isMember=" + isMember + "&store_type=single");
         }else{
-            res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/festival/done?type=" + type + "&subscribe=" + subscribe + "&isMember=" + isMember);
+            res.redirect("/svc/wsite/" + appId + "/" + enterpriseId + "/festival/done?type=" + type + "&subscribe=" + subscribe + "&isMember=" + isMember + "&store_type=single");
         }
     });
 
@@ -292,7 +292,8 @@ function done(req, res, next){
         subscribe: subscribe,
         isMember: isMember,
         share: appId === "wxb5243e6a07f2e09a",
-        app_id: appId
+        app_id: appId,
+        store_type: "single"
     };
 
     res.render("done", model);
