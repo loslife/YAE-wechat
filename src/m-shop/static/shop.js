@@ -3,6 +3,8 @@ $(function(){
     var enterpriseId = $("#enterprise_id").text();
     var appId = $("#app_id").text();
     var store_type = $("#store_type").text();
+    var store_name = $("#store_name").text();
+    var store_logUrl = $("#store_logUrl").attr("src");
     var nowUrl = window.location.href;
     var signUrl = "/svc/wsite/" + appId + "/" + enterpriseId + "/sign";
 
@@ -69,10 +71,10 @@ $(function(){
             wx.ready(function() {
 
                 var wxData = {
-                    "imgUrl": global["_g_server"].staticurl + "/resource/share_thumb.png",
+                    "imgUrl": "http://wx.yilos.com" + store_logUrl,   //global["_g_server"].staticurl + "/resource/share_thumb.png",
                     "link": global["_g_server"].wxserviceurl + "/wsite/" + appId + "/" + enterpriseId + "/shop?store_type=" + store_type,
-                    "desc": "发现一家很棒的美甲店噢，推荐给你",
-                    "title": "这家美甲店超棒",
+                    "desc": store_name + "-这是一家很棒的美甲店噢，推荐给你。",
+                    "title": store_name + "-这家美甲店超棒！",
                     "appId": appId === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : appId
                 };
 
