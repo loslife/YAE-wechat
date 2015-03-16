@@ -35,7 +35,8 @@ input {
 .input_phone > input {
   background-image: url(/resource/phone.png);
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: top right;
+  background-size:auto 100%;
   box-sizing: border-box;
 }
 .input_code {
