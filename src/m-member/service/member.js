@@ -431,7 +431,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 enterprise_id: enterprise_id,
                 member_id: member_id,
                 present_type: "present",
-                state: 0
+                state: 0,
+                consume_state: 0
             };
             dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
@@ -526,7 +527,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 enterprise_id: enterprise_id,
                 member_id: member_id,
                 present_type: "coupon",
-                state: 0
+                state: 0,
+                consume_state: 0
             };
             dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 

@@ -73,8 +73,8 @@ $(function(){
                 var wxData = {
                     "imgUrl": "http://wx.yilos.com" + store_logUrl,   //global["_g_server"].staticurl + "/resource/share_thumb.png",
                     "link": global["_g_server"].wxserviceurl + "/wsite/" + appId + "/" + enterpriseId + "/shop?store_type=" + store_type,
-                    "desc": store_name + "-这是一家很棒的美甲店噢，推荐给你。",
-                    "title": store_name + "-这家美甲店超棒！",
+                    "desc": store_name + "-这是一家很棒的店铺噢，推荐给你。",
+                    "title": store_name + "-这家店铺超棒！",
                     "appId": appId === "wxb5243e6a07f2e09a" ? "wxf932fcca3e6bf697" : appId
                 };
 
