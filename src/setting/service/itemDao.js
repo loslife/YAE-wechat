@@ -79,6 +79,8 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
                     return;
                 }
 
+                _.each(result, _escapeBadCharacter);// 消除'，"等特殊字符
+
                 cateId2ItemList = _.groupBy(markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList), "cateId");
                 callback(null);
             });
@@ -88,6 +90,8 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
                     callback(error);
                     return;
                 }
+
+                _.each(result, _escapeBadCharacter);// 消除'，"等特殊字符
 
                 cateId2ItemList = _.groupBy(markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList), "cateId");
                 callback(null);
@@ -102,6 +106,8 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
                     callback(error);
                     return;
                 }
+                _.each(result, _escapeBadCharacter);
+
                 cateList = _filterNoUseKey(result);
                 callback(null);
             });
@@ -111,6 +117,8 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
                     callback(error);
                     return;
                 }
+                _.each(result, _escapeBadCharacter);
+
                 cateList = _filterNoUseKey(result);
                 callback(null);
             });
@@ -125,6 +133,23 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
                 });
             });
             return result;
+        }
+    }
+
+    function _escapeBadCharacter(item){
+
+        if(item.name){
+            item.name = item.name.replace("'", "");
+            item.name = item.name.replace('"', '');
+            item.name = item.name.replace("\'", '');
+            item.name = item.name.replace("\"", "");
+        }
+
+        if(item.comment){
+            item.comment = item.comment.replace("'", "");
+            item.comment = item.comment.replace('"', '');
+            item.comment = item.comment.replace("\'", '');
+            item.comment = item.comment.replace("\"", "");
         }
     }
 }
