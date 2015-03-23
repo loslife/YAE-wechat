@@ -35,7 +35,7 @@ function jumpToWMember(req, res, next) {
             next("会员数据查询失败");
             return;
         }
-        res.render("member", {app_id: app_id, enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo});
+        res.render("member", {app_id: app_id, enterprise_id: enterprise_id, menu: "member", memberInfo: memberInfo, store_type: singleOrchain});
     });
 
     function _queryMemberData(callback) {
@@ -109,13 +109,18 @@ function checkSession(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
     var app_id = req.params["appId"];
+    singleOrchain = req.session.single_chain;
+    if(req.query["store_type"]){
+        singleOrchain = req.query["store_type"];
+        req.session.single_chain = singleOrchain;
+    }
 
     if (req.session && req.session[enterprise_id] && req.session[enterprise_id].member_id) {
         next();
         return;
     }
 
-    res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/login");
+    res.redirect("/svc/wsite/" + app_id + "/" + enterprise_id + "/login?store_type=" + singleOrchain);
 }
 
 function queryMemberCardInfo(req, res, next) {
@@ -426,7 +431,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 enterprise_id: enterprise_id,
                 member_id: member_id,
                 present_type: "present",
-                state: 0
+                state: 0,
+                consume_state: 0
             };
             dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
@@ -521,7 +527,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 enterprise_id: enterprise_id,
                 member_id: member_id,
                 present_type: "coupon",
-                state: 0
+                state: 0,
+                consume_state: 0
             };
             dbHelper.queryData("weixin_present_received", conditions, function (err, results) {
 
@@ -593,16 +600,15 @@ function queryMemberBill(enterpriseId, memberId, callback) {
         if(singleOrchain == "chain"){
             sql = "select a.*, b.memberCardCategoryName" +
             " from planx_graph.tb_rechargememberbill a, planx_graph.tb_chain_memberrecordcard b" +
-            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0)" +
+            " where a.member_id = :member_id and a.master_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0)" +
             " union all " +
             "select a.*, b.memberCardCategoryName" +
             " from planx_graph.tb_rechargememberbill a, planx_graph.tb_chain_memberrechargecard b" +
-            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0)" +
+            " where a.member_id = :member_id and a.master_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0)" +
             " union all " +
             "select a.*, b.memberCardCategoryName" +
             " from planx_graph.tb_rechargememberbill a, planx_graph.tb_chain_memberquartercard b" +
-            " where a.member_id = :member_id and a.enterprise_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0)";
-            enterpriseId = queryChainEnterpriseId;
+            " where a.member_id = :member_id and a.master_id = :enterprise_id and a.memberCard_id = b.id and (a.status is null or a.status != 0)";
             dohelper(chainDbHelper);
         }else{
             dohelper(dbHelper);
@@ -640,7 +646,8 @@ function queryMemberBill(enterpriseId, memberId, callback) {
             var sql = "select * from planx_graph.tb_servicebill" +
                 " where member_id = :member_id and enterprise_id = :enterprise_id and (status is null or status != 0);";
             if(singleOrchain == "chain"){
-                enterpriseId = queryChainEnterpriseId;
+                sql = "select * from planx_graph.tb_servicebill" +
+                    " where member_id = :member_id and master_id = :enterprise_id and (status is null or status != 0);";
                 dohelper(chainDbHelper);
             }else{
                 dohelper(dbHelper);
@@ -661,13 +668,17 @@ function queryMemberBill(enterpriseId, memberId, callback) {
 
         function _queryConsumptionItems(callback) {
             if(singleOrchain == "chain"){
-                enterpriseId = queryChainEnterpriseId;
-                dohelper(chainDbHelper);
+                chainDbHelper.queryData("tb_billProject", {master_id: enterpriseId}, function (error, result) {
+                    if (error) {
+                        logger.error("查询消费项目失败，enterpriseId：" + enterpriseId + "，error：" + error);
+                        callback(error);
+                        return;
+                    }
+                    allItems = result;
+                    callback(null);
+                });
             }else{
-                dohelper(dbHelper);
-            }
-            function dohelper(helper){
-                helper.queryData("tb_billProject", {enterprise_id: enterpriseId}, function (error, result) {
+                dbHelper.queryData("tb_billProject", {enterprise_id: enterpriseId}, function (error, result) {
                     if (error) {
                         logger.error("查询消费项目失败，enterpriseId：" + enterpriseId + "，error：" + error);
                         callback(error);
@@ -693,13 +704,31 @@ function queryMemberBill(enterpriseId, memberId, callback) {
 
     function _queryBonus(callback) {
         if(singleOrchain == "chain"){
-            enterpriseId = queryChainEnterpriseId;
-            dohelper(chainDbHelper);
+            chainDbHelper.queryData("tb_empBonus", {master_id: enterpriseId}, function (error, result) {
+
+                if (error) {
+                    logger.error("查询充值、开卡提成记录失败，enterpriseId：" + enterpriseId + "，error：" + error);
+                    callback(error);
+                    return;
+                }
+
+                _buildBonus();
+                callback(null);
+
+                function _buildBonus() {
+
+                    _.each(rechargeRecords.concat(consumptionRecords), function(record) {
+
+                        var bonus = _.filter(result || [], function (item) {
+                            return item.serviceBill_id == record.id;
+                        });
+
+                        record.bonus = bonus || [];
+                    });
+                }
+            });
         }else{
-            dohelper(dbHelper);
-        }
-        function dohelper(helper){
-            helper.queryData("tb_empBonus", {enterprise_id: enterpriseId}, function (error, result) {
+            dbHelper.queryData("tb_empBonus", {enterprise_id: enterpriseId}, function (error, result) {
 
                 if (error) {
                     logger.error("查询充值、开卡提成记录失败，enterpriseId：" + enterpriseId + "，error：" + error);

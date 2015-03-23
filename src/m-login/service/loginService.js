@@ -8,8 +8,12 @@ function login(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
     var app_id = req.params["appId"];
+    if(req.query["store_type"]){
+        var single_chain = req.query["store_type"];
+        req.session.single_chain = single_chain;
+    }
 
-    res.render("inputPhone", {menu: "member", type: "login", open_id: "", enterprise_id: enterprise_id, app_id: app_id});
+    res.render("inputPhone", {menu: "member", type: "login", open_id: "", enterprise_id: enterprise_id, app_id: app_id, store_type: single_chain});
 }
 
 function doLogin(req, res, next) {

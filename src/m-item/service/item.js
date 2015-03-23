@@ -38,7 +38,7 @@ function item(req, res, next) {
             return item.name;
         });
 
-        res.render("item", {app_id: appId, enterprise_id: enterpriseId, layout: "layout", menu: "item", shelveList: hotShelvesList});
+        res.render("item", {app_id: appId, enterprise_id: enterpriseId, layout: "layout", menu: "item", shelveList: hotShelvesList, store_type: single_chain});
     });
 }
 
@@ -78,6 +78,6 @@ function itemDetail(req, res, next) {
 
         var item = body.result[0];
 
-        res.render("itemDetail", {enterprise_id: enterpriseId, layout: "layout", menu: "none", item: item, app_id: appId});
+        res.render("itemDetail", {enterprise_id: enterpriseId, layout: "layout", menu: "none", item: item, app_id: appId, store_type: single_chain});
     });
 }
