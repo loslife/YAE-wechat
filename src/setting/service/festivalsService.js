@@ -35,7 +35,8 @@ function init(req, res, next) {
             menu: "festivals",
             storeName: req.session.storeName,
             enterpriseId: enterpriseId,
-            festivals: result || []
+            festivals: result || [],
+            store_type: "single"
         };
 
         _.each(data.festivals, function (item) {
@@ -107,32 +108,32 @@ function newFestivals(req, res, next) {
     }
 
     var fileName = "";
-    async.series([_checkHasFestivalsThisMonth, _uploadFile, _saveData], function (error) {
+    async.series([_uploadFile, _saveData], function (error) {
         if (error) {
             logger.error(enterpriseId + "，创建优惠活动失败。");
         }
         doResponse(req, res, error);
     });
 
-    function _checkHasFestivalsThisMonth(callback) {
-        dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId}, function (error, result) {
-            if (error) {
-                logger.error(enterpriseId + "，创建优惠活动时，查询优惠活动失败，error：" + error);
-                callback(error);
-                return;
-            }
-            var nowDate = new Date(data.create_date);
-            var festivals = _.find(result, function (item) {
-                var createDate = new Date(item.create_date);
-                return nowDate.getFullYear() == createDate.getFullYear() && nowDate.getMonth() == createDate.getMonth()
-            });
-            if (festivals) {
-                callback({code: 1, errorMsg: "新建优惠活动失败，每个月只能新建一条优惠活动"});
-                return;
-            }
-            callback(null);
-        });
-    }
+    //function _checkHasFestivalsThisMonth(callback) {
+    //    dbHelper.queryData("weixin_festivals", {enterprise_id: enterpriseId}, function (error, result) {
+    //        if (error) {
+    //            logger.error(enterpriseId + "，创建优惠活动时，查询优惠活动失败，error：" + error);
+    //            callback(error);
+    //            return;
+    //        }
+    //        var nowDate = new Date(data.create_date);
+    //        var festivals = _.find(result, function (item) {
+    //            var createDate = new Date(item.create_date);
+    //            return nowDate.getFullYear() == createDate.getFullYear() && nowDate.getMonth() == createDate.getMonth()
+    //        });
+    //        if (festivals) {
+    //            callback({code: 1, errorMsg: "新建优惠活动失败，每个月只能新建一条优惠活动"});
+    //            return;
+    //        }
+    //        callback(null);
+    //    });
+    //}
 
     function _uploadFile(callback) {
         if (!image) {

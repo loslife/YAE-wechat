@@ -246,7 +246,7 @@ function queryShelvesItem(enterpriseId, callback) {
     }
 
     function _queryItemData(callback) {
-        if(single_chain == "chain"){      //|| single_chain == undefined
+        if(single_chain == "chain"){
             chainDbHelper.queryData("tb_service", {master_id: enterpriseId}, function (error, result) {
                 if (error) {
                     callback(error);
@@ -266,6 +266,7 @@ function queryShelvesItem(enterpriseId, callback) {
             });
         }
     }
+
 }
 
 function queryShelvesItem2(enterpriseId, singleOrchain, callback){
@@ -369,10 +370,19 @@ function filterItemNoUseKey(itemList) {
     var result = [];
     _.each(itemList, function (item) {
         var imageUrl ;
-        if (item.baseInfo_image) {
-            imageUrl =  http_server + "public/mobile/backup/" + item.baseInfo_image;
-        } else {
-            imageUrl = http_server + "public/wechat/service_default.png";
+
+        if(single_chain == "chain"){
+            if (item.baseInfo_image) {
+                imageUrl =  "http://yilos.oss-cn-hangzhou.aliyuncs.com/" + item.baseInfo_image;
+            } else {
+                imageUrl = http_server + "public/wechat/service_default.png";
+            }
+        }else{
+            if (item.baseInfo_image) {
+                imageUrl =  http_server + "public/mobile/backup/" + item.baseInfo_image;
+            } else {
+                imageUrl = http_server + "public/wechat/service_default.png";
+            }
         }
 
         result.push({
@@ -407,11 +417,29 @@ function buildShelvesList(shelvesList, itemList) {
             shelves.name = item.name;
             shelves.price = item.prices_salesPrice;
 
-            if (item.baseInfo_image) {
-                shelves.imgPath =  http_server + "public/mobile/backup/" + item.baseInfo_image;
-            } else {
-                shelves.imgPath = http_server + "public/wechat/service_default.png";
+            if(single_chain == "chain"){
+                if (item.baseInfo_image) {
+                    shelves.imgPath =  "http://yilos.oss-cn-hangzhou.aliyuncs.com/" + item.baseInfo_image;
+                } else {
+                    shelves.imgPath = http_server + "public/wechat/service_default.png";
+                }
+            }else{
+                if (item.baseInfo_image) {
+                    shelves.imgPath =  http_server + "public/mobile/backup/" + item.baseInfo_image;
+                } else {
+                    shelves.imgPath = http_server + "public/wechat/service_default.png";
+                }
             }
+        }else{
+
+            var sql = "delete from planx_graph.weixin_shelvesItem where itemId = :shelvesItemId";
+            dbHelper.execSql(sql, {shelvesItemId: shelves.itemId}, function(err, result){
+                if (err) {
+                    return err;
+                }
+            });
+            shelvesList.splice(shelvesList.indexOf(shelves), 1);
+
         }
     });
     return shelvesList;

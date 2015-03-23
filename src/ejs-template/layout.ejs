@@ -9,6 +9,18 @@
     <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
     <%- include header.ejs %>
 </head>
+<% if (store_type == "chain") { %>
+
+<style>
+    .menu li:nth-child(1), .menu li:nth-child(3) {
+        width: 33.5%;
+    }
+    .menu li:nth-child(2){
+        width: 33%;
+    }
+</style>
+
+<% } %>
 
 <body>
 

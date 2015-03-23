@@ -30,7 +30,7 @@ function storeInfo(req, res, next) {
             return;
         }
 
-        res.render("storeInfo", _.extend(data ,{wechatSetting: setting, store: store, enterpriseId: enterpriseId}));
+        res.render("storeInfo", _.extend(data ,{wechatSetting: setting, store: store, enterpriseId: enterpriseId, store_type: single_chain}));
     });
 }
 
@@ -252,7 +252,12 @@ function querySettingAndStore(enterpriseId, callback) {
                         store.phone = (temp.contact_phoneMobile || "");
                         store.addr = (temp.addr_state_city_area || "") + (temp.addr_detail || "");
                         store.comment = (temp.comment || "");
-                        store.workHour = temp.hours_begin + "-" + temp.hours_end;
+
+                        if(temp.hours_begin == null || temp.hours_end == null){
+                            store.workHour = "-";
+                        }else{
+                            store.workHour = temp.hours_begin + "-" + temp.hours_end;
+                        }
 
                         if (temp.logo) {
                             store.logUrl = "/svc/public/mobile/backup/" + temp.logo;
@@ -267,7 +272,7 @@ function querySettingAndStore(enterpriseId, callback) {
         }
 
         function _operateItem(callback) {
-            if(single_chain == "chain"){    //|| single_chain == undefined
+            if(single_chain == "chain"){
                 store.operateStr = "美甲，化妆，修眉，盘发，脱发，打耳洞，嫁接眉毛，护肤品销售，化妆品销售";
                 callback(null);
             }else{

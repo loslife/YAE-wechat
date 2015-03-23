@@ -27,7 +27,8 @@ function index(req, res, next){
             storeName: req.session.storeName,
             state: state,
             checklist: checklist,
-            enterpriseId: enterpriseId
+            enterpriseId: enterpriseId,
+            store_type: single_chain
         };
 
         res.render("kaitong", data);

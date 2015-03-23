@@ -14,7 +14,7 @@ $(function(){
         initWx();
     }
     function init(){
-        $("#btn_get").prop("disabled", false);
+        //$("#btn_get").prop("disabled", false);
 
         // 手机上弹出键盘时，底部按钮遮挡的问题
         $("#input_phone").focus(function(){
