@@ -158,8 +158,8 @@ function bindAllEnterpriseByPhone(req, res, next){
     }
 
     function _queryAllEnterprise(callback){
-
-        dbHelper.queryData("tb_member", {phoneMobile: member_phone}, function(err, result){
+        var sql = "select a.* from planx_graph.tb_member as a where a.phoneMobile=:phoneMobile and (a.status is null or a.status != 0)";
+        dbHelper.execSql(sql, {phoneMobile: member_phone}, function(err, result){
 
             if(err){
                 callback(err);
@@ -169,7 +169,7 @@ function bindAllEnterpriseByPhone(req, res, next){
                 var chain_result = null;
                 var sum_result = null;
 
-                chainDbHelper.queryData("tb_member", {phoneMobile: member_phone}, function(error, results){
+                chainDbHelper.execSql(sql, {phoneMobile: member_phone}, function(error, results){
                     if(error){
                         callback(error);
                     }else{
