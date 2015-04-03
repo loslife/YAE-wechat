@@ -43,10 +43,10 @@
             "password": ""
         },
         "chainmysql": {
-            "ip": "127.0.0.1",
+            "ip": "yilosdev.mysql.rds.aliyuncs.com",
             "port": 3306,
-            "user": "root",
-            "password": ""
+            "user": "yilos_dev",
+            "password": "yilos_dev"
         }
     },
     "clientAccess": {
