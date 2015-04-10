@@ -107,36 +107,28 @@ function bindMember(req, res, next){
             next({errorCode: 500, errorMessage:"数据库访问错误"});
             return;
         }
-        var model = null;
-        var true_Id= null;
-        if(result.length === 0){
-            chainDbHelper.queryData("tb_member", {enterprise_id: enterprise_id, phoneMobile: member_phone}, function(err, result){
-                if(err){
-                    console.log(err);
-                    next({errorCode: 500, errorMessage:"数据库访问错误"});
-                    return;
-                }
-                if(result.length === 0){
-                    next({errorCode: 501, errorMessage:"用户不存在"});
-                    return;
-                }else{
-                    true_Id = result[0].master_id;
-                    req.seesion.single_chain = "chain";
-                    model = {
-                        id: uuid.v1(),
-                        enterprise_id: result[0].master_id,
-                        member_id: member.id,
-                        wx_open_id: open_id,
-                        phone: member_phone,
-                        app_id: app_id,
-                        single_chain: "chain"
-                    }
-                }
-            });
-        }else{
-            true_Id = enterprise_id;
-            req.seesion.single_chain = "single";
-            model = {
+
+        // 在单店版找到了会员
+        if(result.length !==0){
+            _bindSingleMember();
+            return;
+        }
+
+        // 单店版未找到，在连锁版里查找
+        _bindChainMember();
+
+        function _bindSingleMember(){
+
+            var true_Id = enterprise_id;
+
+            if(req.session){
+                req.seesion.single_chain = "single";
+            }
+
+            // 只绑定一个会员，没有处理店内同一个手机号有多个会员的情况
+            var member = result[0];
+
+            var model = {
                 id: uuid.v1(),
                 enterprise_id: enterprise_id,
                 member_id: member.id,
@@ -144,22 +136,66 @@ function bindMember(req, res, next){
                 phone: member_phone,
                 app_id: app_id,
                 single_chain: "single"
-            }
+            };
+
+            dbHelper.addData("weixin_member_binding", model, function(err){
+
+                if(err){
+                    console.log(err);
+                    next({errorCode: 500, errorMessage:"数据库访问错误"});
+                    return;
+                }
+
+                res.send({code: 0, message: "ok", member_id: member.id, true_id: true_Id});
+            });
         }
 
-        // 只绑定一个会员，没有处理店内同一个手机号有多个会员的情况
-        var member = result[0];
+        function _bindChainMember(){
 
-        dbHelper.addData("weixin_member_binding", model, function(err, result){
+            chainDbHelper.queryData("tb_member", {enterprise_id: enterprise_id, phoneMobile: member_phone}, function (err, result) {
 
-            if(err){
-                console.log(err);
-                next({errorCode: 500, errorMessage:"数据库访问错误"});
-                return;
-            }
+                if (err) {
+                    console.log(err);
+                    next({errorCode: 500, errorMessage: "数据库访问错误"});
+                    return;
+                }
 
-            res.send({code: 0, message: "ok", member_id: member.id, true_id: true_Id});
-        });
+                if (result.length === 0) {
+                    next({errorCode: 501, errorMessage: "用户不存在"});
+                    return;
+                }
+
+                var true_Id = result[0].master_id;
+
+                if (req.session) {
+                    req.seesion.single_chain = "chain";
+                }
+
+                // 只绑定一个会员，没有处理店内同一个手机号有多个会员的情况
+                var member = result[0];
+
+                var model = {
+                    id: uuid.v1(),
+                    enterprise_id: result[0].master_id,
+                    member_id: member.id,
+                    wx_open_id: open_id,
+                    phone: member_phone,
+                    app_id: app_id,
+                    single_chain: "chain"
+                }
+
+                dbHelper.addData("weixin_member_binding", model, function(err, result){
+
+                    if(err){
+                        console.log(err);
+                        next({errorCode: 500, errorMessage:"数据库访问错误"});
+                        return;
+                    }
+
+                    res.send({code: 0, message: "ok", member_id: member.id, true_id: true_Id});
+                });
+            });
+        }
     });
 }
 
