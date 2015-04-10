@@ -119,10 +119,8 @@ function bindMember(req, res, next){
 
         function _bindSingleMember(){
 
-            var true_Id = enterprise_id;
-
             if(req.session){
-                req.seesion.single_chain = "single";
+                req.session.single_chain = "single";
             }
 
             // 只绑定一个会员，没有处理店内同一个手机号有多个会员的情况
@@ -146,7 +144,7 @@ function bindMember(req, res, next){
                     return;
                 }
 
-                res.send({code: 0, message: "ok", member_id: member.id, true_id: true_Id});
+                res.send({code: 0, message: "ok", member_id: member.id, true_id: enterprise_id});
             });
         }
 
@@ -165,10 +163,8 @@ function bindMember(req, res, next){
                     return;
                 }
 
-                var true_Id = result[0].master_id;
-
                 if (req.session) {
-                    req.seesion.single_chain = "chain";
+                    req.session.single_chain = "chain";
                 }
 
                 // 只绑定一个会员，没有处理店内同一个手机号有多个会员的情况
@@ -192,7 +188,7 @@ function bindMember(req, res, next){
                         return;
                     }
 
-                    res.send({code: 0, message: "ok", member_id: member.id, true_id: true_Id});
+                    res.send({code: 0, message: "ok", member_id: member.id, true_id: result[0].master_id});
                 });
             });
         }
