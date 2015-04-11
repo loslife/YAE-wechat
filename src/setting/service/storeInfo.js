@@ -273,8 +273,16 @@ function querySettingAndStore(enterpriseId, callback) {
 
         function _operateItem(callback) {
             if(single_chain == "chain"){
-                store.operateStr = "美甲，化妆，修眉，盘发，脱发，打耳洞，嫁接眉毛，护肤品销售，化妆品销售";
-                callback(null);
+                //store.operateStr = "美甲，化妆，修眉，盘发，脱发，打耳洞，嫁接眉毛，护肤品销售，化妆品销售";
+                //callback(null);
+                chainDbHelper.queryData("tb_operateItem", {master_id: enterpriseId}, function (error, result) {
+                    if (error) {
+                        callback(error);
+                        return;
+                    }
+                    store.operateStr = _.pluck(result, "name").join("，");
+                    callback(null);
+                });
             }else{
                 dohelper(dbHelper);
             }
