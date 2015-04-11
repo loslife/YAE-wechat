@@ -252,7 +252,6 @@ function querySettingAndStore(enterpriseId, callback) {
                         store.phone = (temp.contact_phoneMobile || "");
                         store.addr = (temp.addr_state_city_area || "") + (temp.addr_detail || "");
                         store.comment = (temp.comment || "");
-                        store.operateStr = store.comment;
 
                         if(temp.hours_begin == null || temp.hours_end == null){
                             store.workHour = "-";
@@ -274,7 +273,7 @@ function querySettingAndStore(enterpriseId, callback) {
 
         function _operateItem(callback) {
             if(single_chain == "chain"){
-                //store.operateStr = "美甲，化妆，修眉，盘发，脱发，打耳洞，嫁接眉毛，护肤品销售，化妆品销售";
+                store.operateStr = "美甲，化妆，修眉，盘发，脱发，打耳洞，嫁接眉毛，护肤品销售，化妆品销售";
                 callback(null);
             }else{
                 dohelper(dbHelper);
