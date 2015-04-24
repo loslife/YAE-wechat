@@ -1,30 +1,19 @@
 $(function(){
 
-    $("#binding_success_tip").hide();
+    $("#getSecurityCode").getCodeButton();
 
-    $("#getSecurityCode").tap(function(){
+    $("#btn_binding").click(function(){
 
-        var phone = $("#phone").val();
+        var self = this;
 
-        if(!phone){
-            alert("请输入手机号");
-            return;
-        }
-
-        var url = g_env.security_code_url + phone + "?u=weixin_binding";
-
-        $.get(url, function(response){
-            alert("验证码已发送到您的手机");
-        });
-    });
-
-    $("#btn_binding").tap(function(){
+        $(this).prop("disabled", true);
 
         var phone = $("#phone").val();
         var secure_code = $("#code").val();
 
         if(!phone || !secure_code){
             alert("输入不能为空");
+            $(this).prop("disabled", false);
             return;
         }
 
@@ -34,13 +23,15 @@ $(function(){
             var code = response.code;
             if(code !== 0){
                 alert("验证码错误");
+                $(self).prop("disabled", false);
                 return;
             }
 
             var enterprise_id = $("#enterprise_id").text();
             var open_id = $("#open_id").text();
+            var app_id = $("#app_id").text();
 
-            var bindingURL = g_env.binding_url + enterprise_id + "/doBinding";
+            var bindingURL = g_env.binding_url + app_id + "/" + enterprise_id + "/doBinding";
             $.post(bindingURL, { open_id: open_id, phone: phone }, function(response){
 
                 var code = response.code;
@@ -52,12 +43,13 @@ $(function(){
                     }else{
                         alert("绑定失败，请联系客服");
                     }
+                    $(self).prop("disabled", false);
                     return;
                 }
 
                 $("#binding_success_tip").show();
                 setTimeout(function(){
-                    location.href = g_env.binding_url + enterprise_id + "/member?m_id=" + response.member_id;
+                    location.href = g_env.binding_url + app_id + "/" + response.true_id + "/member?m_id=" + response.member_id;
                 },2000);
             });
         });

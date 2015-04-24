@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+</head>
+
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .css("/resource/css/base.css")
+        .css("/wx-router/static/css/selection.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .css("/resource/css/wechat.min.css")
+        .css('/wx-router/css/selection.min.css')
+        .done(config) %>
+
+<% } %>
+
+<body>
+
+<div id="m-selection">
+
+    <div id="title">选择您要进入的店铺</div>
+
+    <% for(var i = 0; i < params.length; i++){ %>
+
+    <% if(i % 2 === 0){ %>
+    <a class="shop-item odd" href="/svc/wsite/<%= app_id %>/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>&store_type=<%= params[i].store_type %>">
+    <% }else{ %>
+    <a class="shop-item even" href="/svc/wsite/<%= app_id %>/<%= params[i].enterprise_id %>/shop?m_id=<%= params[i].member_id %>&store_type=<%= params[i].store_type %>">
+    <% } %>
+
+        <div class="logo">
+            <img src="<%= params[i].logUrl %>">
+        </div>
+        <div class="description">
+            <div class="name"><%= params[i].enterprise_name %></div>
+            <div class="inner">
+                <div>
+                    <img src="/resource/icon_phone.png">
+                    <span><%= params[i].phone %></span>
+                </div>
+                <div>
+                    <img src="/resource/icon_addr.png">
+                    <span><%= params[i].addr %></span>
+                </div>
+            </div>
+        </div>
+
+    </a>
+
+    <% } %>
+
+</div>
+
+</body>
+
+</html>

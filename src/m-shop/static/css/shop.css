@@ -1,3 +1,6 @@
+body {
+  font-family: "Microsoft Yahei", sans-serif;
+}
 #m-shop {
   background-color: #e9e9ea;
   padding-bottom: 10px;
@@ -7,68 +10,188 @@
   width: 100%;
   background-color: white;
 }
-.home-img .img {
+.home-img > .img {
   width: 100%;
-  padding-bottom: 75%;
-  margin-bottom: 10px;
+  padding-bottom: 33%;
   background-size: cover !important;
 }
-.home-img .store-name {
+.home-img > img {
   position: absolute;
-  right: 20px;
   bottom: 10px;
-  font-size: 20px;
+  left: 10px;
+  width: 80px;
+  z-index: 1;
+  border: 3px solid white;
+  border-radius: 2px;
+  box-shadow: 5px 6px 15px -9px #000000;
+}
+.home-img > .store-name {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 110px;
   color: white;
+  background-color: rgba(51, 9, 13, 0.3);
+  font-size: 20px;
+  height: 40px;
+  line-height: 40px;
+}
+#m-shop .store {
+  margin: 0;
+  background: white;
+  overflow: hidden;
+}
+.store > #base_info {
+  position: relative;
+}
+#fields {
+  padding-right: 78px;
+}
+#call_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 78px;
+  height: 78px;
+  box-sizing: border-box;
+}
+#call_icon > a {
+  margin: 10px;
+  padding: 10px;
+  border-left: 1px solid #d0cfd0;
+}
+#call_icon > a:active {
+  background: #f0f0f1;
+}
+#call_icon img {
+  position: relative;
+  left: 6px;
+  width: 100%;
+}
+#fields > .field {
+  height: 26px;
+  line-height: 26px;
+  padding-left: 10px;
+}
+.field > .field_key {
+  width: 5rem;
+  color: #928d8d;
+  float: left;
+}
+.field > .field_value {
+  color: #434040;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#store_address {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  border-top: 1px solid #d0cfd0;
+  border-bottom: 1px solid #dadbdc;
+}
+#store_address:active {
+  border-top: 1px solid #d0cfd0;
+}
+#store_address > .addr_label {
+  color: #928d8d;
+}
+#store_address > .addr_value {
+  color: #434040;
+}
+#store_address > img {
+  position: absolute;
+  right: 1rem;
+  top: 17px;
+  width: 11px;
+}
+#mapDiv {
+  margin: 0 5px;
+  padding: 0 5px;
+  background-color: white;
+  border-left: 1px solid #dadbdc;
+  border-right: 1px solid #dadbdc;
+}
+#mapDiv.expand {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #dadbdc;
+}
+.map-expand {
+  height: 200px;
+  -webkit-animation: expand 0.5s linear 1;
+}
+.map-fold {
+  height: 0;
+  -webkit-animation: fold 0.5s linear 1;
+}
+@-webkit-keyframes expand {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 200px;
+  }
+}
+@-webkit-keyframes fold {
+  0% {
+    height: 200px;
+  }
+  100% {
+    height: 0;
+  }
 }
 #m-shop .preferential {
   margin: 0 5px;
 }
-.preferential-list > li > div:first-child {
-  background-size: cover !important;
-  width: 36%;
-  padding-bottom: 27%;
-}
-.desc-vm-help {
-  width: 0px;
-  padding-bottom: 27%;
-  display: inline-block;
-  vertical-align: middle;
+.preferential > #pre_title {
+  margin-top: 10px;
+  padding-left: 5px;
 }
 .preferential-list > li {
-  background-color: #ffffff;
-  line-height: 20px;
-  border-bottom: 1px solid #e9e9ea;
+  position: relative;
   overflow: hidden;
+  padding: 5px;
+  background-color: #ffffff;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
 }
-.preferential-list > li:last-child {
-  border-bottom: none;
+.pre-img {
+  width: 100%;
+  padding-bottom: 50%;
+  height: 0;
+  background-size: cover;
 }
-.preferential-list > li:nth-child(odd) > div:first-child {
-  float: left;
-  border: 1px solid #ffffff;
-  border-right: none;
-  box-sizing: border-box;
+.pre-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 6px 6px;
 }
-.preferential-list > li:nth-child(even) > div:first-child {
-  float: right;
-  border: 1px solid #ffffff;
-  border-left: none;
-  box-sizing: border-box;
+.pre-name {
+  padding-left: 5px;
+  font-size: 18px;
 }
-.festivalsInfo {
-  box-sizing: border-box;
-  width: 64%;
-  padding: 0px 15px 0px 12px;
-}
-.festivalsTitle {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-.festivalsDesc {
-  font-size: 12px;
+.pre-desc {
+  padding-left: 5px;
+  font-size: 1rem;
+  margin-top: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 #m-shop .item {
   margin: 10px 5px;
+}
+#item_title {
+  margin-top: 10px;
+  padding-left: 5px;
 }
 .item-more a {
   padding: 1px 0 0 24px;
@@ -83,24 +206,27 @@
 }
 .item-more a:active:before {
   background: url('../../../resource/right_more_active.png') 0 0;
-  background-size: 18px 18px;
+  background-size: 14px 14px;
 }
 .item-more a:before {
   content: "";
   position: absolute;
   background: url('../../../resource/right_more.png') 0 0;
-  background-size: 18px 18px;
-  width: 18px;
-  height: 18px;
+  background-size: 14px 14px;
+  width: 14px;
+  height: 14px;
   right: 32px;
-  top: 2px;
+  top: 4px;
 }
 .item-list {
-  background: white;
+  background: #e9e9ea;
 }
 .item-list > li {
   float: left;
   width: 50%;
+  border: 5px solid #e9e9ea;
+  box-sizing: border-box;
+  background-color: white;
 }
 .item-list > li > a {
   border: 5px solid #ffffff;
@@ -126,27 +252,6 @@
   font-size: 12px;
   color: gray;
 }
-#m-shop .store {
-  margin: 10px 5px 0 5px;
-  border: 10px solid #ffffff;
-  background: white;
-  overflow: hidden;
-}
-.store .store-img {
-  background-size: cover !important;
-  width: 100px;
-  height: 100px;
-  float: left;
-  margin-right: 10px;
-}
-.store .store-name {
-  height: 40px;
-  font-size: 20px;
-  line-height: 40px;
-  margin-bottom: 10px;
-  margin-left: 110px;
-  border-bottom: 1px solid #e9e9ea;
-}
-.store > div + div {
-  margin-bottom: 10px;
+#hidden_area {
+  display: none;
 }

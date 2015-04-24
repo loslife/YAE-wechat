@@ -1,0 +1,45 @@
+body {
+  background-color: #e9e9ea;
+}
+#m-festival-done {
+  position: relative;
+  background-size: cover !important;
+  min-height: 400px;
+}
+#m-festival-done.success {
+  background: url("/resource/done_success_bg.png") no-repeat;
+}
+#m-festival-done.repeat {
+  background: url("/resource/done_repeat_bg.png") no-repeat;
+}
+#m-festival-done > img {
+  display: block;
+  width: 100%;
+  padding-top: 100px;
+}
+#m-festival-done > div {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 30px;
+  text-align: center;
+  color: white;
+}
+#follow {
+  margin-top: 60px;
+}
+#follow > div {
+  text-align: center;
+  font-size: 12px;
+}
+#follow > a {
+  display: block;
+  width: 50%;
+  margin: 10px auto;
+  height: 30px;
+  line-height: 30px;
+  background-color: #f75169;
+  color: white;
+  border: none;
+  text-align: center;
+}

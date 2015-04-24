@@ -1,0 +1,48 @@
+{
+    "services": [
+        {
+            "name": "wsiteRouter",
+            "path": "/wsite/router",
+            "method": "get",
+            "auth": false,
+            "impl": "router.route",
+            "comment": "判断是进入微站首页，还是进入绑定页面，还是进入商户选择页面"
+        },
+        {
+            "name": "selectShop",
+            "path": "/wsite/selection",
+            "method": "get",
+            "auth": false,
+            "impl": "router.selectShop",
+            "comment": "商户选择页面"
+        },
+        {
+            "name": "memberNotFound",
+            "path": "/wsite/memberNotFound",
+            "method": "get",
+            "auth": false,
+            "impl": "router.foundNoMember",
+            "comment": "根据输入的手机号，无法找到店铺"
+        },
+        {
+            "name": "singleRouter",
+            "path": "/wsite/:appId/:enterpriseId/route",
+            "method": "get",
+            "auth": false,
+            "impl": "singleRouter.singleRoute",
+            "comment": "进入微站首页，根据open_id判断是否携带member_id"
+        }
+    ],
+    "statics": [
+
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "errorHandler": [
+
+    ]
+}

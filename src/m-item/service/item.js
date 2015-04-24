@@ -6,13 +6,15 @@ var request = require("request");
 exports.item = item;
 exports.itemDetail = itemDetail;
 
-var yaeUrl = "http://121.40.75.73";
-
+var yaeUrl = global["_g_clusterConfig"].baseurl;
+var single_chain = null;
 function item(req, res, next) {
-    var enterpriseId = req.params.enterpriseId;
 
-    //todo replace url
-    var queryShelvesUrl = yaeUrl + "/svc/weixin/queryAllShelvesItem/" + enterpriseId;
+    var enterpriseId = req.params.enterpriseId;
+    var appId = req.params.appId;
+    single_chain =  req.session.single_chain;
+
+    var queryShelvesUrl = yaeUrl + "/weixin/queryAllShelvesItem/" + enterpriseId + "?store_type=" + single_chain;
 
     var options = {
         method: "GET",
@@ -36,16 +38,18 @@ function item(req, res, next) {
             return item.name;
         });
 
-        res.render("item", {enterprise_id: enterpriseId, layout: "layout", menu: "item", shelveList: hotShelvesList});
+        res.render("item", {app_id: appId, enterprise_id: enterpriseId, layout: "layout", menu: "item", shelveList: hotShelvesList, store_type: single_chain});
     });
 }
 
 function itemDetail(req, res, next) {
-    var enterpriseId = req.params.enterpriseId;
-    var itemId = req.params.itemId;
 
-    //todo replace url
-    var queryUrl = yaeUrl + "/svc/weixin/queryShelvesByItemId/" + itemId;
+    var enterpriseId = req.params.enterpriseId;
+    var appId = req.params.appId;
+    var itemId = req.params.itemId;
+    single_chain =  req.session.single_chain;
+
+    var queryUrl = yaeUrl + "/weixin/queryShelvesByItemId/" + itemId + "?store_type=" + single_chain;
 
     var options = {
         method: "GET",
@@ -54,6 +58,7 @@ function itemDetail(req, res, next) {
     };
 
     request(options, function (err, response, body) {
+
         if (err) {
             logger.error({err: err, detail: "调用失败" + queryUrl});
             next(err);
@@ -73,6 +78,6 @@ function itemDetail(req, res, next) {
 
         var item = body.result[0];
 
-        res.render("itemDetail", {enterprise_id: enterpriseId, layout: "layout", menu: "none", item: item});
+        res.render("itemDetail", {enterprise_id: enterpriseId, layout: "layout", menu: "none", item: item, app_id: appId, store_type: single_chain});
     });
 }

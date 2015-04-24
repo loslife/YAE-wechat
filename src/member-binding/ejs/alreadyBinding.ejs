@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="Shortcut Icon" href="http://img1.yilos.com/portal/nail/imgs/logo.png">
+</head>
+
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .css("/resource/css/base.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .css("/resource/css/wechat.min.css")
+        .done(config) %>
+
+<% } %>
+
+<body>
+
+<div id="already-binding">
+
+    <div>您已绑定<%= member_name %>，无需重复绑定</div>
+
+</div>
+
+</body>
+
+</html>

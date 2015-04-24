@@ -1,0 +1,10 @@
+.festivals_pic {
+    padding: 0px;
+    border: none;
+}
+
+.festivals_pic_desc {
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 12px;
+}

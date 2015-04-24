@@ -1,0 +1,29 @@
+{
+    "services": [
+        {
+            "name": "lightEntrance",
+            "path": "/wsite/lightEntrance",
+            "method": "get",
+            "auth": false,
+            "impl": "entrance.lightEntrance",
+            "comment": "不做绑定逻辑的微站入口，现在只有乐斯美蜜使用"
+        },
+        {
+            "name": "findEnterpriseByPhone",
+            "path": "/wsite/findEnterpriseByPhone",
+            "method": "get",
+            "auth": false,
+            "impl": "entrance.findEnterpriseByPhone",
+            "comment": "根据手机号查询商户"
+        }
+    ],
+    "statics": [
+
+    ],
+    "ejsviews": [
+
+    ],
+    "errorHandler": [
+
+    ]
+}

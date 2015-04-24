@@ -6,7 +6,15 @@
             "method": "get",
             "auth": false,
             "impl": "weixinService.enable_dev_mode",
-            "comment": "开启公众号开发者模式"
+            "comment": "开启美蜜公众号开发者模式"
+        },
+        {
+            "name": "enableDevMode",
+            "path": "/weixinmeiyeguanjia",
+            "method": "get",
+            "auth": false,
+            "impl": "weixinService.enable_dev_mode_mei",
+            "comment": "开启美管家公众号开发者模式"
         },
         {
             "name": "handleWXRequest",
@@ -15,13 +23,44 @@
             "auth": false,
             "impl": "weixinService.handleWXRequest",
             "comment": "响应微信服务器请求"
+        },{
+            "name": "handleWXMGJRequest",
+            "path": "/weixinmeiyeguanjia",
+            "method": "post",
+            "auth": false,
+            "impl": "weixinService.handleWXMGJRequest",
+            "comment": "响应微信服务器请求"
+        },{
+            "name": "signin",
+            "path": "/meiyeguanjia/signin",
+            "method": "get",
+            "auth": false,
+            "impl": "weixinService.signin",
+            "comment": "跳转到登陆页面"
+        },{
+            "name": "redirect",
+            "path": "/meiyeguanjia/redirect",
+            "method": "post",
+            "auth": false,
+            "impl": "weixinService.redirect",
+            "comment": "跳转到微信小店"
+        },{
+            "name": "queryorder",
+            "path": "/wsite/meiyeguanjia/queryorder",
+            "method": "get",
+            "auth": false,
+            "impl": "weixinService.queryOrder",
+            "comment": "查询微信小店订单详情"
         }
     ],
     "statics": [
 
     ],
     "ejsviews": [
-
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
     ],
     "errorHandler": [
 

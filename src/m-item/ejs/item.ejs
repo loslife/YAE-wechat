@@ -1,10 +1,33 @@
-<%- Loader().js("/m-item/item.js").css("/m-item/css/item.css").done(config) %>
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .css("/m-item/css/item.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .css("/m-item/css/item.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-item">
+
+    <% if(shelveList.length === 0){ %>
+
+    <div id="empty-list-image">
+        <img src="/resource/no_products.png">
+    </div>
+
+    <div id="empty-list-msg">店家还没上线任何产品</div>
+
+    <% }else{ %>
+
     <ul class="item-list">
         <% for(var i = 0; i < shelveList.length; i++) { %>
         <li>
-            <a href="/svc/wsite/<%= enterprise_id %>/itemDetail/<%= shelveList[i].itemId %>">
+            <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/itemDetail/<%= shelveList[i].itemId %>">
                 <div class="item-img" style="background: url('<%= shelveList[i].imgPath %>') no-repeat">
                 </div>
 
@@ -14,5 +37,9 @@
         </li>
         <% } %>
     </ul>
+
     <div class="more-item">更多精品服务欢迎到店体验</div>
+
+    <% } %>
+
 </div>

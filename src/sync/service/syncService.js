@@ -244,10 +244,6 @@ function festivals(req, res, next){
                 return;
             }
 
-            _.each(result, function(item){
-                delete item._id;
-            });
-
             callback(null, result);
         });
     }
@@ -262,10 +258,6 @@ function festivals(req, res, next){
                 callback(err);
                 return;
             }
-
-            _.each(result, function(item){
-                delete item._id;
-            });
 
             callback(null, result);
         });

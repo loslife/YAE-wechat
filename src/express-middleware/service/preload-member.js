@@ -9,11 +9,20 @@
  */
 module.exports = function(req, res, next){
 
+    var paths = req.path.split("/");
+    var enterprise_id = paths[2];
+
     var member_id = req.query["m_id"];
 
-    if(member_id){
-        req.session.member_id = member_id;
+    if(!member_id){
+        next();
+        return;
     }
 
+    if(!req.session[enterprise_id]){
+        req.session[enterprise_id] = {};
+    }
+
+    req.session[enterprise_id].member_id = member_id;
     next();
 };

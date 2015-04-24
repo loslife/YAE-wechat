@@ -4,9 +4,9 @@
         {
             "name": "baseService",
             "ip": "",
-            "port": 5000,
+            "port": 5002,
             "protocol": "http",
-            "baseurl": "",
+            "baseurl": "http://127.0.0.1:5002/svc",
             "workerno": 1,
             "applications": [
                 "3rd-lib",
@@ -19,7 +19,12 @@
                 "m-festival",
                 "member-binding",
                 "resource",
-                "sync"
+                "sync",
+                "wx-router",
+                "light-entrance",
+                "setting",
+                "template-message",
+                "wx-utils"
             ]
         }
     ],
@@ -32,17 +37,24 @@
         },
         "mongodb": {
             "ip": "127.0.0.1",
-            "port": "2222",
-            "connectionurl": "127.0.0.1:2222",
+            "port": "27017",
+            "connectionurl": "127.0.0.1:27017",
             "user": "",
             "password": ""
+        },
+        "chainmysql": {
+            "ip": "yilosdev.mysql.rds.aliyuncs.com",
+            "port": 3306,
+            "user": "yilos_dev",
+            "password": "yilos_dev"
         }
     },
     "clientAccess": {
-        "staticurl": "",
-        "authurl": "",
-        "serviceurl": "",
-        "uploadurl": ""
+        "staticurl": "http://127.0.0.1",
+        "authurl": "http://127.0.0.1/svc",
+        "serviceurl": "http://127.0.0.1:5001/svc",
+        "uploadurl": "http://127.0.0.1/svc/file-upload",
+        "wxserviceurl": "http://127.0.0.1:5002/svc"
     },
     "connector":{
         "nail_pc_url":""

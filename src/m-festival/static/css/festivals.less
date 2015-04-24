@@ -1,19 +1,43 @@
 @import "../../../resource/css/constant.less";
 
-#m-festival {
+body{
   background-color: @backgroundColor;
+}
+
+#m-festival {
   padding: @baseSpace;
   min-height: 100%;
   box-sizing: border-box;
 }
 
+#empty-list-image{
+  width: 80%;
+  margin: 100px auto 1rem auto;
+  text-align: center;
+}
+
+#empty-list-image > img {
+  width: 150px;
+  height: 150px;
+}
+
+#empty-list-msg{
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  color: gray;
+}
+
 .festival-item {
   background-color: white;
   margin-bottom: @baseSpace;
+  padding: 0 10px;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
 }
 
 .festival-item:active {
-  background: @backgroundColor;
+  background: #f0f0f1;
 }
 
 .festival-item:last-child {
@@ -21,18 +45,20 @@
 }
 
 .item-header > .title {
-  padding: 1.2rem 0 1.2rem 1rem;
+  padding: 1.2rem 0 1.2rem 0;
   font-size: 1.2rem;
 }
 
-.festival-item > img {
+.festival-item > div.img {
   box-sizing: border-box;
   width: 100%;
-  padding: 0 @baseSpace;
+  height: 0;
+  padding: 0 @baseSpace 50% @baseSpace;
+  background-size: cover !important;
 }
 
 .festival-item > div.item-desc {
-  padding: 1rem;
+  padding: 1rem 0;
   color: gray;
 }
 

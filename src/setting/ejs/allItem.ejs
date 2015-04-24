@@ -1,0 +1,57 @@
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js('/setting/productItem.js')
+        .css("/setting/css/productItem.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/setting/productItem.js')
+        .css("/setting/css/productItem.css")
+        .done(config) %>
+
+<% } %>
+
+<div id="allItem-area" ng-controller="allItemController">
+
+    <div class="item-list-head">
+        <div class="btn-style1" ng-click="addShelvesItem()"
+             onselectstart="return false;">
+            上架
+        </div>
+    </div>
+
+    <ul class="cate-list">
+        <li ng-repeat="cate in cateList" ng-click="choicesCate(cate)"
+            ng-class="{selected:cate.selected}">
+            {{cate.name}}
+        </li>
+    </ul>
+
+    <ul class="item-list">
+        <li ng-repeat="item in itemList" ng-click="shelvesSelect(item)"
+            ng-style="{'width': ($last ? view.itemWidth + view.lastItemExtraWidth : view.itemWidth)}">
+
+            <input type="checkbox" ng-model="item.shelvesSelected"
+                   ng-if="!item.alreadyShelves" ng-click="shelvesSelect(item)" />
+
+            <span class="item-selected" ng-if="item.alreadyShelves" >已上架</span>
+
+            <img ng-src="{{item.imgPath}}" alt=""/>
+
+            <span class="item-name">{{item.name}}</span>
+        </li>
+
+        <div ng-if="itemList.length === 0" >
+            <div placeholder="暂无商品" style="padding: 10px 0 0 10px; font-size: 20px;">
+                该分类下暂无商品
+            </div>
+        </div>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var pageData = '<%- JSON.stringify({cateId2ItemList: cateId2ItemList,cateList:cateList}) %>';
+</script>

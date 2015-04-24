@@ -15,35 +15,31 @@ body{
 #festival-introduce {
   background-color: white;
   margin-bottom: @baseSpace;
-  position: relative;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
 }
 
-#festival-introduce > img {
+#festival-introduce > .img {
+  position: relative;
+  background-size: cover !important;
+  width: 100%;
+  padding-bottom: 50%;
+  border-radius: 6px;
+}
+
+.img > .title {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   box-sizing: border-box;
   width: 100%;
-  display: block;
-}
-
-#festival-introduce > #header_slogan {
-  position: absolute;
-  top: 50px;
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 1.5rem;
-  background-color: rgba(51, 09, 13, 0.3);
-  color: white;
-  padding: 0.75rem 0;
-}
-
-#festival-introduce > .title {
-  font-size: 1.2rem;
-  background-color: #f75169;
-  color: white;
   padding: 0.9rem;
+  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
-#festival-introduce > .title > img {
+.title > img {
   position: relative;
   top: 1px;
   width: 1.2rem;
@@ -62,10 +58,9 @@ body{
 }
 
 .btn {
-  width: 60%;
-  margin: 0 auto;
-  padding: 1rem;
+  width: 100%;
   box-sizing: border-box;
+  padding: 1rem 10px;
 }
 
 .btn > button {
@@ -82,7 +77,7 @@ body{
 }
 
 .btn > button:disabled {
-  background-color: @backgroundColor;
+  background-color: #c6c6c6;
 }
 
 #finish-msg {
@@ -126,9 +121,16 @@ body{
   z-index: 1;
 }
 
-#share_tips > img{
-  display: block;
-  width: 200px;
+img#tips_arrow {
   float: right;
+  width: 10%;
   margin: 1rem 2rem 0 0;
+}
+
+img#tips_text {
+  display: block;
+  clear: right;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 10px;
 }

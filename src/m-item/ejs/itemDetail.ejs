@@ -1,4 +1,18 @@
-<%- Loader().css("/m-item/css/item.css").done(config) %>
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js("/m-item/itemDetail.js")
+        .css("/m-item/css/itemDetail.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js('/m-item/itemDetail.min.js')
+        .css("/m-item/css/itemDetail.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="item-detail">
     <div class="img" style="background: url('<%= item.imgPath %>') no-repeat">
@@ -11,20 +25,17 @@
     </div>
 
     <div class="comment">
+
         <div class="fl color-gray">描述：</div>
-        <div style="padding-left:42px;"><%= item.comment %></div>
+
+        <div style="padding-left:42px;">
+            <% if(item.comment){ %>
+            <%= item.comment %>
+            <% }else{ %>
+            暂无描述
+            <% } %>
+        </div>
     </div>
 </div>
 
-<a id="back" class="back clear-fix">返回</a>
-
-<script>
-    $(function () {
-        $("#back").on("click", function ($even) {
-            window.history.back();
-            $even.stopPropagation();
-        });
-
-        $("#item-detail").height($(window).height() - $("#back").height());
-    });
-</script>
+<a id="back" class="back clear-fix">返回服务列表</a>

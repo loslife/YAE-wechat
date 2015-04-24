@@ -1,20 +1,59 @@
+<% if(env === "dev"){ %>
+
 <%- Loader()
-        .js('/m-festival/done.js')
-        .css("/m-festival/css/done.css")
+        .css("/m-festival/css/result.css")
         .done(config) %>
 
-<div id="m-festival-done">
+<% }else{ %>
 
-    <div id="wrapper">
+<%- Loader()
+        .css("/m-festival/css/result.min.css")
+        .done(config) %>
 
-        <img src="../../../resource/present_got_success.jpg">
+<% } %>
 
-        <div id="message">
-            <img src="../../../resource/duigou.png">
-            <span id="msg_success">领取成功！</span>
-        </div>
-    </div>
+<% if(type === "success"){ %>
+    <div id="m-festival-done" class="success">
+<% }else{ %>
+    <div id="m-festival-done" class="repeat">
+<% } %>
+
+    <% if(type === "success"){ %>
+
+        <img src="/resource/diamond.png">
+
+        <% if(isMember === "no"){ %>
+        <div>已发送短信至您的手机，请凭短信到店消费。</div>
+        <% } %>
+
+    <% }else{ %>
+
+        <img src="/resource/present_got_duplicate.png">
+        <div>已经领取过一次了，下次再来吧！</div>
+
+    <% } %>
 
 </div>
 
-<a id="back" class="back clear-fix">看看其它</a>
+<div id="follow">
+
+    <% if(!share){ %>
+
+    <a href="../shop">去店里逛逛</a>
+
+    <% }else if(subscribe === "0"){ %>
+
+    <div>关注我们的公众号，了解更多精彩活动</div>
+    <a href="http://mp.weixin.qq.com/s?__biz=MjM5Mjg3OTQ0OA==&mid=201488778&idx=1&sn=6481f598641d847359afd5620926a1df&scene=1&key=5ee379c597d9202e0de4b2664cf089ead9fdd63938a14390c6d73783735a139e8188cf1a6c3bd5e3d8b61d194c6ff9ae&ascene=0&uin=MjcyNTc5NDIwMw%3D%3D&devicetype=iMac+MacBookPro11%2C1+OSX+OSX+10.10+build(14A389)&version=11020012&pass_ticket=o3BzUXFfQlA4jCjuh0ARyTnY6IbPTzr1WJb8tP6LRgPX393mD8g1PcINMv45XIWJ">关注公众号</a>
+
+    <% }else if(isMember === "yes"){ %>
+
+    <a href="../member">查看优惠券</a>
+
+    <% }else{ %>
+
+    <a href="../shop">去店里逛逛</a>
+
+    <% } %>
+
+</div>

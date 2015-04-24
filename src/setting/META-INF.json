@@ -1,0 +1,227 @@
+{
+    "interface": {
+        "services": {
+
+        },
+        "sdk": {
+
+        },
+        "url": {
+
+        },
+        "fragment": {
+
+        }
+    },
+    "services": [
+        {
+            "name": "login",
+            "path": "/store/login",
+            "method": "get",
+            "auth": false,
+            "impl": "admin.login",
+            "comment": ""
+        },
+        {
+            "name": "logout",
+            "path": "/store/logout",
+            "method": "get",
+            "auth": false,
+            "impl": "admin.logout",
+            "comment": ""
+        },
+        {
+            "name": "allItem",
+            "path": "/weixin/allItem",
+            "method": "get",
+            "auth": "yilos-session",
+            "impl": "itemService.allItem",
+            "comment": "提供所有项目展示页面"
+        },
+        {
+            "name": "shelvesItem",
+            "path": "/weixin/shelvesItem",
+            "method": "get",
+            "auth": "yilos-session",
+            "impl": "itemService.shelvesItem",
+            "comment": "提供上架项目展示页面"
+        },
+        {
+            "name": "searchItem",
+            "path": "/weixin/searchItem",
+            "method": "get",
+            "auth": false,
+            "impl": "itemService.searchItem",
+            "comment": "搜索经营项目"
+        },
+        {
+            "name": "searchShelves",
+            "path": "/weixin/searchShelves",
+            "method": "get",
+            "auth": false,
+            "impl": "itemService.searchShelves",
+            "comment": "搜索上架项目"
+        },
+        {
+            "name": "queryAllShelvesItem",
+            "path": "/weixin/queryAllShelvesItem/:enterpriseId",
+            "method": "get",
+            "auth": false,
+            "impl": "itemService.queryAllShelvesItem",
+            "comment": "查询所有已上架项目"
+        },
+        {
+            "name": "queryShelvesByItemId",
+            "path": "/weixin/queryShelvesByItemId/:itemId",
+            "method": "get",
+            "auth": false,
+            "impl": "itemService.queryShelvesByItemId",
+            "comment": "根据服务id查询已上架项目"
+        },
+        {
+            "name": "addShelvesItem",
+            "path": "/weixin/addShelvesItem",
+            "method": "post",
+            "auth": false,
+            "impl": "itemService.addShelvesItem",
+            "comment": "添加上架展示的项目"
+        },
+        {
+            "name": "updateShelves",
+            "path": "/weixin/updateShelves",
+            "method": "post",
+            "auth": false,
+            "impl": "itemService.updateShelves",
+            "comment": "修改已上架服务"
+        },
+        {
+            "name": "storeInfo",
+            "path": "/weixin/storeInfo",
+            "method": "get",
+            "auth": "yilos-session",
+            "impl": "storeInfo.storeInfo",
+            "comment": "提供店铺信息页面"
+        },
+        {
+            "name": "kaitong",
+            "path": "/weixin/kaitong",
+            "method": "get",
+            "auth": "yilos-session",
+            "impl": "kaitong.index",
+            "comment": "跳转开通微店铺页面"
+        },
+        {
+            "name": "kaitong_check",
+            "path": "/weixin/kaitongCheck",
+            "method": "get",
+            "auth": "yilos-session",
+            "impl": "kaitong.check",
+            "comment": "检查开通条件是否满足，满足则开通"
+        },
+        {
+            "name": "queryStoreInfo",
+            "path": "/weixin/queryStoreInfo/:enterpriseId",
+            "method": "get",
+            "auth": false,
+            "impl": "storeInfo.queryStoreInfo",
+            "comment": "查询微信设置的欢迎语等信息，以及美管家店铺信息"
+        },
+        {
+            "name": "updateWechatSetting",
+            "path": "/weixin/updateWechatSetting",
+            "method": "post",
+            "auth": false,
+            "impl": "storeInfo.updateWechatSetting",
+            "comment": "修改店铺欢迎信息"
+        },
+        {
+            "name": "uploadWechatHomeImg",
+            "path": "/weixin/uploadWechatHomeImg",
+            "method": "post",
+            "auth": false,
+            "impl": "storeInfo.uploadWechatHomeImg",
+            "comment": ""
+        },
+        {
+            "name": "festivals",
+            "path": "/weixin/festivals",
+            "method": "get",
+            "auth": "yilos-session",
+            "impl": "festivalsService.init",
+            "comment": "优惠活动"
+        },
+        {
+            "name": "newFestivals",
+            "path": "/weixin/newFestivals",
+            "method": "post",
+            "auth": "yilos-session",
+            "impl": "festivalsService.newFestivals",
+            "comment": "新建优惠活动"
+        },
+        {
+            "name": "editFestivals",
+            "path": "/weixin/editFestivals",
+            "method": "post",
+            "auth": "yilos-session",
+            "impl": "festivalsService.editFestivals",
+            "comment": "编辑优惠活动"
+        },
+        {
+            "name": "removeFestivals",
+            "path": "/weixin/removeFestivals",
+            "method": "post",
+            "auth": "yilos-session",
+            "impl": "festivalsService.removeFestivals",
+            "comment": "删除优惠活动"
+        },
+        {
+            "name": "updateState",
+            "path": "/weixin/updateState",
+            "method": "post",
+            "auth": "yilos-session",
+            "impl": "festivalsService.updateState",
+            "comment": "修改激活状态"
+        },
+        {
+            "name": "updatePromoteState",
+            "path": "/weixin/updatePromoteState",
+            "method": "post",
+            "auth": "yilos-session",
+            "impl": "festivalsService.updatePromoteState",
+            "comment": "修改推荐状态"
+        },
+        {
+            "name": "queryFestivals",
+            "path": "/weixin/queryFestivals/:enterpriseId",
+            "method": "get",
+            "auth": false,
+            "impl": "festivalsService.queryFestivals",
+            "comment": "查询优惠活动推荐状态"
+        }
+    ],
+    "statics": [
+        {
+            "name": "setting",
+            "path": "/setting",
+            "comment": ""
+        }
+    ],
+    "ejsviews": [
+        {
+            "dir": "/ejs",
+            "comment": ""
+        }
+    ],
+    "sqlTemplate": [
+
+    ],
+    "errorHandler": [
+    ],
+    "dataModelSchema": {
+
+    },
+    "configuration": {
+
+    }
+
+}

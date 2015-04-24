@@ -1,0 +1,122 @@
+body {
+  background-color: #e9e9ea;
+}
+
+#m-binding {
+  min-height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-area {
+  background: white;
+  width: 100%;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
+}
+
+.form-area > div {
+  background-color: #f8f8f9;
+  border-radius: 6px 6px 0 0;
+  height: 45px;
+  line-height: 45px;
+}
+
+input {
+  width: 100%;
+  height: 35px;
+  border: 1px solid lightgray;
+  padding-left: 1rem;
+  border-radius: .5rem;
+}
+
+// 手机号输入框
+.input_phone {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1rem 0;
+  padding: 0 1rem;
+}
+
+.input_phone > input {
+  background-image: url(/resource/phone.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  box-sizing: border-box;
+}
+
+// 验证码输入框
+.input_code{
+  width: 60%;
+  box-sizing: border-box;
+  float:left;
+  padding-left: 1rem;
+}
+
+.input_code > input {
+  box-sizing: border-box;
+}
+
+// 获取验证码按钮
+.btn_code {
+  width: 40%;
+  box-sizing: border-box;
+  float:left;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+// 绑定按钮
+.btn_binding {
+  width: 100%;
+  box-sizing: border-box;
+  clear: both;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+// 全局按钮
+button{
+  color: white;
+  border: none;
+  width: 100%;
+  height: 35px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -moz-border-radius: 4px;
+  -webkit-border-radius:4px;
+  border-radius:4px;
+}
+
+button:disabled {
+  background-color: #c6c6c6 !important;
+}
+
+// 获取验证码按钮
+.btn_code button {
+  background: #7accbe;
+}
+
+.btn_code button:active {
+  background: #62a398;
+}
+
+// 绑定按钮
+.btn_binding button {
+  background: #f75169;
+  height: 40px;
+}
+
+.btn_binding button:active {
+  background: #e2354f;
+}
+
+.message{
+  font-size: 12px;
+  color: gray;
+  padding: 0 0 1rem 1rem;
+}
+
+#binding_success_tip{
+  display: none;
+}

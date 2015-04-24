@@ -1,0 +1,18 @@
+body {
+  background-color: #e9e9ea;
+}
+#img {
+  width: 80%;
+  margin: 100px auto 1rem auto;
+  text-align: center;
+}
+#img > img {
+  width: 95px;
+  height: 85px;
+}
+#message {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  color: gray;
+}

@@ -1,5 +1,9 @@
 @import "../../../resource/css/constant.less";
 
+body {
+  font-family: "Microsoft Yahei", sans-serif;
+}
+
 #m-shop {
   background-color: @backgroundColor;
   padding-bottom: @baseSpace;
@@ -11,95 +15,224 @@
   background-color: white;
 }
 
-.home-img .img {
+.home-img > .img {
   width: 100%;
-  padding-bottom: 75%;
-  margin-bottom: @baseSpace;
+  padding-bottom: 33%;
   background-size: cover !important;
 }
 
-.home-img .store-name {
+.home-img > img {
   position: absolute;
-  right: @baseSpace * 2;
-  bottom: @baseSpace;
-  font-size: 20px;
+  bottom: 10px;
+  left: 10px;
+  width: 80px;
+  z-index: 1;
+  border: 3px solid white;
+  border-radius: 2px;
+  box-shadow: 5px 6px 15px -9px black;
+}
+
+.home-img > .store-name {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 110px;
   color: white;
+  background-color: rgba(51, 09, 13, 0.3);
+  font-size: 20px;
+  height: 40px;
+  line-height: 40px;
 }
 
-#m-shop .preferential {
-  margin: 0 0.5*@baseSpace;
-}
-
-//.preferential-list{
-//  border: 0.5*@baseSpace solid #ffffff;
-//}
-
-.preferential-list > li > div:first-child {
-  background-size: cover !important;
-  width: 36%;
-  padding-bottom: 27%;
-}
-
-.desc-vm-help {
-  width: 0px;
-  padding-bottom: 27%;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.preferential-list > li > {
-  //  height: 80px;
-  background-color: #ffffff;
-  line-height: @baseSpace * 2;
-  border-bottom: 1px solid @backgroundColor;
+#m-shop .store {
+  margin: 0;
+  background: white;
   overflow: hidden;
 }
 
-.preferential-list > li:last-child {
-  //  height: 80px;
-  //background-color: #ffffff;
-  //line-height: @baseSpace * 2;
-  border-bottom: none;
+.store > #base_info {
+  position: relative;
 }
 
-.preferential-list > li:nth-child(odd) > div:first-child {
+#fields {
+  padding-right: 78px;
+}
+
+#call_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 78px;
+  height: 78px;
+  box-sizing: border-box;
+}
+
+#call_icon > a {
+  margin: 10px;
+  padding: 10px;
+  border-left: 1px solid #d0cfd0;
+}
+
+#call_icon > a:active {
+  background: #f0f0f1;
+}
+
+#call_icon img {
+  position: relative;
+  left: 6px;
+  width: 100%;
+}
+
+#fields > .field {
+  height: 26px;
+  line-height: 26px;
+  padding-left: 10px;
+}
+
+.field > .field_key {
+  width: 5rem;
+  color: #928d8d;
   float: left;
-  border: 1px solid #ffffff;
-  border-right: none;
-  box-sizing: border-box;
 }
 
-.preferential-list > li:nth-child(even) > div:first-child {
-  float: right;
-  border: 1px solid #ffffff;
-  border-left: none;
-  box-sizing: border-box;
+.field > .field_value {
+  color: #434040;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.festivalsInfo{
-  box-sizing: border-box;
-  width: 64%;
-  padding: 0px 1.5*@baseSpace 0px 1.2*@baseSpace;
+#store_address {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  border-top: 1px solid #d0cfd0;
+  border-bottom: 1px solid #dadbdc;
 }
 
-.festivalsTitle {
-  font-size: 1.4*@baseSpace;
-  margin-bottom: 5px;
+#store_address:active {
+  border-top: 1px solid #d0cfd0;
 }
 
-.festivalsDesc {
-  font-size: 1.2*@baseSpace;
+#store_address > .addr_label {
+  color: #928d8d;
 }
 
-//.preferential-list > li:nth-child(even) > div:last-child > span:first-child {
-//  box-sizing: border-box;
-//  width: 64%;
-//  padding: 0px @baseSpace;
-//  //  padding-right: 130px;
-//}
+#store_address > .addr_value {
+  color: #434040;
+}
+
+#store_address > img {
+  position: absolute;
+  right: 1rem;
+  top: 17px;
+  width: 11px;
+}
+
+#mapDiv {
+  margin: 0 5px;
+  padding: 0 5px;
+  background-color: white;
+  border-left: 1px solid #dadbdc;
+  border-right: 1px solid #dadbdc;
+}
+
+#mapDiv.expand {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #dadbdc;
+}
+
+.map-expand {
+  height: 200px;
+  -webkit-animation: expand 0.5s linear 1;
+}
+
+.map-fold {
+  height: 0;
+  -webkit-animation: fold 0.5s linear 1;
+}
+
+@-webkit-keyframes expand {
+
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 200px;
+  }
+}
+
+@-webkit-keyframes fold {
+
+  0% {
+    height: 200px;
+  }
+
+  100% {
+    height: 0;
+  }
+}
+
+#m-shop .preferential {
+  margin: 0 0.5 * @baseSpace;
+}
+
+.preferential > #pre_title {
+  margin-top: 10px;
+  padding-left: 5px;
+}
+
+.preferential-list > li {
+  position: relative;
+  overflow: hidden;
+  padding: 5px;
+  background-color: #ffffff;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
+}
+
+.pre-img {
+  width: 100%;
+  padding-bottom: 50%;
+  height: 0;
+  background-size: cover;
+}
+
+.pre-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 6px 6px;
+}
+
+.pre-name {
+  padding-left: 5px;
+  font-size: 18px;
+}
+
+.pre-desc {
+  padding-left: 5px;
+  font-size: 1rem;
+  margin-top: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 #m-shop .item {
   margin: @baseSpace @baseSpace / 2;
+}
+
+#item_title {
+  margin-top: 10px;
+  padding-left: 5px;
 }
 
 .item-more a {
@@ -117,27 +250,30 @@
 
 .item-more a:active:before {
   background: url('../../../resource/right_more_active.png') 0 0;;
-  background-size: 18px 18px;
+  background-size: 14px 14px;
 }
 
 .item-more a:before {
   content: "";
   position: absolute;
   background: url('../../../resource/right_more.png') 0 0;
-  background-size: 18px 18px;
-  width: 18px;
-  height: 18px;
+  background-size: 14px 14px;
+  width: 14px;
+  height: 14px;
   right: 32px;
-  top: 2px;
+  top: 4px;
 }
 
 .item-list {
-  background: white;
+  background: #e9e9ea;
 }
 
 .item-list > li {
   float: left;
   width: 50%;
+  border: 5px solid #e9e9ea;
+  box-sizing: border-box;
+  background-color: white;
 }
 
 .item-list > li > a {
@@ -164,38 +300,11 @@
   text-overflow: ellipsis;
 }
 
-.item-list .item-name {
-}
-
 .item-list .item-comment {
   font-size: 12px;
   color: gray;
 }
 
-#m-shop .store {
-  margin: @baseSpace @baseSpace / 2 0 @baseSpace / 2;
-  border: @baseSpace solid white;
-  background: white;
-  overflow: hidden;
-}
-
-.store .store-img {
-  background-size: cover !important;
-  width: 100px;
-  height: 100px;
-  float: left;
-  margin-right: @baseSpace;
-}
-
-.store .store-name {
-  height: 40px;
-  font-size: 20px;
-  line-height: 40px;
-  margin-bottom: @baseSpace;
-  margin-left: 100px + @baseSpace;
-  border-bottom: 1px solid @backgroundColor;
-}
-
-.store > div + div {
-  margin-bottom: @baseSpace;
+#hidden_area {
+  display: none;
 }

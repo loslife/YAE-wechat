@@ -1,22 +1,52 @@
+body {
+  background-color: #e9e9ea;
+}
 #m-member {
   height: inherit;
-  background: #e9e9ea;
-  border: 5px solid #e9e9ea;
   min-height: 100%;
   box-sizing: border-box;
 }
-#m-member .item {
-  background: white;
-  margin-bottom: 10px;
+#m-member > #header {
+  position: relative;
 }
-.item .title {
-  height: 45px;
-  line-height: 45px;
+#header > img {
+  display: block;
+  width: 100%;
+}
+#header > div {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  height: 39px;
+  line-height: 39px;
+}
+#m-member .item {
+  margin: 0 10px 10px 10px;
+  background-color: white;
+  color: #ffffff;
+  border: 1px solid #dadbdc;
+  border-radius: 6px;
+}
+.item > .title {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
   padding-left: 10px;
   border-bottom: 1px solid #e9e9ea;
-  background-color: #c7c7ca;
-  color: #ffffff;
   font-size: 16px;
+  color: #000000;
+}
+.item > .title > img {
+  display: inline-block;
+  vertical-align: middle;
+  height: 24px;
+}
+.item > .title > span {
+  display: inline-block;
+  vertical-align: middle;
 }
 .item .list {
   padding: 0 10px;
@@ -29,51 +59,177 @@
 .item .list li:last-child {
   border: none;
 }
-.panel {
-  height: auto;
+.deposit .used_count {
+  color: #f37686;
+}
+.bill_item {
+  color: #000000;
+}
+.bill_time > img {
+  position: relative;
+  top: 1px;
+  height: 14px;
+}
+.bill_time > span {
+  font-weight: bold;
+  padding-left: .5rem;
+}
+.bill_item > div {
+  height: 26px;
+  line-height: 26px;
   overflow: hidden;
-  border-bottom: 1px solid #d0d0ce;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
-.panel-head {
-  background-color: #f6f6fa;
-  height: 40px;
-  line-height: 40px;
-  color: #f97583;
-  padding-left: 10px;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+.bill_value {
+  color: #434040;
 }
-.panel-head:active {
-  background-color: #eae6e3;
+#m-member > #cards_area {
+  width: 100%;
+  margin-bottom: 10px;
 }
-.panel-head > * {
-  vertical-align: middle;
+#cards_area > li {
+  box-sizing: border-box;
+  height: 96px;
+  border-bottom: 1px solid white;
+  box-shadow: 0 -1px 7px -4px #000000 inset;
+  background-color: #e9e9ea;
+  color: white;
 }
-.panel-body {
-  height: auto;
+li > .card_shape {
+  position: relative;
+  top: 6px;
+  width: 90%;
+  margin: 0 auto;
+}
+#cards_area > li:first-child {
+  height: 50px;
+}
+#cards_area > li:first-child > .card_shape {
+  top: -40px;
+}
+.card_shape > div {
+  padding-left: 5px;
+}
+.card_shape > .top_half {
+  position: relative;
+  height: 39px;
+  line-height: 39px;
+  border-radius: 6px 6px 0 0;
+}
+.card_shape > .bottom_half {
+  position: relative;
+  height: 50px;
+}
+.card_shape > .bottom_half_expand {
   display: none;
+  min-height: 50px;
+  background-color: #6da8ba;
 }
-.expand + .panel-body {
-  display: block;
+.bottom_half_expand li {
+  padding-top: 7px;
 }
-.bill-items {
-  padding: 10px;
-  padding-top: 0px;
+.bottom_half_expand > div {
+  padding-top: 7px;
 }
-.bill-item {
-  padding: 10px 0px;
-  border-bottom: 1px solid #d1d0ce;
+.bottom_half_expand > .height_placeholder {
+  height: 19px;
 }
-.bill-item > div {
-  margin-top: 5px;
+.bottom_half_expand .item_count {
+  float: right;
+  margin-right: 5px;
 }
-.bill-item div > *:first-child {
-  color: #a9a9a7;
+.is_expired > .top_half {
+  background-color: #bdbcbc;
 }
-.bill-item:last-child {
-  padding-top: 5px;
-  padding-bottom: 0px;
+.is_expired > .bottom_half {
+  background-color: #a2a1a1;
+}
+.is_expired > .bottom_half_expand {
+  background-color: #a2a1a1;
+}
+.card_recharge > .top_half {
+  background-color: #d7c4a4;
+}
+.card_recharge > .bottom_half {
+  background-color: #c1a57d;
+}
+.card_record > .top_half {
+  background-color: #94c6d1;
+}
+.card_record > .bottom_half {
+  background-color: #6da8ba;
+}
+.card_time > .top_half {
+  background-color: #cbabdc;
+}
+.card_time > .bottom_half {
+  background-color: #af85c7;
+}
+.card_coupon > .top_half {
+  background: url("/resource/member_coupon.png") repeat-x;
+  border-radius: 0;
   border: none;
 }
-.border-bottom {
-  border-bottom: 1px solid #d0d0ce;
+.card_coupon > .bottom_half {
+  background-color: #e65b70;
+}
+.card_name {
+  font-size: 18px;
+}
+.card_coupon .card_name {
+  position: relative;
+  top: 5px;
+}
+.card_no {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+.card_no > span {
+  font-size: 12px;
+}
+.card_no > img {
+  position: relative;
+  top: 1px;
+  width: 12px;
+}
+.card_info {
+  position: absolute;
+  bottom: 5px;
+}
+.card_info > .card_info_title {
+  font-size: 12px;
+}
+.card_info > .card_info_value {
+  font-size: 30px;
+}
+.card_expired {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 12px;
+}
+.service_name {
+  position: absolute;
+  right: 5px;
+  bottom: 24px;
+  font-size: 12px;
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
+.expired_tag {
+  display: inline-block;
+  width: 36px;
+  height: 16px;
+  line-height: 16px;
+  padding: 1px;
+  background-color: #e65b70;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
 }

@@ -1,0 +1,100 @@
+#admin-kaitong-1 > div {
+  padding: 10px 0;
+  border-bottom: 1px solid #dadbdc;
+  font-size: 20px;
+}
+#admin-kaitong-1 > ol {
+  margin: 20px 0;
+  font-size: 14px;
+}
+ol > li {
+  margin: 10px 0;
+}
+.intro_header {
+  padding-bottom: 10px;
+}
+.intro_header > img {
+  position: relative;
+  top: -2px;
+  width: 16px;
+}
+.intro_header > .intro_tips {
+  font-size: 16px;
+  margin-right: 20px;
+}
+.intro_pic {
+  padding: 10px;
+  background-color: #f1f1f1;
+}
+button {
+  width: 200px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  background-color: #428bca;
+}
+button:disabled {
+  background-color: gray;
+}
+#admin-kaitong-2 > #top_half {
+  overflow: hidden;
+}
+#left_half {
+  width: 50%;
+  float: left;
+}
+#left_half > #title {
+  font-size: 20px;
+  padding: 10px 0;
+}
+#left_half > #intro_use {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+#right_half {
+  width: 50%;
+  margin-left: 50%;
+  padding-left: 20px;
+  border-left: 1px solid #f1f1f1;
+}
+#right_half > a {
+  display: block;
+  width: 100px;
+  height: 50px;
+  background-color: #428bca;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  line-height: 50px;
+  text-align: center;
+  margin: 0 0 10px 30px;
+}
+#right_half > span {
+  margin-left: 30px;
+}
+#bottom_half {
+  background-image: url("/resource/admin_bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#iphone_shell {
+  background-image: url("/resource/iphone.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 448px;
+  height: 868px;
+  margin: 30px auto;
+}
+iframe {
+  padding-top: 120px;
+  margin-left: 65px;
+}
+.color_blue {
+  color: #428bca;
+}
+.color_red {
+  color: #fc2f5b;
+}

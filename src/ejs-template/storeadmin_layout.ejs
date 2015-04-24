@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app="mainModule">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <%- include admin_header.ejs %>
+
+    <% if(store_type == "chain") { %>
+
+    <style>
+        .nav-second-level li:nth-child(4){
+            display: none;
+        }
+    </style>
+
+    <% } %>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">商户管理系统</a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li>Hi. <%= storeName%></li>
+            <li><a href="/svc/weixin/storeLogout">退出登录</a></li>
+        </ul>
+
+        <div class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+
+                    <li class="<% if (menu == 'kaitong' || menu == 'allItem' || menu == 'shelvesItem' || menu == 'storeInfo'|| menu == 'festivals') { %>active<% } %>">
+                        <a href="#">微店铺管理</a>
+
+                        <ul class="nav nav-second-level collapse">
+
+                            <li>
+                                <a href="/svc/weixin/storeInfo">基本信息</a>
+                            </li>
+
+                            <li>
+                                <a href="/svc/weixin/allItem">所有服务</a>
+                            </li>
+                            <li>
+                                <a href="/svc/weixin/shelvesItem">上架服务</a>
+                            </li>
+                            <li>
+                                <a href="/svc/weixin/festivals">优惠活动</a>
+                            </li>
+                            <li>
+                                <a href="/svc/weixin/kaitong">开通微店</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="page-wrapper" style="min-height:720px;">
+        <%- body %>
+    </div>
+</div>
+
+</body>
+
+</html>

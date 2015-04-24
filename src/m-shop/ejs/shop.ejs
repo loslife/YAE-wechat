@@ -1,51 +1,131 @@
-<%- Loader().js("/m-shop/shop.js").js("http://api.map.baidu.com/api?type=quick&ak=077cf00d4471f3852b96fba32ff879fd&v=1.0").css("/m-shop/css/shop.css").done(config) %>
+<% if(env === "dev"){ %>
+
+<%- Loader()
+        .js("/m-shop/shop.js")
+        .js("http://api.map.baidu.com/api?type=quick&ak=077cf00d4471f3852b96fba32ff879fd&v=1.0")
+        .css("/m-shop/css/shop.css")
+        .done(config) %>
+
+<% }else{ %>
+
+<%- Loader()
+        .js("/m-shop/shop.min.js")
+        .js("http://api.map.baidu.com/api?type=quick&ak=077cf00d4471f3852b96fba32ff879fd&v=1.0")
+        .css("/m-shop/css/shop.min.css")
+        .done(config) %>
+
+<% } %>
 
 <div id="m-shop">
+
     <div class="home-img">
+
         <div class="img" style="background:url('<%= store.picUrl %>') no-repeat">
         </div>
-        <div class="store-name"><%= store.name %></div>
+
+        <img src="<%= store.logUrl %>" id="store_logUrl">
+
+        <div class="store-name" id="store_name"><%= store.name %></div>
+    </div>
+
+    <div class="store">
+
+        <div id="base_info">
+
+            <div id="fields">
+
+                <div class="field">
+                    <div class="field_key">营业时间：</div>
+                    <div class="field_value"><%= store.workHour %></div>
+                </div>
+
+                <div class="field">
+                    <div class="field_key">电话：</div>
+                    <div class="field_value"><%= store.phone %></div>
+                </div>
+
+                <div class="field">
+                    <div class="field_key">主营：</div>
+                    <div class="field_value"><%= store.operateStr %></div>
+                </div>
+
+            </div>
+
+            <div id="call_icon">
+                <a href="tel:<%= store.phone %>"><img src="/resource/call_icon.png"></a>
+            </div>
+
+        </div>
+
+        <div id="store_address">
+            <span class="addr_label">店铺地址：</span>
+            <span class="addr_value"><%= store.addr %></span>
+            <img id="switch" src="/resource/arrow_down.png">
+        </div>
+
+    </div>
+
+    <div id="mapDiv">
+
+        <div id="hidden_area">
+            <div id="store_addr"><%= store.addr %></div>
+        </div>
+
+        <div id="enterpriseMap"></div>
+
     </div>
 
     <% if(festivals.length > 0){ %>
+
     <div class="preferential">
-        <div class="mb-1 lh-2">
+
+        <div id="pre_title" class="mb-1 lh-2">
             <div class="fr item-more">
-                <a class="" href="/svc/wsite/<%= enterprise_id %>/festival">更多</a>
+                <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/festival">更多</a>
             </div>
-            <div>优惠活动</div>
+            <div style="color: #434040; font-weight: bold">优惠活动</div>
         </div>
 
         <ul class="preferential-list">
+
             <% festivals.forEach(function (item) { %>
-            <li onclick="location.href='/svc/wsite/<%= enterprise_id %>/route?fid=<%= item.id %>'">
-                <div style="background: url('<%= item.pic_url %>') no-repeat;">
+
+            <li onclick="location.href='/svc/wsite/<%= app_id %>/<%= enterprise_id %>/festival/route?fid=<%= item.id %>&store_type=<%= store_type %>'">
+
+                <div class="pre-img" style="background-image: url('<%= item.pic_url %>');">
                 </div>
-                <div>
-                    <span class="inline-block vm festivalsInfo">
-                        <div class="festivalsTitle"><%= item.title %></div>
-                        <div class="color-gray festivalsDesc"><%= item.short_desc %></div>
-                    </span><span class="desc-vm-help"></span>
+
+                <div class="pre-info">
+                    <div class="pre-name"><%= item.title %></div>
+                    <div class="pre-desc"><%= item.description %></div>
                 </div>
+
             </li>
+
             <% }); %>
+
         </ul>
     </div>
+
     <% } %>
 
     <% if(hotList.length !== 0){ %>
+
     <div class="item">
-        <div class="mb-1 lh-2">
+
+        <div id="item_title" class="mb-1 lh-2">
             <div class="fr item-more">
-                <a class="" href="/svc/wsite/<%= enterprise_id %>/item">更多</a>
+                <a class="" href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/item">更多</a>
             </div>
-            <div>特色项目</div>
+            <div style="color: #434040; font-weight: bold">特色项目</div>
         </div>
 
         <ul class="item-list ofh">
+
             <% for(var i = 0; i < hotList.length; i++) { %>
             <li>
-                <a href="/svc/wsite/<%= enterprise_id %>/itemDetail/<%= hotList[i].itemId %>">
+                <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/itemDetail/<%= hotList[i].itemId %>">
+
                     <div class="item-img" style="background: url('<%= hotList[i].imgPath %>') no-repeat">
                     </div>
 
@@ -54,54 +134,19 @@
                 </a>
             </li>
             <% } %>
+
         </ul>
+
     </div>
+    
     <% } %>
 
-    <div class="store">
-        <div class="store-img" style="background: url('<%= store.logUrl %>') no-repeat"></div>
-        <div class="store-name mh-20"><%= store.name %></div>
-
-        <div>
-            <div class="fl color-gray">电话：</div>
-            <div class="mh-20"><%= store.phone %></div>
-        </div>
-        <div>
-            <div class="fl color-gray">营业时间：</div>
-            <div class="mh-20"><%= store.workHour %></div>
-        </div>
-
-        <div class="clear-fix mt-2">
-            <div class="fl color-gray">店铺地址：</div>
-            <div style="padding-left:5em;" class="mh-20"><%= store.addr %></div>
-        </div>
-        <div>
-            <div class="fl color-gray">营业项目：</div>
-            <div style="padding-left:5em;" class="mh-20"><%= store.operateStr %></div>
-        </div>
-        <div class="mb-0">
-            <div class="fl color-gray">简介：</div>
-            <div style="padding-left:3em;" class="mh-20"><%= store.comment %></div>
-        </div>
+    <div class="none">
+        <span id="enterprise_id"><%= enterprise_id %></span>
+        <span id="app_id"><%= app_id %></span>
+        <span id="store_type"><%= store_type %></span>
+        <span id="onMenuShareTimeline"></span>
+        <span id="onMenuShareAppMessage"></span>
     </div>
-    <div id="mapDiv" style="margin: 10px 5px 0px 5px;" class="<% if (!store.addr) { %>none<% } %>">
-        <div id="enterpriseMap" style="height: 150px;"></div>
-    </div>
+
 </div>
-<script type="text/javascript">
-    $(function () {
-        // 创建Map实例
-        var map = new BMap.Map("enterpriseMap");
-        // 创建地址解析器实例
-        var myGeo = new BMap.Geocoder();
-        // 将地址解析结果显示在地图上，并调整地图视野
-        myGeo.getPoint("<%= store.addr %>", function (point) {
-            if (point) {
-                map.centerAndZoom(point, 14);
-                map.addOverlay(new BMap.Marker(point));
-            } else {
-                $("#mapDiv").addClass("none");
-            }
-        }, "");
-    });
-</script>
