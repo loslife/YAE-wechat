@@ -240,27 +240,27 @@ function queryMemberData(enterprise_id, member_id, callback) {
         var chain_sql = "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date, " +
             "b.name, b.baseInfo_type as type " +
             "from planx_graph.tb_chain_memberrecordcard as a, planx_graph.tb_membercardcategory as b " +
-            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id and (a.status is null or a.status != 0)"
+            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.master_id = :enterprise_id and (a.status is null or a.status != 0)"
             +" union all "+
             "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date, " +
             "b.name, b.baseInfo_type as type " +
             "from planx_graph.tb_chain_memberrechargecard as a, planx_graph.tb_membercardcategory as b " +
-            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id and (a.status is null or a.status != 0)"
+            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.master_id = :enterprise_id and (a.status is null or a.status != 0)"
             +" union all "+
             "select a.id as card_id, a.cardNo, a.currentMoney, a.modify_date, a.periodOfValidity, a.create_date, " +
             "b.name, b.baseInfo_type as type " +
             "from planx_graph.tb_chain_memberquartercard as a, planx_graph.tb_membercardcategory as b " +
-            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.enterprise_id = :enterprise_id and (a.status is null or a.status != 0)";
+            "where a.memberCardCategoryId = b.id and a.memberId = :member_id and a.master_id = :enterprise_id and (a.status is null or a.status != 0)";
 
         if(singleOrchain == "chain"){
 
             var sql1 = "select b.name as serviceName, a.value, a.bind_group as bind_group" +
                 " from planx_graph.tb_chain_memberrecordattrmap a, planx_graph.tb_service b" +
-                " where a.memberCardId = :card_id and a.enterprise_id = :enterprise_id and a.serviceId = b.id";
+                " where a.memberCardId = :card_id and a.master_id = :enterprise_id and a.serviceId = b.id";
             var sql2 = "select value from planx_graph.tb_chain_memberquarterattrmap" +
-                " where memberCardId = :card_id and enterprise_id = :enterprise_id";
+                " where memberCardId = :card_id and master_id = :enterprise_id";
 
-            queryCardInfo(chain_sql, sql1, sql2, queryChainEnterpriseId, chainDbHelper);
+            queryCardInfo(chain_sql, sql1, sql2, enterprise_id, chainDbHelper);
 
         }else{
             var sql1 = "select b.name as serviceName, a.value, a.def_int1 as bind_group" +
@@ -392,8 +392,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
             if(singleOrchain == "chain"){
                 var sql = "select value as times, serviceName as serviceName, periodOfValidity as validDays, create_date" +
                     " from planx_graph.tb_chain_memberpresentservice" +
-                    " where memberId = :member_id and enterprise_id = :enterprise_id and (status is null or status != 0) and value != 0;";
-                queryServiceInfo(sql, queryChainEnterpriseId, chainDbHelper);
+                    " where memberId = :member_id and master_id = :enterprise_id and (status is null or status != 0) and value != 0;";
+                queryServiceInfo(sql, enterprise_id, chainDbHelper);
 
             }else{
                 var sql = "select value as times, def_str3 as serviceName, def_int2 as validDays, create_date" +
@@ -459,8 +459,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
             " where memberId = :member_id and enterprise_id = :enterprise_id";
         if(singleOrchain == "chain"){
             sql = "select entityName, numberofuse from planx_graph.tb_memberaccessoryentity" +
-            " where memberId = :member_id and enterprise_id = :enterprise_id";
-            enterprise_id = queryChainEnterpriseId;
+            " where memberId = :member_id and master_id = :enterprise_id";
+            //enterprise_id = queryChainEnterpriseId;
             dohelper(chainDbHelper);
         }else{
             dohelper(dbHelper);
@@ -492,8 +492,8 @@ function queryMemberData(enterprise_id, member_id, callback) {
             if(singleOrchain == "chain"){
                 sql = "select couponName as name, money as money, periodOfValidity as valid, create_date as dateTime" +
                 " from planx_graph.tb_chain_membercoupon" +
-                " where memberId = :member_id and (status is null or status != 0) and enterprise_id = :enterprise_id and isUsed = 'unused';";
-                enterprise_id = queryChainEnterpriseId;
+                " where memberId = :member_id and (status is null or status != 0) and master_id = :enterprise_id and isUsed = 'unused';";
+                //enterprise_id = queryChainEnterpriseId;
                 dohelper(chainDbHelper);
             }else{
                 dohelper(dbHelper);
