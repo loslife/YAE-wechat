@@ -1,5 +1,6 @@
 exports.judgeTemplateId = judgeTemplateId;
 exports.assembleEntity = assembleEntity;
+var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 
