@@ -245,6 +245,7 @@ function handleMessage(req, res, next){
                     open_id: open_id
                 };
 
+
                 dbHelper.queryData("weixin_store_recharge", condition, function(err, result){
                     if(err){
                         console.log(err);
