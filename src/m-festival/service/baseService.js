@@ -120,11 +120,36 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
         });
     });
 
-    function _generateSecurityCode(model, callback){
+    function _generateSecurityCode(model, callback) {
+        var code = '';
 
-        var code = Math.round(900000 * Math.random() + 100000) + "";
+        async.series([_generateCode, _saveCode, _sendSMS], callback);
 
-        async.series([_saveCode, _sendSMS], callback);
+        function _generateCode(callback) {
+            code = Math.round(900000 * Math.random() + 100000) + "";
+
+            var condition = {
+                enterprise_id: model.enterprise_id,
+                status: 0,
+                security_code: code
+            };
+
+            // 同企业下有相同的校验码未领取 则重新生成
+            dbHelper.queryData("weixin_present_received", condition, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    callback(err);
+                    return;
+                }
+
+                if (_.isEmpty(result)) {
+                    callback(null);
+                    return;
+                }
+
+                _generateCode(callback);
+            });
+        }
 
         function _saveCode(callback){
 
