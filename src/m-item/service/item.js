@@ -12,7 +12,12 @@ function item(req, res, next) {
 
     var enterpriseId = req.params.enterpriseId;
     var appId = req.params.appId;
-    single_chain =  req.session.single_chain;
+    var single_chain = req.query["store_type"];
+    if(single_chain){
+        req.session.single_chain = single_chain;
+    }else{
+        single_chain = req.session.single_chain;
+    }
 
     var queryShelvesUrl = yaeUrl + "/weixin/queryAllShelvesItem/" + enterpriseId + "?store_type=" + single_chain;
 
@@ -47,7 +52,12 @@ function itemDetail(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
     var appId = req.params.appId;
     var itemId = req.params.itemId;
-    single_chain =  req.session.single_chain;
+    var single_chain = req.query["store_type"];
+    if(single_chain){
+        req.session.single_chain = single_chain;
+    }else{
+        single_chain = req.session.single_chain;
+    }
 
     var queryUrl = yaeUrl + "/weixin/queryShelvesByItemId/" + itemId + "?store_type=" + single_chain;
 

@@ -4,6 +4,7 @@ var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var _ = require("underscore");
 var tokenHelper = require("../../wx-utils/service/access_token_helper");
 var templateHelper = require("./template_helper");
+var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 
 exports.sendMessage = sendMessage;
 
@@ -23,10 +24,12 @@ function sendMessage(req, res, next){
     async.waterfall([_resolveTarget, _assembleMessage, _doSend], function(err){
 
         if(err){
-            console.log("发送模板消息失败，原因：");
-            console.log(err);
+            logger.error("发送模板消息失败，原因：enterprise_id:"+enterprise_id);
+            logger.error(err);
             doResponse(req, res, {code: 1, message: "发送失败"});
             return;
+        }else{
+            logger.error("发送模板消息成功，：qenterprise_id:"+enterprise_id);
         }
 
         doResponse(req, res, {message: "ok"});
