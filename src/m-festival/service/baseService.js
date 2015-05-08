@@ -130,7 +130,7 @@ function providePresent(enterpriseId, festivalId, memberId, phone, callback){
 
             var condition = {
                 enterprise_id: model.enterprise_id,
-                status: 0,
+                state: 0,
                 security_code: code
             };
 

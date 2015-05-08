@@ -79,7 +79,7 @@ $(function(){
         alert("signUrl:" + signUrl);
         alert("nowUrl:" + nowUrl);
         $.post(signUrl, {url:nowUrl, appId: app_id}, function(response){
-            
+
             var signature=response.sign;
 
             wx.config({
