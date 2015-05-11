@@ -16,8 +16,7 @@ exports.searchShelvesByName = searchShelvesByName;
 
 var http_server = global["_g_topo"].clientAccess.serviceurl + "/";//"http://121.40.75.73/svc/";
 
-var single_chain = null;
-function searchItem(enterpriseId, key, callback) {
+function searchItem(enterpriseId, key, singleOrChain, callback) {
     var shelvesIdList = [];
     var searchResult = [];
 
@@ -26,7 +25,7 @@ function searchItem(enterpriseId, key, callback) {
     });
 
     function _queryShelves(callback) {
-        queryShelvesItem(enterpriseId, function (error, result) {
+        queryShelvesItem(enterpriseId, singleOrChain, function (error, result) {
             if (error) {
                 callback(error);
                 return;
@@ -45,8 +44,11 @@ function searchItem(enterpriseId, key, callback) {
                 callback(error);
                 return;
             }
-            searchResult = markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList);
-            callback(null);
+
+            filterItemNoUseKey(result, singleOrChain, enterpriseId, function(error, result){
+                searchResult = markItemAlreadyShelves(result, shelvesIdList);
+                callback(null);
+            })
         });
     }
 }
@@ -55,13 +57,12 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
     var cateId2ItemList = {};
     var shelvesIdList = [];
     var cateList = [];
-    single_chain = singleOrchain;
     async.series([_queryShelves, _queryItem, _queryCate], function (error) {
         callback(error, cateList, cateId2ItemList);
     });
 
     function _queryShelves(callback) {
-        queryShelvesItem(enterpriseId, function (error, result) {
+        queryShelvesItem(enterpriseId, singleOrchain, function (error, result) {
             if (error) {
                 callback(error);
                 return;
@@ -72,7 +73,7 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
     }
 
     function _queryItem(callback) {
-        if(single_chain == "chain"){
+        if(singleOrchain == "chain"){
             chainDbHelper.queryData("tb_service", {master_id: enterpriseId}, function (error, result) {
                 if (error) {
                     callback(error);
@@ -81,8 +82,10 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
 
                 _.each(result, _escapeBadCharacter);// 消除'，"等特殊字符
 
-                cateId2ItemList = _.groupBy(markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList), "cateId");
-                callback(null);
+                filterItemNoUseKey(result, singleOrchain, enterpriseId, function(error, result){
+                    cateId2ItemList = _.groupBy(markItemAlreadyShelves(result, shelvesIdList), "cateId");
+                    callback(null);
+                });
             });
         }else{
             dbHelper.queryData("tb_service", {enterprise_id: enterpriseId}, function (error, result) {
@@ -93,14 +96,16 @@ function queryAllItem(enterpriseId, singleOrchain, callback) {
 
                 _.each(result, _escapeBadCharacter);// 消除'，"等特殊字符
 
-                cateId2ItemList = _.groupBy(markItemAlreadyShelves(filterItemNoUseKey(result), shelvesIdList), "cateId");
-                callback(null);
+                filterItemNoUseKey(result, singleOrchain, enterpriseId, function(error, result){
+                    cateId2ItemList = _.groupBy(markItemAlreadyShelves(result, shelvesIdList), "cateId");
+                    callback(null);
+                })
             });
         }
     }
 
     function _queryCate(callback) {
-        if(single_chain == "chain"){
+        if(singleOrchain == "chain"){
             chainDbHelper.queryData("tb_service_cate", {master_id: enterpriseId}, function (error, result) {
                 if (error) {
                     callback(error);
@@ -247,7 +252,7 @@ function addShelvesItem(enterpriseId, shelvesList, single_chain, callback) {
     }
 }
 
-function queryShelvesItem(enterpriseId, callback) {
+function queryShelvesItem(enterpriseId, single_chain, callback) {
     var itemList = [];
     var shelvesList = [];
 
@@ -256,7 +261,10 @@ function queryShelvesItem(enterpriseId, callback) {
             callback(error);
             return;
         }
-        callback(null, buildShelvesList(shelvesList, itemList));
+
+        buildShelvesList(shelvesList, itemList, single_chain, enterpriseId, function(error, result){
+            callback(null, result);
+        })
     });
 
     function _queryShelves(callback) {
@@ -295,8 +303,8 @@ function queryShelvesItem(enterpriseId, callback) {
 }
 
 function queryShelvesItem2(enterpriseId, singleOrchain, callback){
-    single_chain = singleOrchain;
-    queryShelvesItem(enterpriseId, function (error, result) {
+    var single_chain = singleOrchain;
+    queryShelvesItem(enterpriseId, single_chain, function (error, result) {
         if (error) {
             callback(error);
             return;
@@ -308,14 +316,17 @@ function queryShelvesItem2(enterpriseId, singleOrchain, callback){
 function queryShelvesByItemId(itemId, singleOrchain, callback) {
     var itemList = [];
     var shelvesList = [];
-    single_chain = singleOrchain;
+    var enterpriseId = "";
 
     async.parallel([_queryShelves, _queryItemData], function (error) {
         if (error) {
             callback(error);
             return;
         }
-        callback(null, buildShelvesList(shelvesList, itemList));
+
+        buildShelvesList(shelvesList, itemList, singleOrchain, enterpriseId, function(error, result){
+            callback(null, result);
+        })
     });
 
     function _queryShelves(callback) {
@@ -325,12 +336,15 @@ function queryShelvesByItemId(itemId, singleOrchain, callback) {
                 return;
             }
             shelvesList = result;
+            if(result && result.length > 0){
+                enterpriseId = result[0].enterprise_id;
+            }
             callback(null, result);
         });
     }
 
     function _queryItemData(callback) {
-        if(single_chain == "chain"){
+        if(singleOrchain == "chain"){
             dohelper(chainDbHelper);
         }else{
             dohelper(dbHelper);
@@ -342,6 +356,9 @@ function queryShelvesByItemId(itemId, singleOrchain, callback) {
                     return;
                 }
                 itemList = result;
+                if(!enterpriseId && result && result.length > 0){
+                    enterpriseId = result[0].enterprise_id;
+                }
                 callback(null);
             });
         }
@@ -358,11 +375,13 @@ function searchShelvesByName(enterpriseId, key, callback) {
             return;
         }
 
-        var result = _.filter(buildShelvesList(shelvesList, itemList), function (item) {
-            return item.name;
-        });
+        buildShelvesList(shelvesList, itemList, "", enterpriseId, function(error, resultList){
+            var result = _.filter(resultList, function (item) {
+                return item.name;
+            });
 
-        callback(null, result);
+            callback(null, result);
+        });
     });
 
     function _queryShelves(callback) {
@@ -391,36 +410,65 @@ function searchShelvesByName(enterpriseId, key, callback) {
     }
 }
 
-function filterItemNoUseKey(itemList) {
+function filterItemNoUseKey(itemList, single_chain, enterpriseId, callback) {
     var result = [];
-    _.each(itemList, function (item) {
-        var imageUrl ;
+    var newVersion = true;
 
-        if(single_chain == "chain"){
-            if (item.baseInfo_image) {
-                imageUrl =  "http://yilos.oss-cn-hangzhou.aliyuncs.com/" + item.baseInfo_image;
-            } else {
-                imageUrl = http_server + "public/wechat/service_default.png";
-            }
-        }else{
-            if (item.baseInfo_image) {
-                imageUrl =  http_server + "public/mobile/backup/" + item.baseInfo_image;
-            } else {
-                imageUrl = http_server + "public/wechat/service_default.png";
-            }
+    async.series([_checkNewVersion, _build], function(error){
+        callback(null, result);
+    })
+
+    function _checkNewVersion(callback){
+        if(single_chain != "chain"){
+            dbHelper.queryData("yls_paymentaccount", {enterpriseId: enterpriseId}, function(error, result){
+                if(error){
+                    console.error(error);
+                }
+                else if(result && result.length > 0){
+                    newVersion = (result[0].clientAppVersion >= 300);
+                }
+
+                callback(null);
+            });
         }
+    }
 
-        result.push({
-            id: item.id,
-            cateId: item.serviceCategory_id,
-            name: item.name,
-            comment: item.comment,
-            enterprise_id: item.enterprise_id,
-            //todo replace url
-            imgPath: imageUrl
+    function _build(callback){
+        _.each(itemList, function (item) {
+            var imageUrl ;
+
+            if(single_chain == "chain"){
+                if (item.baseInfo_image) {
+                    imageUrl =  "http://yilos.oss-cn-hangzhou.aliyuncs.com/" + item.baseInfo_image;
+                } else {
+                    imageUrl = http_server + "public/wechat/service_default.png";
+                }
+            }else{
+                if (item.baseInfo_image) {
+                    if(newVersion){
+                        imageUrl =  "http://pic.yilos.com/" + item.enterprise_id + "/service" + item.baseInfo_image.substr(item.baseInfo_image.lastIndexOf("/"));
+                    }
+                    else{
+                        imageUrl =  http_server + "public/mobile/backup/" + item.baseInfo_image;
+                    }
+                } else {
+                    imageUrl = http_server + "public/wechat/service_default.png";
+                }
+            }
+
+            result.push({
+                id: item.id,
+                cateId: item.serviceCategory_id,
+                name: item.name,
+                comment: item.comment,
+                enterprise_id: item.enterprise_id,
+                //todo replace url
+                imgPath: imageUrl
+            });
         });
-    });
-    return result;
+
+        callback(null);
+    }
 }
 
 function markItemAlreadyShelves(itemList, shelvesIdList) {
@@ -432,40 +480,68 @@ function markItemAlreadyShelves(itemList, shelvesIdList) {
     return itemList;
 }
 
-function buildShelvesList(shelvesList, itemList) {
-    _.each(shelvesList, function (shelves) {
-        var item = _.find(itemList, function (item) {
-            return item.id === shelves.itemId;
-        });
+function buildShelvesList(shelvesList, itemList, single_chain, enterpriseId, callback) {
+    var newVersion = true;
 
-        if (!_.isEmpty(item)) {
-            shelves.name = item.name;
-            shelves.price = item.prices_salesPrice;
+    async.series([_checkNewVersion, _build], function(error){
+        callback(null, shelvesList);
+    })
 
-            if(single_chain == "chain"){
-                if (item.baseInfo_image) {
-                    shelves.imgPath =  "http://yilos.oss-cn-hangzhou.aliyuncs.com/" + item.baseInfo_image;
-                } else {
-                    shelves.imgPath = http_server + "public/wechat/service_default.png";
+    function _checkNewVersion(callback){
+        if(single_chain != "chain"){
+            dbHelper.queryData("yls_paymentaccount", {enterpriseId: enterpriseId}, function(error, result){
+                if(error){
+                    console.error(error);
+                }
+                else if(result && result.length > 0){
+                    newVersion = (result[0].clientAppVersion >= 300);
+                }
+
+                callback(null);
+            });
+        }
+    }
+
+    function _build(callback){
+        _.each(shelvesList, function (shelves) {
+            var item = _.find(itemList, function (item) {
+                return item.id === shelves.itemId;
+            });
+
+            if (!_.isEmpty(item)) {
+                shelves.name = item.name;
+                shelves.price = item.prices_salesPrice;
+
+                if(single_chain == "chain"){
+                    if (item.baseInfo_image) {
+                        shelves.imgPath =  "http://yilos.oss-cn-hangzhou.aliyuncs.com/" + item.baseInfo_image;
+                    } else {
+                        shelves.imgPath = http_server + "public/wechat/service_default.png";
+                    }
+                }else{
+                    if (item.baseInfo_image) {
+                        if(newVersion){
+                            shelves.imgPath =  "http://pic.yilos.com/" + item.enterprise_id + "/service" + item.baseInfo_image.substr(item.baseInfo_image.lastIndexOf("/"));
+                        }
+                        else{
+                            shelves.imgPath =  http_server + "public/mobile/backup/" + item.baseInfo_image;
+                        }
+                    } else {
+                        shelves.imgPath = http_server + "public/wechat/service_default.png";
+                    }
                 }
             }else{
-                if (item.baseInfo_image) {
-                    shelves.imgPath =  http_server + "public/mobile/backup/" + item.baseInfo_image;
-                } else {
-                    shelves.imgPath = http_server + "public/wechat/service_default.png";
-                }
+
+                var sql = "delete from planx_graph.weixin_shelvesItem where itemId = :shelvesItemId";
+                dbHelper.execSql(sql, {shelvesItemId: shelves.itemId}, function(err, result){
+                    if (err) {
+                        return err;
+                    }
+                });
+                shelvesList.splice(shelvesList.indexOf(shelves), 1);
             }
-        }else{
+        });
 
-            var sql = "delete from planx_graph.weixin_shelvesItem where itemId = :shelvesItemId";
-            dbHelper.execSql(sql, {shelvesItemId: shelves.itemId}, function(err, result){
-                if (err) {
-                    return err;
-                }
-            });
-            shelvesList.splice(shelvesList.indexOf(shelves), 1);
-
-        }
-    });
-    return shelvesList;
+        callback(null);
+    }
 }

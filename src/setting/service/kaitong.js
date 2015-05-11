@@ -5,11 +5,10 @@ var async = require("async");
 exports.index = index;
 exports.check = check;
 
-var single_chain = null;
 function index(req, res, next){
 
     var enterpriseId = req.session.enterpriseId;
-    single_chain = req.session.single_chain;
+    var single_chain = req.session.single_chain;
 
     if(!enterpriseId){
         next({message: "请重新登陆"});
@@ -98,7 +97,7 @@ function index(req, res, next){
 function check(req, res, next){
 
     var enterpriseId = req.session.enterpriseId;
-    single_chain = req.session.single_chain;
+    var single_chain = req.session.single_chain;
 
     async.series([_checkBaseinfo, _checkShelf, _do], function(err){
 

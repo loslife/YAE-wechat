@@ -11,11 +11,10 @@ exports.uploadWechatHomeImg = uploadWechatHomeImg;
 
 exports.queryStoreInfo = queryStoreInfo;
 
-var single_chain = null;
 //提供页面
 function storeInfo(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
-    single_chain = req.session.single_chain;
+    var single_chain = req.session.single_chain;
 
     var data = {
         layout: "storeadmin_layout",
@@ -23,7 +22,7 @@ function storeInfo(req, res, next) {
         storeName: req.session.storeName
     };
 
-    querySettingAndStore(enterpriseId, function (error, setting, store) {
+    querySettingAndStore(enterpriseId, single_chain, function (error, setting, store) {
         if (error) {
             logger.error({error: error, detail: enterpriseId + "查询微信设置和店铺资料失败"});
             next(error);
@@ -37,9 +36,9 @@ function storeInfo(req, res, next) {
 //提供数据
 function queryStoreInfo(req, res, next) {
     var enterpriseId = req.params.enterpriseId;
-    single_chain = req.query["store_type"];
+    var single_chain = req.query["store_type"];
 
-    querySettingAndStore(enterpriseId, function (error, setting, store) {
+    querySettingAndStore(enterpriseId, single_chain, function (error, setting, store) {
         if (error) {
             logger.error({error: error, detail: enterpriseId + "查询微信设置和店铺资料失败"});
             next(error);
@@ -172,7 +171,7 @@ function uploadWechatHomeImg(req, res, next) {
     }
 }
 
-function querySettingAndStore(enterpriseId, callback) {
+function querySettingAndStore(enterpriseId, single_chain, callback) {
     var wechatSetting = {};
     var store = {};
 

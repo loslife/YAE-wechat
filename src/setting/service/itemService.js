@@ -119,7 +119,7 @@ function searchItem(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
     var key = req.param("key") || "";
 
-    itemDao.searchItem(enterpriseId, key, function (error, result) {
+    itemDao.searchItem(enterpriseId, key, req.session.single_chain, function (error, result) {
         if (error) {
             logger.error(error);
             next(error);
