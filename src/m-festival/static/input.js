@@ -12,6 +12,8 @@ $(function(){
     var ua = window.navigator.userAgent.toLowerCase();
     if(ua.match(/MicroMessenger/i) == 'micromessenger'){
         initWx();
+    }else{
+        alert("请用微信打开");
     }
     function init(){
         //$("#btn_get").prop("disabled", false);
@@ -74,8 +76,12 @@ $(function(){
         });
     }
     function initWx(){
+        alert("signUrl:" + signUrl);
+        alert("nowUrl:" + nowUrl);
         $.post(signUrl, {url:nowUrl, appId: app_id}, function(response){
-            var signature=response.result.sign;
+
+            var signature=response.sign;
+
             wx.config({
                 debug: false,
                 appId: app_id,
