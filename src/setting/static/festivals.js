@@ -185,14 +185,14 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 presentType: present ? present.type || "" : "",
                 state: festivals.state.value || 0,
                 promote: festivals.promote.value || 0
-            }
+            };
+
             var target;
             if ($scope.action == 'new') {
                 target = $("#newTarget");
             } else if ($scope.action == 'edit') {
                 target = $("#editTarget");
             }
-
 
             if (target) {
                 var imgContent = {};
@@ -201,6 +201,8 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                     imgContent.suffix = temp.substring(temp.indexOf("image/") + 6, temp.indexOf(";"));
                     imgContent.data = temp.substr(temp.indexOf(";") + 8);
                     imgContent.position = jcropApi.tellScaled();
+
+                    _reCalculatePositionInfo();
                     result.image = imgContent;
                 }
             }
@@ -210,14 +212,33 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             }
 
             editFestivals(result);
+
+            function _reCalculatePositionInfo() {
+                var ratio = _imgRealWidth() / _imgWidthOnScreen();
+
+                imgContent.position.x *= ratio;
+                imgContent.position.y *= ratio;
+
+                imgContent.position.w *= ratio;
+                imgContent.position.h *= ratio;
+            }
+
+            function _imgRealWidth() {
+                var img = new Image();
+                img.src = target.attr("src");
+                return img.width;
+            }
+
+            function _imgWidthOnScreen() {
+                return target.width();
+            }
         });
 
 
         function _validateImageSize() {
-
             var maxsize = 2*1024*1024;//2M
-            var errMsg = "上传的图片不能超过2M"
-            var tipMsg = "您的浏览器暂不支持计算上传文件的大小，确保上传文件不要超过2M，建议使用IE、FireFox、Chrome浏览器。"
+            var errMsg = "上传的图片不能超过2M";
+            var tipMsg = "您的浏览器暂不支持计算上传文件的大小，确保上传文件不要超过2M，建议使用IE、FireFox、Chrome浏览器。";
             var browserCfg = {};
             var ua = window.navigator.userAgent;
 
