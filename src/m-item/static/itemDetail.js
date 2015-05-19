@@ -7,9 +7,9 @@ $(function(){
         $event.stopPropagation();
     });
 
-    $itemDetail.height($(window).height() - $back.height());
-
-    $(".comment").height($itemDetail.height() - $(".img").height() - $(".name-price").height());
+    //$itemDetail.height($(window).height() - $back.height());
+    //
+    //$(".comment").height($itemDetail.height() - $(".img").height() - $(".name-price").height());
 });
 
 

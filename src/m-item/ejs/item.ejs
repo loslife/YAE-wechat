@@ -27,7 +27,7 @@
     <ul class="item-list">
         <% for(var i = 0; i < shelveList.length; i++) { %>
         <li>
-            <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/itemDetail/<%= shelveList[i].itemId %>">
+            <a href="/svc/wsite/<%= app_id %>/<%= enterprise_id %>/itemDetail/<%= shelveList[i].itemId %>?store_type=<%= store_type %>">
                 <div class="item-img" style="background: url('<%= shelveList[i].imgPath %>') no-repeat">
                 </div>
 
