@@ -16,10 +16,9 @@ exports.removeFestivals = removeFestivals;
 exports.updateState = updateState;
 exports.updatePromoteState = updatePromoteState;
 
-var single_chain = null;
 function init(req, res, next) {
     var enterpriseId = req.session.enterpriseId;
-    single_chain = req.session.single_chain;
+    var single_chain = req.session.single_chain;
     if(single_chain == "chain"){
         res.redirect("/svc/weixin/storeInfo");
         return;
@@ -53,7 +52,7 @@ function init(req, res, next) {
                 item.end_date = utils.getDateString(item.end_date);
             }
         });
-        queryPresentItemsAndCoupons(enterpriseId, function (error, result) {
+        queryPresentItemsAndCoupons(enterpriseId, single_chain, function (error, result) {
             if (error) {
                 logger.error(enterpriseId + "，查询赠送服务、现金券列表失败，error：" + error);
             }
@@ -265,7 +264,7 @@ function updatePromoteState(req, res, next) {
     });
 }
 
-function queryPresentItemsAndCoupons(enterpriseId, callback) {
+function queryPresentItemsAndCoupons(enterpriseId, single_chain, callback) {
     var items = [];
     async.parallel([_queryPresentItems, _queryCoupons], function (error) {
         callback(error, {items: items});

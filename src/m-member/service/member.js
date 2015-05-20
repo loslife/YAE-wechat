@@ -7,10 +7,6 @@ var chainDbHelper = require(FRAMEWORKPATH + "/utils/ChainDbHelper")
 exports.jumpToWMember = jumpToWMember;
 exports.checkSession = checkSession;
 exports.queryMemberCardInfo = queryMemberCardInfo;
-exports.memberBill = memberBill;
-
-var queryChainEnterpriseId = "";
-var singleOrchain = "";
 
 function jumpToWMember(req, res, next) {
 
@@ -23,7 +19,7 @@ function jumpToWMember(req, res, next) {
     }
 
     var memberInfo = {};
-    singleOrchain = req.session.single_chain;
+    var singleOrchain = req.session.single_chain;
     if(req.query["store_type"]){
         singleOrchain = req.query["store_type"];
         req.session.single_chain = singleOrchain;
@@ -40,7 +36,7 @@ function jumpToWMember(req, res, next) {
 
     function _queryMemberData(callback) {
 
-        queryMemberData(enterprise_id, member_id, function(err, result) {
+        queryMemberData(enterprise_id, member_id, singleOrchain, function(err, result) {
 
             if (err) {
                 logger.error(enterprise_id + "会员数据查询出错:" + err);
@@ -88,7 +84,7 @@ function jumpToWMember(req, res, next) {
 
     function _queryMemberBill(callback) {
 
-        queryMemberBill(enterprise_id, member_id, function (err, result) {
+        queryMemberBill(enterprise_id, member_id, singleOrchain, function (err, result) {
             if (err) {
                 logger.error(enterprise_id + "，会员（" + member_id + "）消费记录查询出错：" + err);
                 callback("会员消费记录查询失败");
@@ -109,7 +105,7 @@ function checkSession(req, res, next) {
 
     var enterprise_id = req.params["enterpriseId"];
     var app_id = req.params["appId"];
-    singleOrchain = req.session.single_chain;
+    var singleOrchain = req.session.single_chain;
     if(req.query["store_type"]){
         singleOrchain = req.query["store_type"];
         req.session.single_chain = singleOrchain;
@@ -126,9 +122,9 @@ function checkSession(req, res, next) {
 function queryMemberCardInfo(req, res, next) {
     var enterprise_id = req.params["enterpriseId"];
     var member_id = req.body.member_id;
-    singleOrchain = req.query["store_type"];
+    var singleOrchain = req.query["store_type"];
 
-    queryMemberData(enterprise_id, member_id, function (err, result) {
+    queryMemberData(enterprise_id, member_id, singleOrchain, function (err, result) {
         if (err) {
             logger.error(enterprise_id + "会员数据查询出错:" + err);
             next(err);
@@ -139,21 +135,7 @@ function queryMemberCardInfo(req, res, next) {
     });
 }
 
-function memberBill(req, res, next) {
-
-    var enterprise_id = req.params["enterpriseId"];
-    var member_id = req.session[enterprise_id].member_id;
-    queryMemberBill(enterprise_id, member_id, function (error, result) {
-        if (error) {
-            logger.error(enterprise_id + "，会员（" + member_id + "）消费记录查询出错：" + error);
-            doResponse(req, res, error);
-            return;
-        }
-        doResponse(req, res, result);
-    });
-}
-
-function queryMemberData(enterprise_id, member_id, callback) {
+function queryMemberData(enterprise_id, member_id, singleOrchain, callback) {
     var cards = [];
     var services = [];
     var deposits = [];
@@ -204,9 +186,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
                     name = "会员";
                 }else{
                     name = results[0].name;
-                    if(singleOrchain == "chain"){
-                        queryChainEnterpriseId = results[0].enterprise_id;
-                    }
                 }
 
                 callback(null);
@@ -460,7 +439,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
         if(singleOrchain == "chain"){
             sql = "select entityName, numberofuse from planx_graph.tb_memberaccessoryentity" +
             " where memberId = :member_id and master_id = :enterprise_id";
-            //enterprise_id = queryChainEnterpriseId;
             dohelper(chainDbHelper);
         }else{
             dohelper(dbHelper);
@@ -493,7 +471,6 @@ function queryMemberData(enterprise_id, member_id, callback) {
                 sql = "select couponName as name, money as money, periodOfValidity as valid, create_date as dateTime" +
                 " from planx_graph.tb_chain_membercoupon" +
                 " where memberId = :member_id and (status is null or status != 0) and master_id = :enterprise_id and isUsed = 'unused';";
-                //enterprise_id = queryChainEnterpriseId;
                 dohelper(chainDbHelper);
             }else{
                 dohelper(dbHelper);
@@ -571,7 +548,7 @@ function queryMemberData(enterprise_id, member_id, callback) {
     }
 }
 
-function queryMemberBill(enterpriseId, memberId, callback) {
+function queryMemberBill(enterpriseId, memberId, singleOrchain, callback) {
 
     var bill = [];
 
