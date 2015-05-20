@@ -431,6 +431,9 @@ function filterItemNoUseKey(itemList, single_chain, enterpriseId, callback) {
                 callback(null);
             });
         }
+        else{
+            callback(null);
+        }
     }
 
     function _build(callback){
@@ -499,6 +502,9 @@ function buildShelvesList(shelvesList, itemList, single_chain, enterpriseId, cal
 
                 callback(null);
             });
+        }
+        else{
+            callback(null);
         }
     }
 
