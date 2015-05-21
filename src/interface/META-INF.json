@@ -51,6 +51,13 @@
             "auth": false,
             "impl": "weixinService.queryOrder",
             "comment": "查询微信小店订单详情"
+        },{
+            "name": "createQrcode",
+            "path": "/wsite/meiyeguanjia/createQrcode",
+            "method": "post",
+            "auth": false,
+            "impl": "weixinService.createQrcode",
+            "comment": "生成带场景值的二维码"
         }
     ],
     "statics": [
