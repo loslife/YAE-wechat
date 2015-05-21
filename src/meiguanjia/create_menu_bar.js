@@ -24,7 +24,7 @@ var menu = {
             ]
         },
         {
-            "name": "玩转乐斯",
+            "name": "美业管家",
             "sub_button":[
                 {
                     "type": "click",
@@ -33,17 +33,25 @@ var menu = {
                 },
                 {
                     "type": "click",
-                    "name": "新手上路",
+                    "name": "使用指南",
                     "key": "USER_GUIDE"
                 },
                 {
                     "type": "click",
-                    "name": "App下载",
+                    "name": "下载试用",
                     "key": "APP_DOWNLOAD"
                 }
             ]
         },
         {
+            //"name": "购买服务",
+            //"sub_button": [
+            //    {
+            //        "type": "view",
+            //        "name": "单店版",
+            //        url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd37396c2dc23ba21&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fmeiyeguanjia%2Fsignin&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect"
+            //    }
+            //]
             type: "view",
             name: "购买服务",
             url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd37396c2dc23ba21&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fmeiyeguanjia%2Fsignin&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect"
