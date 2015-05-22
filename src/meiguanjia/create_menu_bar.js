@@ -32,13 +32,15 @@ var menu = {
                     "key": "HUMAN_SERVICE"
                 },
                 {
-                    //"type": "click",
-                    //"name": "使用指南",
-                    //"key": "USER_GUIDE"
                     "type": "view",
                     "name": "使用指南",
                     "url": "http://wx.yilos.com/meiguanjia/operatingGuide.html"
                 },
+                //{
+                //    "type": "view",
+                //    "name": "常见问题",
+                //    "url": ""
+                //},
                 {
                     "type": "click",
                     "name": "下载试用",
@@ -47,14 +49,6 @@ var menu = {
             ]
         },
         {
-            //"name": "购买服务",
-            //"sub_button": [
-            //    {
-            //        "type": "view",
-            //        "name": "单店版",
-            //        "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd37396c2dc23ba21&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fmeiyeguanjia%2Fsignin&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect"
-            //    }
-            //]
             type: "view",
             name: "购买服务",
             url: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd37396c2dc23ba21&redirect_uri=http%3A%2F%2Fwx.yilos.com%2Fsvc%2Fmeiyeguanjia%2Fsignin&response_type=code&scope=snsapi_base&state=los_wsite#wechat_redirect"

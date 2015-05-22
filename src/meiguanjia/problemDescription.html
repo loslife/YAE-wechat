@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>常见问题</title>
+    <style>
+        .weixin-list {
+            font-size: 16px;
+            height: 50px;
+            list-style: none;
+            line-height: 50px;
+        }
+        .weixin-list > div:first-child {
+            color: #626262;
+            padding: 0 10px;
+            margin: 0 10px;
+            border-bottom: 1px solid #e5e6e8;
+        }
+        .weixin-list:active {
+            background-color: #f3f3f4 !important;
+        }
+
+        .list-body > li {
+            list-style: none;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+        }
+
+        .list-body > li > div:first-child {
+            color: #626262;
+            padding: 0 25px;
+            margin: 0 10px;
+            border-bottom: 1px solid #e5e6e8;
+        }
+    </style>
+
+    <script>
+        function a() {
+            var height = $('#987654321').height();
+            $('#123456789').animate({height:height + 'px'});
+        }
+    </script>
+
+</head>
+<body style="background-color: #e5e6e8;">
+
+<div style="text-align: center">
+    <img src="icon512-512.png" width="75" height="75" alt="" style="margin: 10px"/>
+</div>
+
+<div style="text-align: center;color: #8b8c8e">
+    <span>乐斯美业管家3.0</span>
+</div>
+
+<div style="margin: 30px 10px 10px 10px;color: #8b8c8e">
+    <span>常见问题</span>
+</div>
+    <div style="background-color: #ffffff;">
+        <div>
+            <div>
+                <li class="weixin-list" onclick="a()">
+                    <div>经营项目</div>
+                </li>
+            </div>
+            <div style="overflow: hidden;height: 0px" id="123456789">
+                <div id="987654321" style="position: relative;overflow: hidden;" class="list-body" >
+                    <li>
+                        <div>常用项目</div>
+                    </li>
+                    <li>
+                        <div>团购的设置和使用</div>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src=zepto.min.js></script>
+<script src=artTemplate.js></script>
+</body>
+</html>
