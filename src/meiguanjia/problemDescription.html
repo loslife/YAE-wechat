@@ -20,29 +20,7 @@
         .weixin-list:active {
             background-color: #f3f3f4 !important;
         }
-
-        .list-body > li {
-            list-style: none;
-            height: 50px;
-            line-height: 50px;
-            font-size: 16px;
-        }
-
-        .list-body > li > div:first-child {
-            color: #626262;
-            padding: 0 25px;
-            margin: 0 10px;
-            border-bottom: 1px solid #e5e6e8;
-        }
     </style>
-
-    <script>
-        function a() {
-            var height = $('#987654321').height();
-            $('#123456789').animate({height:height + 'px'});
-        }
-    </script>
-
 </head>
 <body style="background-color: #e5e6e8;">
 
@@ -54,30 +32,214 @@
     <span>乐斯美业管家3.0</span>
 </div>
 
-<div style="margin: 30px 10px 10px 10px;color: #8b8c8e">
-    <span>常见问题</span>
-</div>
-    <div style="background-color: #ffffff;">
-        <div>
-            <div>
-                <li class="weixin-list" onclick="a()">
-                    <div>经营项目</div>
-                </li>
-            </div>
-            <div style="overflow: hidden;height: 0px" id="123456789">
-                <div id="987654321" style="position: relative;overflow: hidden;" class="list-body" >
-                    <li>
-                        <div>常用项目</div>
-                    </li>
-                    <li>
-                        <div>团购的设置和使用</div>
-                    </li>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="catalog" style="background-color: #ffffff;margin-top: 30px"></div>
 
 <script src=zepto.min.js></script>
 <script src=artTemplate.js></script>
+
+<script id="catalogScript" type="text/html">
+    {{each data as item index}}
+    <li class="weixin-list" onclick="location.href='http://wx.yilos.com/meiguanjia/problemDescription.html?id='+ {{index}}">
+        <div>{{item.name}}</div>
+    </li>
+    {{/each}}
+</script>
+
+<script>
+    Zepto(function(){
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+        }
+
+        var type = Number(getQueryString('id'));
+        var project = {
+            data:[
+                {
+                    name: '经营项目',
+                    url: '',
+                    list: [
+                        {
+                            name: '常用项目',
+                            url: ''
+                        },
+                        {
+                            name:  '团购的设置和使用',
+                            url: ''
+                        }
+                    ]
+                },
+                {
+                    name: '会员卡',
+                    url: '',
+                    list: [
+                        {
+                            name: '充值卡的设置',
+                            url: ''
+                        },
+                        {
+                            name: '计次卡的设置',
+                            url: ''
+                        },
+                        {
+                            name: '季卡/年卡的设置',
+                            url: ''
+                        },
+                        {
+                            name: '赠送卡的设置',
+                            url: ''
+                        },
+                        {
+                            name: '赠送服务的设置',
+                            url: ''
+                        },
+                        {
+                            name: '现金劵的设置',
+                            url: ''
+                        },
+                        {
+                            name: '什么是特殊折扣',
+                            url: ''
+                        },
+                        {
+                            name: '固定提成和计入业绩',
+                            url: ''
+                        },
+                        {
+                            name: '赠送金额',
+                            url: ''
+                        }
+                    ]
+                },
+                {
+                    name: '薪酬提成',
+                    url: '',
+                    list: [
+                        {
+                            name: '什么是开始时间',
+                            url: ''
+                        },
+                        {
+                            name: '生成工资单',
+                            url: ''
+                        },
+                        {
+                            name: '修改已生产的工资单',
+                            url: ''
+                        }
+                    ]
+                },
+                {
+                    name: '财务分析',
+                    url: '',
+                    list: [
+                        {
+                            name: '如何分析财务报表数据',
+                            url: ''
+                        },
+                        {
+                            name: '区分收入，预收款和实收',
+                            url: ''
+                        },
+                        {
+                            name: '会员分析功能的使用',
+                            url: ''
+                        }
+                    ]
+                },
+                {
+                    name: '会员',
+                    url: '',
+                    list: [
+                        {
+                            name: '什么是补录老卡',
+                            url: ''
+                        },
+                        {
+                            name: '会员积分的使用',
+                            url: ''
+                        },
+                        {
+                            name: '散客资料',
+                            url: ''
+                        },
+                        {
+                            name: '卡充值/升级/注销',
+                            url: ''
+                        },
+                        {
+                            name: '注销会员',
+                            url: ''
+                        }
+                    ]
+                },
+                {
+                    name: '系统',
+                    url: '',
+                    list: [
+                        {
+                            name: '按原价计入业绩',
+                            url: ''
+                        },
+                        {
+                            name: '欠款',
+                            url: ''
+                        },
+                        {
+                            name: '散客积分',
+                            url: ''
+                        },
+                        {
+                            name: '数据备份',
+                            url: ''
+                        },
+                        {
+                            name: '恢复数据',
+                            url: ''
+                        },
+                        {
+                            name: '锁屏密码',
+                            url: ''
+                        },
+                        {
+                            name: '连接打印机失败',
+                            url: ''
+                        },
+                        {
+                            name: '无法打印小票',
+                            url: ''
+                        }
+                    ]
+                },
+                {
+                    name: '收银',
+                    url: '',
+                    list: [
+                        {
+                            name: '挂单',
+                            url: ''
+                        },
+                        {
+                            name: '他店',
+                            url: ''
+                        }
+                    ]
+                },
+            ]};
+
+        var data = {};
+
+        if(type == 99) {
+            data = project;
+        }
+        else {
+            data.data = project.data[type].list
+        }
+
+        var html = template('catalogScript', data);
+        document.getElementById('catalog').innerHTML = html;
+    });
+</script>
 </body>
 </html>
