@@ -36,11 +36,11 @@ var menu = {
                     "name": "使用指南",
                     "url": "http://wx.yilos.com/meiguanjia/operatingGuide.html"
                 },
-                //{
-                //    "type": "view",
-                //    "name": "常见问题",
-                //    "url": ""
-                //},
+                {
+                    "type": "view",
+                    "name": "常见问题",
+                    "url": "http://wx.yilos.com/meiguanjia/problemDescription.html?id=99"
+                },
                 {
                     "type": "click",
                     "name": "下载试用",
