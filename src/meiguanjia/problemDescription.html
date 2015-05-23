@@ -32,16 +32,20 @@
         <span>乐斯美业管家3.0</span>
     </div>
 
-    <div id="catalog" style="background-color: #ffffff;margin-top: 30px"></div>
+    <div id="catalog" style="margin-top: 30px"></div>
 
     <script src=zepto.min.js></script>
     <script src=artTemplate.js></script>
 
     <script id="catalogScript" type="text/html">
         {{each data as item index}}
-        <li class="weixin-list" onclick="location.href={{item.url}}">
-            <div>{{item.name}}</div>
-        </li>
+            <div style="background-color: #ffffff; margin-bottom: 8px">
+                {{each item.list as project}}
+                <li class="weixin-list" onclick="location.href={{project.url}}">
+                    <div>{{project.name}}</div>
+                </li>
+                {{/each}}
+            </div>
         {{/each}}
     </script>
 
@@ -153,7 +157,7 @@
                         url: "'http://wx.yilos.com/meiguanjia/problemDescription.html?id=4'",
                         list: [
                             {
-                                name: '什么是补录老卡',
+                                name: '补录老会员（补录老卡）',
                                 url: ''
                             },
                             {
