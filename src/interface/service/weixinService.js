@@ -153,12 +153,12 @@ function createQrcode(req, res, next){
     var appId = req.body.app_id || "wxd37396c2dc23ba21";
     var secret = req.body.secret || "9600186549bc52bdf0d2d7390b05fd2c";
     var scene_id = req.body.sceneId || 1;
-
+    console.log(scene_id);
     wx.getAccessToken(appId, secret, function(err, access_token){
         if(err){
             return next(err);
         }
-        wx.generateEternalQR(access_token, scene_id, function(error, data){
+        wx.generateEternalQrBySceneStr(access_token, scene_id, function(error, data){
             if(error){
                 return next(error);
             }

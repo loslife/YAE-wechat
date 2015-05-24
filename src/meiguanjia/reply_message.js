@@ -94,7 +94,7 @@ function handleMessage(req, res, next){
                     sceneId = sceneId.substring(8);
                     var scan_date = Date.parse(new Date());
                     var id = uuid.v1();
-                    var url = "/wxscan";
+                    var url = "http://115.29.248.236:9393/sales/activity/wxScan";
                     var options = {
                         method: "POST",
                         uri: url,
@@ -103,7 +103,8 @@ function handleMessage(req, res, next){
                     };
                     request(options, function(error, response, body){
                         if(error){
-                            return next(error);
+                            console.log(error);
+                            return ;
                         }
                     });
 
