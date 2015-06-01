@@ -7,7 +7,6 @@ exports.item = item;
 exports.itemDetail = itemDetail;
 
 var yaeUrl = global["_g_clusterConfig"].baseurl;
-var single_chain = null;
 function item(req, res, next) {
 
     var enterpriseId = req.params.enterpriseId;
