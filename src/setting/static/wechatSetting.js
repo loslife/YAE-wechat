@@ -23,7 +23,6 @@ $(function () {
     }
 
     function readURL($event) {
-        $(".homeImgTips").removeClass("homeImgTips");
         $(".jcrop-holder").remove();
         $("#target").css("width", "50%").css("height", "auto");
 
@@ -80,7 +79,6 @@ $(function () {
 
             jcropApi.destroy();
             jcropApi = null;
-            $(".homeImgTips").removeClass("homeImgTips");
             $(".jcrop-holder").remove();
             $("#target").attr("src", data.path).css("width", "50%").css("visibility", "visible").css("display", "inline-block");
             mask.hide();
