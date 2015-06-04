@@ -9,15 +9,17 @@
 
     <%- include admin_header.ejs %>
 
-    <% if(store_type == "chain") { %>
-
     <style>
+        <% if(store_type == "chain") { %>
         .nav-second-level li:nth-child(4){
             display: none;
         }
-    </style>
+        <% } %>
 
-    <% } %>
+        .nav-second-level li.selected {
+            background-color: #dfdfdf;
+        }
+    </style>
 
 </head>
 
@@ -48,21 +50,20 @@
                         <a href="#">微店铺管理</a>
 
                         <ul class="nav nav-second-level collapse">
-
-                            <li>
+                            <li class="<%if (menu === 'storeInfo') { %> selected <% } %>">
                                 <a href="/svc/weixin/storeInfo">基本信息</a>
                             </li>
 
-                            <li>
+                            <li class="<%if (menu === 'allItem') { %> selected <% } %>">
                                 <a href="/svc/weixin/allItem">所有服务</a>
                             </li>
-                            <li>
+                            <li class="<%if (menu === 'shelvesItem') { %> selected <% } %>">
                                 <a href="/svc/weixin/shelvesItem">上架服务</a>
                             </li>
-                            <li>
+                            <li class="<%if (menu === 'festivals') { %> selected <% } %>">
                                 <a href="/svc/weixin/festivals">优惠活动</a>
                             </li>
-                            <li>
+                            <li class="<%if (menu === 'kaitong') { %> selected <% } %>">
                                 <a href="/svc/weixin/kaitong">开通微店</a>
                             </li>
                         </ul>
