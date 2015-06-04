@@ -1,8 +1,6 @@
 $(function () {
     var jcropApi;
 
-    $("#welcomeSubmit").on("click", submitWelCome);
-
     $("#fileSelect").on("change", readURL);
 
     $("#fileUpload").on("click", uploadImg);
@@ -10,17 +8,6 @@ $(function () {
     $("#fileSelectWrap").on("click", function () {
         $("#fileSelect").trigger("click");
     });
-
-    function submitWelCome() {
-        var welcomeWord = $("#welcomeWord").val();
-        $.post("/svc/weixin/updateWechatSetting", {store: {id: storeId, welcomeWord: welcomeWord}}, function (data) {
-            if (data.code == 0) {
-                alert("设置欢迎语成功");
-            } else {
-                alert("设置欢迎语失败");
-            }
-        });
-    }
 
     function readURL($event) {
         $(".jcrop-holder").remove();
@@ -64,7 +51,6 @@ $(function () {
         imgContent.data = temp.substr(temp.indexOf(";") + 8);
         imgContent.position = jcropApi.tellScaled();
 
-
         _reCalculatePositionInfo();
 
         if (!_validateImageSize()) {
@@ -80,7 +66,7 @@ $(function () {
             jcropApi.destroy();
             jcropApi = null;
             $(".jcrop-holder").remove();
-            $("#target").attr("src", data.path).css("width", "50%").css("visibility", "visible").css("display", "inline-block");
+            $("#target").attr("src", data.path).css("width", "50%").css("height", "auto").css("visibility", "visible").css("display", "inline-block");
             mask.hide();
         });
 
