@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <title>常见问题</title>
+    <style>
+        .weixin-list {
+            font-size: 16px;
+            height: 50px;
+            list-style: none;
+            line-height: 50px;
+        }
+        .weixin-list > div:first-child {
+            color: #626262;
+            padding: 0 10px;
+            margin: 0 10px;
+            border-bottom: 1px solid #e5e6e8;
+        }
+        .weixin-list:active {
+            background-color: #f3f3f4 !important;
+        }
+    </style>
+</head>
+<body style="background-color: #e5e6e8;">
+
+    <div style="text-align: center">
+        <img src="icon512-512.png" width="75" height="75" alt="" style="margin: 10px"/>
+    </div>
+
+    <div style="text-align: center;color: #8b8c8e">
+        <span>乐斯美业管家3.0</span>
+    </div>
+
+    <div id="catalog" style="margin-top: 30px"></div>
+
+    <script src=zepto.min.js></script>
+    <script src=artTemplate.js></script>
+
+    <script id="catalogScript" type="text/html">
+        {{each data as item index}}
+            <div style="background-color: #ffffff; margin-bottom: 8px">
+                {{each item.list as project}}
+                <li class="weixin-list" onclick="location.href={{project.url}}">
+                    <div>{{project.name}}</div>
+                </li>
+                {{/each}}
+            </div>
+        {{/each}}
+    </script>
+
+    <script>
+        Zepto(function(){
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+            }
+
+            var type = Number(getQueryString('id'));
+            var project = {
+                data:[
+                    {
+                        name: '经营项目',
+                        url: "'http://wx.yilos.com/meiguanjia/problemDescription.html?id=0'",
+                        list: [
+                            {
+                                name: '常用项目',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1410540'"
+                            },
+                            {
+                                name:  '团购的设置和使用',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1364475'"
+                            }
+                        ]
+                    },
+                    {
+                        name: '会员卡',
+                        url: "'http://wx.yilos.com/meiguanjia/problemDescription.html?id=1'",
+                        list: [
+                            {
+                                name: '充值卡的设置',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1373716'"
+                            },
+                            {
+                                name: '计次卡的设置',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1390627'"
+                            },
+                            {
+                                name: '季卡/年卡的设置',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1391045'"
+                            },
+                            {
+                                name: '赠送卡的设置',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1390196'"
+                            },
+                            {
+                                name: '赠送服务的设置',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1391260'"
+                            },
+                            {
+                                name: '现金劵的设置',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1391467'"
+                            },
+                            {
+                                name: '什么是特殊折扣',
+                                url: ''
+                            },
+                            {
+                                name: '固定提成和计入业绩',
+                                url: ''
+                            },
+                            {
+                                name: '赠送金额',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1389855'"
+                            }
+                        ]
+                    },
+                    {
+                        name: '薪酬提成',
+                        url: "'http://wx.yilos.com/meiguanjia/problemDescription.html?id=2'",
+                        list: [
+                            {
+                                name: '什么是开始时间',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1391982'"
+                            },
+                            {
+                                name: '设置结算日',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1395048'"
+                            },
+                            {
+                                name: '修改已生成的工资单',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1391982'"
+                            }
+                        ]
+                    },
+                    {
+                        name: '财务分析',
+                        url: "'http://v.xiumi.us/board/v3/25zny/1410704'",
+                        list: [
+                            {
+                                name: '如何分析财务报表数据',
+                                url: ''
+                            },
+                            {
+                                name: '区分收入，预收款和实收',
+                                url: ''
+                            },
+                            {
+                                name: '会员分析功能的使用',
+                                url: ''
+                            }
+                        ]
+                    },
+                    {
+                        name: '会员',
+                        url: "'http://wx.yilos.com/meiguanjia/problemDescription.html?id=4'",
+                        list: [
+                            {
+                                name: '补录老会员（补录老卡）',
+                                url: ''
+                            },
+                            {
+                                name: '会员积分的使用',
+                                url: ''
+                            },
+                            {
+                                name: '散客资料',
+                                url: ''
+                            },
+                            {
+                                name: '卡充值/升级/注销',
+                                url: ''
+                            },
+                            {
+                                name: '注销会员',
+                                url: ''
+                            }
+                        ]
+                    },
+                    {
+                        name: '系统',
+                        url: "'http://wx.yilos.com/meiguanjia/problemDescription.html?id=5'",
+                        list: [
+                            {
+                                name: '按原价计入业绩',
+                                url: ''
+                            },
+                            {
+                                name: '欠款与还款',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1367918'"
+                            },
+                            {
+                                name: '散客积分',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1368048'"
+                            },
+                            {
+                                name: '数据备份与恢复数据',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1368184'"
+                            },
+                            {
+                                name: '锁屏密码',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1368392'"
+                            },
+                            {
+                                name: '连接打印机失败',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1368514'"
+                            },
+                            {
+                                name: '无法打印小票',
+                                url: "'http://v.xiumi.us/board/v3/25zny/1368667'"
+                            }
+                        ]
+                    },
+                    {
+                        name: '收银',
+                        url: "'http://wx.yilos.com/meiguanjia/problemDescription.html?id=6'",
+                        list: [
+                            {
+                                name: '挂单',
+                                url: ''
+                            },
+                            {
+                                name: '他店',
+                                url: ''
+                            }
+                        ]
+                    },
+                ]};
+
+            var data = {};
+
+            if(type == 99) {
+                data = project;
+            }
+            else {
+                data.data = project.data[type].list
+            }
+
+            var html = template('catalogScript', data);
+            document.getElementById('catalog').innerHTML = html;
+        });
+    </script>
+</body>
+</html>

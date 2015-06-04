@@ -210,12 +210,12 @@ function handleMessage(req, res, next){
                 }
 
                 function handleLsAppDownload(){
-                    var url = "http://mp.weixin.qq.com/s?__biz=MzA3NDk0NjUxNg==&mid=204724797&idx=1&sn=f5e069453f85abee14af8ec929d479a9#rd";
+                    var url = "http://mp.weixin.qq.com/s?__biz=MzA3NDk0NjUxNg==&mid=207668155&idx=1&sn=aba03af3d3372d73b26d8f95586d863e#rd";
 
                     var item = {
                         title: "App下载指南",
                         desc: "配置要求：苹果支持iOS 7.0或更高版本；安卓支持Android 4.0或更高版本。",
-                        picUrl: "https://mmbiz.qlogo.cn/mmbiz/7T6ibEkAUs8CLTWKtBXuvFrxOUNZJAX063lwEa4yFXmVXf5RvhDu2WvfO4UQmnFXdDwiacJzTEWCfWFHJsay2qdw/0",
+                        picUrl: "https://mmbiz.qlogo.cn/mmbiz/7T6ibEkAUs8ArHcd9dNzV3yk3J8SicXLSg9RtEdFzeE6CYjINF5DcTYslZNybD8meLh1m8DUibC4ETmucHiay9MkLw/0?wx_fmt=jpeg",
                         url: url
                     };
 
