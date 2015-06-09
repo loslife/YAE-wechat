@@ -28,7 +28,6 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             }
             if (window.enterpriseId) {
                 $scope.enterpriseId = window.enterpriseId;
-                console.log($scope.enterpriseId);
             }
             $("#newSelectedFile").on("change", readURL);
             $("#newBtnSelectFile").on("click", function () {
@@ -339,7 +338,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             }
             $scope.recordFestivals.rule = $scope.recordFestivals.rule || "share";
             digestScope();
-        }
+        };
 
         $scope.changeAction = function (action) {
             $scope.action = action;
@@ -348,13 +347,12 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 jcropApi.destroy();
                 jcropApi = null;
             }
-            $("#newTarget").attr("src", "");
-            $("#newTarget").attr("style", "");
-            $("#editTarget").attr("src", "");
-            $("#editTarget").attr("style", "");
+
+            $("#newTarget").attr("src", "/svc/public/wechat/white_bck.png").css("width", "50%").css("height", "auto");
+            $("#editTarget").attr("src", "/svc/public/wechat/white_bck.png").css("width", "50%").css("height", "auto");
             cleanMsg();
             digestScope();
-        }
+        };
 
         $scope.updateState = function (item, state) {
             var id = item ? item.id : "";
@@ -367,7 +365,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 }
                 location.reload();
             });
-        }
+        };
 
         $scope.updatePromoteState = function (item, promote) {
             if (promoteFestivalsCount() >= 2 && promote == 1) {
@@ -384,7 +382,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 }
                 location.reload();
             });
-        }
+        };
 
         function promoteFestivalsCount(notIncludeFestivalsId) {
             var promoteFestivalsCount = 0;
