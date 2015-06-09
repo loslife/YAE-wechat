@@ -17,7 +17,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             ];
             $scope.items = [];
             $scope.festivals = [];
-            $scope.newFestivals = {title: "", description: "", beginDate: "", endDate: "", limitNumber: 100, rule: "share", present: {}, state: $scope.states[0], promote: $scope.promotes[0]};
+            $scope.newFestivals = {title: "", description: "", beginDate: "", endDate: "", limitNumber: 100, rule: "share", present: {}, state: $scope.states[1], promote: $scope.promotes[0]};
             $scope.recordFestivals = null;
             if (window.items) {
                 $scope.items = JSON.parse(window.items);
@@ -93,7 +93,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             fields: _buildFestivalsValidator()
         }).on('success.form.bv', function (e) {
             e.preventDefault();
-            var data = $(e.target).serialize()
+            var data = $(e.target).serialize();
             var beginDate = getParamValue("beginDate", data);
             var endDate = getParamValue("endDate", data);
             var festivals = $scope.newFestivals;
