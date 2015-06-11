@@ -17,7 +17,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             ];
             $scope.items = [];
             $scope.festivals = [];
-            $scope.newFestivals = {title: "", description: "", beginDate: "", endDate: "", limitNumber: 100, rule: "share", present: {}, state: $scope.states[0], promote: $scope.promotes[0]};
+            $scope.newFestivals = {title: "", description: "", beginDate: "", endDate: "", limitNumber: 100, rule: "share", present: {}, state: $scope.states[1], promote: $scope.promotes[0]};
             $scope.recordFestivals = null;
             if (window.items) {
                 $scope.items = JSON.parse(window.items);
@@ -28,7 +28,6 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             }
             if (window.enterpriseId) {
                 $scope.enterpriseId = window.enterpriseId;
-                console.log($scope.enterpriseId);
             }
             $("#newSelectedFile").on("change", readURL);
             $("#newBtnSelectFile").on("click", function () {
@@ -94,7 +93,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             fields: _buildFestivalsValidator()
         }).on('success.form.bv', function (e) {
             e.preventDefault();
-            var data = $(e.target).serialize()
+            var data = $(e.target).serialize();
             var beginDate = getParamValue("beginDate", data);
             var endDate = getParamValue("endDate", data);
             var festivals = $scope.newFestivals;
@@ -185,14 +184,14 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 presentType: present ? present.type || "" : "",
                 state: festivals.state.value || 0,
                 promote: festivals.promote.value || 0
-            }
+            };
+
             var target;
             if ($scope.action == 'new') {
                 target = $("#newTarget");
             } else if ($scope.action == 'edit') {
                 target = $("#editTarget");
             }
-
 
             if (target) {
                 var imgContent = {};
@@ -201,6 +200,8 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                     imgContent.suffix = temp.substring(temp.indexOf("image/") + 6, temp.indexOf(";"));
                     imgContent.data = temp.substr(temp.indexOf(";") + 8);
                     imgContent.position = jcropApi.tellScaled();
+
+                    _reCalculatePositionInfo();
                     result.image = imgContent;
                 }
             }
@@ -210,14 +211,33 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             }
 
             editFestivals(result);
+
+            function _reCalculatePositionInfo() {
+                var ratio = _imgRealWidth() / _imgWidthOnScreen();
+
+                imgContent.position.x *= ratio;
+                imgContent.position.y *= ratio;
+
+                imgContent.position.w *= ratio;
+                imgContent.position.h *= ratio;
+            }
+
+            function _imgRealWidth() {
+                var img = new Image();
+                img.src = target.attr("src");
+                return img.width;
+            }
+
+            function _imgWidthOnScreen() {
+                return target.width();
+            }
         });
 
 
         function _validateImageSize() {
-
             var maxsize = 2*1024*1024;//2M
-            var errMsg = "上传的图片不能超过2M"
-            var tipMsg = "您的浏览器暂不支持计算上传文件的大小，确保上传文件不要超过2M，建议使用IE、FireFox、Chrome浏览器。"
+            var errMsg = "上传的图片不能超过2M";
+            var tipMsg = "您的浏览器暂不支持计算上传文件的大小，确保上传文件不要超过2M，建议使用IE、FireFox、Chrome浏览器。";
             var browserCfg = {};
             var ua = window.navigator.userAgent;
 
@@ -318,7 +338,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
             }
             $scope.recordFestivals.rule = $scope.recordFestivals.rule || "share";
             digestScope();
-        }
+        };
 
         $scope.changeAction = function (action) {
             $scope.action = action;
@@ -327,13 +347,12 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 jcropApi.destroy();
                 jcropApi = null;
             }
-            $("#newTarget").attr("src", "");
-            $("#newTarget").attr("style", "");
-            $("#editTarget").attr("src", "");
-            $("#editTarget").attr("style", "");
+
+            $("#newTarget").attr("src", "/svc/public/wechat/white_bck.png").css("width", "50%").css("height", "auto");
+            $("#editTarget").attr("src", "/svc/public/wechat/white_bck.png").css("width", "50%").css("height", "auto");
             cleanMsg();
             digestScope();
-        }
+        };
 
         $scope.updateState = function (item, state) {
             var id = item ? item.id : "";
@@ -346,7 +365,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 }
                 location.reload();
             });
-        }
+        };
 
         $scope.updatePromoteState = function (item, promote) {
             if (promoteFestivalsCount() >= 2 && promote == 1) {
@@ -363,7 +382,7 @@ YLSMainModule.controller('festivalsController', function ($scope) {
                 }
                 location.reload();
             });
-        }
+        };
 
         function promoteFestivalsCount(notIncludeFestivalsId) {
             var promoteFestivalsCount = 0;

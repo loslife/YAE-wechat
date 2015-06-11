@@ -4,9 +4,9 @@
         {
             "name": "baseService",
             "ip": "",
-            "port": 5002,
+            "port": 5003,
             "protocol": "http",
-            "baseurl": "http://127.0.0.1:5002/svc",
+            "baseurl": "http://127.0.0.1:5003/svc",
             "workerno": 1,
             "applications": [
                 "3rd-lib",
@@ -52,9 +52,9 @@
     "clientAccess": {
         "staticurl": "http://127.0.0.1",
         "authurl": "http://127.0.0.1/svc",
-        "serviceurl": "http://127.0.0.1:5001/svc",
+        "serviceurl": "http://127.0.0.1:5003/svc",
         "uploadurl": "http://127.0.0.1/svc/file-upload",
-        "wxserviceurl": "http://127.0.0.1:5002/svc"
+        "wxserviceurl": "http://127.0.0.1:5003/svc"
     },
     "connector":{
         "nail_pc_url":""

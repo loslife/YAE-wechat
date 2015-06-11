@@ -1,6 +1,6 @@
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
 var _ = require("underscore");
-var async = require("async");;
+var async = require("async");
 var logger = require(FRAMEWORKPATH + "/utils/logger").getLogger();
 var chainDbHelper = require(FRAMEWORKPATH + "/utils/ChainDbHelper")
 

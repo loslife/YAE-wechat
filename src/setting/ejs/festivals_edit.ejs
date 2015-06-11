@@ -3,9 +3,9 @@
 <%- Loader()
         .js("/setting/Jcrop.js")
         .js('/setting/festivals.js')
-        .js('http://127.0.0.1:5001/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')
-        .js('http://127.0.0.1:5001/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js')
-        .css('http://127.0.0.1:5001/3rd-lib/bootstrap-3.1.1/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')
+        .js('http://127.0.0.1:5002/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')
+        .js('http://127.0.0.1:5002/3rd-lib/bootstrap-3.1.1/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js')
+        .css('http://127.0.0.1:5002/3rd-lib/bootstrap-3.1.1/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')
         .css('/setting/css/Jcrop.css')
         .css('/setting/css/festivals.css')
         .done(config) %>
@@ -175,30 +175,31 @@
                         <label class="col-sm-2 control-label">图片</label>
 
                         <div class="col-sm-10">
-                            <img id="newTarget" class="form-control festivals_pic"/>
-                            <input id="newSelectedFile" type="file" accept="image/*" style="display: none;">
-
-                            <div class="pull-right mt-1">
+                            <div class="pull-right mt-1 fr">
                                 <div class="festivals_pic_desc">
                                     请选择图片，建议宽高比2:1
                                 </div>
                                 <div id="newBtnSelectFile" class="btn btn-default">选择图片</div>
+
+                                <div class="ofa mt-1">
+                                    <button type="submit" class="btn btn-primary pull-right ml-1">
+                                        确定
+                                    </button>
+                                    <button type="button" class="btn btn-default pull-right" ng-click="changeAction('info')">
+                                        取消
+                                    </button>
+                                </div>
                             </div>
+
+                            <img id="newTarget" class="festivals_pic" />
+                            <input id="newSelectedFile" type="file" accept="image/*" style="display: none;">
                         </div>
                     </div>
-                    <div class="form-group  text-right"
+                    <div class="form-group text-right"
                          ng-if="msg.newFestivals.success || msg.newFestivals.error"
                          ng-class="{'has-success':msg.newFestivals.success,'has-error':msg.newFestivals.error}">
                         <label class="col-sm-12 control-label fs-14">
                             {{msg.newFestivals.success||msg.newFestivals.error}}</label>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary pull-right ml-1">确定</button>
-                            <button type="button" class="btn btn-default pull-right" ng-click="changeAction('info')">
-                                取消
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -304,32 +305,32 @@
                         <label class="col-sm-2 control-label">图片</label>
 
                         <div class="col-sm-10">
-                            <img id="editTarget" class="form-control festivals_pic"
-                                 ng-src="{{(recordFestivals.pic_url && '' != recordFestivals.pic_url)?'/svc/public/wechat/'+enterpriseId+'/'+recordFestivals.pic_url:''}}"
-                                 ng-style="(recordFestivals.pic_url && '' != recordFestivals.pic_url)?{width:'auto',height:'auto'}:{}"/>
-                            <input id="editSelectedFile" type="file" accept="image/*" style="display: none;">
-
-                            <div class="pull-right mt-1">
+                            <div class="pull-right mt-1 fr">
                                 <div class="festivals_pic_desc">
                                     请选择图片，建议宽高比2:1
                                 </div>
                                 <div id="editBtnSelectFile" class="btn btn-default">选择图片</div>
+
+                                <div class="ofh mt-1">
+                                    <button type="submit" class="btn btn-primary pull-right ml-1">确定</button>
+                                    <button type="button" class="btn btn-default pull-right" ng-click="changeAction('info')">
+                                        取消
+                                    </button>
+                                </div>
                             </div>
+
+                            <img id="editTarget" class="festivals_pic"
+                                 ng-src="{{(recordFestivals.pic_url && '' != recordFestivals.pic_url)?'/svc/public/wechat/'+enterpriseId+'/'+recordFestivals.pic_url:''}}"
+                                 ng-style="(recordFestivals.pic_url && '' != recordFestivals.pic_url)?{width:'50%',height:'auto'}:{}"/>
+
+                            <input id="editSelectedFile" type="file" accept="image/*" style="display: none;">
                         </div>
                     </div>
                     <div class="form-group text-right"
                          ng-if="msg.editFestivals.success || msg.editFestivals.error"
                          ng-class="{'has-success':msg.editFestivals.success,'has-error':msg.editFestivals.error}">
                         <label class="col-sm-12 control-label fs-14">
-                            {{msg.editFestivals.success||msg.editFestivals.error}}</label>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary pull-right ml-1">确定</button>
-                            <button type="button" class="btn btn-default pull-right" ng-click="changeAction('info')">
-                                取消
-                            </button>
-                        </div>
+                            {{msg.editFestivals.success || msg.editFestivals.error}}</label>
                     </div>
                 </div>
             </div>
