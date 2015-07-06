@@ -10,11 +10,11 @@ var layout = {
 };
 
 function login(req, res, next) {
-    var model = _.extend({},{layout:false})
+    var model = _.extend({},{layout:false});
     res.render('store_login',model);
 }
 
 function logout(req, res, next) {
-    var model = _.extend({},layout)
+    var model = _.extend({},layout);
     res.render('store_login',model);
 }
