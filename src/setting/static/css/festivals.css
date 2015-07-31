@@ -1,6 +1,7 @@
 .festivals_pic {
-    padding: 0px;
+    padding: 0;
     border: none;
+    width: 50%;
 }
 
 .festivals_pic_desc {
