@@ -1,5 +1,7 @@
 var wx = require("wechat-toolkit");
 var dbHelper = require(FRAMEWORKPATH + "/utils/dbHelper");
+var uuid = require('node-uuid');
+var request = require("request");
 
 var http_server = global["_g_clusterConfig"].baseurl;
 var error_message = "乐美业管家似乎出了点问题，正在修复中";
@@ -77,12 +79,36 @@ function handleMessage(req, res, next){
                     handleOrder();
                     break;
 
+                case "SCAN":
+                    handleScan();
+                    break;
+
                 default:
                     res.send("");
             }
 
             function handleSubscribe(){
+                if(req.weixin.event_key && req.weixin.ticket){
+                    var open_id = req.weixin.fan_open_id;
+                    var sceneId = req.weixin.event_key;
+                    sceneId = sceneId.substring(8);
+                    var scan_date = Date.parse(new Date());
+                    var id = uuid.v1();
+                    var url = "http://115.29.248.236:9393/sales/activity/wxScan";
+                    var options = {
+                        method: "POST",
+                        uri: url,
+                        body:{id:id,scene_id: sceneId,open_id: open_id, scan_date: scan_date},
+                        json:true
+                    };
+                    request(options, function(error, response, body){
+                        if(error){
+                            console.log(error);
+                            return ;
+                        }
+                    });
 
+                }
                 var sentence = "感谢关注乐斯美业，我们致力于建立移动互联网时代美业管理营销平台!\n" +
                                 "●了解产品请进入“认识乐斯”\n" +
                                 "●App下载指南、新手上路、人工客服请进入“玩转乐斯”";
@@ -236,6 +262,34 @@ function handleMessage(req, res, next){
 
             function handleView(){
                 res.send("");
+            }
+
+            function handleScan(){
+                var sceneId = req.weixin.event_key;
+                var open_id = req.weixin.fan_open_id;
+                var scan_date = Date.parse(new Date());
+                var id = uuid.v1();
+                var sql = "insert into planx_graph.weixin_qrcode (id,open_id,scene_id,scan_date) values (:id,:open_id,:scene_id,:scan_date)";
+                //var url = "";
+                //var options = {
+                //    method: "POST",
+                //    uri: url,
+                //    body:{id:id,scene_id: sceneId, scan_date: scan_date},
+                //    json:true
+                //};
+                //request(options, function(error, response, body){
+                //    if(error){
+                //        return next(error);
+                //    }
+                //    res.send("");
+                //});
+                dbHelper.execSql(sql, {id: id, open_id: open_id, scene_id: sceneId, scan_date: scan_date}, function(err, result){
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
+                    res.send("");
+                });
             }
 
             function handleOrder(){
