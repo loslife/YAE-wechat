@@ -259,6 +259,10 @@ function festivals(req, res, next){
                 return;
             }
 
+            _.each(result, function (item) {
+                delete item.open_id;
+            });
+
             callback(null, result);
         });
     }
